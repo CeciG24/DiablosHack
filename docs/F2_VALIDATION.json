@@ -1,0 +1,265 @@
+{
+  "verified_utc": "2026-10-06T05:59:18.208047+00:00",
+  "delivery_date_mexico_city": "2026-10-05",
+  "status": "verified",
+  "scientific_decision": "retain_reference",
+  "reference_model": "B1",
+  "data_run": "c1c8ba48818dc878",
+  "checks": {
+    "smoke_all_technical_checks": true,
+    "smoke_artifact_integrity": true,
+    "smoke_retraining_and_reload_exact": true,
+    "smoke_venv": true,
+    "smoke_test_sealed": true,
+    "full_all_technical_checks": true,
+    "full_artifact_integrity": true,
+    "full_retraining_and_reload_exact": true,
+    "full_venv": true,
+    "full_test_sealed": true,
+    "source_modeling/__init__.py": true,
+    "source_modeling/baselines.py": true,
+    "only_cli_help_text_changed_after_run": true,
+    "source_modeling/datasets.py": true,
+    "source_modeling/metrics.py": true,
+    "source_modeling/models.py": true,
+    "source_modeling/phase1.py": true,
+    "source_modeling/phase2.py": true,
+    "source_diablos_data.py": true
+  },
+  "experiments": {
+    "smoke": {
+      "path": "artifacts/modeling/f2-smoke-check/F2",
+      "manifest_sha256": "b485420fd5c659fef1502c37dbb818d3b80d1647500e261c330143b9772c2b0c",
+      "checks_passed": 49,
+      "artifact_files": 21,
+      "elapsed_seconds": 31.02479360002326,
+      "reproduction": {
+        "reload_max_abs_difference": 0.0,
+        "refit_max_abs_difference": 0.0,
+        "n_predictions_compared": 9321,
+        "tolerance": 1e-08,
+        "selection_not_repeated": true,
+        "refit_same_configuration": "candidate_01"
+      }
+    },
+    "full": {
+      "path": "artifacts/modeling/f2-full-check/F2",
+      "manifest_sha256": "3da9844fd1c9dfeaad53c7783d4afec9be0e554f1c1bcda3c93dd3cb196b0762",
+      "checks_passed": 52,
+      "artifact_files": 25,
+      "elapsed_seconds": 239.55959909997182,
+      "reproduction": {
+        "reload_max_abs_difference": 0.0,
+        "refit_max_abs_difference": 0.0,
+        "n_predictions_compared": 251969,
+        "tolerance": 1e-08,
+        "selection_not_repeated": true,
+        "refit_same_configuration": "candidate_01"
+      }
+    }
+  },
+  "unit_tests": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "passed": 47,
+    "failed": 0,
+    "observed_in_this_session": true,
+    "new_test_file_sha256": "f9e8f10f42ca5c53eed3f6ad828fa2e4581d26944ef3ed9f05bdeacbed39b478"
+  },
+  "independent_verification": {
+    "script": "scripts/check_phase2.py",
+    "script_sha256": "647e91905c0f2e059c1f11001f90cfc98c822a0bb9b3476f3c6df3480b60b393",
+    "observed_successful_commands_in_this_session": [
+      {
+        "experiment_id": "f2-smoke-check",
+        "exit_code": 0,
+        "predictions_compared": 9321,
+        "max_abs_prediction_difference": 0.0,
+        "metric_groups_reproduced": 9,
+        "bootstrap_comparisons_reproduced": 2
+      },
+      {
+        "experiment_id": "f2-full-check",
+        "exit_code": 0,
+        "predictions_compared": 251969,
+        "max_abs_prediction_difference": 0.0,
+        "metric_groups_reproduced": 9,
+        "bootstrap_comparisons_reproduced": 2
+      }
+    ]
+  },
+  "closing_commands": [
+    {
+      "arguments": [
+        "scripts/check_modeling_contract.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "output": "PASS: contrato y configuracion coherentes; 9 fases; datos c1c8ba48818dc878\nNo se cargaron etiquetas, no se entrenaron modelos y no se evaluo 2026.\n"
+    },
+    {
+      "arguments": [
+        "-m",
+        "modeling.cli",
+        "train",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "output": "usage: cli.py train [-h] --phase {F1,F2} [--smoke]\n                    [--experiment-id EXPERIMENT_ID]\n\noptions:\n  -h, --help            show this help message and exit\n  --phase {F1,F2}\n  --smoke               Small flow check with 20 bootstrap resamples\n  --experiment-id EXPERIMENT_ID\n"
+    },
+    {
+      "arguments": [
+        "-m",
+        "modeling.cli",
+        "train",
+        "--phase",
+        "F2",
+        "--experiment-id",
+        "f2-full-check"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "passed": true,
+      "output": "F2 blocked: [WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\ceci_\\\\Documents\\\\Ing_ciencias_de_la_computacion\\\\DiablosHack\\\\artifacts\\\\modeling\\\\f2-full-check\\\\F2'\n"
+    }
+  ],
+  "metrics": {
+    "status": "evaluated",
+    "protocol_id": "A",
+    "target": "y_event",
+    "data_run": "c1c8ba48818dc878",
+    "seed": 20260929,
+    "denominator": "F0 common eligible pitches; same training and evaluation population as F1",
+    "class_order": [
+      "ball",
+      "called_strike",
+      "whiff",
+      "foul",
+      "in_play",
+      "hit_by_pitch"
+    ],
+    "metrics": [
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.5335531633871549,
+        "multiclass_brier_sum_over_classes": 0.7594305723487593,
+        "model": "B0",
+        "partition": "development",
+        "n_games": 447,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.5290241589938893,
+        "multiclass_brier_sum_over_classes": 0.7570310929133682,
+        "model": "B0",
+        "partition": "calibration",
+        "n_games": 197,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.531096466253011,
+        "multiclass_brier_sum_over_classes": 0.7582570307994873,
+        "model": "B0",
+        "partition": "phase_review",
+        "n_games": 192,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      },
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.46718750391102,
+        "multiclass_brier_sum_over_classes": 0.7379384423073602,
+        "model": "B1",
+        "partition": "development",
+        "n_games": 447,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.462728950449809,
+        "multiclass_brier_sum_over_classes": 0.7358761418750666,
+        "model": "B1",
+        "partition": "calibration",
+        "n_games": 197,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.4634954071868878,
+        "multiclass_brier_sum_over_classes": 0.736557704853537,
+        "model": "B1",
+        "partition": "phase_review",
+        "n_games": 192,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      },
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.5177156478734593,
+        "multiclass_brier_sum_over_classes": 0.755177081070761,
+        "model": "Stuff",
+        "partition": "development",
+        "n_games": 447,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.5125929957823492,
+        "multiclass_brier_sum_over_classes": 0.7525987501814381,
+        "model": "Stuff",
+        "partition": "calibration",
+        "n_games": 197,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.515176367689185,
+        "multiclass_brier_sum_over_classes": 0.754008705075929,
+        "model": "Stuff",
+        "partition": "phase_review",
+        "n_games": 192,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      }
+    ],
+    "comparisons": {
+      "Stuff_vs_B0": {
+        "n_pitches": 58182,
+        "n_games": 192,
+        "resamples": 500,
+        "seed": 20260929,
+        "confidence": 0.95,
+        "delta_candidate_minus_reference": -0.015920098563826403,
+        "relative_log_loss_reduction": 0.010397841621819557,
+        "ci_low": -0.017228586281725997,
+        "ci_high": -0.01459894040168266,
+        "decision": "promote",
+        "scientific_evidence": true,
+        "method": "paired percentile bootstrap by game; pitch-weighted loss"
+      },
+      "Stuff_vs_B1": {
+        "n_pitches": 58182,
+        "n_games": 192,
+        "resamples": 500,
+        "seed": 20260929,
+        "confidence": 0.95,
+        "delta_candidate_minus_reference": 0.051680960502297014,
+        "relative_log_loss_reduction": -0.035313373891372506,
+        "ci_low": 0.04860399227344719,
+        "ci_high": 0.054510127157503155,
+        "decision": "inconclusive",
+        "scientific_evidence": true,
+        "method": "paired percentile bootstrap by game; pitch-weighted loss"
+      }
+    },
+    "scientific_decision": "retain_reference",
+    "review_is_independent_final_test": false
+  },
+  "final_config_sha256": "d5cdc1c8f9e1cd25edeaa6e48436e6eba9a76e46833a586ba350db18560660f5",
+  "notes": [
+    "Historical artifacts preserved. Status and documentation updated after verification.",
+    "Only CLI help strings changed after training; all other executed modeling source hashes still match.",
+    "No final-test labels read; no F3 implementation."
+  ]
+}

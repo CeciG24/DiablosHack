@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "expected_rows": 635002,
+  "expected_columns": 84,
+  "train_year": 2024,
+  "validation_year": 2025,
+  "test_year": 2026,
+  "split_seed": "diablos-data-v1",
+  "minimum_fastball_reference": 30,
+  "fastball_types": ["Four-Seam", "Sinker"],
+  "altitude_categories": ["No Altitude", "Medium Altitude", "Extreme Altitude"],
+  "physical_review_bounds": {
+    "rel_speed": [30, 110],
+    "spin_rate": [0, 5000],
+    "spin_axis": [0, 360],
+    "rel_height": [0, 10],
+    "rel_side": [-8, 8],
+    "extension": [0, 10],
+    "induced_vert_break": [-40, 40],
+    "horz_break": [-40, 40]
+  },
+  "contact_review_bounds": {"exit_speed": [0, 130], "angle": [-90, 90]},
+  "hard_contact_threshold_mph": 95,
+  "weak_contact_threshold_mph": 75,
+  "notes": [
+    "Bounds are conservative operational review rules, not fitted quantiles or physical laws. Values outside bounds become null only in cleaned data and remain in raw data.",
+    "Weak contact is an explicitly provisional exit-speed proxy below 75 mph, not an official weak-contact definition.",
+    "PitchCall is the provisional event source. Strong cross-field contradictions make model labels null until adjudication.",
+    "Pitcher and game IDs are grouping keys, never default predictive features.",
+    "Chronology is available only at season level; row order does not imply chronology."
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "contract_version": "1.0.0",
+  "date": "2026-09-29",
+  "specification_only": false,
+  "document": "docs/MODELING_SYSTEM_CONTRACT.md",
+  "expected_data_run": "c1c8ba48818dc878",
+  "data_contract": "config/data_contract.json",
+  "primary_target": "y_event",
+  "event_class_order": ["ball", "called_strike", "whiff", "foul", "in_play", "hit_by_pitch"],
+  "seed": 20260929,
+  "F2": {
+    "f1_reference_experiment": "f1-full-reproduction",
+    "cohort_policy": "f0_common_v1",
+    "threads": 4,
+    "maximum_rounds": 400,
+    "smoke_rounds": 60,
+    "early_stopping_rounds": 30,
+    "permutation_repeats": 3,
+    "candidates": [
+      {"num_leaves": 15, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 63, "min_data_in_leaf": 400, "learning_rate": 0.05, "lambda_l2": 10.0}
+    ]
+  },
+  "F1": {
+    "f0_reference_experiment": "f0-full-reproduction",
+    "cohort_policy": "f0_common_v1",
+    "fallback": "global_B0",
+    "reference_model": "B1"
+  },
+  "protocol_A": {
+    "fit_year": 2024,
+    "development_year": 2025,
+    "final_test_year": 2026,
+    "validation_group": "game_anon_id",
+    "validation_hash_seed": "diablos-modeling-validation-v1",
+    "validation_hash_algorithm": "int(sha256(seed+'|'+game_id).hexdigest()[:16],16)%10000",
+    "development_bucket": [0, 4999],
+    "calibration_bucket": [5000, 7499],
+    "phase_review_bucket": [7500, 9999]
+  },
+  "protocol_B": {
+    "split_column": "pitcher_split",
+    "development_years_only": [2024, 2025],
+    "temporal": false,
+    "arsenal_cold_start": "fallback_without_arsenal"
+  },
+  "protocol_C": {
+    "reference_years_fixed": [2024],
+    "fit_rows": "2025 development subgroup",
+    "calibration_rows": "2025 calibration subgroup",
+    "phase_review_rows": "2025 review subgroup",
+    "final_test_year": 2026,
+    "comparison": "same cohort and same fit partition for with/without arsenal",
+    "existing_2026_arsenal_features_allowed": false
+  },
+  "numerical_checks": {
+    "probability_sum_atol": 0.000001,
+    "reload_prediction_atol_cpu": 0.00000001,
+    "score_reference_atol": 0.000001,
+    "minimum_score_reference_std": 0.000000000001,
+    "log_loss_clipping_epsilon": 0.000000000001
+  },
+  "evaluation": {
+    "primary_metric": "multiclass_log_loss",
+    "secondary_metric": "multiclass_brier_sum_over_classes",
+    "calibration_equal_width_bins": 10,
+    "paired_bootstrap_group": "game_anon_id",
+    "bootstrap_full": 500,
+    "bootstrap_smoke": 20,
+    "bootstrap_confidence": 0.95,
+    "promotion_min_relative_log_loss_reduction": 0.01,
+    "promotion_requires_delta_loss_ci_upper_below_zero": true,
+    "calibration_max_relative_log_loss_increase": 0.005,
+    "auxiliary_min_rows_per_fit_and_review": 200,
+    "auxiliary_min_each_class_per_fit_and_review": 20,
+    "minimum_sample_thresholds_are_operational": true
+  },
+  "training": {
+    "backend": "lightgbm==4.6.0",
+    "maximum_initial_hyperparameter_configurations": 12,
+    "baseline_global_pseudocount_per_class": 1,
+    "baseline_group_prior_strength": 20,
+    "smoke_target_max_pitches": 20000,
+    "smoke_sample_group": "game_anon_id"
+  },
+  "score": {
+    "default_version": "event_utility_proxy_v1",
+    "default_weights": {"whiff": 1.0, "called_strike": 1.0, "ball": -0.5, "hit_by_pitch": -1.0, "foul": 0.0, "in_play": 0.0},
+    "optional_contact_weights": {"weak_contact_joint": 0.5, "hard_contact_joint": -1.0},
+    "optional_contact_version_requires_verified_heads": true,
+    "reference": "fixed common eligible 2025 calibration cohort with saved pitch IDs",
+    "normalization_mean": 100,
+    "normalization_std": 10,
+    "std_ddof": 0,
+    "renormalize_by_park_or_pitcher": false,
+    "represents_expected_runs": false
+  },
+  "phases": [
+    {"id": "F0", "name": "Adaptador y pruebas de infraestructura", "depends_on": [], "status": "verified"},
+    {"id": "F1", "name": "Baselines evaluables", "depends_on": ["F0"], "status": "verified"},
+    {"id": "F2", "name": "Modelo fisico Stuff", "depends_on": ["F1"], "status": "verified"},
+    {"id": "F3", "name": "Location y Pitching sin ambiente", "depends_on": ["F2"], "status": "not_started"},
+    {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "not_started"},
+    {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "not_started"},
+    {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "not_started"},
+    {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "not_started"},
+    {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "not_started"}
+  ],
+  "external_requirements_unresolved": [
+    "stadium_mapping_and_harp_flag",
+    "numeric_altitude_and_atmospheric_conditions",
+    "pitch_chronology_and_pa_identifier",
+    "base_occupancy_and_official_run_value_target",
+    "label_adjudication_and_id_stability"
+  ]
+}

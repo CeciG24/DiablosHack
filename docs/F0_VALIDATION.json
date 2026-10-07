@@ -1,0 +1,77 @@
+{
+  "verified_utc": "2026-09-30T05:49:42.293078+00:00",
+  "status": "verified",
+  "scientific_decision": "not_applicable",
+  "data_run": "c1c8ba48818dc878",
+  "reproduction_checks": {
+    "full_cohort_equal": true,
+    "assignment_files_equal": true,
+    "prediction_files_equal": true,
+    "final_source_matches_verified_code": true,
+    "full_all_26_checks_pass": true,
+    "full_artifact_integrity": true,
+    "reproduction_all_26_checks_pass": true,
+    "reproduction_artifact_integrity": true,
+    "smoke_all_26_checks_pass": true,
+    "smoke_artifact_integrity": true
+  },
+  "test_commands": [
+    {
+      "arguments": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "output": "test_changed_version_manifest_and_config_rejected (tests.modeling.test_infrastructure.InfrastructureTests.test_changed_version_manifest_and_config_rejected) ... ok\ntest_conditional_null_targets_stay_excluded (tests.modeling.test_infrastructure.InfrastructureTests.test_conditional_null_targets_stay_excluded) ... ok\ntest_duplicate_null_and_missing_game_rejected (tests.modeling.test_infrastructure.InfrastructureTests.test_duplicate_null_and_missing_game_rejected) ... ok\ntest_exact_features_and_exclusion_accounting (tests.modeling.test_infrastructure.InfrastructureTests.test_exact_features_and_exclusion_accounting) ... ok\ntest_hash_formula_and_boundaries (tests.modeling.test_infrastructure.InfrastructureTests.test_hash_formula_and_boundaries) ... ok\ntest_join_uses_ids_not_dataframe_index (tests.modeling.test_infrastructure.InfrastructureTests.test_join_uses_ids_not_dataframe_index) ... ok\ntest_matrices_keep_context_separate (tests.modeling.test_infrastructure.InfrastructureTests.test_matrices_keep_context_separate) ... ok\ntest_no_final_year_or_cross_season_game (tests.modeling.test_infrastructure.InfrastructureTests.test_no_final_year_or_cross_season_game) ... ok\ntest_shuffle_partitions_and_sample (tests.modeling.test_infrastructure.InfrastructureTests.test_shuffle_partitions_and_sample) ... ok\ntest_test_guard_precedes_any_io (tests.modeling.test_infrastructure.InfrastructureTests.test_test_guard_precedes_any_io) ... ok\ntest_future_pitch_does_not_change_past_arsenal (test_preparation.PreparationTests.test_future_pitch_does_not_change_past_arsenal) ... ok\ntest_hbp_systematic_flag_rebuilt_when_consistent (test_preparation.PreparationTests.test_hbp_systematic_flag_rebuilt_when_consistent) ... ok\ntest_no_contact_is_not_weak_contact (test_preparation.PreparationTests.test_no_contact_is_not_weak_contact) ... ok\ntest_physical_mask_preserves_source (test_preparation.PreparationTests.test_physical_mask_preserves_source) ... ok\ntest_split_assignment_independent_of_row_order (test_preparation.PreparationTests.test_split_assignment_independent_of_row_order) ... ok\ntest_strong_conflict_is_null_not_a_negative (test_preparation.PreparationTests.test_strong_conflict_is_null_not_a_negative) ... ok\ntest_unknown_event_not_labeled_ball (test_preparation.PreparationTests.test_unknown_event_not_labeled_ball) ... ok\n\n----------------------------------------------------------------------\nRan 17 tests in 0.586s\n\nOK\n"
+    },
+    {
+      "arguments": [
+        "scripts/check_modeling_contract.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "output": "PASS: contrato y configuracion coherentes; 9 fases; datos c1c8ba48818dc878\nNo se cargaron etiquetas, no se entrenaron modelos y no se evaluo 2026.\n"
+    },
+    {
+      "arguments": [
+        "-m",
+        "modeling.cli",
+        "smoke",
+        "--experiment-id",
+        "f0-full-check"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "passed": true,
+      "output": "F0 blocked: [WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\ceci_\\\\Documents\\\\Ing_ciencias_de_la_computacion\\\\DiablosHack\\\\artifacts\\\\modeling\\\\f0-full-check\\\\F0'\n"
+    }
+  ],
+  "experiments": {
+    "full": {
+      "path": "artifacts\\modeling\\f0-full-check\\F0",
+      "manifest_sha256": "a047c4810e06eaa1d77bde97371012b65dcf4340669c95518aaece0816dbbd35",
+      "common_rows": 491678,
+      "cohort_sha256": "655d826b2a1ede2e153bd4461d74b208dcb18041f698f50b6a000dfed8270d92"
+    },
+    "reproduction": {
+      "path": "artifacts\\modeling\\f0-full-reproduction\\F0",
+      "manifest_sha256": "e970bb52a661e784291030478bd9095be426e09ff1893e65168fc548636b3862",
+      "common_rows": 491678,
+      "cohort_sha256": "655d826b2a1ede2e153bd4461d74b208dcb18041f698f50b6a000dfed8270d92"
+    },
+    "smoke": {
+      "path": "artifacts\\modeling\\f0-20260930T054601-ce8375c8\\F0",
+      "manifest_sha256": "96b41ed60b410a44274ce6e82962f5f193ecb2797d476e986c3b23c8226b5833",
+      "common_rows": 19681,
+      "cohort_sha256": "1449c8e2fd9077ca29ec75b4afbc236bac97b70c00ccb3d15f85fdeb362f948c"
+    }
+  },
+  "final_config_sha256": "e96f37be4952b6ec87f2b5952f857afd17f8ffff685ea9df759ec214854a5502"
+}

@@ -1,0 +1,254 @@
+{
+  "verified_utc": "2026-10-04T00:08:36.425283+00:00",
+  "delivery_date_mexico_city": "2026-10-03",
+  "status": "verified",
+  "scientific_decision": "retain_reference",
+  "reference_model": "B1",
+  "data_run": "c1c8ba48818dc878",
+  "checks": {
+    "same_cohort": true,
+    "all_15_artifacts_identical": true,
+    "current_code_matches_verified_run": true,
+    "executed_inside_venv": true,
+    "test_not_accessed": true,
+    "smoke_all_checks_pass": true,
+    "smoke_artifact_integrity": true,
+    "full_all_checks_pass": true,
+    "full_artifact_integrity": true,
+    "reproduction_all_checks_pass": true,
+    "reproduction_artifact_integrity": true
+  },
+  "experiments": {
+    "smoke": {
+      "path": "artifacts/modeling/f1-smoke-check/F1",
+      "manifest_sha256": "811c3f8be340d67d99e33d11d28b0d38e503f9dd79ddc0d11bce0b207f6b891b",
+      "checks_passed": 45,
+      "cohort_rows": 19681,
+      "cohort_sha256": "1449c8e2fd9077ca29ec75b4afbc236bac97b70c00ccb3d15f85fdeb362f948c",
+      "elapsed_seconds": 6.8629919000086375
+    },
+    "full": {
+      "path": "artifacts/modeling/f1-full-check/F1",
+      "manifest_sha256": "f3810f812dc1c7eb71cf0299138a10cdbd28f6044bac98ff989d2553d8bb8c50",
+      "checks_passed": 46,
+      "cohort_rows": 491678,
+      "cohort_sha256": "655d826b2a1ede2e153bd4461d74b208dcb18041f698f50b6a000dfed8270d92",
+      "elapsed_seconds": 26.533039500005543
+    },
+    "reproduction": {
+      "path": "artifacts/modeling/f1-full-reproduction/F1",
+      "manifest_sha256": "26667959c79dbff2de270c13e1ad6f4bc8f6b7d25541a017c4fa11c9cd308fda",
+      "checks_passed": 46,
+      "cohort_rows": 491678,
+      "cohort_sha256": "655d826b2a1ede2e153bd4461d74b208dcb18041f698f50b6a000dfed8270d92",
+      "elapsed_seconds": 26.69666889999644
+    }
+  },
+  "unit_tests": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "passed": 34,
+    "failed": 0,
+    "observed_in_this_implementation_session": true,
+    "source_hashes": {
+      "tests/modeling/test_baselines.py": "5d01fd4980c340056fbf424b1be705d48f1de00bb0210280283b325a84c9ca3d",
+      "tests/modeling/test_infrastructure.py": "b561152565e216a26783abfd2f0ad9af5f6e6ba492b64c4edb445bd35eff1285",
+      "tests/test_preparation.py": "529fefd09b6b26cf259f764714ae3592bebf6f691a8d15d68bd0db9aa9f331d1",
+      "tests/test_modeling.py": "32d02b8ef9416d8838c2df44c49ff9f1dcf00e57c9f89eb07ac0a2ddffdfd316"
+    }
+  },
+  "closing_commands": [
+    {
+      "arguments": [
+        "scripts/check_modeling_contract.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true,
+      "output": "PASS: contrato y configuracion coherentes; 9 fases; datos c1c8ba48818dc878\nNo se cargaron etiquetas, no se entrenaron modelos y no se evaluo 2026.\n"
+    },
+    {
+      "arguments": [
+        "-m",
+        "modeling.cli",
+        "train",
+        "--phase",
+        "F1",
+        "--experiment-id",
+        "f1-full-check"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "passed": true,
+      "output": "F1 blocked: [WinError 183] No se puede crear un archivo que ya existe: 'C:\\\\Users\\\\ceci_\\\\Documents\\\\Ing_ciencias_de_la_computacion\\\\DiablosHack\\\\artifacts\\\\modeling\\\\f1-full-check\\\\F1'\n"
+    }
+  ],
+  "metrics": {
+    "status": "evaluated",
+    "protocol_id": "A",
+    "target": "y_event",
+    "data_run": "c1c8ba48818dc878",
+    "seed": 20260929,
+    "denominator": "F0 common eligible pitches for stuff/location/pitching; non-null y_event",
+    "class_order": [
+      "ball",
+      "called_strike",
+      "whiff",
+      "foul",
+      "in_play",
+      "hit_by_pitch"
+    ],
+    "metrics": [
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.5335531633871549,
+        "multiclass_brier_sum_over_classes": 0.7594305723487593,
+        "model": "B0",
+        "partition": "development",
+        "n_games": 447,
+        "fallback_rows": 0,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.5290241589938893,
+        "multiclass_brier_sum_over_classes": 0.7570310929133682,
+        "model": "B0",
+        "partition": "calibration",
+        "n_games": 197,
+        "fallback_rows": 0,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.531096466253011,
+        "multiclass_brier_sum_over_classes": 0.7582570307994873,
+        "model": "B0",
+        "partition": "phase_review",
+        "n_games": 192,
+        "fallback_rows": 0,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      },
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.46718750391102,
+        "multiclass_brier_sum_over_classes": 0.7379384423073602,
+        "model": "B1",
+        "partition": "development",
+        "n_games": 447,
+        "fallback_rows": 0,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.462728950449809,
+        "multiclass_brier_sum_over_classes": 0.7358761418750666,
+        "model": "B1",
+        "partition": "calibration",
+        "n_games": 197,
+        "fallback_rows": 0,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.4634954071868878,
+        "multiclass_brier_sum_over_classes": 0.736557704853537,
+        "model": "B1",
+        "partition": "phase_review",
+        "n_games": 192,
+        "fallback_rows": 0,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      },
+      {
+        "n_pitches": 134420,
+        "multiclass_log_loss": 1.4591265845441674,
+        "multiclass_brier_sum_over_classes": 0.7357827950060519,
+        "model": "B2",
+        "partition": "development",
+        "n_games": 447,
+        "fallback_rows": 187,
+        "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+      },
+      {
+        "n_pitches": 59367,
+        "multiclass_log_loss": 1.4540415551585875,
+        "multiclass_brier_sum_over_classes": 0.7334936800937242,
+        "model": "B2",
+        "partition": "calibration",
+        "n_games": 197,
+        "fallback_rows": 41,
+        "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+      },
+      {
+        "n_pitches": 58182,
+        "multiclass_log_loss": 1.4546444278686808,
+        "multiclass_brier_sum_over_classes": 0.7339931225367666,
+        "model": "B2",
+        "partition": "phase_review",
+        "n_games": 192,
+        "fallback_rows": 109,
+        "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+      }
+    ],
+    "comparisons": {
+      "B1_vs_B0": {
+        "n_pitches": 58182,
+        "n_games": 192,
+        "resamples": 500,
+        "seed": 20260929,
+        "confidence": 0.95,
+        "delta_candidate_minus_reference": -0.06760105906612342,
+        "relative_log_loss_reduction": 0.0441520574020791,
+        "ci_low": -0.07045606471553997,
+        "ci_high": -0.06467886949415724,
+        "decision": "promote",
+        "scientific_evidence": true,
+        "method": "paired percentile bootstrap by game; pitch-weighted loss",
+        "reference": "B0",
+        "candidate": "B1",
+        "partition": "phase_review"
+      },
+      "B2_vs_B0": {
+        "n_pitches": 58182,
+        "n_games": 192,
+        "resamples": 500,
+        "seed": 20260929,
+        "confidence": 0.95,
+        "delta_candidate_minus_reference": -0.07645203838433033,
+        "relative_log_loss_reduction": 0.04993286841777399,
+        "ci_low": -0.07946976506777212,
+        "ci_high": -0.07339572455170336,
+        "decision": "promote",
+        "scientific_evidence": true,
+        "method": "paired percentile bootstrap by game; pitch-weighted loss",
+        "reference": "B0",
+        "candidate": "B2",
+        "partition": "phase_review"
+      },
+      "B2_vs_B1": {
+        "n_pitches": 58182,
+        "n_games": 192,
+        "resamples": 500,
+        "seed": 20260929,
+        "confidence": 0.95,
+        "delta_candidate_minus_reference": -0.008850979318206904,
+        "relative_log_loss_reduction": 0.006047835391038325,
+        "ci_low": -0.010059292498731786,
+        "ci_high": -0.007624612802522425,
+        "decision": "inconclusive",
+        "scientific_evidence": true,
+        "method": "paired percentile bootstrap by game; pitch-weighted loss",
+        "reference": "B1",
+        "candidate": "B2",
+        "partition": "phase_review"
+      }
+    },
+    "reference_model": "B1",
+    "B2_replaces_B1": false,
+    "review_is_independent_final_test": false
+  },
+  "final_config_sha256": "84b30de21320a5f67ce8d49235e284fd7188eda1b417af4fb11cdf6671e6a6eb",
+  "notes": [
+    "Historic manifests preserve the configuration and document hashes at execution time.",
+    "Final configuration status was updated after full verification; F2 remains not_started."
+  ]
+}
