@@ -1,0 +1,12 @@
+{
+  "experiment": "f5-full-check",
+  "status": "verified",
+  "checks_passed": 22,
+  "artifact_hashes_verified": 48,
+  "prediction_rows": 117549,
+  "max_prediction_difference": 0.0,
+  "metrics_reproduced": 8,
+  "reference_rebuilt_from_2024": true,
+  "test_accessed": false,
+  "scientific_decision": "retain_reference"
+}

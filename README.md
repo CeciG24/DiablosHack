@@ -118,7 +118,8 @@ El desarrollo por fases se rige por [System contract de modelado](docs/MODELING_
 y su [configuración](config/modeling_contract.json). F0 y F1 están implementadas
 y verificadas; F2 conserva B1 como referencia histórica. F3 está verificada y promueve
 Pitching sin ambiente en los protocolos temporal y por pitcher. F4 está verificada con
-calibración y contacto en el protocolo temporal; F5–F8 están pendientes.
+calibración y contacto en el protocolo temporal. F5 está verificada con historia fija de 2024
+y protocolo C separado; F6–F8 están pendientes.
 Consultar [implementación, decisiones y pruebas de F0](docs/FASE_0_IMPLEMENTACION.md).
 F1 incorpora baselines de eventos B0/B1/B2. No son scores ni xRunValue.
 Verificar cada fase antes de avanzar.
@@ -136,6 +137,8 @@ Para comprobar el contrato sin entrenar modelos: `python scripts/check_modeling_
 .\run_modeling.ps1 f3       # Familias sin ambiente y evaluación de pitchers no vistos
 .\run_modeling.ps1 f4-smoke # Calibración y cabezas auxiliares: prueba rápida
 .\run_modeling.ps1 f4       # Calibración 2025 y contacto/groundball/chase
+.\run_modeling.ps1 f5-smoke # Arsenal: prueba de cobertura y fallback
+.\run_modeling.ps1 f5       # Protocolo C, referencia fija 2024 y ablación pareada
 ```
 
 Equivalente con el Python del entorno: `python -m modeling.cli smoke` y
@@ -176,6 +179,13 @@ prevalencia de entrenamiento. Ver [implementación, decisiones y pruebas de F4](
 .\.venv\Scripts\python.exe scripts/check_phase4.py --experiment-id f4-full-check
 ```
 
-Los pasos siguientes son arsenal (F5), ambiente (F6), scores
+F5 implementa arsenal con historia fija de 2024 y modelos ajustados en desarrollo 2025.
+Ver [implementación, decisión y pruebas de F5](docs/FASE_5_IMPLEMENTACION.md).
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_phase5.py f5-full-check
+```
+
+Los pasos siguientes son ambiente (F6), scores
 (F7) y entrega con test congelado (F8). Se implementan únicamente cuando se solicitan.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.

@@ -26,12 +26,14 @@ en `docs/FASE_1_IMPLEMENTACION.md`. **F2 está implementada y verificada** con L
 4.6.0 en CPU; dependencias en `requirements-modeling.txt`. **F3 está implementada y
 verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4 está implementada y
 verificada** en protocolo A: temperaturas de eventos y cabezas de contacto, groundball y chase.
-**F5–F8 siguen pendientes**;
+**F5 está implementada y verificada** en protocolo C con referencia fija de 2024;
+**F6–F8 siguen pendientes**;
 no hay scores reales. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
 `docs/FASE_3_IMPLEMENTACION.md`. F3 promueve Location y Pitching en ambos protocolos;
 Pitching pasa a ser la referencia predictiva y Stuff se conserva como diagnóstico.
 El cierre de F4 está en `docs/FASE_4_IMPLEMENTACION.md`: siete cabezas promovidas y dos
 experimentales con fallback de prevalencia. El protocolo B conserva los resultados de F3.
+El cierre de F5 está en `docs/FASE_5_IMPLEMENTACION.md`; decisión C: `retain_reference`. La referencia A se conserva.
 La preparación de datos sí está implementada.
 `config/modeling_contract.json` contiene los parámetros operativos iniciales. En caso de
 divergencia, detener la fase y reconciliar ambos documentos antes de ejecutarla.
@@ -299,6 +301,14 @@ subconjunto calibración para sus calibradores, y revisión para compararlos. Ma
 solo como soporte histórico. Declarar que la separación interna de 2025 es por partido,
 no cronología. Comparar ambos candidatos sobre exactamente la misma población con referencia.
 El protocolo C no se compara con A como si tuviesen iguales datos de entrenamiento.
+
+**Diseño operativo F5:** una configuración LightGBM predeclarada, 200 rondas completas
+(30 en smoke), sin parada temprana ni búsqueda sobre calibración/revisión. El control y
+arsenal se ajustan en las mismas filas con referencia de desarrollo 2025. Un tercer
+modelo sin arsenal se ajusta en toda la población elegible de desarrollo 2025 para
+el fallback. La política control usa control con historia y fallback sin ella; la
+política candidata cambia solo la rama con historia. La promoción se limita a C;
+no sustituye la referencia de A. El historial completo de 2024 se conserva incluso en smoke.
 
 **Entregar:** ablation con/sin arsenal, cobertura de referencia por categoría y pitcher,
 política de fallback al modelo combinado sin arsenal para pitches sin historia, y referencia

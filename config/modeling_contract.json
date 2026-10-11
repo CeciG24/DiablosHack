@@ -8,6 +8,23 @@
   "primary_target": "y_event",
   "event_class_order": ["ball", "called_strike", "whiff", "foul", "in_play", "hit_by_pitch"],
   "seed": 20260929,
+  "F5": {
+    "f4_reference_experiment": "f4-full-check",
+    "protocol_id": "C",
+    "threads": 4,
+    "fixed_rounds": 200,
+    "smoke_rounds": 30,
+    "parameters": {
+      "num_leaves": 31,
+      "min_data_in_leaf": 200,
+      "learning_rate": 0.05,
+      "lambda_l2": 5.0
+    },
+    "selection_policy": "one_predeclared_configuration_fixed_rounds",
+    "fallback": "C_base_fit_all_2025_development",
+    "minimum_history_policy": "data_contract",
+    "promotion_scope": "protocol_C_only"
+  },
   "F4": {
     "f3_reference_experiment": "f3-full-check",
     "protocol_id": "A",
@@ -166,7 +183,7 @@
     {"id": "F2", "name": "Modelo fisico Stuff", "depends_on": ["F1"], "status": "verified"},
     {"id": "F3", "name": "Location y Pitching sin ambiente", "depends_on": ["F2"], "status": "verified"},
     {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "verified"},
-    {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "not_started"},
+    {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "verified"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "not_started"},
     {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "not_started"},
     {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "not_started"}

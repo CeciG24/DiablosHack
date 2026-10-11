@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('smoke', 'full', 'f1-smoke', 'f1', 'f2-smoke', 'f2', 'f3-smoke', 'f3', 'f4-smoke', 'f4', 'tests', 'contract')]
+    [ValidateSet('smoke', 'full', 'f1-smoke', 'f1', 'f2-smoke', 'f2', 'f3-smoke', 'f3', 'f4-smoke', 'f4', 'f5-smoke', 'f5', 'tests', 'contract')]
     [string]$Action = 'smoke'
 )
 $ErrorActionPreference = 'Stop'
@@ -21,6 +21,8 @@ try {
         'f3' { & $modelingPython -m modeling.cli train --phase F3 }
         'f4-smoke' { & $modelingPython -m modeling.cli train --phase F4 --smoke }
         'f4' { & $modelingPython -m modeling.cli train --phase F4 }
+        'f5-smoke' { & $modelingPython -m modeling.cli train --phase F5 --smoke }
+        'f5' { & $modelingPython -m modeling.cli train --phase F5 }
         'tests' { & $modelingPython -m unittest discover -s tests -v }
         'contract' { & $modelingPython scripts/check_modeling_contract.py }
     }

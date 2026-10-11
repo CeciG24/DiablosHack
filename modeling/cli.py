@@ -167,14 +167,17 @@ def main():
     scope = command.add_mutually_exclusive_group()
     scope.add_argument('--full', action='store_true', help='All development pitches, still no 2026')
     scope.add_argument('--max-pitches', type=int)
-    train = commands.add_parser('train', help='Train and evaluate F1 baselines, F2 Stuff F3 families or F4 calibration/contact; final test remains sealed')
-    train.add_argument('--phase', choices=['F1', 'F2', 'F3', 'F4'], required=True)
+    train = commands.add_parser('train', help='Train and evaluate F1 baselines, F2 Stuff F3 families F4 calibration/contact or F5 arsenal; final test remains sealed')
+    train.add_argument('--phase', choices=['F1', 'F2', 'F3', 'F4', 'F5'], required=True)
     train.add_argument('--smoke', action='store_true', help='Small flow check with 20 bootstrap resamples')
     train.add_argument('--experiment-id')
     args = parser.parse_args()
     try:
         if args.command == 'train':
-            if args.phase == 'F4':
+            if args.phase == 'F5':
+                from modeling.phase5 import train_arsenal
+                train_arsenal(args.experiment_id, args.smoke)
+            elif args.phase == 'F4':
                 from modeling.phase4 import train_calibration_contact
                 train_calibration_contact(args.experiment_id, args.smoke)
             elif args.phase == 'F3':

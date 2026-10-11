@@ -1,0 +1,94 @@
+{
+  "phase": "F5",
+  "date": "2026-10-11",
+  "status": "verified",
+  "protocol": "C",
+  "unit_tests": {
+    "passed": 86,
+    "new_tests": 11,
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "initial_sandbox_temp_permission_error_resolved": true
+  },
+  "experiments": {
+    "smoke": {
+      "experiment": "f5-smoke-final",
+      "status": "verified",
+      "checks_passed": 13,
+      "artifact_hashes_verified": 28,
+      "prediction_rows": 8690,
+      "max_prediction_difference": 0.0,
+      "metrics_reproduced": 8,
+      "reference_rebuilt_from_2024": true,
+      "test_accessed": false,
+      "scientific_decision": "inconclusive"
+    },
+    "full": {
+      "experiment": "f5-full-check",
+      "status": "verified",
+      "checks_passed": 22,
+      "artifact_hashes_verified": 48,
+      "prediction_rows": 117549,
+      "max_prediction_difference": 0.0,
+      "metrics_reproduced": 8,
+      "reference_rebuilt_from_2024": true,
+      "test_accessed": false,
+      "scientific_decision": "retain_reference"
+    }
+  },
+  "scientific_decision": "retain_reference",
+  "comparisons": {
+    "paired": {
+      "n_pitches": 30443,
+      "n_games": 191,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -0.00174597438397281,
+      "relative_log_loss_reduction": 0.0016656682494786898,
+      "ci_low": -0.0033089836608344234,
+      "ci_high": -0.00018329255063519268,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    },
+    "full_policy": {
+      "n_pitches": 58182,
+      "n_games": 192,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -0.00091355914494662,
+      "relative_log_loss_reduction": 0.0008837569724364614,
+      "ci_low": -0.0016718605398816353,
+      "ci_high": -0.00013868850604234451,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    }
+  },
+  "coverage": [
+    {
+      "partition": "calibration",
+      "n_pitches": 59367,
+      "n_with_reference": 29140,
+      "n_pitchers": 479,
+      "coverage": 0.490845082284771
+    },
+    {
+      "partition": "development",
+      "n_pitches": 134420,
+      "n_with_reference": 70378,
+      "n_pitchers": 540,
+      "coverage": 0.5235679214402619
+    },
+    {
+      "partition": "phase_review",
+      "n_pitches": 58182,
+      "n_with_reference": 30443,
+      "n_pitchers": 492,
+      "coverage": 0.5232374273830395
+    }
+  ],
+  "test_accessed": false,
+  "protocol_A_reference_retained": true
+}

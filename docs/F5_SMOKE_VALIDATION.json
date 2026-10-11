@@ -1,0 +1,12 @@
+{
+  "experiment": "f5-smoke-final",
+  "status": "verified",
+  "checks_passed": 13,
+  "artifact_hashes_verified": 28,
+  "prediction_rows": 8690,
+  "max_prediction_difference": 0.0,
+  "metrics_reproduced": 8,
+  "reference_rebuilt_from_2024": true,
+  "test_accessed": false,
+  "scientific_decision": "inconclusive"
+}
