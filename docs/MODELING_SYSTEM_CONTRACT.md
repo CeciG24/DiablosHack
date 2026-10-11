@@ -23,8 +23,11 @@ La infraestructura de **F0 está implementada** en `modeling/`, con comando `smo
 El cierre y la evidencia están en `docs/FASE_0_IMPLEMENTACION.md`. **F1 está implementada y
 verificada**, con baselines B0/B1/B2 en `modeling/baselines.py`; su cierre se documenta
 en `docs/FASE_1_IMPLEMENTACION.md`. **F2 está implementada y verificada** con LightGBM
-4.6.0 en CPU; dependencias en `requirements-modeling.txt`. **F3–F8 siguen pendientes**;
-no hay scores reales. El cierre de F2 se documenta en `docs/FASE_2_IMPLEMENTACION.md`.
+4.6.0 en CPU; dependencias en `requirements-modeling.txt`. **F3 está implementada y
+verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4–F8 siguen pendientes**;
+no hay scores reales. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
+`docs/FASE_3_IMPLEMENTACION.md`. F3 promueve Location y Pitching en ambos protocolos;
+Pitching pasa a ser la referencia predictiva y Stuff se conserva como diagnóstico.
 La preparación de datos sí está implementada.
 `config/modeling_contract.json` contiene los parámetros operativos iniciales. En caso de
 divergencia, detener la fase y reconciliar ambos documentos antes de ejecutarla.
@@ -102,7 +105,9 @@ final sin selección posterior. Un calibrador descartado no se reajusta sobre re
 Durante el desarrollo, intersectar `pitcher_split` con años 2024–2025; **no usar directamente
 el loader de protocolo pitcher sin filtrar años**, pues sus grupos actuales abarcan 2026.
 Entrenar en pitchers train, desarrollar/calibrar en pitchers validation con separación de
-partidos y revisar en pitchers test, siempre excluyendo 2026. Informar que el protocolo no
+partidos y revisar en pitchers test, siempre excluyendo 2026. En F3 la separación de validation usa SHA256 con la semilla
+`diablos-modeling-pitcher-validation-v1`, primeros 16 caracteres hexadecimales módulo 10000:
+0–4999 desarrollo, 5000–9999 calibración. Conservar los años originales. Informar que el protocolo no
 es temporal y que un partido puede contener pitchers de grupos distintos.
 
 En F8 evaluar también el subconjunto temporal de pitchers no vistos en 2026: 249 IDs y

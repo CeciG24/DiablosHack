@@ -1,4 +1,4 @@
-"""F0 infrastructure: smoke [--full]. F1/F2 modeling: train --phase F1|F2 [--smoke]."""
+"""F0 infrastructure: smoke [--full]. F1/F2/F3 modeling: train --phase F1|F2|F3 [--smoke]."""
 import argparse
 from datetime import datetime, timezone
 import importlib.metadata
@@ -167,14 +167,17 @@ def main():
     scope = command.add_mutually_exclusive_group()
     scope.add_argument('--full', action='store_true', help='All development pitches, still no 2026')
     scope.add_argument('--max-pitches', type=int)
-    train = commands.add_parser('train', help='Train and evaluate F1 baselines or F2 Stuff; final test remains sealed')
-    train.add_argument('--phase', choices=['F1', 'F2'], required=True)
+    train = commands.add_parser('train', help='Train and evaluate F1 baselines, F2 Stuff or F3 families; final test remains sealed')
+    train.add_argument('--phase', choices=['F1', 'F2', 'F3'], required=True)
     train.add_argument('--smoke', action='store_true', help='Small flow check with 20 bootstrap resamples')
     train.add_argument('--experiment-id')
     args = parser.parse_args()
     try:
         if args.command == 'train':
-            if args.phase == 'F2':
+            if args.phase == 'F3':
+                from modeling.phase3 import train_families
+                train_families(args.experiment_id, args.smoke)
+            elif args.phase == 'F2':
                 from modeling.phase2 import train_stuff
                 train_stuff(args.experiment_id, args.smoke)
             else:

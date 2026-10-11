@@ -8,6 +8,45 @@
   "primary_target": "y_event",
   "event_class_order": ["ball", "called_strike", "whiff", "foul", "in_play", "hit_by_pitch"],
   "seed": 20260929,
+  "F3": {
+    "f2_reference_experiment": "f2-full-check",
+    "cohort_policy": "f0_common_v1",
+    "threads": 4,
+    "maximum_rounds": 400,
+    "smoke_rounds": 60,
+    "early_stopping_rounds": 30,
+    "candidates": [
+      {
+        "num_leaves": 15,
+        "min_data_in_leaf": 200,
+        "learning_rate": 0.05,
+        "lambda_l2": 5.0
+      },
+      {
+        "num_leaves": 31,
+        "min_data_in_leaf": 200,
+        "learning_rate": 0.05,
+        "lambda_l2": 5.0
+      },
+      {
+        "num_leaves": 63,
+        "min_data_in_leaf": 400,
+        "learning_rate": 0.05,
+        "lambda_l2": 10.0
+      }
+    ],
+    "protocol_B_validation_hash_seed": "diablos-modeling-pitcher-validation-v1",
+    "protocol_B_development_bucket": [
+      0,
+      4999
+    ],
+    "protocol_B_calibration_bucket": [
+      5000,
+      9999
+    ],
+    "protocol_A_reference_policy": "reuse_frozen_F2_B1_and_Stuff_full; refit_smoke",
+    "promotion_policy": "Location_vs_B1; Pitching_requires_both_Location_and_B1; separate_decisions_A_B"
+  },
   "F2": {
     "f1_reference_experiment": "f1-full-reproduction",
     "cohort_policy": "f0_common_v1",
@@ -100,7 +139,7 @@
     {"id": "F0", "name": "Adaptador y pruebas de infraestructura", "depends_on": [], "status": "verified"},
     {"id": "F1", "name": "Baselines evaluables", "depends_on": ["F0"], "status": "verified"},
     {"id": "F2", "name": "Modelo fisico Stuff", "depends_on": ["F1"], "status": "verified"},
-    {"id": "F3", "name": "Location y Pitching sin ambiente", "depends_on": ["F2"], "status": "not_started"},
+    {"id": "F3", "name": "Location y Pitching sin ambiente", "depends_on": ["F2"], "status": "verified"},
     {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "not_started"},
     {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "not_started"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "not_started"},

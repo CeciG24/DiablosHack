@@ -1,0 +1,649 @@
+{
+  "status": "verified",
+  "verified_utc": "2026-10-07T20:08:36.339006+00:00",
+  "scientific_decision": "promote",
+  "protocol_decisions": {
+    "A": {
+      "families": {
+        "Stuff": "retain_reference",
+        "Location": "promote",
+        "Pitching": "promote"
+      },
+      "predictive_reference": "Pitching",
+      "physical_increment_over_location": "promote",
+      "scientific_decision": "promote"
+    },
+    "B": {
+      "families": {
+        "Stuff": "retain_reference",
+        "Location": "promote",
+        "Pitching": "promote"
+      },
+      "predictive_reference": "Pitching",
+      "physical_increment_over_location": "promote",
+      "scientific_decision": "promote"
+    }
+  },
+  "data_run": "c1c8ba48818dc878",
+  "unit_tests": {
+    "passed": 60,
+    "failed": 0,
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "observed_in_session": true
+  },
+  "independent_verification": {
+    "smoke": {
+      "status": "verified",
+      "experiment_id": "f3-smoke-check",
+      "protocols": {
+        "A": {
+          "predictions_compared": 37284,
+          "pitches_per_model": 9321,
+          "max_abs_prediction_difference": 0.0,
+          "metric_groups_reproduced": 12,
+          "bootstrap_comparisons_reproduced": 4,
+          "decision": {
+            "families": {
+              "Stuff": "inconclusive",
+              "Location": "inconclusive",
+              "Pitching": "inconclusive"
+            },
+            "predictive_reference": "B1",
+            "physical_increment_over_location": "inconclusive",
+            "scientific_decision": "inconclusive"
+          }
+        },
+        "B": {
+          "predictions_compared": 24576,
+          "pitches_per_model": 6144,
+          "max_abs_prediction_difference": 0.0,
+          "metric_groups_reproduced": 12,
+          "bootstrap_comparisons_reproduced": 4,
+          "decision": {
+            "families": {
+              "Stuff": "inconclusive",
+              "Location": "inconclusive",
+              "Pitching": "inconclusive"
+            },
+            "predictive_reference": "B1",
+            "physical_increment_over_location": "inconclusive",
+            "scientific_decision": "inconclusive"
+          }
+        }
+      },
+      "artifact_files_verified": 49,
+      "recorded_checks_passed": 67,
+      "test_accessed": false,
+      "virtual_environment": true
+    },
+    "full": {
+      "status": "verified",
+      "experiment_id": "f3-full-check",
+      "protocols": {
+        "A": {
+          "predictions_compared": 1007876,
+          "pitches_per_model": 251969,
+          "max_abs_prediction_difference": 0.0,
+          "metric_groups_reproduced": 12,
+          "bootstrap_comparisons_reproduced": 4,
+          "decision": {
+            "families": {
+              "Stuff": "retain_reference",
+              "Location": "promote",
+              "Pitching": "promote"
+            },
+            "predictive_reference": "Pitching",
+            "physical_increment_over_location": "promote",
+            "scientific_decision": "promote"
+          }
+        },
+        "B": {
+          "predictions_compared": 526572,
+          "pitches_per_model": 131643,
+          "max_abs_prediction_difference": 0.0,
+          "metric_groups_reproduced": 12,
+          "bootstrap_comparisons_reproduced": 4,
+          "decision": {
+            "families": {
+              "Stuff": "retain_reference",
+              "Location": "promote",
+              "Pitching": "promote"
+            },
+            "predictive_reference": "Pitching",
+            "physical_increment_over_location": "promote",
+            "scientific_decision": "promote"
+          }
+        }
+      },
+      "artifact_files_verified": 67,
+      "recorded_checks_passed": 69,
+      "test_accessed": false,
+      "virtual_environment": true
+    }
+  },
+  "F2_regression": {
+    "status": "verified",
+    "predictions_compared": 251969,
+    "max_abs_prediction_difference": 0.0,
+    "metric_groups_reproduced": 9,
+    "bootstrap_comparisons_reproduced": 2
+  },
+  "sources_match_executed_full_run": true,
+  "test_accessed": false,
+  "checker_sha256": "6180fbe8a9bd1272bc377b8a3966a6c70c7b45f79ae54c296ae3eac02a8d0f01",
+  "new_tests_sha256": "ffd73d00b1dc8f647c586fe98190ca77544b6e3bdd1ada0534daaa87e3e11672",
+  "notes": [
+    "Only phase status and documentation updated after completed training; immutable experiment snapshots retained."
+  ],
+  "experiments": {
+    "smoke": {
+      "manifest_sha256": "eec547769f72b6f7d6430ac7a2409cb11a442fab617e3fea24eda511bd32aaf9",
+      "checks_passed": 67,
+      "elapsed_seconds": 34.236189499963075,
+      "artifact_files": 49,
+      "virtual_environment": true,
+      "reproduction": {
+        "A": {
+          "stuff": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "location": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "pitching": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          }
+        },
+        "B": {
+          "stuff": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "location": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "pitching": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          }
+        }
+      }
+    },
+    "full": {
+      "manifest_sha256": "61acb19b7538876c2d5092205f65f6e7b31a1b0843e034f0324548d2401b9a57",
+      "checks_passed": 69,
+      "elapsed_seconds": 866.8565571999643,
+      "artifact_files": 67,
+      "virtual_environment": true,
+      "reproduction": {
+        "A": {
+          "stuff": {
+            "reload_max_abs_difference": 0.0
+          },
+          "location": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "pitching": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          }
+        },
+        "B": {
+          "stuff": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "location": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          },
+          "pitching": {
+            "reload_max_abs_difference": 0.0,
+            "refit_max_abs_difference": 0.0
+          }
+        }
+      }
+    }
+  },
+  "metrics": {
+    "A": {
+      "protocol_id": "A",
+      "status": "evaluated",
+      "target": "y_event",
+      "denominator": "common eligible pitches; four models on identical IDs and labels",
+      "class_order": [
+        "ball",
+        "called_strike",
+        "whiff",
+        "foul",
+        "in_play",
+        "hit_by_pitch"
+      ],
+      "metrics": [
+        {
+          "n_pitches": 59367,
+          "multiclass_log_loss": 1.462728950449809,
+          "multiclass_brier_sum_over_classes": 0.7358761418750666,
+          "model": "B1",
+          "partition": "calibration",
+          "protocol_id": "A",
+          "n_games": 197,
+          "n_pitchers": 479,
+          "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+        },
+        {
+          "n_pitches": 134420,
+          "multiclass_log_loss": 1.46718750391102,
+          "multiclass_brier_sum_over_classes": 0.7379384423073602,
+          "model": "B1",
+          "partition": "development",
+          "protocol_id": "A",
+          "n_games": 447,
+          "n_pitchers": 540,
+          "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+        },
+        {
+          "n_pitches": 58182,
+          "multiclass_log_loss": 1.4634954071868878,
+          "multiclass_brier_sum_over_classes": 0.736557704853537,
+          "model": "B1",
+          "partition": "phase_review",
+          "protocol_id": "A",
+          "n_games": 192,
+          "n_pitchers": 492,
+          "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+        },
+        {
+          "n_pitches": 59367,
+          "multiclass_log_loss": 1.5125929957823492,
+          "multiclass_brier_sum_over_classes": 0.7525987501814381,
+          "model": "Stuff",
+          "partition": "calibration",
+          "protocol_id": "A",
+          "n_games": 197,
+          "n_pitchers": 479,
+          "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+        },
+        {
+          "n_pitches": 134420,
+          "multiclass_log_loss": 1.5177156478734593,
+          "multiclass_brier_sum_over_classes": 0.755177081070761,
+          "model": "Stuff",
+          "partition": "development",
+          "protocol_id": "A",
+          "n_games": 447,
+          "n_pitchers": 540,
+          "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+        },
+        {
+          "n_pitches": 58182,
+          "multiclass_log_loss": 1.515176367689185,
+          "multiclass_brier_sum_over_classes": 0.754008705075929,
+          "model": "Stuff",
+          "partition": "phase_review",
+          "protocol_id": "A",
+          "n_games": 192,
+          "n_pitchers": 492,
+          "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+        },
+        {
+          "n_pitches": 59367,
+          "multiclass_log_loss": 1.0483189586828696,
+          "multiclass_brier_sum_over_classes": 0.542023055975833,
+          "model": "Location",
+          "partition": "calibration",
+          "protocol_id": "A",
+          "n_games": 197,
+          "n_pitchers": 479,
+          "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+        },
+        {
+          "n_pitches": 134420,
+          "multiclass_log_loss": 1.0488144456823314,
+          "multiclass_brier_sum_over_classes": 0.5427110143231013,
+          "model": "Location",
+          "partition": "development",
+          "protocol_id": "A",
+          "n_games": 447,
+          "n_pitchers": 540,
+          "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+        },
+        {
+          "n_pitches": 58182,
+          "multiclass_log_loss": 1.049467004868549,
+          "multiclass_brier_sum_over_classes": 0.5424571827474608,
+          "model": "Location",
+          "partition": "phase_review",
+          "protocol_id": "A",
+          "n_games": 192,
+          "n_pitchers": 492,
+          "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+        },
+        {
+          "n_pitches": 59367,
+          "multiclass_log_loss": 1.032731614797357,
+          "multiclass_brier_sum_over_classes": 0.5352406950785585,
+          "model": "Pitching",
+          "partition": "calibration",
+          "protocol_id": "A",
+          "n_games": 197,
+          "n_pitchers": 479,
+          "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+        },
+        {
+          "n_pitches": 134420,
+          "multiclass_log_loss": 1.034059882227841,
+          "multiclass_brier_sum_over_classes": 0.5361897348886651,
+          "model": "Pitching",
+          "partition": "development",
+          "protocol_id": "A",
+          "n_games": 447,
+          "n_pitchers": 540,
+          "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+        },
+        {
+          "n_pitches": 58182,
+          "multiclass_log_loss": 1.032505818036574,
+          "multiclass_brier_sum_over_classes": 0.5347572370659186,
+          "model": "Pitching",
+          "partition": "phase_review",
+          "protocol_id": "A",
+          "n_games": 192,
+          "n_pitchers": 492,
+          "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+        }
+      ],
+      "comparisons": {
+        "Stuff_vs_B1": {
+          "n_pitches": 58182,
+          "n_games": 192,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": 0.051680960502297014,
+          "relative_log_loss_reduction": -0.035313373891372506,
+          "ci_low": 0.04860399227344719,
+          "ci_high": 0.054510127157503155,
+          "decision": "inconclusive",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Location_vs_B1": {
+          "n_pitches": 58182,
+          "n_games": 192,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.41402840231833876,
+          "relative_log_loss_reduction": 0.2829037934011552,
+          "ci_low": -0.4208505679162259,
+          "ci_high": -0.4067902692270746,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Pitching_vs_Location": {
+          "n_pitches": 58182,
+          "n_games": 192,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.01696118683197505,
+          "relative_log_loss_reduction": 0.01616171518808209,
+          "ci_low": -0.01884753818378706,
+          "ci_high": -0.015003657814379817,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Pitching_vs_B1": {
+          "n_pitches": 58182,
+          "n_games": 192,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.4309895891503138,
+          "relative_log_loss_reduction": 0.2944932980546598,
+          "ci_low": -0.43758959591714996,
+          "ci_high": -0.42383554931349277,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        }
+      },
+      "decision": {
+        "families": {
+          "Stuff": "retain_reference",
+          "Location": "promote",
+          "Pitching": "promote"
+        },
+        "predictive_reference": "Pitching",
+        "physical_increment_over_location": "promote",
+        "scientific_decision": "promote"
+      },
+      "review_is_independent_final_test": false
+    },
+    "B": {
+      "protocol_id": "B",
+      "status": "evaluated",
+      "target": "y_event",
+      "denominator": "common eligible pitches; four models on identical IDs and labels",
+      "class_order": [
+        "ball",
+        "called_strike",
+        "whiff",
+        "foul",
+        "in_play",
+        "hit_by_pitch"
+      ],
+      "metrics": [
+        {
+          "n_pitches": 34049,
+          "multiclass_log_loss": 1.4647721200427912,
+          "multiclass_brier_sum_over_classes": 0.737383355768318,
+          "model": "B1",
+          "partition": "calibration",
+          "protocol_id": "B",
+          "n_games": 652,
+          "n_pitchers": 111,
+          "ids_sha256": "d32b3b91d723c6b1bd06f5c0f83b77ffb2ebda485f4a8c629dc7f9e11fb39fe0"
+        },
+        {
+          "n_pitches": 33081,
+          "multiclass_log_loss": 1.4677430309297697,
+          "multiclass_brier_sum_over_classes": 0.7389122715185309,
+          "model": "B1",
+          "partition": "development",
+          "protocol_id": "B",
+          "n_games": 643,
+          "n_pitchers": 110,
+          "ids_sha256": "150d854557c43f69fbfcae5b913b54c178f43430cb6311e7340bde280508a705"
+        },
+        {
+          "n_pitches": 64513,
+          "multiclass_log_loss": 1.4706132794155329,
+          "multiclass_brier_sum_over_classes": 0.7400181416096255,
+          "model": "B1",
+          "partition": "phase_review",
+          "protocol_id": "B",
+          "n_games": 1313,
+          "n_pitchers": 104,
+          "ids_sha256": "b602988792efdc1cf5fb64232def9eadfbecd79e795b438964cbbce89de54732"
+        },
+        {
+          "n_pitches": 34049,
+          "multiclass_log_loss": 1.5223661329554434,
+          "multiclass_brier_sum_over_classes": 0.7575340779507077,
+          "model": "Stuff",
+          "partition": "calibration",
+          "protocol_id": "B",
+          "n_games": 652,
+          "n_pitchers": 111,
+          "ids_sha256": "d32b3b91d723c6b1bd06f5c0f83b77ffb2ebda485f4a8c629dc7f9e11fb39fe0"
+        },
+        {
+          "n_pitches": 33081,
+          "multiclass_log_loss": 1.5199936803121057,
+          "multiclass_brier_sum_over_classes": 0.7566612776816287,
+          "model": "Stuff",
+          "partition": "development",
+          "protocol_id": "B",
+          "n_games": 643,
+          "n_pitchers": 110,
+          "ids_sha256": "150d854557c43f69fbfcae5b913b54c178f43430cb6311e7340bde280508a705"
+        },
+        {
+          "n_pitches": 64513,
+          "multiclass_log_loss": 1.524153921720382,
+          "multiclass_brier_sum_over_classes": 0.7583501600021468,
+          "model": "Stuff",
+          "partition": "phase_review",
+          "protocol_id": "B",
+          "n_games": 1313,
+          "n_pitchers": 104,
+          "ids_sha256": "b602988792efdc1cf5fb64232def9eadfbecd79e795b438964cbbce89de54732"
+        },
+        {
+          "n_pitches": 34049,
+          "multiclass_log_loss": 1.0474437125534668,
+          "multiclass_brier_sum_over_classes": 0.542056085053334,
+          "model": "Location",
+          "partition": "calibration",
+          "protocol_id": "B",
+          "n_games": 652,
+          "n_pitchers": 111,
+          "ids_sha256": "d32b3b91d723c6b1bd06f5c0f83b77ffb2ebda485f4a8c629dc7f9e11fb39fe0"
+        },
+        {
+          "n_pitches": 33081,
+          "multiclass_log_loss": 1.0427037709456262,
+          "multiclass_brier_sum_over_classes": 0.5401209255947564,
+          "model": "Location",
+          "partition": "development",
+          "protocol_id": "B",
+          "n_games": 643,
+          "n_pitchers": 110,
+          "ids_sha256": "150d854557c43f69fbfcae5b913b54c178f43430cb6311e7340bde280508a705"
+        },
+        {
+          "n_pitches": 64513,
+          "multiclass_log_loss": 1.0474253698661307,
+          "multiclass_brier_sum_over_classes": 0.5433386327466035,
+          "model": "Location",
+          "partition": "phase_review",
+          "protocol_id": "B",
+          "n_games": 1313,
+          "n_pitchers": 104,
+          "ids_sha256": "b602988792efdc1cf5fb64232def9eadfbecd79e795b438964cbbce89de54732"
+        },
+        {
+          "n_pitches": 34049,
+          "multiclass_log_loss": 1.0298151672122822,
+          "multiclass_brier_sum_over_classes": 0.5337938029481817,
+          "model": "Pitching",
+          "partition": "calibration",
+          "protocol_id": "B",
+          "n_games": 652,
+          "n_pitchers": 111,
+          "ids_sha256": "d32b3b91d723c6b1bd06f5c0f83b77ffb2ebda485f4a8c629dc7f9e11fb39fe0"
+        },
+        {
+          "n_pitches": 33081,
+          "multiclass_log_loss": 1.0261246216302717,
+          "multiclass_brier_sum_over_classes": 0.532843945430399,
+          "model": "Pitching",
+          "partition": "development",
+          "protocol_id": "B",
+          "n_games": 643,
+          "n_pitchers": 110,
+          "ids_sha256": "150d854557c43f69fbfcae5b913b54c178f43430cb6311e7340bde280508a705"
+        },
+        {
+          "n_pitches": 64513,
+          "multiclass_log_loss": 1.0319723154068219,
+          "multiclass_brier_sum_over_classes": 0.5363189369253827,
+          "model": "Pitching",
+          "partition": "phase_review",
+          "protocol_id": "B",
+          "n_games": 1313,
+          "n_pitchers": 104,
+          "ids_sha256": "b602988792efdc1cf5fb64232def9eadfbecd79e795b438964cbbce89de54732"
+        }
+      ],
+      "comparisons": {
+        "Stuff_vs_B1": {
+          "n_pitches": 64513,
+          "n_games": 1313,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": 0.05354064230484948,
+          "relative_log_loss_reduction": -0.03640701675570901,
+          "ci_low": 0.050589960789816736,
+          "ci_high": 0.05629629698596877,
+          "decision": "inconclusive",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Location_vs_B1": {
+          "n_pitches": 64513,
+          "n_games": 1313,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.4231879095494022,
+          "relative_log_loss_reduction": 0.28776287789104565,
+          "ci_low": -0.42902164375889323,
+          "ci_high": -0.4173151166563908,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Pitching_vs_Location": {
+          "n_pitches": 64513,
+          "n_games": 1313,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.015453054459308531,
+          "relative_log_loss_reduction": 0.014753370410804118,
+          "ci_low": -0.017130951356061186,
+          "ci_high": -0.013918348770091864,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        },
+        "Pitching_vs_B1": {
+          "n_pitches": 64513,
+          "n_games": 1313,
+          "resamples": 500,
+          "seed": 20260929,
+          "confidence": 0.95,
+          "delta_candidate_minus_reference": -0.4386409640087108,
+          "relative_log_loss_reduction": 0.2982707759738442,
+          "ci_low": -0.44461313171473693,
+          "ci_high": -0.43266683463983757,
+          "decision": "promote",
+          "scientific_evidence": true,
+          "method": "paired percentile bootstrap by game; pitch-weighted loss"
+        }
+      },
+      "decision": {
+        "families": {
+          "Stuff": "retain_reference",
+          "Location": "promote",
+          "Pitching": "promote"
+        },
+        "predictive_reference": "Pitching",
+        "physical_increment_over_location": "promote",
+        "scientific_decision": "promote"
+      },
+      "review_is_independent_final_test": false
+    }
+  }
+}

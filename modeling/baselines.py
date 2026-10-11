@@ -4,6 +4,7 @@ from pathlib import Path
 
 from modeling.datasets import ids_hash, pd, require_unique
 import numpy as np
+from modeling.protocols import validate_fit_partition
 
 CLASSES = ('ball', 'called_strike', 'whiff', 'foul', 'in_play', 'hit_by_pitch')
 GROUPS = {'B0': [], 'B1': ['balls', 'strikes'],
@@ -41,10 +42,9 @@ class EventBaseline:
                            for i, value in enumerate(values)], ensure_ascii=False,
                           separators=(',', ':'))
 
-    def fit(self, frame):
+    def fit(self, frame, protocol="A"):
         require_unique(frame)
-        if frame.empty or not frame.year.eq(2024).all() or not frame.partition.eq('train').all():
-            raise PermissionError('Baseline fit requires nonempty 2024/train rows only')
+        validate_fit_partition(frame, 'train', protocol)
         if frame.y_event.isna().any() or not frame.y_event.isin(self.classes).all():
             raise ValueError('Missing or unknown training target')
         self._context(frame, fitting=True)
@@ -57,7 +57,7 @@ class EventBaseline:
             'schema_version': 1, 'name': self.name, 'classes': self.classes,
             'features': self.columns, 'pseudocount': self.pseudocount,
             'prior_strength': self.strength, 'fallback': 'global_B0',
-            'fit_year': 2024, 'fit_partition': 'train', 'fit_rows': len(frame),
+            'protocol_id': protocol, 'fit_year': 2024 if protocol == 'A' else None, 'fit_partition': 'train', 'fit_rows': len(frame),
             'fit_ids_sha256': ids_hash(frame.pitch_uid.tolist()),
             'global_counts': counts.tolist(), 'group_counts': groups,
         }
@@ -98,7 +98,8 @@ class EventBaseline:
         model = cls(state['name'], state['classes'], state['pseudocount'], state['prior_strength'])
         if state['schema_version'] != 1 or state['features'] != model.columns or state['fallback'] != 'global_B0':
             raise ValueError('Invalid baseline schema')
-        if state['fit_year'] != 2024 or state['fit_partition'] != 'train' or state['fit_rows'] <= 0:
+        protocol = state.get('protocol_id', 'A')
+        if protocol not in ('A', 'B') or state['fit_year'] != (2024 if protocol == 'A' else None) or state['fit_partition'] != 'train' or state['fit_rows'] <= 0:
             raise ValueError('Invalid training provenance')
         counts = np.asarray(state['global_counts'])
         if counts.shape != (6,) or not np.isfinite(counts).all() or (counts < 0).any() or (counts % 1 != 0).any() or counts.sum() != state['fit_rows']:

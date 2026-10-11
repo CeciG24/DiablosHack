@@ -2,7 +2,7 @@
 
 ## Contenido del repositorio
 
-Este repositorio contiene el código, contratos, pruebas y documentación hasta F2.
+Este repositorio contiene el código, contratos, pruebas y documentación hasta F3.
 Los datos del hackathon, `.venv`, los modelos entrenados, artefactos de experimentos y
 tablas de análisis se mantienen locales y están excluidos de Git.
 
@@ -116,7 +116,8 @@ No borren una carpeta `.building` sin comprobar que ningún proceso la utiliza.
 
 El desarrollo por fases se rige por [System contract de modelado](docs/MODELING_SYSTEM_CONTRACT.md)
 y su [configuración](config/modeling_contract.json). F0 y F1 están implementadas
-y verificadas; F2 también está verificada y conserva B1 como referencia; F3–F8 están pendientes.
+y verificadas; F2 conserva B1 como referencia histórica. F3 está verificada y promueve
+Pitching sin ambiente en los protocolos temporal y por pitcher; F4–F8 están pendientes.
 Consultar [implementación, decisiones y pruebas de F0](docs/FASE_0_IMPLEMENTACION.md).
 F1 incorpora baselines de eventos B0/B1/B2. No son scores ni xRunValue.
 Verificar cada fase antes de avanzar.
@@ -130,6 +131,8 @@ Para comprobar el contrato sin entrenar modelos: `python scripts/check_modeling_
 .\run_modeling.ps1 f1       # Baselines F1 completos y 500 remuestreos por partido
 .\run_modeling.ps1 f2-smoke # Stuff físico: prueba rápida
 .\run_modeling.ps1 f2       # Stuff: selección en desarrollo y comparación con B0/B1
+.\run_modeling.ps1 f3-smoke # Location/Pitching: prueba rápida de los protocolos A y B
+.\run_modeling.ps1 f3       # Familias sin ambiente y evaluación de pitchers no vistos
 ```
 
 Equivalente con el Python del entorno: `python -m modeling.cli smoke` y
@@ -153,8 +156,15 @@ los vocabularios de entrenamiento, la selección de configuraciones, importancia
 permutación y comparación contra los baselines aprobados. Ver
 [implementación y pruebas de F2](docs/FASE_2_IMPLEMENTACION.md).
 
-1. Confirmar etiquetas y campos faltantes con organizadores.
-2. Entrenar un baseline por conteo con 2024 y medir calibración en 2025.
-3. Comparar modelos físicos y de ubicación usando las mismas particiones.
-4. Acordar un protocolo explícito para arsenal y pitchers nuevos.
-5. Integrar predicciones en el dashboard y evaluar una sola vez la versión elegida en 2026.
+F3 conserva modelos separados de Stuff, Location y Pitching. Las comparaciones utilizan
+los mismos lanzamientos y el protocolo por pitcher entrena modelos propios solo en 2024–2025.
+Ver [qué se implementó, por qué y cómo probar F3](docs/FASE_3_IMPLEMENTACION.md).
+Para verificar el resultado completo guardado:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_phase3.py --experiment-id f3-full-check
+```
+
+Los pasos siguientes son calibración y contacto (F4), arsenal (F5), ambiente (F6), scores
+(F7) y entrega con test congelado (F8). Se implementan únicamente cuando se solicitan.
+Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.

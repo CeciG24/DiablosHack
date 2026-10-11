@@ -1,0 +1,44 @@
+{
+  "status": "verified",
+  "experiment_id": "f3-smoke-check",
+  "protocols": {
+    "A": {
+      "predictions_compared": 37284,
+      "pitches_per_model": 9321,
+      "max_abs_prediction_difference": 0.0,
+      "metric_groups_reproduced": 12,
+      "bootstrap_comparisons_reproduced": 4,
+      "decision": {
+        "families": {
+          "Stuff": "inconclusive",
+          "Location": "inconclusive",
+          "Pitching": "inconclusive"
+        },
+        "predictive_reference": "B1",
+        "physical_increment_over_location": "inconclusive",
+        "scientific_decision": "inconclusive"
+      }
+    },
+    "B": {
+      "predictions_compared": 24576,
+      "pitches_per_model": 6144,
+      "max_abs_prediction_difference": 0.0,
+      "metric_groups_reproduced": 12,
+      "bootstrap_comparisons_reproduced": 4,
+      "decision": {
+        "families": {
+          "Stuff": "inconclusive",
+          "Location": "inconclusive",
+          "Pitching": "inconclusive"
+        },
+        "predictive_reference": "B1",
+        "physical_increment_over_location": "inconclusive",
+        "scientific_decision": "inconclusive"
+      }
+    }
+  },
+  "artifact_files_verified": 49,
+  "recorded_checks_passed": 67,
+  "test_accessed": false,
+  "virtual_environment": true
+}

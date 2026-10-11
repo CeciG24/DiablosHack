@@ -1,0 +1,44 @@
+{
+  "status": "verified",
+  "experiment_id": "f3-full-check",
+  "protocols": {
+    "A": {
+      "predictions_compared": 1007876,
+      "pitches_per_model": 251969,
+      "max_abs_prediction_difference": 0.0,
+      "metric_groups_reproduced": 12,
+      "bootstrap_comparisons_reproduced": 4,
+      "decision": {
+        "families": {
+          "Stuff": "retain_reference",
+          "Location": "promote",
+          "Pitching": "promote"
+        },
+        "predictive_reference": "Pitching",
+        "physical_increment_over_location": "promote",
+        "scientific_decision": "promote"
+      }
+    },
+    "B": {
+      "predictions_compared": 526572,
+      "pitches_per_model": 131643,
+      "max_abs_prediction_difference": 0.0,
+      "metric_groups_reproduced": 12,
+      "bootstrap_comparisons_reproduced": 4,
+      "decision": {
+        "families": {
+          "Stuff": "retain_reference",
+          "Location": "promote",
+          "Pitching": "promote"
+        },
+        "predictive_reference": "Pitching",
+        "physical_increment_over_location": "promote",
+        "scientific_decision": "promote"
+      }
+    }
+  },
+  "artifact_files_verified": 67,
+  "recorded_checks_passed": 69,
+  "test_accessed": false,
+  "virtual_environment": true
+}
