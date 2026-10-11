@@ -2,7 +2,7 @@
 
 ## Contenido del repositorio
 
-Este repositorio contiene el código, contratos, pruebas y documentación hasta F3.
+Este repositorio contiene el código, contratos, pruebas y documentación hasta F4.
 Los datos del hackathon, `.venv`, los modelos entrenados, artefactos de experimentos y
 tablas de análisis se mantienen locales y están excluidos de Git.
 
@@ -117,7 +117,8 @@ No borren una carpeta `.building` sin comprobar que ningún proceso la utiliza.
 El desarrollo por fases se rige por [System contract de modelado](docs/MODELING_SYSTEM_CONTRACT.md)
 y su [configuración](config/modeling_contract.json). F0 y F1 están implementadas
 y verificadas; F2 conserva B1 como referencia histórica. F3 está verificada y promueve
-Pitching sin ambiente en los protocolos temporal y por pitcher; F4–F8 están pendientes.
+Pitching sin ambiente en los protocolos temporal y por pitcher. F4 está verificada con
+calibración y contacto en el protocolo temporal; F5–F8 están pendientes.
 Consultar [implementación, decisiones y pruebas de F0](docs/FASE_0_IMPLEMENTACION.md).
 F1 incorpora baselines de eventos B0/B1/B2. No son scores ni xRunValue.
 Verificar cada fase antes de avanzar.
@@ -133,6 +134,8 @@ Para comprobar el contrato sin entrenar modelos: `python scripts/check_modeling_
 .\run_modeling.ps1 f2       # Stuff: selección en desarrollo y comparación con B0/B1
 .\run_modeling.ps1 f3-smoke # Location/Pitching: prueba rápida de los protocolos A y B
 .\run_modeling.ps1 f3       # Familias sin ambiente y evaluación de pitchers no vistos
+.\run_modeling.ps1 f4-smoke # Calibración y cabezas auxiliares: prueba rápida
+.\run_modeling.ps1 f4       # Calibración 2025 y contacto/groundball/chase
 ```
 
 Equivalente con el Python del entorno: `python -m modeling.cli smoke` y
@@ -165,6 +168,14 @@ Para verificar el resultado completo guardado:
 .\.venv\Scripts\python.exe scripts/check_phase3.py --experiment-id f3-full-check
 ```
 
-Los pasos siguientes son calibración y contacto (F4), arsenal (F5), ambiente (F6), scores
+F4 incorpora temperaturas ajustadas solo en calibración 2025 y cabezas condicionales de
+contacto, roletazo y chase. Los nulos se preservan; las cabezas sin mejora conservan la
+prevalencia de entrenamiento. Ver [implementación, decisiones y pruebas de F4](docs/FASE_4_IMPLEMENTACION.md).
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_phase4.py --experiment-id f4-full-check
+```
+
+Los pasos siguientes son arsenal (F5), ambiente (F6), scores
 (F7) y entrega con test congelado (F8). Se implementan únicamente cuando se solicitan.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.

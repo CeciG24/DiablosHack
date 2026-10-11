@@ -1,0 +1,41 @@
+{
+  "status": "verified",
+  "experiment_id": "f4-smoke-check",
+  "families": {
+    "stuff": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 9321,
+      "heads": {
+        "contact": "experimental",
+        "groundball": "experimental",
+        "chase": "experimental"
+      }
+    },
+    "location": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 9321,
+      "heads": {
+        "contact": "experimental",
+        "groundball": "experimental",
+        "chase": "experimental"
+      }
+    },
+    "pitching": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 9321,
+      "heads": {
+        "contact": "experimental",
+        "groundball": "experimental",
+        "chase": "experimental"
+      }
+    }
+  },
+  "metric_groups_reproduced": 135,
+  "bootstrap_comparisons_reproduced": 18,
+  "output_rows": 27963,
+  "artifact_files_verified": 166,
+  "recorded_checks_passed": 83,
+  "calibration_refit_only_2025_calibration": true,
+  "test_accessed": false,
+  "virtual_environment": true
+}

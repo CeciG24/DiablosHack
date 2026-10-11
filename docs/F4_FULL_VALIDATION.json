@@ -1,0 +1,41 @@
+{
+  "status": "verified",
+  "experiment_id": "f4-full-check",
+  "families": {
+    "stuff": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 251969,
+      "heads": {
+        "contact": "experimental",
+        "groundball": "validated",
+        "chase": "experimental"
+      }
+    },
+    "location": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 251969,
+      "heads": {
+        "contact": "validated",
+        "groundball": "validated",
+        "chase": "validated"
+      }
+    },
+    "pitching": {
+      "max_abs_prediction_difference": 0.0,
+      "pitches": 251969,
+      "heads": {
+        "contact": "validated",
+        "groundball": "validated",
+        "chase": "validated"
+      }
+    }
+  },
+  "metric_groups_reproduced": 135,
+  "bootstrap_comparisons_reproduced": 21,
+  "output_rows": 755907,
+  "artifact_files_verified": 169,
+  "recorded_checks_passed": 84,
+  "calibration_refit_only_2025_calibration": true,
+  "test_accessed": false,
+  "virtual_environment": true
+}

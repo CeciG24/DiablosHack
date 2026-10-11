@@ -24,10 +24,14 @@ El cierre y la evidencia están en `docs/FASE_0_IMPLEMENTACION.md`. **F1 está i
 verificada**, con baselines B0/B1/B2 en `modeling/baselines.py`; su cierre se documenta
 en `docs/FASE_1_IMPLEMENTACION.md`. **F2 está implementada y verificada** con LightGBM
 4.6.0 en CPU; dependencias en `requirements-modeling.txt`. **F3 está implementada y
-verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4–F8 siguen pendientes**;
+verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4 está implementada y
+verificada** en protocolo A: temperaturas de eventos y cabezas de contacto, groundball y chase.
+**F5–F8 siguen pendientes**;
 no hay scores reales. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
 `docs/FASE_3_IMPLEMENTACION.md`. F3 promueve Location y Pitching en ambos protocolos;
 Pitching pasa a ser la referencia predictiva y Stuff se conserva como diagnóstico.
+El cierre de F4 está en `docs/FASE_4_IMPLEMENTACION.md`: siete cabezas promovidas y dos
+experimentales con fallback de prevalencia. El protocolo B conserva los resultados de F3.
 La preparación de datos sí está implementada.
 `config/modeling_contract.json` contiene los parámetros operativos iniciales. En caso de
 divergencia, detener la fase y reconciliar ambos documentos antes de ejecutarla.
@@ -276,7 +280,9 @@ como diagnóstico, no como recompensa automática de prevención de carreras.
 productos condicionales en [0,1]; evento sigue sumando uno; fallbacks y tamaños mínimos.
 
 **Criterio de decisión:** aceptar solo calibraciones que no aumenten log loss de revisión
-más de 0.5% relativo; es una tolerancia operativa, no significancia estadística. Cabezas
+más de 0.5% relativo; es una tolerancia operativa, no significancia estadística. F4 implementa una política más
+conservadora dentro de ese límite: aumento permitido de 0%; si perjudica, usa identidad.
+El ajuste de F4 usa protocolo A y no cambia las asignaciones de B. Cabezas
 auxiliares sin mejora o sin muestra se marcan experimentales/no disponibles, sin ocultarlo.
 
 ### F5 Experimento de arsenal con historia real

@@ -1,4 +1,4 @@
-"""F0 infrastructure: smoke [--full]. F1/F2/F3 modeling: train --phase F1|F2|F3 [--smoke]."""
+"""F0 infrastructure: smoke [--full]. F1/F2/F3/F4 modeling: train --phase F1|F2|F3|F4 [--smoke]."""
 import argparse
 from datetime import datetime, timezone
 import importlib.metadata
@@ -135,11 +135,11 @@ def smoke(experiment_id=None, full=False, maximum=None, root=ROOT):
         dataset.assert_unchanged()
         manifest['status'] = 'verified'
         (destination / 'decision.md').write_text(
-            '# Decisión F0\n\nImplementación: `verified`. Decisión científica: `not_applicable`.\n\n'
+            '# DecisiÃ³n F0\n\nImplementaciÃ³n: `verified`. DecisiÃ³n cientÃ­fica: `not_applicable`.\n\n'
             'Predicciones uniformes ficticias, exclusivamente para verificar infraestructura. '
-            'No son scores ni evidencia de calidad predictiva. No se entrenó un modelo.\n\n'
+            'No son scores ni evidencia de calidad predictiva. No se entrenÃ³ un modelo.\n\n'
             'F1 puede comenzar tras reproducir el hash de cohorte y aprobar las pruebas unitarias. '
-            '2026 permanece sellado. La revisión de 2025 no es un test final independiente.\n', encoding='utf-8')
+            '2026 permanece sellado. La revisiÃ³n de 2025 no es un test final independiente.\n', encoding='utf-8')
     except Exception as exc:
         manifest['status'] = 'blocked'
         manifest['error'] = f'{type(exc).__name__}: {exc}'
@@ -147,7 +147,7 @@ def smoke(experiment_id=None, full=False, maximum=None, root=ROOT):
         failed_checks['technical_failure'] = False
         failed_checks['error'] = manifest['error']
         write_json(destination / 'checks.json', failed_checks)
-        (destination / 'decision.md').write_text('# Decisión F0\n\n`blocked`; no avanzar a F1.\n\n' + manifest['error'] + '\n', encoding='utf-8')
+        (destination / 'decision.md').write_text('# DecisiÃ³n F0\n\n`blocked`; no avanzar a F1.\n\n' + manifest['error'] + '\n', encoding='utf-8')
         raise
     finally:
         manifest['finished_utc'] = datetime.now(timezone.utc).isoformat()
@@ -167,14 +167,17 @@ def main():
     scope = command.add_mutually_exclusive_group()
     scope.add_argument('--full', action='store_true', help='All development pitches, still no 2026')
     scope.add_argument('--max-pitches', type=int)
-    train = commands.add_parser('train', help='Train and evaluate F1 baselines, F2 Stuff or F3 families; final test remains sealed')
-    train.add_argument('--phase', choices=['F1', 'F2', 'F3'], required=True)
+    train = commands.add_parser('train', help='Train and evaluate F1 baselines, F2 Stuff F3 families or F4 calibration/contact; final test remains sealed')
+    train.add_argument('--phase', choices=['F1', 'F2', 'F3', 'F4'], required=True)
     train.add_argument('--smoke', action='store_true', help='Small flow check with 20 bootstrap resamples')
     train.add_argument('--experiment-id')
     args = parser.parse_args()
     try:
         if args.command == 'train':
-            if args.phase == 'F3':
+            if args.phase == 'F4':
+                from modeling.phase4 import train_calibration_contact
+                train_calibration_contact(args.experiment_id, args.smoke)
+            elif args.phase == 'F3':
                 from modeling.phase3 import train_families
                 train_families(args.experiment_id, args.smoke)
             elif args.phase == 'F2':

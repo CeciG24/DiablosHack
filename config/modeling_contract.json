@@ -8,6 +8,31 @@
   "primary_target": "y_event",
   "event_class_order": ["ball", "called_strike", "whiff", "foul", "in_play", "hit_by_pitch"],
   "seed": 20260929,
+  "F4": {
+    "f3_reference_experiment": "f3-full-check",
+    "protocol_id": "A",
+    "cohort_policy": "f0_common_v1",
+    "threads": 4,
+    "maximum_rounds": 200,
+    "smoke_rounds": 40,
+    "early_stopping_rounds": 25,
+    "auxiliary_parameters": {
+      "num_leaves": 15,
+      "min_data_in_leaf": 100,
+      "learning_rate": 0.05,
+      "lambda_l2": 5.0
+    },
+    "heads": [
+      "contact",
+      "groundball",
+      "chase"
+    ],
+    "calibration_method": "scalar_temperature_log_probabilities",
+    "calibration_acceptance_max_relative_increase": 0.0,
+    "insufficient_head_policy": "null_with_reason",
+    "unpromoted_head_policy": "smoothed_training_prevalence",
+    "protocol_B_scope": "F3 results retained; F4 calibration restricted to 2025 protocol A"
+  },
   "F3": {
     "f2_reference_experiment": "f2-full-check",
     "cohort_policy": "f0_common_v1",
@@ -140,7 +165,7 @@
     {"id": "F1", "name": "Baselines evaluables", "depends_on": ["F0"], "status": "verified"},
     {"id": "F2", "name": "Modelo fisico Stuff", "depends_on": ["F1"], "status": "verified"},
     {"id": "F3", "name": "Location y Pitching sin ambiente", "depends_on": ["F2"], "status": "verified"},
-    {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "not_started"},
+    {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "verified"},
     {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "not_started"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "not_started"},
     {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "not_started"},
