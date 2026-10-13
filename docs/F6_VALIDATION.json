@@ -1,0 +1,205 @@
+{
+  "phase": "F6",
+  "date": "2026-10-11",
+  "status": "verified",
+  "protocol": "A",
+  "scientific_decision": "retain_reference",
+  "unit_tests": {
+    "passed": 104,
+    "new_tests": 18,
+    "initial_sandbox_temp_permission_error_resolved": true
+  },
+  "experiments": {
+    "smoke": {
+      "experiment": "f6-smoke-check",
+      "status": "verified",
+      "checks_passed": 45,
+      "artifact_hashes_verified": 31,
+      "prediction_rows": 9321,
+      "scenario_rows": 5700,
+      "max_prediction_difference": 0.0,
+      "metrics_reproduced": 6,
+      "subgroups_reproduced": 56,
+      "scenario_intervals_reproduced": 3,
+      "scientific_decision": "inconclusive",
+      "test_accessed": false
+    },
+    "full": {
+      "experiment": "f6-full-check",
+      "status": "verified",
+      "checks_passed": 47,
+      "artifact_hashes_verified": 33,
+      "prediction_rows": 251969,
+      "scenario_rows": 174546,
+      "max_prediction_difference": 0.0,
+      "metrics_reproduced": 6,
+      "subgroups_reproduced": 61,
+      "scenario_intervals_reproduced": 3,
+      "scientific_decision": "retain_reference",
+      "test_accessed": false
+    }
+  },
+  "comparison": {
+    "n_pitches": 58182,
+    "n_games": 192,
+    "resamples": 500,
+    "seed": 20260929,
+    "confidence": 0.95,
+    "delta_candidate_minus_reference": 0.000186965391523738,
+    "relative_log_loss_reduction": -0.00018110606619017972,
+    "ci_low": -0.00032030101624630947,
+    "ci_high": 0.0006806035018597092,
+    "decision": "inconclusive",
+    "scientific_evidence": true,
+    "method": "paired percentile bootstrap by game; pitch-weighted loss"
+  },
+  "subgroups": {
+    "total": 61,
+    "evaluated": 12
+  },
+  "scenario_intervals": [
+    {
+      "n_total": 58182,
+      "n_pitches": 57219,
+      "n_excluded": 963,
+      "ids_sha256": "5b7b0de47ecf21d0eab07ffed85e072bbd0a4af75733899e39da1c5782a270a6",
+      "n_games": 192,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "environment_mode": "fixed_shape_environment_association",
+      "scope": "cohort_mean_fixed_model_association_not_individual_not_causal_not_refit_uncertainty",
+      "status": "evaluated",
+      "scientific_evidence": true,
+      "classes": {
+        "ball": {
+          "mean_delta": 0.00150951753223291,
+          "ci_low": 0.0012134011183919265,
+          "ci_high": 0.0017944245701623214
+        },
+        "called_strike": {
+          "mean_delta": -0.0013214786835701823,
+          "ci_low": -0.0016272625011345802,
+          "ci_high": -0.001033459427275819
+        },
+        "whiff": {
+          "mean_delta": 0.0002442279706742347,
+          "ci_low": 3.183930072225004e-05,
+          "ci_high": 0.00044715698452821144
+        },
+        "foul": {
+          "mean_delta": -0.0010796032633551271,
+          "ci_low": -0.001215080342831323,
+          "ci_high": -0.000935637472940947
+        },
+        "in_play": {
+          "mean_delta": 0.0010229812761259648,
+          "ci_low": 0.0008093112687261615,
+          "ci_high": 0.0012516848159577318
+        },
+        "hit_by_pitch": {
+          "mean_delta": -0.0003756448321078007,
+          "ci_low": -0.00043742942276336894,
+          "ci_high": -0.0003150138567676473
+        }
+      },
+      "target_environment": "Extreme Altitude"
+    },
+    {
+      "n_total": 58182,
+      "n_pitches": 57788,
+      "n_excluded": 394,
+      "ids_sha256": "25c478011ce34045a155bf1001f6a2faca9fa70e32fcbfa1ca24ffa1bb140162",
+      "n_games": 192,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "environment_mode": "fixed_shape_environment_association",
+      "scope": "cohort_mean_fixed_model_association_not_individual_not_causal_not_refit_uncertainty",
+      "status": "evaluated",
+      "scientific_evidence": true,
+      "classes": {
+        "ball": {
+          "mean_delta": 0.001793630366883124,
+          "ci_low": 0.0014807571655145798,
+          "ci_high": 0.00209700574944867
+        },
+        "called_strike": {
+          "mean_delta": -0.0024450056221119944,
+          "ci_low": -0.0027742950316817874,
+          "ci_high": -0.0021267486471664336
+        },
+        "whiff": {
+          "mean_delta": 0.0022797173164856924,
+          "ci_low": 0.0019983375990454497,
+          "ci_high": 0.002563949323540131
+        },
+        "foul": {
+          "mean_delta": 0.00019795655053477995,
+          "ci_low": 5.657254086303249e-05,
+          "ci_high": 0.00034301385457268223
+        },
+        "in_play": {
+          "mean_delta": -0.0021342668769760045,
+          "ci_low": -0.002360519811433648,
+          "ci_high": -0.0018952035521685319
+        },
+        "hit_by_pitch": {
+          "mean_delta": 0.0003079682651844019,
+          "ci_low": 0.00023797749390261,
+          "ci_high": 0.00037953005455698853
+        }
+      },
+      "target_environment": "Medium Altitude"
+    },
+    {
+      "n_total": 58182,
+      "n_pitches": 57929,
+      "n_excluded": 253,
+      "ids_sha256": "c301c711ee6db969f3f6beb01de2ec1ae35a269a7b7e343071dbaf78cdde83a6",
+      "n_games": 192,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "environment_mode": "fixed_shape_environment_association",
+      "scope": "cohort_mean_fixed_model_association_not_individual_not_causal_not_refit_uncertainty",
+      "status": "evaluated",
+      "scientific_evidence": true,
+      "classes": {
+        "ball": {
+          "mean_delta": -0.0019440840369603168,
+          "ci_low": -0.002235086831501768,
+          "ci_high": -0.0016663178340550883
+        },
+        "called_strike": {
+          "mean_delta": 0.001884422469271977,
+          "ci_low": 0.0015999181436082935,
+          "ci_high": 0.002159669748960763
+        },
+        "whiff": {
+          "mean_delta": -0.0007915431790733153,
+          "ci_low": -0.0009529537299870376,
+          "ci_high": -0.0006372982912057103
+        },
+        "foul": {
+          "mean_delta": 0.0004986974357315071,
+          "ci_low": 0.0003807904614260231,
+          "ci_high": 0.0006052907858107459
+        },
+        "in_play": {
+          "mean_delta": 0.00027872696858890784,
+          "ci_low": 0.00011714891696286992,
+          "ci_high": 0.00044594186583079025
+        },
+        "hit_by_pitch": {
+          "mean_delta": 7.378034244123984e-05,
+          "ci_low": 1.6259023246909414e-05,
+          "ci_high": 0.00013701130595521543
+        }
+      },
+      "target_environment": "No Altitude"
+    }
+  ],
+  "test_accessed": false,
+  "environment_mode": "fixed_shape_environment_association"
+}

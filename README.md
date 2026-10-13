@@ -119,7 +119,8 @@ y su [configuración](config/modeling_contract.json). F0 y F1 están implementad
 y verificadas; F2 conserva B1 como referencia histórica. F3 está verificada y promueve
 Pitching sin ambiente en los protocolos temporal y por pitcher. F4 está verificada con
 calibración y contacto en el protocolo temporal. F5 está verificada con historia fija de 2024
-y protocolo C separado; F6–F8 están pendientes.
+y protocolo C separado. F6 está verificada con ablación ambiental y simulación de asociaciones;
+F7–F8 están pendientes.
 Consultar [implementación, decisiones y pruebas de F0](docs/FASE_0_IMPLEMENTACION.md).
 F1 incorpora baselines de eventos B0/B1/B2. No son scores ni xRunValue.
 Verificar cada fase antes de avanzar.
@@ -139,6 +140,8 @@ Para comprobar el contrato sin entrenar modelos: `python scripts/check_modeling_
 .\run_modeling.ps1 f4       # Calibración 2025 y contacto/groundball/chase
 .\run_modeling.ps1 f5-smoke # Arsenal: prueba de cobertura y fallback
 .\run_modeling.ps1 f5       # Protocolo C, referencia fija 2024 y ablación pareada
+.\run_modeling.ps1 f6-smoke # Ambiente: prueba rápida
+.\run_modeling.ps1 f6       # Ablación ambiental A y simulación de asociaciones
 ```
 
 Equivalente con el Python del entorno: `python -m modeling.cli smoke` y
@@ -182,10 +185,21 @@ prevalencia de entrenamiento. Ver [implementación, decisiones y pruebas de F4](
 F5 implementa arsenal con historia fija de 2024 y modelos ajustados en desarrollo 2025.
 Ver [implementación, decisión y pruebas de F5](docs/FASE_5_IMPLEMENTACION.md).
 
+El verificador de F5 exige los hashes de su código original. Para reproducirlo después
+de cambios de interfaz de fases posteriores, usar la revisión F5 (`0a52041`).
+
 ```powershell
 .\.venv\Scripts\python.exe scripts/check_phase5.py f5-full-check
 ```
 
-Los pasos siguientes son ambiente (F6), scores
+F6 compara Pitching con/sin categoría ambiental y conserva la referencia si no alcanza el criterio
+de promoción. Su simulador mantiene la forma física fija; no representa causalidad ni un estadio.
+Ver [implementación, decisión y pruebas de F6](docs/FASE_6_IMPLEMENTACION.md).
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_phase6.py f6-full-check
+```
+
+Los pasos siguientes son scores
 (F7) y entrega con test congelado (F8). Se implementan únicamente cuando se solicitan.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.

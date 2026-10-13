@@ -27,13 +27,16 @@ en `docs/FASE_1_IMPLEMENTACION.md`. **F2 está implementada y verificada** con L
 verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4 está implementada y
 verificada** en protocolo A: temperaturas de eventos y cabezas de contacto, groundball y chase.
 **F5 está implementada y verificada** en protocolo C con referencia fija de 2024;
-**F6–F8 siguen pendientes**;
+**F6 está implementada y verificada** en protocolo A con ablación ambiental;
+**F7–F8 siguen pendientes**;
 no hay scores reales. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
 `docs/FASE_3_IMPLEMENTACION.md`. F3 promueve Location y Pitching en ambos protocolos;
 Pitching pasa a ser la referencia predictiva y Stuff se conserva como diagnóstico.
 El cierre de F4 está en `docs/FASE_4_IMPLEMENTACION.md`: siete cabezas promovidas y dos
 experimentales con fallback de prevalencia. El protocolo B conserva los resultados de F3.
 El cierre de F5 está en `docs/FASE_5_IMPLEMENTACION.md`; decisión C: `retain_reference`. La referencia A se conserva.
+El cierre F6 está en `docs/FASE_6_IMPLEMENTACION.md`; decisión: `retain_reference`.
+El simulador entrega asociaciones con forma fija, soporte e intervalos de promedios de cohorte.
 La preparación de datos sí está implementada.
 `config/modeling_contract.json` contiene los parámetros operativos iniciales. En caso de
 divergencia, detener la fase y reconciliar ambos documentos antes de ejecutarla.
@@ -332,6 +335,17 @@ Si no mejora o no hay muestra, dejarlo como análisis del repertorio y conservar
 mismo protocolo A o C. Reentrenar su control sin ambiente con las mismas filas, calibrar
 en la partición autorizada y comparar. Medir desempeño por categoría, tipo y mano cuando
 hay muestra suficiente. Guardar cobertura y categorías vistas en ajuste.
+
+**Diseño operativo F6:** protocolo A, referencia Pitching aprobada de F3/F4; F5 no
+promovió arsenal. Reentrenar control y ambiente con la misma cohorte, configuración
+de hiperparámetros aprobada y presupuesto de F3. La parada temprana usa solo desarrollo
+2025; temperaturas solo calibración, aceptación conservadora sin aumento de log loss.
+No comparar A/C para seleccionar protocolo. Reportar subgrupos con 200 filas y 20 por
+clase en ajuste y revisión; los insuficientes no tienen métricas inferenciales ni ranking.
+El soporte del simulador combina rangos marginales por categoría en ajuste y al menos
+200 filas por combinación categoría/tipo/manos; no certifica soporte multivariado completo.
+Los intervalos usan solo pitches dentro de ese soporte para origen y destino, con modelos
+fijos y bootstrap por partido. El candidato no promovido sigue etiquetado experimental.
 
 **Simulador inicial:** mantener física, ubicación y arsenal constantes y cambiar únicamente
 la categoría. Etiqueta obligatoria: `fixed_shape_environment_association`. Es una comparación

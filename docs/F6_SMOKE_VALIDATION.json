@@ -1,0 +1,14 @@
+{
+  "experiment": "f6-smoke-check",
+  "status": "verified",
+  "checks_passed": 45,
+  "artifact_hashes_verified": 31,
+  "prediction_rows": 9321,
+  "scenario_rows": 5700,
+  "max_prediction_difference": 0.0,
+  "metrics_reproduced": 6,
+  "subgroups_reproduced": 56,
+  "scenario_intervals_reproduced": 3,
+  "scientific_decision": "inconclusive",
+  "test_accessed": false
+}

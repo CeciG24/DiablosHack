@@ -1,0 +1,14 @@
+{
+  "experiment": "f6-full-check",
+  "status": "verified",
+  "checks_passed": 47,
+  "artifact_hashes_verified": 33,
+  "prediction_rows": 251969,
+  "scenario_rows": 174546,
+  "max_prediction_difference": 0.0,
+  "metrics_reproduced": 6,
+  "subgroups_reproduced": 61,
+  "scenario_intervals_reproduced": 3,
+  "scientific_decision": "retain_reference",
+  "test_accessed": false
+}
