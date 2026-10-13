@@ -28,8 +28,7 @@ verificada**, con Location/Pitching sin ambiente y protocolos A/B. **F4 está im
 verificada** en protocolo A: temperaturas de eventos y cabezas de contacto, groundball y chase.
 **F5 está implementada y verificada** en protocolo C con referencia fija de 2024;
 **F6 está implementada y verificada** en protocolo A con ablación ambiental;
-**F7–F8 siguen pendientes**;
-no hay scores reales. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
+**F7 está implementada y verificada** con índices provisionales de utilidad; **F8 sigue pendiente**. Los cierres están en `docs/FASE_2_IMPLEMENTACION.md` y
 `docs/FASE_3_IMPLEMENTACION.md`. F3 promueve Location y Pitching en ambos protocolos;
 Pitching pasa a ser la referencia predictiva y Stuff se conserva como diagnóstico.
 El cierre de F4 está en `docs/FASE_4_IMPLEMENTACION.md`: siete cabezas promovidas y dos
@@ -37,6 +36,8 @@ experimentales con fallback de prevalencia. El protocolo B conserva los resultad
 El cierre de F5 está en `docs/FASE_5_IMPLEMENTACION.md`; decisión C: `retain_reference`. La referencia A se conserva.
 El cierre F6 está en `docs/FASE_6_IMPLEMENTACION.md`; decisión: `retain_reference`.
 El simulador entrega asociaciones con forma fija, soporte e intervalos de promedios de cohorte.
+El cierre F7 está en `docs/FASE_7_IMPLEMENTACION.md`: S0 provisional para las tres familias,
+S1 experimental separado y referencia común fija de calibración 2025.
 La preparación de datos sí está implementada.
 `config/modeling_contract.json` contiene los parámetros operativos iniciales. En caso de
 divergencia, detener la fase y reconciliar ambos documentos antes de ejecutarla.

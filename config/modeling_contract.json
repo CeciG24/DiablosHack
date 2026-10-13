@@ -181,6 +181,20 @@
     "smoke_target_max_pitches": 20000,
     "smoke_sample_group": "game_anon_id"
   },
+  "F7": {
+    "f6_reference_experiment": "f6-full-check",
+    "protocol_id": "A",
+    "published_score_version": "event_utility_proxy_v1",
+    "experimental_score_version": "event_contact_utility_proxy_v1",
+    "sensitivity_relative_changes": [
+      -0.25,
+      0.25
+    ],
+    "reference_scope": "full_common_eligible_2025_calibration_even_in_smoke",
+    "aggregation": "observed_mix_mean_valid_pitches",
+    "coverage_denominator": "all_2025_pitches_in_selected_games",
+    "contact_requires_promoted_model": true
+  },
   "score": {
     "default_version": "event_utility_proxy_v1",
     "default_weights": {"whiff": 1.0, "called_strike": 1.0, "ball": -0.5, "hit_by_pitch": -1.0, "foul": 0.0, "in_play": 0.0},
@@ -201,7 +215,7 @@
     {"id": "F4", "name": "Calibracion y contacto", "depends_on": ["F3"], "status": "verified"},
     {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "verified"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "verified"},
-    {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "not_started"},
+    {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "verified"},
     {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "not_started"}
   ],
   "external_requirements_unresolved": [

@@ -6,3 +6,4 @@ from tests.modeling.test_families import FamilyTests
 from tests.modeling.test_contact import CalibrationContactTests
 from tests.modeling.test_arsenal import ArsenalTests
 from tests.modeling.test_environment import EnvironmentTests
+from tests.modeling.test_scoring import ScoringTests

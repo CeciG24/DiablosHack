@@ -1,0 +1,22 @@
+{
+  "phase_id": "F7",
+  "status": "verified",
+  "date": "2026-10-12",
+  "unit_tests": {
+    "passed": 111,
+    "new_scoring_tests": 7,
+    "virtual_environment": true,
+    "sandbox_retry_reason": "Windows temporary directory permissions"
+  },
+  "smoke": "f7-smoke-final",
+  "full": "f7-full-check",
+  "internal_checks_per_experiment": 25,
+  "independent_checks": "both verified",
+  "published_score_version": "event_utility_proxy_v1",
+  "reference_n": 59367,
+  "population_n": 256144,
+  "valid_pitches_per_family": 251969,
+  "coverage": 0.9837005746767443,
+  "test_accessed": false,
+  "F8_started": false
+}

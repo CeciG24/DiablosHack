@@ -142,6 +142,8 @@ Para comprobar el contrato sin entrenar modelos: `python scripts/check_modeling_
 .\run_modeling.ps1 f5       # Protocolo C, referencia fija 2024 y ablación pareada
 .\run_modeling.ps1 f6-smoke # Ambiente: prueba rápida
 .\run_modeling.ps1 f6       # Ablación ambiental A y simulación de asociaciones
+.\run_modeling.ps1 f7-smoke # Scores: muestra por partidos y referencia completa fija
+.\run_modeling.ps1 f7       # Stuff+, Location+, Pitching+ y cobertura
 ```
 
 Equivalente con el Python del entorno: `python -m modeling.cli smoke` y
@@ -200,6 +202,16 @@ Ver [implementación, decisión y pruebas de F6](docs/FASE_6_IMPLEMENTACION.md).
 .\.venv\Scripts\python.exe scripts/check_phase6.py f6-full-check
 ```
 
-Los pasos siguientes son scores
-(F7) y entrega con test congelado (F8). Se implementan únicamente cuando se solicitan.
+F7 convierte las probabilidades aprobadas en Stuff+, Location+ y Pitching+ provisionales,
+con referencia común de calibración 2025 y cobertura por pitcher/tipo. Ver
+[implementación y pruebas de F7](docs/FASE_7_IMPLEMENTACION.md).
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_phase7.py f7-full-check
+```
+
+El verificador histórico de F6 requiere su revisión original (`00e3410`), porque comprueba
+los hashes del código de esa fase. F7 verifica la integridad de sus artefactos como dependencias.
+
+El siguiente paso es la entrega con test congelado (F8), únicamente cuando se solicite.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.
