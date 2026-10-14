@@ -1,0 +1,346 @@
+{
+  "metrics": [
+    {
+      "model": "stuff",
+      "n_pitches": 130053,
+      "multiclass_log_loss": 1.536157240564221,
+      "multiclass_brier_sum_over_classes": 0.7631658244814885,
+      "excluded": 0
+    },
+    {
+      "model": "location",
+      "n_pitches": 130053,
+      "multiclass_log_loss": 1.038811651134026,
+      "multiclass_brier_sum_over_classes": 0.5395530648571559,
+      "excluded": 0
+    },
+    {
+      "model": "pitching",
+      "n_pitches": 130053,
+      "multiclass_log_loss": 1.0234593960611513,
+      "multiclass_brier_sum_over_classes": 0.5328000889619783,
+      "excluded": 0
+    },
+    {
+      "model": "B1",
+      "n_pitches": 130053,
+      "multiclass_log_loss": 1.4868551169194975,
+      "multiclass_brier_sum_over_classes": 0.7447927385087744,
+      "excluded": 0
+    },
+    {
+      "model": "environment",
+      "n_pitches": 130053,
+      "multiclass_log_loss": 1.0234170795388084,
+      "multiclass_brier_sum_over_classes": 0.5328215324088157,
+      "excluded": 0
+    }
+  ],
+  "comparisons": [
+    {
+      "reference": "B1",
+      "candidate": "stuff",
+      "n_pitches": 130053,
+      "n_games": 447,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": 0.049302123644723424,
+      "relative_log_loss_reduction": -0.03315866023777001,
+      "ci_low": 0.04698168707104392,
+      "ci_high": 0.05150536211705162,
+      "decision": "report_only_no_selection",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    },
+    {
+      "reference": "B1",
+      "candidate": "location",
+      "n_pitches": 130053,
+      "n_games": 447,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -0.4480434657854716,
+      "relative_log_loss_reduction": 0.3013363310836492,
+      "ci_low": -0.45255708938267264,
+      "ci_high": -0.443951913062651,
+      "decision": "report_only_no_selection",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    },
+    {
+      "reference": "B1",
+      "candidate": "pitching",
+      "n_pitches": 130053,
+      "n_games": 447,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -0.46339572085834607,
+      "relative_log_loss_reduction": 0.3116616512161727,
+      "ci_low": -0.46777429600777776,
+      "ci_high": -0.45913404104660904,
+      "decision": "report_only_no_selection",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    },
+    {
+      "reference": "location",
+      "candidate": "pitching",
+      "n_pitches": 130053,
+      "n_games": 447,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -0.015352255072874486,
+      "relative_log_loss_reduction": 0.014778670470354362,
+      "ci_low": -0.0167591531280167,
+      "ci_high": -0.014082821206271925,
+      "decision": "report_only_no_selection",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    },
+    {
+      "reference": "pitching",
+      "candidate": "environment",
+      "n_pitches": 130053,
+      "n_games": 447,
+      "resamples": 500,
+      "seed": 20260929,
+      "confidence": 0.95,
+      "delta_candidate_minus_reference": -4.231652234311526e-05,
+      "relative_log_loss_reduction": 4.1346557084700276e-05,
+      "ci_low": -0.0004104337524897408,
+      "ci_high": 0.00028859668664942337,
+      "decision": "report_only_no_selection",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss"
+    }
+  ],
+  "auxiliary": [
+    {
+      "family": "stuff",
+      "head": "contact",
+      "n_valid": 23219,
+      "n_missing": 106834,
+      "metrics": {
+        "n_pitches": 23219,
+        "multiclass_log_loss": 1.0506207343387748,
+        "multiclass_brier_sum_over_classes": 0.6323741591270022,
+        "binary_weak": {
+          "brier": 0.18683608039167007,
+          "log_loss": 0.5608755388612915,
+          "pr_auc_average_precision": 0.24867565355958482
+        },
+        "binary_medium": {
+          "brier": 0.25186656632471016,
+          "log_loss": 0.6968893300600496,
+          "pr_auc_average_precision": 0.49265687583444595
+        },
+        "binary_hard": {
+          "brier": 0.19367151241062197,
+          "log_loss": 0.5770756917709778,
+          "pr_auc_average_precision": 0.25866747060596923
+        }
+      },
+      "route": "smoothed_training_prevalence",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "stuff",
+      "head": "groundball",
+      "n_valid": 23437,
+      "n_missing": 106616,
+      "metrics": {
+        "n_pitches": 23437,
+        "multiclass_log_loss": 0.6716731753656229,
+        "multiclass_brier_sum_over_classes": 0.4789369606443642,
+        "binary_not_groundball": {
+          "brier": 0.2394684803221821,
+          "log_loss": 0.6716731753656229,
+          "pr_auc_average_precision": 0.629492837408399
+        },
+        "binary_groundball": {
+          "brier": 0.2394684803221821,
+          "log_loss": 0.6716731753656229,
+          "pr_auc_average_precision": 0.5821932044408061
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "stuff",
+      "head": "chase",
+      "n_valid": 85060,
+      "n_missing": 44993,
+      "metrics": {
+        "n_pitches": 85060,
+        "multiclass_log_loss": 0.6429525288177214,
+        "multiclass_brier_sum_over_classes": 0.4506413558397207,
+        "binary_take": {
+          "brier": 0.22532067791986035,
+          "log_loss": 0.6429525288177214,
+          "pr_auc_average_precision": 0.6573359981189748
+        },
+        "binary_swing": {
+          "brier": 0.22532067791986038,
+          "log_loss": 0.6429525288177214,
+          "pr_auc_average_precision": 0.34266400188102514
+        }
+      },
+      "route": "smoothed_training_prevalence",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "location",
+      "head": "contact",
+      "n_valid": 23219,
+      "n_missing": 106834,
+      "metrics": {
+        "n_pitches": 23219,
+        "multiclass_log_loss": 0.9718021391991861,
+        "multiclass_brier_sum_over_classes": 0.5884727599906594,
+        "binary_weak": {
+          "brier": 0.16274446572656465,
+          "log_loss": 0.5009593689836964,
+          "pr_auc_average_precision": 0.49052363984464875
+        },
+        "binary_medium": {
+          "brier": 0.24491796391337922,
+          "log_loss": 0.6826402382315926,
+          "pr_auc_average_precision": 0.5573679928700401
+        },
+        "binary_hard": {
+          "brier": 0.18081033035071567,
+          "log_loss": 0.5387445585707094,
+          "pr_auc_average_precision": 0.37590862444198325
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "location",
+      "head": "groundball",
+      "n_valid": 23437,
+      "n_missing": 106616,
+      "metrics": {
+        "n_pitches": 23437,
+        "multiclass_log_loss": 0.66798720905697,
+        "multiclass_brier_sum_over_classes": 0.47533594890134606,
+        "binary_not_groundball": {
+          "brier": 0.23766797445067303,
+          "log_loss": 0.66798720905697,
+          "pr_auc_average_precision": 0.6418912482862937
+        },
+        "binary_groundball": {
+          "brier": 0.23766797445067303,
+          "log_loss": 0.66798720905697,
+          "pr_auc_average_precision": 0.5961257101754742
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "location",
+      "head": "chase",
+      "n_valid": 85060,
+      "n_missing": 44993,
+      "metrics": {
+        "n_pitches": 85060,
+        "multiclass_log_loss": 0.46527204934107047,
+        "multiclass_brier_sum_over_classes": 0.3077719937729563,
+        "binary_take": {
+          "brier": 0.15388599688647814,
+          "log_loss": 0.46527204934107047,
+          "pr_auc_average_precision": 0.9072974267398686
+        },
+        "binary_swing": {
+          "brier": 0.15388599688647814,
+          "log_loss": 0.46527204934107047,
+          "pr_auc_average_precision": 0.7248721146552122
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "pitching",
+      "head": "contact",
+      "n_valid": 23219,
+      "n_missing": 106834,
+      "metrics": {
+        "n_pitches": 23219,
+        "multiclass_log_loss": 0.9726624695571116,
+        "multiclass_brier_sum_over_classes": 0.5886576246989166,
+        "binary_weak": {
+          "brier": 0.16290212935089982,
+          "log_loss": 0.5014623339582089,
+          "pr_auc_average_precision": 0.48959147398411407
+        },
+        "binary_medium": {
+          "brier": 0.24486745431446208,
+          "log_loss": 0.6825985549190428,
+          "pr_auc_average_precision": 0.5603429931265249
+        },
+        "binary_hard": {
+          "brier": 0.18088804103355477,
+          "log_loss": 0.539300115440351,
+          "pr_auc_average_precision": 0.3766582700920157
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "pitching",
+      "head": "groundball",
+      "n_valid": 23437,
+      "n_missing": 106616,
+      "metrics": {
+        "n_pitches": 23437,
+        "multiclass_log_loss": 0.652544347382223,
+        "multiclass_brier_sum_over_classes": 0.4607755130635295,
+        "binary_not_groundball": {
+          "brier": 0.23038775653176474,
+          "log_loss": 0.652544347382223,
+          "pr_auc_average_precision": 0.6708684292263021
+        },
+        "binary_groundball": {
+          "brier": 0.23038775653176474,
+          "log_loss": 0.652544347382223,
+          "pr_auc_average_precision": 0.6311071353711026
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    },
+    {
+      "family": "pitching",
+      "head": "chase",
+      "n_valid": 85060,
+      "n_missing": 44993,
+      "metrics": {
+        "n_pitches": 85060,
+        "multiclass_log_loss": 0.45353653885655637,
+        "multiclass_brier_sum_over_classes": 0.2990230354255813,
+        "binary_take": {
+          "brier": 0.14951151771279064,
+          "log_loss": 0.45353653885655637,
+          "pr_auc_average_precision": 0.9134386683321769
+        },
+        "binary_swing": {
+          "brier": 0.14951151771279064,
+          "log_loss": 0.45353653885655637,
+          "pr_auc_average_precision": 0.7403958360386692
+        }
+      },
+      "route": "model",
+      "semantics": "conditional_not_run_value"
+    }
+  ],
+  "selection_on_test": false
+}

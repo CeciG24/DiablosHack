@@ -181,6 +181,34 @@
     "smoke_target_max_pitches": 20000,
     "smoke_sample_group": "game_anon_id"
   },
+  "F8": {
+    "f7_reference_experiment": "f7-full-check",
+    "comparisons": [
+      [
+        "B1",
+        "stuff"
+      ],
+      [
+        "B1",
+        "location"
+      ],
+      [
+        "B1",
+        "pitching"
+      ],
+      [
+        "location",
+        "pitching"
+      ],
+      [
+        "pitching",
+        "environment"
+      ]
+    ],
+    "selection_on_test": false,
+    "scouting_selection": "three_largest_common_pitch_counts_tie_ID_no_outcomes",
+    "score_version": "event_utility_proxy_v1"
+  },
   "F7": {
     "f6_reference_experiment": "f6-full-check",
     "protocol_id": "A",
@@ -216,7 +244,7 @@
     {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "verified"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "verified"},
     {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "verified"},
-    {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "not_started"}
+    {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "verified"}
   ],
   "external_requirements_unresolved": [
     "stadium_mapping_and_harp_flag",

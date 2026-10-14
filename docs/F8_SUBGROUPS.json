@@ -1,0 +1,457 @@
+[
+  {
+    "model": "stuff",
+    "group": "unseen_training",
+    "value": "False",
+    "n_total": 54762,
+    "n_valid": 54762,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 54762,
+      "multiclass_log_loss": 1.5355465272620414,
+      "multiclass_brier_sum_over_classes": 0.7635041789350073
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "unseen_training",
+    "value": "True",
+    "n_total": 75291,
+    "n_valid": 75291,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 75291,
+      "multiclass_log_loss": 1.5366014355125408,
+      "multiclass_brier_sum_over_classes": 0.7629197264540537
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "unseen_development",
+    "value": "False",
+    "n_total": 88395,
+    "n_valid": 88395,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 88395,
+      "multiclass_log_loss": 1.535192877551029,
+      "multiclass_brier_sum_over_classes": 0.7631149679507495
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "unseen_development",
+    "value": "True",
+    "n_total": 41658,
+    "n_valid": 41658,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 41658,
+      "multiclass_log_loss": 1.5382035430403624,
+      "multiclass_brier_sum_over_classes": 0.7632737380403407
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "altitude_category",
+    "value": "Extreme Altitude",
+    "n_total": 42631,
+    "n_valid": 42631,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 42631,
+      "multiclass_log_loss": 1.5216352491876783,
+      "multiclass_brier_sum_over_classes": 0.7566360193409539
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "altitude_category",
+    "value": "Medium Altitude",
+    "n_total": 27044,
+    "n_valid": 27044,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 27044,
+      "multiclass_log_loss": 1.5348123286959638,
+      "multiclass_brier_sum_over_classes": 0.7619796867521237
+    }
+  },
+  {
+    "model": "stuff",
+    "group": "altitude_category",
+    "value": "No Altitude",
+    "n_total": 60378,
+    "n_valid": 60378,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 60378,
+      "multiclass_log_loss": 1.5470131617762273,
+      "multiclass_brier_sum_over_classes": 0.7683075985001556
+    }
+  },
+  {
+    "model": "location",
+    "group": "unseen_training",
+    "value": "False",
+    "n_total": 54762,
+    "n_valid": 54762,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 54762,
+      "multiclass_log_loss": 1.0453557577251884,
+      "multiclass_brier_sum_over_classes": 0.5429433708229219
+    }
+  },
+  {
+    "model": "location",
+    "group": "unseen_training",
+    "value": "True",
+    "n_total": 75291,
+    "n_valid": 75291,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 75291,
+      "multiclass_log_loss": 1.034051874199927,
+      "multiclass_brier_sum_over_classes": 0.5370871667378949
+    }
+  },
+  {
+    "model": "location",
+    "group": "unseen_development",
+    "value": "False",
+    "n_total": 88395,
+    "n_valid": 88395,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 88395,
+      "multiclass_log_loss": 1.0412915475966371,
+      "multiclass_brier_sum_over_classes": 0.5409027697572968
+    }
+  },
+  {
+    "model": "location",
+    "group": "unseen_development",
+    "value": "True",
+    "n_total": 41658,
+    "n_valid": 41658,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 41658,
+      "multiclass_log_loss": 1.0335495058603088,
+      "multiclass_brier_sum_over_classes": 0.5366890972003323
+    }
+  },
+  {
+    "model": "location",
+    "group": "altitude_category",
+    "value": "Extreme Altitude",
+    "n_total": 42631,
+    "n_valid": 42631,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 42631,
+      "multiclass_log_loss": 1.022972596813717,
+      "multiclass_brier_sum_over_classes": 0.5297402194474127
+    }
+  },
+  {
+    "model": "location",
+    "group": "altitude_category",
+    "value": "Medium Altitude",
+    "n_total": 27044,
+    "n_valid": 27044,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 27044,
+      "multiclass_log_loss": 1.0256029540091725,
+      "multiclass_brier_sum_over_classes": 0.5343027423864769
+    }
+  },
+  {
+    "model": "location",
+    "group": "altitude_category",
+    "value": "No Altitude",
+    "n_total": 60378,
+    "n_valid": 60378,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 60378,
+      "multiclass_log_loss": 1.0559114346607015,
+      "multiclass_brier_sum_over_classes": 0.548833285029401
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "unseen_training",
+    "value": "False",
+    "n_total": 54762,
+    "n_valid": 54762,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 54762,
+      "multiclass_log_loss": 1.0306925759879262,
+      "multiclass_brier_sum_over_classes": 0.5364821566218978
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "unseen_training",
+    "value": "True",
+    "n_total": 75291,
+    "n_valid": 75291,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 75291,
+      "multiclass_log_loss": 1.0181984299543119,
+      "multiclass_brier_sum_over_classes": 0.530121981496378
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "unseen_development",
+    "value": "False",
+    "n_total": 88395,
+    "n_valid": 88395,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 88395,
+      "multiclass_log_loss": 1.02635601644865,
+      "multiclass_brier_sum_over_classes": 0.5344124057583935
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "unseen_development",
+    "value": "True",
+    "n_total": 41658,
+    "n_valid": 41658,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 41658,
+      "multiclass_log_loss": 1.0173129953901416,
+      "multiclass_brier_sum_over_classes": 0.5293788795131541
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "altitude_category",
+    "value": "Extreme Altitude",
+    "n_total": 42631,
+    "n_valid": 42631,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 42631,
+      "multiclass_log_loss": 1.0101504794698746,
+      "multiclass_brier_sum_over_classes": 0.5239361357895
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "altitude_category",
+    "value": "Medium Altitude",
+    "n_total": 27044,
+    "n_valid": 27044,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 27044,
+      "multiclass_log_loss": 1.0116980224698706,
+      "multiclass_brier_sum_over_classes": 0.5280044421546333
+    }
+  },
+  {
+    "model": "pitching",
+    "group": "altitude_category",
+    "value": "No Altitude",
+    "n_total": 60378,
+    "n_valid": 60378,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 60378,
+      "multiclass_log_loss": 1.0381244563580363,
+      "multiclass_brier_sum_over_classes": 0.5412066718225196
+    }
+  },
+  {
+    "model": "B1",
+    "group": "unseen_training",
+    "value": "False",
+    "n_total": 54762,
+    "n_valid": 54762,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 54762,
+      "multiclass_log_loss": 1.4865320480383053,
+      "multiclass_brier_sum_over_classes": 0.7448350464704563
+    }
+  },
+  {
+    "model": "B1",
+    "group": "unseen_training",
+    "value": "True",
+    "n_total": 75291,
+    "n_valid": 75291,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 75291,
+      "multiclass_log_loss": 1.487090097170415,
+      "multiclass_brier_sum_over_classes": 0.7447619663235514
+    }
+  },
+  {
+    "model": "B1",
+    "group": "unseen_development",
+    "value": "False",
+    "n_total": 88395,
+    "n_valid": 88395,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 88395,
+      "multiclass_log_loss": 1.4862796295902407,
+      "multiclass_brier_sum_over_classes": 0.7445636550415481
+    }
+  },
+  {
+    "model": "B1",
+    "group": "unseen_development",
+    "value": "True",
+    "n_total": 41658,
+    "n_valid": 41658,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 41658,
+      "multiclass_log_loss": 1.4880762557756508,
+      "multiclass_brier_sum_over_classes": 0.7452788356110229
+    }
+  },
+  {
+    "model": "B1",
+    "group": "altitude_category",
+    "value": "Extreme Altitude",
+    "n_total": 42631,
+    "n_valid": 42631,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 42631,
+      "multiclass_log_loss": 1.4713800118696927,
+      "multiclass_brier_sum_over_classes": 0.7384465983638815
+    }
+  },
+  {
+    "model": "B1",
+    "group": "altitude_category",
+    "value": "Medium Altitude",
+    "n_total": 27044,
+    "n_valid": 27044,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 27044,
+      "multiclass_log_loss": 1.487450273779065,
+      "multiclass_brier_sum_over_classes": 0.7441940053269581
+    }
+  },
+  {
+    "model": "B1",
+    "group": "altitude_category",
+    "value": "No Altitude",
+    "n_total": 60378,
+    "n_valid": 60378,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 60378,
+      "multiclass_log_loss": 1.497515022535253,
+      "multiclass_brier_sum_over_classes": 0.7495417272246305
+    }
+  },
+  {
+    "model": "environment",
+    "group": "unseen_training",
+    "value": "False",
+    "n_total": 54762,
+    "n_valid": 54762,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 54762,
+      "multiclass_log_loss": 1.0304827246819235,
+      "multiclass_brier_sum_over_classes": 0.5364415438174416
+    }
+  },
+  {
+    "model": "environment",
+    "group": "unseen_training",
+    "value": "True",
+    "n_total": 75291,
+    "n_valid": 75291,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 75291,
+      "multiclass_log_loss": 1.018277967834524,
+      "multiclass_brier_sum_over_classes": 0.5301885608085025
+    }
+  },
+  {
+    "model": "environment",
+    "group": "unseen_development",
+    "value": "False",
+    "n_total": 88395,
+    "n_valid": 88395,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 88395,
+      "multiclass_log_loss": 1.0263457345595077,
+      "multiclass_brier_sum_over_classes": 0.5344205742054501
+    }
+  },
+  {
+    "model": "environment",
+    "group": "unseen_development",
+    "value": "True",
+    "n_total": 41658,
+    "n_valid": 41658,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 41658,
+      "multiclass_log_loss": 1.0172027038953613,
+      "multiclass_brier_sum_over_classes": 0.5294284914655756
+    }
+  },
+  {
+    "model": "environment",
+    "group": "altitude_category",
+    "value": "Extreme Altitude",
+    "n_total": 42631,
+    "n_valid": 42631,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 42631,
+      "multiclass_log_loss": 1.0096470680321028,
+      "multiclass_brier_sum_over_classes": 0.5236872060757733
+    }
+  },
+  {
+    "model": "environment",
+    "group": "altitude_category",
+    "value": "Medium Altitude",
+    "n_total": 27044,
+    "n_valid": 27044,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 27044,
+      "multiclass_log_loss": 1.0129047678389675,
+      "multiclass_brier_sum_over_classes": 0.5286624095303799
+    }
+  },
+  {
+    "model": "environment",
+    "group": "altitude_category",
+    "value": "No Altitude",
+    "n_total": 60378,
+    "n_valid": 60378,
+    "status": "descriptive_sufficient",
+    "metrics": {
+      "n_pitches": 60378,
+      "multiclass_log_loss": 1.0378482352271858,
+      "multiclass_brier_sum_over_classes": 0.5411339108418267
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "stuff_2025_probability_reproduction": true,
+  "stuff_reload_exact": true,
+  "stuff_batch_invariance": true,
+  "location_2025_probability_reproduction": true,
+  "location_reload_exact": true,
+  "location_batch_invariance": true,
+  "pitching_2025_probability_reproduction": true,
+  "pitching_reload_exact": true,
+  "pitching_batch_invariance": true,
+  "mixed_preserves_rows_and_duplicate_ids": true,
+  "invalid_rows_null": true,
+  "unseen_category_warned": true,
+  "unseen_pitcher_base": true,
+  "unknown_environment_base_ignored": true,
+  "unknown_environment_simulator_rejected": true,
+  "unsupported_model": true,
+  "no_outcomes_required": true,
+  "empty_batch": true
+}

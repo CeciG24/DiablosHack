@@ -1,0 +1,44 @@
+{
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "machine": "AMD64"
+  },
+  "threads": 4,
+  "scope": "warm_local_batch_including_auxiliary_heads_no_network_no_load",
+  "results": [
+    {
+      "family": "stuff",
+      "batch_size": 1000,
+      "repetitions": 3,
+      "warm_seconds": [
+        0.07932659998186864,
+        0.07480129998293705,
+        0.07314940000651404
+      ],
+      "median_seconds": 0.07480129998293705
+    },
+    {
+      "family": "location",
+      "batch_size": 1000,
+      "repetitions": 3,
+      "warm_seconds": [
+        0.11867729999357834,
+        0.12839310002163984,
+        0.13097950001247227
+      ],
+      "median_seconds": 0.12839310002163984
+    },
+    {
+      "family": "pitching",
+      "batch_size": 1000,
+      "repetitions": 3,
+      "warm_seconds": [
+        0.1467277999909129,
+        0.151010600005975,
+        0.15312099998118356
+      ],
+      "median_seconds": 0.151010600005975
+    }
+  ]
+}

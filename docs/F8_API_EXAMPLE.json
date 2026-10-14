@@ -1,0 +1,28 @@
+{
+  "family": "pitching",
+  "records": [
+    {
+      "auto_pitch_type": "Slider",
+      "pitcher_throws": "Left",
+      "rel_speed": 82.6624,
+      "spin_rate": 2373.512751,
+      "spin_axis_sin": -0.8963545731216446,
+      "spin_axis_cos": -0.4433378838356975,
+      "rel_height": 5.58744,
+      "rel_side": -2.79148,
+      "extension": 7.28241,
+      "induced_vert_break": 3.51374,
+      "horz_break": 4.96906,
+      "plate_loc_height": 2.83218,
+      "plate_loc_side": 0.07555,
+      "balls": 0,
+      "strikes": 1,
+      "batter_side": "Left",
+      "request_id": "ejemplo_2025_valido"
+    },
+    {
+      "request_id": "ejemplo_invalido",
+      "rel_speed": null
+    }
+  ]
+}

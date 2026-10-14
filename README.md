@@ -213,5 +213,16 @@ con referencia común de calibración 2025 y cobertura por pitcher/tipo. Ver
 El verificador histórico de F6 requiere su revisión original (`00e3410`), porque comprueba
 los hashes del código de esa fase. F7 verifica la integridad de sus artefactos como dependencias.
 
-El siguiente paso es la entrega con test congelado (F8), únicamente cuando se solicite.
+F8 está implementada: release congelado, evaluación final de 2026, API local, ficha del
+modelo y contribución técnica de diez páginas. Ver [implementación y pruebas de F8](docs/FASE_8_IMPLEMENTACION.md).
+2026 ya está expuesto; ninguna comparación del test cambió la política.
+
+```powershell
+.\run_release.ps1 smoke
+.\run_release.ps1 serve
+.\.venv\Scripts\python.exe scripts/check_phase8.py artifacts/modeling/releases/f8-release-20261013
+```
+
+El cierre F7 corresponde a la revisión `fd394e8`; sus artefactos se conservaron intactos.
+El release F8 exige mantener el código de modelado congelado para verificar sus hashes.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.

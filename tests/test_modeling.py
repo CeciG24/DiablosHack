@@ -7,3 +7,4 @@ from tests.modeling.test_contact import CalibrationContactTests
 from tests.modeling.test_arsenal import ArsenalTests
 from tests.modeling.test_environment import EnvironmentTests
 from tests.modeling.test_scoring import ScoringTests
+from tests.modeling.test_release import ReleaseTests

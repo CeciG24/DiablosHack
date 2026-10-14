@@ -1,0 +1,61 @@
+{
+  "phase_id": "F8",
+  "status": "verified",
+  "date": "2026-10-13",
+  "release_id": "4df11fbf516455a6c90c45bea2f780a3e2441a64f1c6f15a6e637c84c619ef64",
+  "release_lock_sha256": "274c9b7a0afe3525ede584160465c098b2f5d001048e8a1806aa2d5d0fdb2ac0",
+  "evaluation_manifest": {
+    "status": "verified",
+    "release_id": "4df11fbf516455a6c90c45bea2f780a3e2441a64f1c6f15a6e637c84c619ef64",
+    "test_accessed": true,
+    "reproduction": false,
+    "n_total": 135604,
+    "n_common": 130053,
+    "common_ids_sha256": "13ddabfd516d27fa2d8c2ec50255e676e123ca69908a51dca80a77869e74b962",
+    "elapsed_seconds": 81.23162299999967,
+    "checks": {
+      "release_unchanged": true,
+      "no_model_selection": true,
+      "only_2026": true,
+      "all_rows_preserved": true,
+      "common_probabilities_finite": true,
+      "no_infinite_scores": true,
+      "three_scouting_cases": true
+    },
+    "artifact_hashes": {
+      "calibration.json": "f4675a0a18911b0ebee46329d0f4dd9f58215454d0bbc5f71e2414139362f7d1",
+      "coverage.json": "6f6f0157abfffba6aed304b53c520006716be34064dc34384d5f231f8bd6605e",
+      "environment_diagnostic.parquet": "86b00d5af397bfead647c04b5e870213c7893b15698b64ab80f1e4224a471bed",
+      "evaluation_cohort.parquet": "48de8e5145b24dbc94170b691881f5560fa15e60297937091056d520644bba9d",
+      "location_inference.parquet": "a0f7a4536cc862ba020ef411d34ec82fd9b01024d7dbcd0ff0db78d209b374b4",
+      "metrics.json": "866a2ee365196f13cfa38cae0771d45b5e3fa8bd44cfc758a75b190ad08e9d9e",
+      "pitcher_aggregates.parquet": "064f22d11537c1033553f8004a107a14441632283f0f989b989a4d52ce58c8bc",
+      "pitcher_type_aggregates.parquet": "568769170af90c42c7f225072d226cd0721a32b4b13354133e9e584c17fcdfa3",
+      "pitching_inference.parquet": "92458449babe8f60d4f38f5852c6fda582c3099eb2c501131468704ea61f7aa7",
+      "population.parquet": "7ba4ce34b1095175c9cb4209284d868d6abe5aadef6aca81ff40a2bd16a6a2eb",
+      "scores.parquet": "50aff8cb1c8a07c9d067df43bdda08ef51177ba6e8e06e41ad73e73cb5b7b63c",
+      "scouting_cases.json": "3645967da095d39a8067c8787959aa3442b33a5181f1f1a7b87aa0311d013969",
+      "stuff_inference.parquet": "e0461588236320109fd80b61685e53693e778d688fd1285bf4cddd3b69f151fa",
+      "subgroups.json": "ad385d6cd1e2befb90b84a6affde134a131246c8b677570a1f9e69e371a3bb28"
+    }
+  },
+  "unit_tests_passed": 118,
+  "pretest_checks_passed": 18,
+  "independent_verification": {
+    "status": "verified",
+    "global_metrics": 5,
+    "paired_comparisons": 5,
+    "prediction_reload_sample_per_family": 1000,
+    "scouting_cases": 3,
+    "dataset_reopened": false
+  },
+  "http_roundtrip": "verified",
+  "api_file_example": "verified",
+  "pdf_pages": 10,
+  "pdf_visual_review": "all ten pages inspected; rubric update 2026-10-14",
+  "test_exposed": true,
+  "policy_changed_on_test": false,
+  "all_python_executed_in_venv": true,
+  "report_updated": "2026-10-14",
+  "pdf_sha256": "acf48be096ae4114ae04fc01212b5183c9687e0d097f773268cd337e9a04887c"
+}
