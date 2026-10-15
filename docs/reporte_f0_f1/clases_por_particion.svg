@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="480" viewBox="0 0 860 480">
+<rect width="860" height="480" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Distribución de clases (y_event) por partición</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Porcentaje apilado · mismo cohorte común F0 en las tres familias</text>
+<rect x="170" y="76" width="12" height="12" fill="#16a34a"/>
+<text x="187" y="87" font-size="11" fill="#0f172a" text-anchor="start">ball</text>
+<rect x="275" y="76" width="12" height="12" fill="#2563eb"/>
+<text x="292" y="87" font-size="11" fill="#0f172a" text-anchor="start">called strike</text>
+<rect x="380" y="76" width="12" height="12" fill="#7c3aed"/>
+<text x="397" y="87" font-size="11" fill="#0f172a" text-anchor="start">whiff</text>
+<rect x="485" y="76" width="12" height="12" fill="#d97706"/>
+<text x="502" y="87" font-size="11" fill="#0f172a" text-anchor="start">foul</text>
+<rect x="590" y="76" width="12" height="12" fill="#dc2626"/>
+<text x="607" y="87" font-size="11" fill="#0f172a" text-anchor="start">in play</text>
+<rect x="695" y="76" width="12" height="12" fill="#64748b"/>
+<text x="712" y="87" font-size="11" fill="#0f172a" text-anchor="start">HBP</text>
+<text x="158" y="146" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">train 2024</text>
+<text x="158" y="162" font-size="10" fill="#475569" text-anchor="end">239,709 pitches</text>
+<text x="158" y="176" font-size="10" fill="#475569" text-anchor="end">833 juegos</text>
+<rect x="170.0" y="120" width="225.3" height="34" fill="#16a34a"/>
+<text x="282.6368638641019" y="141" font-size="10" fill="white" text-anchor="middle">36.3%</text>
+<rect x="395.3" y="120" width="96.4" height="34" fill="#2563eb"/>
+<text x="443.4635328669345" y="141" font-size="10" fill="white" text-anchor="middle">15.5%</text>
+<rect x="491.7" y="120" width="72.2" height="34" fill="#7c3aed"/>
+<text x="527.7345865194882" y="141" font-size="10" fill="white" text-anchor="middle">11.6%</text>
+<rect x="563.8" y="120" width="108.9" height="34" fill="#d97706"/>
+<text x="618.2571367783438" y="141" font-size="10" fill="white" text-anchor="middle">17.6%</text>
+<rect x="672.7" y="120" width="115.2" height="34" fill="#dc2626"/>
+<text x="730.2887667964073" y="141" font-size="10" fill="white" text-anchor="middle">18.6%</text>
+<rect x="787.9" y="120" width="2.1" height="34" fill="#64748b"/>
+<text x="158" y="226" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">development 2025</text>
+<text x="158" y="242" font-size="10" fill="#475569" text-anchor="end">134,420 pitches</text>
+<text x="158" y="256" font-size="10" fill="#475569" text-anchor="end">447 juegos</text>
+<rect x="170.0" y="200" width="232.9" height="34" fill="#16a34a"/>
+<text x="286.43564945692606" y="221" font-size="10" fill="white" text-anchor="middle">37.6%</text>
+<rect x="402.9" y="200" width="93.9" height="34" fill="#2563eb"/>
+<text x="449.81870257402176" y="221" font-size="10" fill="white" text-anchor="middle">15.1%</text>
+<rect x="496.8" y="200" width="68.3" height="34" fill="#7c3aed"/>
+<text x="530.9117690819819" y="221" font-size="10" fill="white" text-anchor="middle">11.0%</text>
+<rect x="565.1" y="200" width="107.4" height="34" fill="#d97706"/>
+<text x="618.7804642166344" y="221" font-size="10" fill="white" text-anchor="middle">17.3%</text>
+<rect x="672.5" y="200" width="115.3" height="34" fill="#dc2626"/>
+<text x="730.1609135545305" y="221" font-size="10" fill="white" text-anchor="middle">18.6%</text>
+<rect x="787.8" y="200" width="2.2" height="34" fill="#64748b"/>
+<text x="158" y="306" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">calibration 2025</text>
+<text x="158" y="322" font-size="10" fill="#475569" text-anchor="end">59,367 pitches</text>
+<text x="158" y="336" font-size="10" fill="#475569" text-anchor="end">197 juegos</text>
+<rect x="170.0" y="280" width="237.2" height="34" fill="#16a34a"/>
+<text x="288.61741371469" y="301" font-size="10" fill="white" text-anchor="middle">38.3%</text>
+<rect x="407.2" y="280" width="91.9" height="34" fill="#2563eb"/>
+<text x="453.1706166725622" y="301" font-size="10" fill="white" text-anchor="middle">14.8%</text>
+<rect x="499.1" y="280" width="70.1" height="34" fill="#7c3aed"/>
+<text x="534.1652770057439" y="301" font-size="10" fill="white" text-anchor="middle">11.3%</text>
+<rect x="569.2" y="280" width="105.2" height="34" fill="#d97706"/>
+<text x="621.8072329745481" y="301" font-size="10" fill="white" text-anchor="middle">17.0%</text>
+<rect x="674.4" y="280" width="113.5" height="34" fill="#dc2626"/>
+<text x="731.135142419189" y="301" font-size="10" fill="white" text-anchor="middle">18.3%</text>
+<rect x="787.9" y="280" width="2.1" height="34" fill="#64748b"/>
+<text x="158" y="386" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">phase review 2025</text>
+<text x="158" y="402" font-size="10" fill="#475569" text-anchor="end">58,182 pitches</text>
+<text x="158" y="416" font-size="10" fill="#475569" text-anchor="end">192 juegos</text>
+<rect x="170.0" y="360" width="234.9" height="34" fill="#16a34a"/>
+<text x="287.4368361348871" y="381" font-size="10" fill="white" text-anchor="middle">37.9%</text>
+<rect x="404.9" y="360" width="93.4" height="34" fill="#2563eb"/>
+<text x="451.595854387955" y="381" font-size="10" fill="white" text-anchor="middle">15.1%</text>
+<rect x="498.3" y="360" width="68.5" height="34" fill="#7c3aed"/>
+<text x="532.5884294111581" y="381" font-size="10" fill="white" text-anchor="middle">11.1%</text>
+<rect x="566.9" y="360" width="107.2" height="34" fill="#d97706"/>
+<text x="620.4489360970747" y="381" font-size="10" fill="white" text-anchor="middle">17.3%</text>
+<rect x="674.0" y="360" width="113.8" height="34" fill="#dc2626"/>
+<text x="730.9539032690524" y="381" font-size="10" fill="white" text-anchor="middle">18.4%</text>
+<rect x="787.9" y="360" width="2.1" height="34" fill="#64748b"/>
+<text x="170" y="448" font-size="11" fill="#475569" text-anchor="start">hit_by_pitch ≈ 0.3–0.4% (segmento estrecho gris al final de cada barra).</text>
+</g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="434" viewBox="0 0 800 434">
+<rect width="800" height="434" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Mejora vs prevalencia por cabeza · phase_review 2025</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Reducción relativa de log loss (%) · mayor es mejor · refB evaluado con referencia del año previo</text>
+<path d="M 190.0 90 V 380" stroke="#e2e8f0"/>
+<text x="190.0" y="84" font-size="11" fill="#475569" text-anchor="middle">0%</text>
+<path d="M 280.0 90 V 380" stroke="#e2e8f0"/>
+<text x="280.0" y="84" font-size="11" fill="#475569" text-anchor="middle">1%</text>
+<path d="M 370.0 90 V 380" stroke="#e2e8f0"/>
+<text x="370.0" y="84" font-size="11" fill="#475569" text-anchor="middle">2%</text>
+<path d="M 460.0 90 V 380" stroke="#e2e8f0"/>
+<text x="460.0" y="84" font-size="11" fill="#475569" text-anchor="middle">3%</text>
+<path d="M 550.0 90 V 380" stroke="#e2e8f0"/>
+<text x="550.0" y="84" font-size="11" fill="#475569" text-anchor="middle">4%</text>
+<path d="M 640.0 90 V 380" stroke="#e2e8f0"/>
+<text x="640.0" y="84" font-size="11" fill="#475569" text-anchor="middle">5%</text>
+<text x="30" y="128" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">whiff | swing</text>
+<text x="182" y="113" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">base</text>
+<rect x="190" y="100" width="361.1" height="16" fill="#94a3b8"/>
+<text x="557.1403444300793" y="112" font-size="10" fill="#475569" text-anchor="start">4.01%  ·  AUC 0.641</text>
+<text x="182" y="135" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">refA</text>
+<rect x="190" y="122" width="402.7" height="16" fill="#c2410c"/>
+<text x="598.7212328412645" y="134" font-size="10" fill="#475569" text-anchor="start">4.47%  ·  AUC 0.649</text>
+<text x="182" y="157" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">refB</text>
+<rect x="190" y="144" width="331.8" height="16" fill="#2563eb"/>
+<text x="527.7812125239045" y="156" font-size="10" fill="#475569" text-anchor="start">3.69%  ·  AUC 0.635</text>
+<text x="30" y="228" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">groundball | BIP</text>
+<text x="182" y="213" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">base</text>
+<rect x="190" y="200" width="281.7" height="16" fill="#94a3b8"/>
+<text x="477.7262361712295" y="212" font-size="10" fill="#475569" text-anchor="start">3.13%  ·  AUC 0.613</text>
+<text x="182" y="235" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">refA</text>
+<rect x="190" y="222" width="308.8" height="16" fill="#c2410c"/>
+<text x="504.8439490441656" y="234" font-size="10" fill="#475569" text-anchor="start">3.43%  ·  AUC 0.619</text>
+<text x="182" y="257" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">refB</text>
+<rect x="190" y="244" width="311.3" height="16" fill="#2563eb"/>
+<text x="507.31326148964246" y="256" font-size="10" fill="#475569" text-anchor="start">3.46%  ·  AUC 0.615</text>
+<text x="30" y="328" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">hard contact | BIP</text>
+<text x="182" y="313" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">base</text>
+<rect x="190" y="300" width="64.4" height="16" fill="#94a3b8"/>
+<text x="260.44276390563687" y="312" font-size="10" fill="#475569" text-anchor="start">0.72%  ·  AUC 0.561</text>
+<text x="182" y="335" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">refA</text>
+<rect x="190" y="322" width="58.1" height="16" fill="#c2410c"/>
+<text x="254.12099802228786" y="334" font-size="10" fill="#475569" text-anchor="start">0.65%  ·  AUC 0.560</text>
+<text x="182" y="357" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">refB</text>
+<rect x="190" y="344" width="35.4" height="16" fill="#2563eb"/>
+<text x="231.4017818221939" y="356" font-size="10" fill="#475569" text-anchor="start">0.39%  ·  AUC 0.547</text>
+<text x="30" y="406" font-size="11" fill="#475569" text-anchor="start">refA (misma temporada, transductiva) gana en las tres cabezas salvo hard contact; refB pierde cobertura (52%) y su NaN no se aprende en entrenamiento.</text>
+</g>
+</svg>

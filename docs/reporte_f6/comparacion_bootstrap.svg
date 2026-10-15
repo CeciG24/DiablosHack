@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="285" viewBox="0 0 860 285">
+<rect width="860" height="285" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Aporte de la categoría ambiental · bootstrap pareado por juego</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Δ log loss (candidato − control) con IC 95% · 500 remuestreos ponderados por pitch · negativo favorece al ambiente</text>
+<path d="M 324.3 110 V 220" stroke="#e2e8f0"/>
+<text x="324.2857142857143" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.0004</text>
+<path d="M 372.9 110 V 220" stroke="#e2e8f0"/>
+<text x="372.8571428571429" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.0002</text>
+<path d="M 421.4 110 V 220" stroke="#e2e8f0"/>
+<text x="421.42857142857144" y="102" font-size="11" fill="#475569" text-anchor="middle">0.0000</text>
+<path d="M 470.0 110 V 220" stroke="#e2e8f0"/>
+<text x="470.0" y="102" font-size="11" fill="#475569" text-anchor="middle">0.0002</text>
+<path d="M 518.6 110 V 220" stroke="#e2e8f0"/>
+<text x="518.5714285714286" y="102" font-size="11" fill="#475569" text-anchor="middle">0.0004</text>
+<path d="M 567.1 110 V 220" stroke="#e2e8f0"/>
+<text x="567.1428571428571" y="102" font-size="11" fill="#475569" text-anchor="middle">0.0006</text>
+<path d="M 615.7 110 V 220" stroke="#e2e8f0"/>
+<text x="615.7142857142857" y="102" font-size="11" fill="#475569" text-anchor="middle">0.0008</text>
+<path d="M 421.4 110 V 220" stroke="#94a3b8" stroke-width="2"/>
+<text x="30" y="138" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">Ambiente vs control · phase review</text>
+<text x="30" y="156" font-size="11" fill="#475569" text-anchor="start">58 182 pitches · 192 juegos · reducción relativa -0.0181%</text>
+<path d="M 343.6 174 H 586.7" stroke="#c2410c" stroke-width="3"/>
+<path d="M 343.6 165 V 183" stroke="#c2410c" stroke-width="3"/>
+<path d="M 586.7 165 V 183" stroke="#c2410c" stroke-width="3"/>
+<circle cx="466.8" cy="174" r="6" fill="#c2410c"/>
+<text x="598.7179933087866" y="172" font-size="11" fill="#0f172a" text-anchor="start">Δ = +0.00019</text>
+<text x="598.7179933087866" y="189" font-size="10" fill="#d97706" text-anchor="start" font-weight="bold">decisión: retain_reference</text>
+<text x="30" y="240" font-size="11" fill="#475569" text-anchor="start">El IC contiene cero y el punto cae del lado que perjudica al candidato: no hay</text>
+<text x="30" y="258" font-size="11" fill="#475569" text-anchor="start">evidencia de mejora → retain_reference. Se conserva el Pitching sin ambiente de F4.</text>
+</g>
+</svg>

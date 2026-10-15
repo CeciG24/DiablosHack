@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="425" viewBox="0 0 860 425">
+<rect width="860" height="425" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Cambio de índice S0 al mover la categoría ambiental (experimental)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Δ score por pitch en revisión con el normalizador fijo de Pitching · dispersión = min–max y ±1σ · asociación, no causal</text>
+<path d="M 356.8 116 V 370" stroke="#e2e8f0"/>
+<text x="356.8421052631579" y="108" font-size="11" fill="#475569" text-anchor="middle">-4</text>
+<path d="M 432.6 116 V 370" stroke="#e2e8f0"/>
+<text x="432.63157894736844" y="108" font-size="11" fill="#475569" text-anchor="middle">-2</text>
+<path d="M 508.4 116 V 370" stroke="#e2e8f0"/>
+<text x="508.42105263157896" y="108" font-size="11" fill="#475569" text-anchor="middle">+0</text>
+<path d="M 584.2 116 V 370" stroke="#e2e8f0"/>
+<text x="584.2105263157895" y="108" font-size="11" fill="#475569" text-anchor="middle">+2</text>
+<path d="M 660.0 116 V 370" stroke="#e2e8f0"/>
+<text x="660.0" y="108" font-size="11" fill="#475569" text-anchor="middle">+4</text>
+<path d="M 508.4 116 V 370" stroke="#94a3b8" stroke-width="2"/>
+<text x="30" y="164" font-size="13" fill="#c2410c" text-anchor="start" font-weight="bold">Extreme Altitude</text>
+<text x="30" y="180" font-size="10" fill="#475569" text-anchor="start">58,182 escenarios</text>
+<path d="M 321.5 160 H 645.0" stroke="#c2410c" stroke-width="1.5" stroke-opacity="0.35"/>
+<path d="M 492.8 152 H 520.9 V 168 H 492.8 Z" fill="#c2410c" fill-opacity="0.25"/>
+<circle cx="506.8" cy="160" r="5" fill="#c2410c"/>
+<text x="653.0276433586462" y="164" font-size="11" fill="#475569" text-anchor="start">media -0.042 pts</text>
+<text x="30" y="244" font-size="13" fill="#f59e0b" text-anchor="start" font-weight="bold">Medium Altitude</text>
+<text x="30" y="260" font-size="10" fill="#475569" text-anchor="start">58,182 escenarios</text>
+<path d="M 349.6 240 H 621.7" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.35"/>
+<path d="M 491.8 232 H 522.1 V 248 H 491.8 Z" fill="#f59e0b" fill-opacity="0.25"/>
+<circle cx="507.0" cy="240" r="5" fill="#f59e0b"/>
+<text x="629.6873183991463" y="244" font-size="11" fill="#475569" text-anchor="start">media -0.039 pts</text>
+<text x="30" y="324" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="bold">No Altitude</text>
+<text x="30" y="340" font-size="10" fill="#475569" text-anchor="start">58,182 escenarios</text>
+<path d="M 401.0 320 H 645.1" stroke="#94a3b8" stroke-width="1.5" stroke-opacity="0.35"/>
+<path d="M 497.7 312 H 523.3 V 328 H 497.7 Z" fill="#94a3b8" fill-opacity="0.25"/>
+<circle cx="510.5" cy="320" r="5" fill="#94a3b8"/>
+<text x="653.138007030203" y="324" font-size="11" fill="#475569" text-anchor="start">media +0.055 pts</text>
+<text x="300" y="384" font-size="11" fill="#475569" text-anchor="start">Las medias son prácticamente cero (−0.04 a +0.06 puntos): el índice apenas se mueve al cambiar de categoría.</text>
+<text x="300" y="402" font-size="11" fill="#475569" text-anchor="start">Pertenece al candidato ambiental no promovido de F6; no sustituye los índices de la política aprobada.</text>
+</g>
+</svg>

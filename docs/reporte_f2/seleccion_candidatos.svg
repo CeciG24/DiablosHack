@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="430" viewBox="0 0 760 430">
+<rect width="760" height="430" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Selección de configuración LightGBM · development 2025</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Fit en train 2024 · selección por log loss en development · early stopping 30 rondas · eje X truncado en 1.516</text>
+<path d="M 280.0 99 V 400" stroke="#e2e8f0"/>
+<text x="280.0" y="91" font-size="11" fill="#475569" text-anchor="middle">1.516</text>
+<path d="M 386.7 99 V 400" stroke="#e2e8f0"/>
+<text x="386.6666666666588" y="91" font-size="11" fill="#475569" text-anchor="middle">1.517</text>
+<path d="M 493.3 99 V 400" stroke="#e2e8f0"/>
+<text x="493.3333333333412" y="91" font-size="11" fill="#475569" text-anchor="middle">1.518</text>
+<path d="M 600.0 99 V 400" stroke="#e2e8f0"/>
+<text x="600.0" y="91" font-size="11" fill="#475569" text-anchor="middle">1.519</text>
+<text x="268" y="129" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">candidate_01</text>
+<text x="268" y="145" font-size="10" fill="#64748b" text-anchor="end">leaves 15 · min_data 200 · lr 0.05 · L2 5</text>
+<text x="268" y="161" font-size="10" fill="#64748b" text-anchor="end">best iter 108 / 138 evaluadas</text>
+<rect x="280" y="115" width="183.0" height="34" fill="#7c3aed"/>
+<text x="471.0024398356585" y="137" font-size="12" fill="#334155" text-anchor="start">1.51772</text>
+<text x="471.0024398356585" y="153" font-size="11" fill="#7c3aed" text-anchor="start" font-weight="bold">← seleccionado</text>
+<text x="268" y="224" font-size="13" fill="#64748b" text-anchor="end">candidate_02</text>
+<text x="268" y="240" font-size="10" fill="#64748b" text-anchor="end">leaves 31 · min_data 200 · lr 0.05 · L2 5</text>
+<text x="268" y="256" font-size="10" fill="#64748b" text-anchor="end">best iter 78 / 108 evaluadas</text>
+<rect x="280" y="210" width="184.5" height="34" fill="#cbd5e1"/>
+<text x="472.5112985578197" y="232" font-size="12" fill="#334155" text-anchor="start">1.51773</text>
+<text x="268" y="319" font-size="13" fill="#64748b" text-anchor="end">candidate_03</text>
+<text x="268" y="335" font-size="10" fill="#64748b" text-anchor="end">leaves 63 · min_data 400 · lr 0.05 · L2 10</text>
+<text x="268" y="351" font-size="10" fill="#64748b" text-anchor="end">best iter 54 / 84 evaluadas</text>
+<rect x="280" y="305" width="233.6" height="34" fill="#cbd5e1"/>
+<text x="521.6247714136722" y="327" font-size="12" fill="#334155" text-anchor="start">1.51819</text>
+</g>
+</svg>

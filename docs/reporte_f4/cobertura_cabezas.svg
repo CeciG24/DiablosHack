@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="615" viewBox="0 0 720 615">
+<rect width="720" height="615" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Cobertura de etiquetas por cabeza · denominadores condicionales</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Barras: elegibles con etiqueta + sin etiqueta/fuera de la población condicional (gris) · mismo subconjunto para las 3 familias</text>
+<rect x="385" y="20" width="14" height="14" fill="#ea580c"/>
+<text x="404" y="32" font-size="12" fill="#ea580c" text-anchor="start">contact</text>
+<rect x="480" y="20" width="14" height="14" fill="#16a34a"/>
+<text x="499" y="32" font-size="12" fill="#16a34a" text-anchor="start">groundball</text>
+<rect x="575" y="20" width="14" height="14" fill="#2563eb"/>
+<text x="594" y="32" font-size="12" fill="#2563eb" text-anchor="start">chase</text>
+<rect x="385" y="44" width="14" height="14" fill="#cbd5e1"/>
+<text x="404" y="56" font-size="11" fill="#475569" text-anchor="start">sin etiqueta / fuera de población</text>
+<path d="M 80 520.0 H 650" stroke="#e2e8f0"/>
+<text x="72" y="524.0" font-size="11" fill="#475569" text-anchor="end">0k</text>
+<path d="M 80 442.7 H 650" stroke="#e2e8f0"/>
+<text x="72" y="446.71134703208594" font-size="11" fill="#475569" text-anchor="end">50k</text>
+<path d="M 80 365.4 H 650" stroke="#e2e8f0"/>
+<text x="72" y="369.4226940641719" font-size="11" fill="#475569" text-anchor="end">100k</text>
+<path d="M 80 288.1 H 650" stroke="#e2e8f0"/>
+<text x="72" y="292.1340410962578" font-size="11" fill="#475569" text-anchor="end">150k</text>
+<path d="M 80 210.8 H 650" stroke="#e2e8f0"/>
+<text x="72" y="214.84538812834376" font-size="11" fill="#475569" text-anchor="end">200k</text>
+<path d="M 80 133.6 H 650" stroke="#e2e8f0"/>
+<text x="72" y="137.55673516042964" font-size="11" fill="#475569" text-anchor="end">250k</text>
+<rect x="92" y="459.8" width="32" height="60.2" fill="#ea580c"/>
+<rect x="92" y="149.5" width="32" height="310.3" fill="#cbd5e1"/>
+<text x="108.0" y="143.46428571428572" font-size="9" fill="#334155" text-anchor="middle">39k</text>
+<text x="108.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">trai</text>
+<rect x="132" y="482.6" width="32" height="37.4" fill="#ea580c"/>
+<rect x="132" y="312.2" width="32" height="170.4" fill="#cbd5e1"/>
+<text x="148.0" y="306.2171853610598" font-size="9" fill="#334155" text-anchor="middle">24k</text>
+<text x="148.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">deve</text>
+<rect x="172" y="503.7" width="32" height="16.3" fill="#ea580c"/>
+<rect x="172" y="428.2" width="32" height="75.5" fill="#cbd5e1"/>
+<text x="188.0" y="422.23209078507693" font-size="9" fill="#334155" text-anchor="middle">11k</text>
+<text x="188.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">cali</text>
+<rect x="212" y="504.0" width="32" height="16.0" fill="#ea580c"/>
+<rect x="212" y="430.1" width="32" height="73.9" fill="#cbd5e1"/>
+<text x="228.0" y="424.0638318604165" font-size="9" fill="#334155" text-anchor="middle">10k</text>
+<text x="228.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">phas</text>
+<text x="168.0" y="554" font-size="13" fill="#ea580c" text-anchor="middle" font-weight="bold">contact</text>
+<rect x="282" y="458.9" width="32" height="61.1" fill="#16a34a"/>
+<rect x="282" y="149.5" width="32" height="309.4" fill="#cbd5e1"/>
+<text x="298.0" y="143.46428571428572" font-size="9" fill="#334155" text-anchor="middle">40k</text>
+<text x="298.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">trai</text>
+<rect x="322" y="482.2" width="32" height="37.8" fill="#16a34a"/>
+<rect x="322" y="312.2" width="32" height="170.0" fill="#cbd5e1"/>
+<text x="338.0" y="306.2171853610598" font-size="9" fill="#334155" text-anchor="middle">24k</text>
+<text x="338.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">deve</text>
+<rect x="362" y="503.6" width="32" height="16.4" fill="#16a34a"/>
+<rect x="362" y="428.2" width="32" height="75.3" fill="#cbd5e1"/>
+<text x="378.0" y="422.23209078507693" font-size="9" fill="#334155" text-anchor="middle">11k</text>
+<text x="378.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">cali</text>
+<rect x="402" y="503.9" width="32" height="16.1" fill="#16a34a"/>
+<rect x="402" y="430.1" width="32" height="73.8" fill="#cbd5e1"/>
+<text x="418.0" y="424.0638318604165" font-size="9" fill="#334155" text-anchor="middle">10k</text>
+<text x="418.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">phas</text>
+<text x="358.0" y="554" font-size="13" fill="#16a34a" text-anchor="middle" font-weight="bold">groundball</text>
+<rect x="472" y="280.7" width="32" height="239.3" fill="#2563eb"/>
+<rect x="472" y="149.5" width="32" height="131.2" fill="#cbd5e1"/>
+<text x="488.0" y="143.46428571428572" font-size="9" fill="#334155" text-anchor="middle">155k</text>
+<text x="488.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">trai</text>
+<rect x="512" y="387.7" width="32" height="132.3" fill="#2563eb"/>
+<rect x="512" y="312.2" width="32" height="75.5" fill="#cbd5e1"/>
+<text x="528.0" y="306.2171853610598" font-size="9" fill="#334155" text-anchor="middle">86k</text>
+<text x="528.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">deve</text>
+<rect x="552" y="460.7" width="32" height="59.3" fill="#2563eb"/>
+<rect x="552" y="428.2" width="32" height="32.5" fill="#cbd5e1"/>
+<text x="568.0" y="422.23209078507693" font-size="9" fill="#334155" text-anchor="middle">38k</text>
+<text x="568.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">cali</text>
+<rect x="592" y="462.6" width="32" height="57.4" fill="#2563eb"/>
+<rect x="592" y="430.1" width="32" height="32.5" fill="#cbd5e1"/>
+<text x="608.0" y="424.0638318604165" font-size="9" fill="#334155" text-anchor="middle">37k</text>
+<text x="608.0" y="535" font-size="9" fill="#64748b" text-anchor="middle">phas</text>
+<text x="548.0" y="554" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">chase</text>
+<path d="M 80 520 H 650" stroke="#94a3b8"/>
+<text x="80" y="578" font-size="11" fill="#475569" text-anchor="start">contact/groundball: solo batazos en juego medidos · chase: solo pitches fuera de la zona suministrada</text>
+<text x="80" y="596" font-size="11" fill="#475569" text-anchor="start">los faltantes de chase incluyen pitches fuera de su población condicional (no son mediciones perdidas)</text>
+</g>
+</svg>

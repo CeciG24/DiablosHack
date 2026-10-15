@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="373" viewBox="0 0 800 373">
+<rect width="800" height="373" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Comparaciones pareadas en phase_review · Δ log loss (StuffV2 − referencia)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Bootstrap pareado por partido, 500 remuestreos · misma regla de promoción que F2 (≥1% e IC95% < 0)</text>
+<path d="M 298.3 103 V 301" stroke="#e2e8f0"/>
+<text x="298.3333333333333" y="95" font-size="11" fill="#475569" text-anchor="middle">-0.04</text>
+<path d="M 366.7 103 V 301" stroke="#e2e8f0"/>
+<text x="366.66666666666663" y="95" font-size="11" fill="#475569" text-anchor="middle">-0.02</text>
+<path d="M 435.0 103 V 301" stroke="#e2e8f0"/>
+<text x="435.0" y="95" font-size="11" fill="#475569" text-anchor="middle">+0.00</text>
+<path d="M 503.3 103 V 301" stroke="#e2e8f0"/>
+<text x="503.33333333333337" y="95" font-size="11" fill="#475569" text-anchor="middle">+0.02</text>
+<path d="M 571.7 103 V 301" stroke="#e2e8f0"/>
+<text x="571.6666666666667" y="95" font-size="11" fill="#475569" text-anchor="middle">+0.04</text>
+<path d="M 435.0 103 V 301" stroke="#94a3b8" stroke-width="2"/>
+<text x="216" y="141" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">StuffV2 − B0</text>
+<path d="M 376.7 137 H 385.9" stroke="#64748b" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 376.7 130 V 144" stroke="#64748b" stroke-width="2"/>
+<path d="M 385.9 130 V 144" stroke="#64748b" stroke-width="2"/>
+<circle cx="381.3" cy="137" r="6" fill="#64748b"/>
+<text x="648" y="141" font-size="11" fill="#334155" text-anchor="start">-0.0157</text>
+<text x="216" y="203" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">StuffV2 − B1</text>
+<path d="M 601.9 199 H 622.0" stroke="#2563eb" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 601.9 192 V 206" stroke="#2563eb" stroke-width="2"/>
+<path d="M 622.0 192 V 206" stroke="#2563eb" stroke-width="2"/>
+<circle cx="612.3" cy="199" r="6" fill="#2563eb"/>
+<text x="648" y="203" font-size="11" fill="#334155" text-anchor="start">+0.0519</text>
+<text x="216" y="265" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">StuffV2 − Stuff (F2)</text>
+<path d="M 434.4 261 H 437.2" stroke="#94a3b8" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 434.4 254 V 268" stroke="#94a3b8" stroke-width="2"/>
+<path d="M 437.2 254 V 268" stroke="#94a3b8" stroke-width="2"/>
+<circle cx="435.7" cy="261" r="6" fill="#94a3b8"/>
+<text x="648" y="265" font-size="11" fill="#334155" text-anchor="start">+0.0002</text>
+<text x="30" y="331" font-size="11" fill="#475569" text-anchor="start">StuffV2 sí supera a B0 (−1.0% relativo, IC bajo cero) pero es significativamente peor que B1 (+0.052): decisión retain_reference.</text>
+<text x="30" y="349" font-size="11" fill="#475569" text-anchor="start">Contra el Stuff original el delta es +0.0002 con IC que incluye cero: las 10 derivadas no agregaron señal.</text>
+</g>
+</svg>

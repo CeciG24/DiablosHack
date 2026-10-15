@@ -3,7 +3,7 @@
   "date": "2026-09-29",
   "specification_only": false,
   "document": "docs/MODELING_SYSTEM_CONTRACT.md",
-  "expected_data_run": "c1c8ba48818dc878",
+  "expected_data_run": "e9e0b1114dc68eb2",
   "data_contract": "config/data_contract.json",
   "primary_target": "y_event",
   "event_class_order": ["ball", "called_strike", "whiff", "foul", "in_play", "hit_by_pitch"],
@@ -209,6 +209,33 @@
     "scouting_selection": "three_largest_common_pitch_counts_tie_ID_no_outcomes",
     "score_version": "event_utility_proxy_v1"
   },
+  "F9": {
+    "f1_reference_experiment": "f1-full-reproduction",
+    "f2_reference_experiment": "f2-full-check",
+    "release_reference": "f8-release-20261014",
+    "cohort_policy": "f0_common_v1",
+    "feature_set": "stuff_v2_derived_physical_v1",
+    "post_release_development": true,
+    "threads": 4,
+    "maximum_rounds": 800,
+    "smoke_rounds": 60,
+    "early_stopping_rounds": 40,
+    "permutation_repeats": 3,
+    "candidates": [
+      {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 63, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 127, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 63, "min_data_in_leaf": 100, "learning_rate": 0.05, "lambda_l2": 2.0},
+      {"num_leaves": 127, "min_data_in_leaf": 100, "learning_rate": 0.03, "lambda_l2": 2.0},
+      {"num_leaves": 255, "min_data_in_leaf": 200, "learning_rate": 0.03, "lambda_l2": 2.0},
+      {"num_leaves": 255, "min_data_in_leaf": 100, "learning_rate": 0.03, "lambda_l2": 0.0},
+      {"num_leaves": 127, "min_data_in_leaf": 50, "learning_rate": 0.05, "lambda_l2": 2.0},
+      {"num_leaves": 63, "min_data_in_leaf": 50, "learning_rate": 0.08, "lambda_l2": 1.0},
+      {"num_leaves": 31, "min_data_in_leaf": 100, "learning_rate": 0.08, "lambda_l2": 5.0},
+      {"num_leaves": 255, "min_data_in_leaf": 400, "learning_rate": 0.05, "lambda_l2": 10.0},
+      {"num_leaves": 511, "min_data_in_leaf": 400, "learning_rate": 0.03, "lambda_l2": 5.0}
+    ]
+  },
   "F7": {
     "f6_reference_experiment": "f6-full-check",
     "protocol_id": "A",
@@ -222,6 +249,27 @@
     "aggregation": "observed_mix_mean_valid_pitches",
     "coverage_denominator": "all_2025_pitches_in_selected_games",
     "contact_requires_promoted_model": true
+  },
+  "F10": {
+    "f1_reference_experiment": "f1-full-reproduction",
+    "f2_reference_experiment": "f2-full-check",
+    "f9_reference_experiment": "f9-stuff-v2",
+    "release_reference": "f8-release-20261014",
+    "cohort_policy": "f0_common_v1",
+    "feature_set": "stuff_v3_relative_arsenal_v1",
+    "post_release_development": true,
+    "threads": 4,
+    "maximum_rounds": 800,
+    "smoke_rounds": 60,
+    "early_stopping_rounds": 40,
+    "reference_min_fastballs": 30,
+    "ablation_rule": "paired_bootstrap_ci_high_below_zero_on_whiff_given_swing",
+    "candidates": [
+      {"num_leaves": 15, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+      {"num_leaves": 63, "min_data_in_leaf": 400, "learning_rate": 0.05, "lambda_l2": 10.0}
+    ],
+    "event_parameters": {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0}
   },
   "score": {
     "default_version": "event_utility_proxy_v1",
@@ -244,7 +292,9 @@
     {"id": "F5", "name": "Arsenal con historia real", "depends_on": ["F4"], "status": "verified"},
     {"id": "F6", "name": "Ambiente y simulacion", "depends_on": ["F5"], "status": "verified"},
     {"id": "F7", "name": "Scores y agregacion", "depends_on": ["F6"], "status": "verified"},
-    {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "verified"}
+    {"id": "F8", "name": "Evaluacion final y entrega", "depends_on": ["F7"], "status": "verified"},
+    {"id": "F9", "name": "Mejora de Stuff+ post-release (fisicas derivadas)", "depends_on": ["F8"], "status": "verified"},
+    {"id": "F10", "name": "Stuff v3 con features relativas al arsenal (post-release)", "depends_on": ["F9"], "status": "verified"}
   ],
   "external_requirements_unresolved": [
     "stadium_mapping_and_harp_flag",

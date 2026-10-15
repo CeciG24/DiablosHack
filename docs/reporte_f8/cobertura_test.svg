@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="535" viewBox="0 0 760 535">
+<rect width="760" height="535" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Dos poblaciones distintas en 2026: cobertura de inferencia vs cohorte evaluativa</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">La inferencia no exige outcomes · la evaluación exige elegibilidad común F0 y evento conocido</text>
+<rect x="430" y="22" width="13" height="13" fill="#cbd5e1"/>
+<text x="448" y="33" font-size="11" fill="#475569" text-anchor="start">total 2026</text>
+<rect x="535" y="22" width="13" height="13" fill="#94a3b8"/>
+<text x="553" y="33" font-size="11" fill="#475569" text-anchor="start">inferencia válida</text>
+<rect x="640" y="22" width="13" height="13" fill="#2563eb"/>
+<text x="658" y="33" font-size="11" fill="#475569" text-anchor="start">cohorte común</text>
+<path d="M 110 430.0 H 680" stroke="#e2e8f0"/>
+<text x="102" y="434.0" font-size="11" fill="#475569" text-anchor="end">0k</text>
+<path d="M 110 323.3 H 680" stroke="#e2e8f0"/>
+<text x="102" y="327.33333333333337" font-size="11" fill="#475569" text-anchor="end">50k</text>
+<path d="M 110 216.7 H 680" stroke="#e2e8f0"/>
+<text x="102" y="220.66666666666669" font-size="11" fill="#475569" text-anchor="end">100k</text>
+<path d="M 110 110.0 H 680" stroke="#e2e8f0"/>
+<text x="102" y="114.0" font-size="11" fill="#475569" text-anchor="end">150k</text>
+<rect x="132.0" y="140.7" width="42" height="289.3" fill="#cbd5e1"/>
+<text x="153.0" y="133.7114666666667" font-size="9" fill="#475569" text-anchor="middle">135k</text>
+<rect x="184.0" y="143.1" width="42" height="286.9" fill="#94a3b8"/>
+<text x="205.0" y="136.0944" font-size="9" fill="#475569" text-anchor="middle">134k</text>
+<rect x="236.0" y="152.6" width="42" height="277.4" fill="#2563eb"/>
+<text x="257.0" y="145.55360000000002" font-size="9" fill="#475569" text-anchor="middle">130k</text>
+<text x="205.0" y="450" font-size="13" fill="#0d9488" text-anchor="middle" font-weight="bold">Stuff</text>
+<text x="205.0" y="468" font-size="10" fill="#475569" text-anchor="middle">99.18% inferible</text>
+<rect x="322.0" y="140.7" width="42" height="289.3" fill="#cbd5e1"/>
+<text x="343.0" y="133.7114666666667" font-size="9" fill="#475569" text-anchor="middle">135k</text>
+<rect x="374.0" y="141.6" width="42" height="288.4" fill="#94a3b8"/>
+<text x="395.0" y="134.6309333333333" font-size="9" fill="#475569" text-anchor="middle">135k</text>
+<rect x="426.0" y="152.6" width="42" height="277.4" fill="#2563eb"/>
+<text x="447.0" y="145.55360000000002" font-size="9" fill="#475569" text-anchor="middle">130k</text>
+<text x="395.0" y="450" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">Location</text>
+<text x="395.0" y="468" font-size="10" fill="#475569" text-anchor="middle">99.68% inferible</text>
+<rect x="512.0" y="140.7" width="42" height="289.3" fill="#cbd5e1"/>
+<text x="533.0" y="133.7114666666667" font-size="9" fill="#475569" text-anchor="middle">135k</text>
+<rect x="564.0" y="143.5" width="42" height="286.5" fill="#94a3b8"/>
+<text x="585.0" y="136.4592" font-size="9" fill="#475569" text-anchor="middle">134k</text>
+<rect x="616.0" y="152.6" width="42" height="277.4" fill="#2563eb"/>
+<text x="637.0" y="145.55360000000002" font-size="9" fill="#475569" text-anchor="middle">130k</text>
+<text x="585.0" y="450" font-size="13" fill="#ea580c" text-anchor="middle" font-weight="bold">Pitching</text>
+<text x="585.0" y="468" font-size="10" fill="#475569" text-anchor="middle">99.05% inferible</text>
+<path d="M 110 430 H 680" stroke="#94a3b8"/>
+<text x="30" y="490" font-size="11" fill="#475569" text-anchor="start">135,604 pitches 2026 · inferencia válida ≥ 99.1% por familia · cohorte común evaluativa: 130,053 (95.91%).</text>
+<text x="30" y="508" font-size="11" fill="#475569" text-anchor="start">Fuera de la cohorte común el score evaluativo es nulo con motivo; la cobertura de producto y la muestra evaluable se reportan por separado.</text>
+</g>
+</svg>

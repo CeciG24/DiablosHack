@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="539" viewBox="0 0 760 539">
+<rect width="760" height="539" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Importancia por permutación · Stuff en development 2025</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Incremento medio de log loss al permutar la feature · 3 repeticiones · barras de error = ±1 desviación estándar</text>
+<path d="M 259.3 93 V 479" stroke="#e2e8f0"/>
+<text x="259.3102316724046" y="85" font-size="11" fill="#475569" text-anchor="middle">0.002</text>
+<path d="M 338.6 93 V 479" stroke="#e2e8f0"/>
+<text x="338.6204633448092" y="85" font-size="11" fill="#475569" text-anchor="middle">0.004</text>
+<path d="M 417.9 93 V 479" stroke="#e2e8f0"/>
+<text x="417.93069501721385" y="85" font-size="11" fill="#475569" text-anchor="middle">0.006</text>
+<path d="M 497.2 93 V 479" stroke="#e2e8f0"/>
+<text x="497.24092668961845" y="85" font-size="11" fill="#475569" text-anchor="middle">0.008</text>
+<text x="168" y="127" font-size="12" fill="#0f172a" text-anchor="end">tipo de pitch (auto)</text>
+<rect x="180" y="111" width="305.0" height="22" fill="#7c3aed"/>
+<path d="M 477.0 122 H 493.0 M 477.0 117 V 127 M 493.0 117 V 127" stroke="#334155" stroke-width="1.5"/>
+<text x="503.0434782608696" y="126" font-size="11" fill="#475569" text-anchor="start">0.00769</text>
+<text x="168" y="161" font-size="12" fill="#0f172a" text-anchor="end">induced vert break</text>
+<rect x="180" y="145" width="299.5" height="22" fill="#7c3aed"/>
+<path d="M 473.0 156 H 485.9 M 473.0 151 V 161 M 485.9 151 V 161" stroke="#334155" stroke-width="1.5"/>
+<text x="495.90598776219144" y="160" font-size="11" fill="#475569" text-anchor="start">0.00755</text>
+<text x="168" y="195" font-size="12" fill="#0f172a" text-anchor="end">velocidad (rel_speed)</text>
+<rect x="180" y="179" width="236.3" height="22" fill="#7c3aed"/>
+<path d="M 413.4 190 H 419.2 M 413.4 185 V 195 M 419.2 185 V 195" stroke="#334155" stroke-width="1.5"/>
+<text x="429.1954952320642" y="194" font-size="11" fill="#475569" text-anchor="start">0.00596</text>
+<text x="168" y="229" font-size="12" fill="#0f172a" text-anchor="end">spin rate</text>
+<rect x="180" y="213" width="91.1" height="22" fill="#a78bfa"/>
+<path d="M 268.0 224 H 274.2 M 268.0 219 V 229 M 274.2 219 V 229" stroke="#334155" stroke-width="1.5"/>
+<text x="284.224891573584" y="228" font-size="11" fill="#475569" text-anchor="start">0.00230</text>
+<text x="168" y="263" font-size="12" fill="#0f172a" text-anchor="end">release height</text>
+<rect x="180" y="247" width="76.4" height="22" fill="#a78bfa"/>
+<path d="M 252.9 258 H 260.0 M 252.9 253 V 263 M 260.0 253 V 263" stroke="#334155" stroke-width="1.5"/>
+<text x="269.972534644958" y="262" font-size="11" fill="#475569" text-anchor="start">0.00193</text>
+<text x="168" y="297" font-size="12" fill="#0f172a" text-anchor="end">horz break</text>
+<rect x="180" y="281" width="48.8" height="22" fill="#a78bfa"/>
+<path d="M 224.6 292 H 232.9 M 224.6 287 V 297 M 232.9 287 V 297" stroke="#334155" stroke-width="1.5"/>
+<text x="242.91549751680236" y="296" font-size="11" fill="#475569" text-anchor="start">0.00123</text>
+<text x="168" y="331" font-size="12" fill="#0f172a" text-anchor="end">spin axis (cos)</text>
+<rect x="180" y="315" width="25.3" height="22" fill="#ddd6fe"/>
+<path d="M 203.6 326 H 206.9 M 203.6 321 V 331 M 206.9 321 V 331" stroke="#334155" stroke-width="1.5"/>
+<text x="216.94214492738382" y="330" font-size="11" fill="#475569" text-anchor="start">0.00064</text>
+<text x="168" y="365" font-size="12" fill="#0f172a" text-anchor="end">release side</text>
+<rect x="180" y="349" width="22.7" height="22" fill="#ddd6fe"/>
+<path d="M 201.6 360 H 203.8 M 201.6 355 V 365 M 203.8 355 V 365" stroke="#334155" stroke-width="1.5"/>
+<text x="213.83568190394715" y="364" font-size="11" fill="#475569" text-anchor="start">0.00057</text>
+<text x="168" y="399" font-size="12" fill="#0f172a" text-anchor="end">spin axis (sin)</text>
+<rect x="180" y="383" width="18.5" height="22" fill="#ddd6fe"/>
+<path d="M 198.2 394 H 198.9 M 198.2 389 V 399 M 198.9 389 V 399" stroke="#334155" stroke-width="1.5"/>
+<text x="208.8909028821163" y="398" font-size="11" fill="#475569" text-anchor="start">0.00047</text>
+<text x="168" y="433" font-size="12" fill="#0f172a" text-anchor="end">extension</text>
+<rect x="180" y="417" width="17.8" height="22" fill="#ddd6fe"/>
+<path d="M 197.2 428 H 198.4 M 197.2 423 V 433 M 198.4 423 V 433" stroke="#334155" stroke-width="1.5"/>
+<text x="208.4390625235244" y="432" font-size="11" fill="#475569" text-anchor="start">0.00045</text>
+<text x="168" y="467" font-size="12" fill="#0f172a" text-anchor="end">mano del pitcher</text>
+<rect x="180" y="451" width="0.9" height="22" fill="#ddd6fe"/>
+<path d="M 180.7 462 H 181.0 M 180.7 457 V 467 M 181.0 457 V 467" stroke="#334155" stroke-width="1.5"/>
+<text x="191.01646375377925" y="466" font-size="11" fill="#475569" text-anchor="start">0.00002</text>
+<text x="180" y="503" font-size="11" fill="#475569" text-anchor="start">Modelo seleccionado: candidate_01 · calculado solo en development (no en review).</text>
+</g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="419" viewBox="0 0 760 419">
+<rect width="760" height="419" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Métricas globales en el test 2026 · cohorte común (n = 130,053)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Menor es mejor · las cinco filas se evalúan sobre los mismos pitches elegibles</text>
+<text x="150" y="94" font-size="14" fill="#0f172a" text-anchor="start" font-weight="bold">Log loss multiclase</text>
+<path d="M 150.0 110 V 330" stroke="#e2e8f0"/>
+<text x="150.0" y="348" font-size="11" fill="#475569" text-anchor="middle">0</text>
+<path d="M 250.0 110 V 330" stroke="#e2e8f0"/>
+<text x="250.0" y="348" font-size="11" fill="#475569" text-anchor="middle">0.8</text>
+<path d="M 350.0 110 V 330" stroke="#e2e8f0"/>
+<text x="350.0" y="348" font-size="11" fill="#475569" text-anchor="middle">1.6</text>
+<text x="140" y="130" font-size="12" fill="#64748b" text-anchor="end" font-weight="bold">B1 (baseline)</text>
+<rect x="150" y="115" width="185.9" height="24" fill="#64748b"/>
+<text x="341.8568896149372" y="132" font-size="11" fill="#334155" text-anchor="start">1.4869</text>
+<text x="140" y="174" font-size="12" fill="#0d9488" text-anchor="end" font-weight="bold">Stuff</text>
+<rect x="150" y="159" width="192.0" height="24" fill="#0d9488"/>
+<text x="348.0196550705276" y="176" font-size="11" fill="#334155" text-anchor="start">1.5362</text>
+<text x="140" y="218" font-size="12" fill="#2563eb" text-anchor="end" font-weight="bold">Location</text>
+<rect x="150" y="203" width="129.9" height="24" fill="#2563eb"/>
+<text x="285.85145639175323" y="220" font-size="11" fill="#334155" text-anchor="start">1.0388</text>
+<text x="140" y="262" font-size="12" fill="#ea580c" text-anchor="end" font-weight="bold">Pitching</text>
+<rect x="150" y="247" width="127.9" height="24" fill="#ea580c"/>
+<text x="283.9324245076439" y="264" font-size="11" fill="#334155" text-anchor="start">1.0235</text>
+<text x="140" y="306" font-size="12" fill="#7c3aed" text-anchor="end" font-weight="bold">Ambiente (experimental)</text>
+<rect x="150" y="291" width="127.9" height="24" fill="#7c3aed"/>
+<text x="283.927134942351" y="308" font-size="11" fill="#334155" text-anchor="start">1.0234</text>
+<text x="490" y="94" font-size="14" fill="#0f172a" text-anchor="start" font-weight="bold">Brier multiclase</text>
+<path d="M 490.0 110 V 330" stroke="#e2e8f0"/>
+<text x="490.0" y="348" font-size="11" fill="#475569" text-anchor="middle">0</text>
+<path d="M 590.0 110 V 330" stroke="#e2e8f0"/>
+<text x="590.0" y="348" font-size="11" fill="#475569" text-anchor="middle">0.4</text>
+<path d="M 690.0 110 V 330" stroke="#e2e8f0"/>
+<text x="690.0" y="348" font-size="11" fill="#475569" text-anchor="middle">0.8</text>
+<text x="480" y="130" font-size="12" fill="#64748b" text-anchor="end" font-weight="bold">B1 (baseline)</text>
+<rect x="490" y="115" width="186.2" height="24" fill="#64748b"/>
+<text x="682.1981846271935" y="132" font-size="11" fill="#334155" text-anchor="start">0.7448</text>
+<text x="480" y="174" font-size="12" fill="#0d9488" text-anchor="end" font-weight="bold">Stuff</text>
+<rect x="490" y="159" width="190.8" height="24" fill="#0d9488"/>
+<text x="686.7914561203721" y="176" font-size="11" fill="#334155" text-anchor="start">0.7632</text>
+<text x="480" y="218" font-size="12" fill="#2563eb" text-anchor="end" font-weight="bold">Location</text>
+<rect x="490" y="203" width="134.9" height="24" fill="#2563eb"/>
+<text x="630.8882662142889" y="220" font-size="11" fill="#334155" text-anchor="start">0.5396</text>
+<text x="480" y="262" font-size="12" fill="#ea580c" text-anchor="end" font-weight="bold">Pitching</text>
+<rect x="490" y="247" width="133.2" height="24" fill="#ea580c"/>
+<text x="629.2000222404946" y="264" font-size="11" fill="#334155" text-anchor="start">0.5328</text>
+<text x="480" y="306" font-size="12" fill="#7c3aed" text-anchor="end" font-weight="bold">Ambiente (experimental)</text>
+<rect x="490" y="291" width="133.2" height="24" fill="#7c3aed"/>
+<text x="629.2053831022039" y="308" font-size="11" fill="#334155" text-anchor="start">0.5328</text>
+<text x="30" y="374" font-size="11" fill="#475569" text-anchor="start">Pitching es el mejor de la política: 1.0235 de log loss frente a 1.0388 de Location y 1.4869 de B1.</text>
+<text x="30" y="392" font-size="11" fill="#475569" text-anchor="start">Stuff (1.5362) queda por debajo incluso del baseline de eventos: mantiene su lectura diagnóstica, no predictiva.</text>
+</g>
+</svg>

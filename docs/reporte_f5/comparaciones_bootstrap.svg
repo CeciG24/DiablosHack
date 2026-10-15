@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="385" viewBox="0 0 860 385">
+<rect width="860" height="385" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Aporte del arsenal · bootstrap pareado por juego</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Δ log loss (candidato − control) con IC 95% · 500 remuestreos ponderados por pitch · negativo favorece al arsenal</text>
+<path d="M 300.0 110 V 310" stroke="#e2e8f0"/>
+<text x="300.0" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.004</text>
+<path d="M 375.6 110 V 310" stroke="#e2e8f0"/>
+<text x="375.55555555555554" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.003</text>
+<path d="M 451.1 110 V 310" stroke="#e2e8f0"/>
+<text x="451.1111111111111" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.002</text>
+<path d="M 526.7 110 V 310" stroke="#e2e8f0"/>
+<text x="526.6666666666666" y="102" font-size="11" fill="#475569" text-anchor="middle">-0.001</text>
+<path d="M 602.2 110 V 310" stroke="#e2e8f0"/>
+<text x="602.2222222222222" y="102" font-size="11" fill="#475569" text-anchor="middle">0.000</text>
+<path d="M 602.2 110 V 310" stroke="#94a3b8" stroke-width="2"/>
+<text x="30" y="138" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">Arsenal vs control · rama con historia</text>
+<text x="30" y="156" font-size="11" fill="#475569" text-anchor="start">30 443 pitches · 191 juegos · reducción relativa +0.167%</text>
+<path d="M 352.2 174 H 588.4" stroke="#ea580c" stroke-width="3"/>
+<path d="M 352.2 165 V 183" stroke="#ea580c" stroke-width="3"/>
+<path d="M 588.4 165 V 183" stroke="#ea580c" stroke-width="3"/>
+<circle cx="470.3" cy="174" r="6" fill="#ea580c"/>
+<text x="600.3734517297854" y="172" font-size="11" fill="#0f172a" text-anchor="start">Δ = -0.00175</text>
+<text x="600.3734517297854" y="189" font-size="10" fill="#d97706" text-anchor="start" font-weight="bold">decisión: inconclusive</text>
+<text x="30" y="228" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">Políticas completas (candidata vs control) · incluye fallback</text>
+<text x="30" y="246" font-size="11" fill="#475569" text-anchor="start">58 182 pitches · 192 juegos · reducción relativa +0.088%</text>
+<path d="M 475.9 264 H 591.7" stroke="#ea580c" stroke-width="3"/>
+<path d="M 475.9 255 V 273" stroke="#ea580c" stroke-width="3"/>
+<path d="M 591.7 255 V 273" stroke="#ea580c" stroke-width="3"/>
+<circle cx="533.2" cy="264" r="6" fill="#ea580c"/>
+<text x="603.7435350990228" y="262" font-size="11" fill="#0f172a" text-anchor="start">Δ = -0.00091</text>
+<text x="603.7435350990228" y="279" font-size="10" fill="#d97706" text-anchor="start" font-weight="bold">decisión: inconclusive</text>
+<text x="30" y="340" font-size="11" fill="#475569" text-anchor="start">El IC queda completo bajo cero (mejora con evidencia) pero la reducción relativa es ~0.17%:</text>
+<text x="30" y="358" font-size="11" fill="#475569" text-anchor="start">la regla de promoción exige ≥1% → inconclusive → retain_reference. La rama con historia conserva el control.</text>
+</g>
+</svg>

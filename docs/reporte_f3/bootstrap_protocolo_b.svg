@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<rect width="800" height="500" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Comparaciones bootstrap · Protocolo B · pitchers separados (review = pitchers no vistos)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Δ log loss (candidato − referencia) con IC 95% · 500 remuestreos pareados por juego · phase review · negativo favorece al candidato</text>
+<path d="M 246.9 100 V 448" stroke="#e2e8f0"/>
+<text x="246.90909090909088" y="92" font-size="11" fill="#475569" text-anchor="middle">-0.40</text>
+<path d="M 299.6 100 V 448" stroke="#e2e8f0"/>
+<text x="299.6363636363636" y="92" font-size="11" fill="#475569" text-anchor="middle">-0.30</text>
+<path d="M 352.4 100 V 448" stroke="#e2e8f0"/>
+<text x="352.3636363636364" y="92" font-size="11" fill="#475569" text-anchor="middle">-0.20</text>
+<path d="M 405.1 100 V 448" stroke="#e2e8f0"/>
+<text x="405.0909090909091" y="92" font-size="11" fill="#475569" text-anchor="middle">-0.10</text>
+<path d="M 457.8 100 V 448" stroke="#e2e8f0"/>
+<text x="457.81818181818187" y="92" font-size="11" fill="#475569" text-anchor="middle">0.00</text>
+<path d="M 484.2 100 V 448" stroke="#e2e8f0"/>
+<text x="484.1818181818182" y="92" font-size="11" fill="#475569" text-anchor="middle">0.05</text>
+<path d="M 457.8 100 V 448" stroke="#94a3b8" stroke-width="2"/>
+<text x="198" y="148" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">Location vs B1</text>
+<path d="M 231.6 144 H 237.8" stroke="#16a34a" stroke-width="3"/>
+<path d="M 231.6 136 V 152" stroke="#16a34a" stroke-width="3"/>
+<path d="M 237.8 136 V 152" stroke="#16a34a" stroke-width="3"/>
+<circle cx="234.7" cy="144" r="6" fill="#16a34a"/>
+<text x="516" y="134" font-size="11" fill="#0f172a" text-anchor="start">Δ = -0.4232</text>
+<text x="516" y="150" font-size="11" fill="#475569" text-anchor="start">reducción rel. +28.78%</text>
+<text x="516" y="166" font-size="11" fill="#16a34a" text-anchor="start" font-weight="bold">decisión: promote</text>
+<text x="198" y="230" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">Pitching vs B1</text>
+<path d="M 223.4 226 H 229.7" stroke="#16a34a" stroke-width="3"/>
+<path d="M 223.4 218 V 234" stroke="#16a34a" stroke-width="3"/>
+<path d="M 229.7 218 V 234" stroke="#16a34a" stroke-width="3"/>
+<circle cx="226.5" cy="226" r="6" fill="#16a34a"/>
+<text x="516" y="216" font-size="11" fill="#0f172a" text-anchor="start">Δ = -0.4386</text>
+<text x="516" y="232" font-size="11" fill="#475569" text-anchor="start">reducción rel. +29.83%</text>
+<text x="516" y="248" font-size="11" fill="#16a34a" text-anchor="start" font-weight="bold">decisión: promote</text>
+<text x="198" y="312" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">Pitching vs Location</text>
+<path d="M 448.8 308 H 450.5" stroke="#16a34a" stroke-width="3"/>
+<path d="M 448.8 300 V 316" stroke="#16a34a" stroke-width="3"/>
+<path d="M 450.5 300 V 316" stroke="#16a34a" stroke-width="3"/>
+<circle cx="449.7" cy="308" r="6" fill="#16a34a"/>
+<text x="516" y="298" font-size="11" fill="#0f172a" text-anchor="start">Δ = -0.0155</text>
+<text x="516" y="314" font-size="11" fill="#475569" text-anchor="start">reducción rel. +1.48%</text>
+<text x="516" y="330" font-size="11" fill="#16a34a" text-anchor="start" font-weight="bold">decisión: promote</text>
+<text x="198" y="394" font-size="13" fill="#0f172a" text-anchor="end" font-weight="bold">Stuff vs B1</text>
+<path d="M 484.5 390 H 487.5" stroke="#d97706" stroke-width="3"/>
+<path d="M 484.5 382 V 398" stroke="#d97706" stroke-width="3"/>
+<path d="M 487.5 382 V 398" stroke="#d97706" stroke-width="3"/>
+<circle cx="486.0" cy="390" r="6" fill="#d97706"/>
+<text x="516" y="380" font-size="11" fill="#0f172a" text-anchor="start">Δ = +0.0535</text>
+<text x="516" y="396" font-size="11" fill="#475569" text-anchor="start">reducción rel. -3.64%</text>
+<text x="516" y="412" font-size="11" fill="#d97706" text-anchor="start" font-weight="bold">decisión: inconclusive</text>
+<text x="210" y="484" font-size="11" fill="#475569" text-anchor="start">Mismo veredicto con pitchers de review nunca vistos en fit ni selección.</text>
+<text x="210" y="502" font-size="11" fill="#475569" text-anchor="start">Stuff sigue sin superar a B1: retain_reference en ambos protocolos.</text>
+</g>
+</svg>

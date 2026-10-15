@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="515" viewBox="0 0 720 515">
+<rect width="720" height="515" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Sensibilidad de S1 (contacto) a perturbaciones de ±25% en pesos</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">24 variantes en development · correlación de rangos vs S1 base · no valida los pesos ni equivale a carreras</text>
+<path d="M 90.0 110 V 430" stroke="#e2e8f0"/>
+<text x="90.0" y="448" font-size="11" fill="#475569" text-anchor="middle">0.996</text>
+<path d="M 216.7 110 V 430" stroke="#e2e8f0"/>
+<text x="216.66666666666822" y="448" font-size="11" fill="#475569" text-anchor="middle">0.997</text>
+<path d="M 343.3 110 V 430" stroke="#e2e8f0"/>
+<text x="343.33333333333644" y="448" font-size="11" fill="#475569" text-anchor="middle">0.998</text>
+<path d="M 470.0 110 V 430" stroke="#e2e8f0"/>
+<text x="470.00000000000466" y="448" font-size="11" fill="#475569" text-anchor="middle">0.999</text>
+<path d="M 596.7 110 V 430" stroke="#e2e8f0"/>
+<text x="596.6666666666729" y="448" font-size="11" fill="#475569" text-anchor="middle">1.000</text>
+<path d="M 90 430.0 H 660" stroke="#e2e8f0"/>
+<text x="82" y="434.0" font-size="11" fill="#475569" text-anchor="end">0.0</text>
+<path d="M 90 358.9 H 660" stroke="#e2e8f0"/>
+<text x="82" y="362.8888888888889" font-size="11" fill="#475569" text-anchor="end">0.2</text>
+<path d="M 90 287.8 H 660" stroke="#e2e8f0"/>
+<text x="82" y="291.77777777777777" font-size="11" fill="#475569" text-anchor="end">0.4</text>
+<path d="M 90 216.7 H 660" stroke="#e2e8f0"/>
+<text x="82" y="220.66666666666669" font-size="11" fill="#475569" text-anchor="end">0.6</text>
+<path d="M 90 145.6 H 660" stroke="#e2e8f0"/>
+<text x="82" y="149.55555555555554" font-size="11" fill="#475569" text-anchor="end">0.8</text>
+<text x="30" y="270.0" font-size="11" fill="#475569" text-anchor="start">cambio absoluto medio (puntos de índice)</text>
+<text x="375.0" y="470" font-size="11" fill="#475569" text-anchor="middle">correlación de rangos con S1 base (Spearman)</text>
+<rect x="480" y="70" width="14" height="14" fill="#2563eb"/>
+<text x="499" y="82" font-size="12" fill="#0f172a" text-anchor="start">Location</text>
+<rect x="575" y="70" width="14" height="14" fill="#ea580c"/>
+<text x="594" y="82" font-size="12" fill="#0f172a" text-anchor="start">Pitching</text>
+<circle cx="278.2" cy="258.8" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="319.5" cy="266.6" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="189.2" cy="142.5" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="378.2" cy="199.5" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="271.7" cy="208.0" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="374.6" cy="256.4" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="592.9" cy="408.9" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="594.4" cy="407.8" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="582.1" cy="391.2" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="582.1" cy="391.7" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="507.9" cy="345.8" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="512.0" cy="342.6" r="6" fill="#2563eb" fill-opacity="0.75"/>
+<circle cx="268.2" cy="246.8" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="313.0" cy="256.7" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="160.1" cy="135.1" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="370.7" cy="192.1" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="308.9" cy="206.1" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="397.6" cy="254.2" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="592.5" cy="410.5" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="594.5" cy="409.4" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="583.1" cy="391.0" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="583.1" cy="391.5" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="516.3" cy="343.9" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<circle cx="520.9" cy="341.0" r="6" fill="#ea580c" fill-opacity="0.75"/>
+<text x="30" y="492" font-size="11" fill="#475569" text-anchor="start">Todos los puntos quedan con correlación ≥ 0.9966: el ordenamiento es estable ante perturbaciones, pero el mayor cambio absoluto medio llega a 0.83 puntos.</text>
+</g>
+</svg>

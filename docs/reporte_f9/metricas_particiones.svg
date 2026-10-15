@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="527" viewBox="0 0 760 527">
+<rect width="760" height="527" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Log loss por partición 2025 · cohorte común F0</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Menor es mejor · B1 ve el conteo (balls/strikes); Stuff y StuffV2 solo ven físicas</text>
+<path d="M 200.0 110 V 440" stroke="#e2e8f0"/>
+<text x="200.0" y="458" font-size="11" fill="#475569" text-anchor="middle">1.40</text>
+<path d="M 343.8 110 V 440" stroke="#e2e8f0"/>
+<text x="343.75" y="458" font-size="11" fill="#475569" text-anchor="middle">1.45</text>
+<path d="M 487.5 110 V 440" stroke="#e2e8f0"/>
+<text x="487.5" y="458" font-size="11" fill="#475569" text-anchor="middle">1.50</text>
+<path d="M 631.2 110 V 440" stroke="#e2e8f0"/>
+<text x="631.25" y="458" font-size="11" fill="#475569" text-anchor="middle">1.55</text>
+<text x="30" y="124.0" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">development</text>
+<text x="192" y="121.0" font-size="11" fill="#64748b" text-anchor="end" font-weight="bold">B0</text>
+<rect x="200" y="110.0" width="384.0" height="14" fill="#64748b"/>
+<text x="588.9653447380701" y="121.0" font-size="9" fill="#475569" text-anchor="start">1.5336</text>
+<text x="192" y="157.66666666666666" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">B1</text>
+<rect x="200" y="146.66666666666666" width="193.2" height="14" fill="#2563eb"/>
+<text x="398.1640737441827" y="157.66666666666666" font-size="9" fill="#475569" text-anchor="start">1.4672</text>
+<text x="192" y="194.33333333333331" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">Stuff</text>
+<rect x="200" y="183.33333333333331" width="338.4" height="14" fill="#94a3b8"/>
+<text x="543.4324876361952" y="194.33333333333331" font-size="9" fill="#475569" text-anchor="start">1.5177</text>
+<text x="192" y="231.0" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">StuffV2</text>
+<rect x="200" y="220.0" width="338.4" height="14" fill="#c2410c"/>
+<text x="543.4410273963649" y="231.0" font-size="9" fill="#475569" text-anchor="start">1.5177</text>
+<text x="30" y="270.66666666666663" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">calibration</text>
+<text x="192" y="267.66666666666663" font-size="11" fill="#64748b" text-anchor="end" font-weight="bold">B0</text>
+<rect x="200" y="256.66666666666663" width="370.9" height="14" fill="#64748b"/>
+<text x="575.9444571074318" y="267.66666666666663" font-size="9" fill="#475569" text-anchor="start">1.5290</text>
+<text x="192" y="304.3333333333333" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">B1</text>
+<rect x="200" y="293.3333333333333" width="180.3" height="14" fill="#2563eb"/>
+<text x="385.3457325432013" y="304.3333333333333" font-size="9" fill="#475569" text-anchor="start">1.4627</text>
+<text x="192" y="341.0" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">Stuff</text>
+<rect x="200" y="330.0" width="323.7" height="14" fill="#94a3b8"/>
+<text x="528.7048628742539" y="341.0" font-size="9" fill="#475569" text-anchor="start">1.5126</text>
+<text x="192" y="377.66666666666663" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">StuffV2</text>
+<rect x="200" y="366.66666666666663" width="322.8" height="14" fill="#c2410c"/>
+<text x="527.8397620415359" y="377.66666666666663" font-size="9" fill="#475569" text-anchor="start">1.5123</text>
+<text x="30" y="417.3333333333333" font-size="13" fill="#0f172a" text-anchor="start" font-weight="bold">phase review</text>
+<text x="192" y="414.3333333333333" font-size="11" fill="#64748b" text-anchor="end" font-weight="bold">B0</text>
+<rect x="200" y="403.3333333333333" width="376.9" height="14" fill="#64748b"/>
+<text x="581.9023404774068" y="414.3333333333333" font-size="9" fill="#475569" text-anchor="start">1.5311</text>
+<text x="192" y="451.0" font-size="11" fill="#2563eb" text-anchor="end" font-weight="bold">B1</text>
+<rect x="200" y="440.0" width="182.5" height="14" fill="#2563eb"/>
+<text x="387.54929566230237" y="451.0" font-size="9" fill="#475569" text-anchor="start">1.4635</text>
+<text x="192" y="487.66666666666663" font-size="11" fill="#94a3b8" text-anchor="end" font-weight="bold">Stuff</text>
+<rect x="200" y="476.66666666666663" width="331.1" height="14" fill="#94a3b8"/>
+<text x="536.1320571064067" y="487.66666666666663" font-size="9" fill="#475569" text-anchor="start">1.5152</text>
+<text x="192" y="524.3333333333333" font-size="11" fill="#c2410c" text-anchor="end" font-weight="bold">StuffV2</text>
+<rect x="200" y="513.3333333333333" width="331.7" height="14" fill="#c2410c"/>
+<text x="536.7018443382349" y="524.3333333333333" font-size="9" fill="#475569" text-anchor="start">1.5154</text>
+<text x="30" y="482" font-size="11" fill="#475569" text-anchor="start">StuffV2 (1.5154) es indistinguible del Stuff original (1.5152) y queda muy por encima de B1 (1.4635) en las tres particiones.</text>
+<text x="30" y="500" font-size="11" fill="#475569" text-anchor="start">La ventaja de B1 es estructural: conoce el conteo. Ninguna derivada física cierra esa brecha.</text>
+</g>
+</svg>

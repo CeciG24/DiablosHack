@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="765" viewBox="0 0 860 765">
+<rect width="860" height="765" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Deltas medios del simulador por destino · puntos porcentuales</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">P(evento | destino) − P(evento | origen) · media de cohorte con IC 95% · asociación a forma fija, no causal ni recomendación</text>
+<path d="M 300.0 96 V 700" stroke="#e2e8f0"/>
+<text x="300.0" y="88" font-size="11" fill="#475569" text-anchor="middle">-0.3</text>
+<path d="M 365.5 96 V 700" stroke="#e2e8f0"/>
+<text x="365.45454545454544" y="88" font-size="11" fill="#475569" text-anchor="middle">-0.2</text>
+<path d="M 430.9 96 V 700" stroke="#e2e8f0"/>
+<text x="430.9090909090909" y="88" font-size="11" fill="#475569" text-anchor="middle">-0.1</text>
+<path d="M 496.4 96 V 700" stroke="#e2e8f0"/>
+<text x="496.3636363636364" y="88" font-size="11" fill="#475569" text-anchor="middle">+0.0</text>
+<path d="M 561.8 96 V 700" stroke="#e2e8f0"/>
+<text x="561.8181818181818" y="88" font-size="11" fill="#475569" text-anchor="middle">+0.1</text>
+<path d="M 627.3 96 V 700" stroke="#e2e8f0"/>
+<text x="627.2727272727273" y="88" font-size="11" fill="#475569" text-anchor="middle">+0.2</text>
+<path d="M 496.4 96 V 700" stroke="#94a3b8" stroke-width="2"/>
+<text x="30" y="110" font-size="13" fill="#c2410c" text-anchor="start" font-weight="bold">→ Extreme Altitude · 57 219 pitches (963 fuera de soporte)</text>
+<text x="288" y="138" font-size="11" fill="#0f172a" text-anchor="end">ball</text>
+<path d="M 575.8 134 H 613.8" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 575.8 128 V 140" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 613.8 128 V 140" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="595.2" cy="134" r="4.5" fill="#c2410c"/>
+<text x="621.8168809560791" y="138" font-size="10" fill="#475569" text-anchor="start">+0.1510</text>
+<text x="288" y="168" font-size="11" fill="#0f172a" text-anchor="end">called_strike</text>
+<path d="M 389.9 164 H 428.7" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 389.9 158 V 170" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 428.7 158 V 170" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="409.9" cy="164" r="4.5" fill="#c2410c"/>
+<text x="436.7190193055827" y="168" font-size="10" fill="#475569" text-anchor="start">-0.1321</text>
+<text x="288" y="198" font-size="11" fill="#0f172a" text-anchor="end">whiff</text>
+<path d="M 498.4 194 H 525.6" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 498.4 188 V 200" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 525.6 188 V 200" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="512.3" cy="194" r="4.5" fill="#c2410c"/>
+<text x="533.6320935327557" y="198" font-size="10" fill="#475569" text-anchor="start">+0.0244</text>
+<text x="288" y="228" font-size="11" fill="#0f172a" text-anchor="end">foul</text>
+<path d="M 416.8 224 H 435.1" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 416.8 218 V 230" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 435.1 218 V 230" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="425.7" cy="224" r="4.5" fill="#c2410c"/>
+<text x="443.1219108620471" y="228" font-size="10" fill="#475569" text-anchor="start">-0.1080</text>
+<text x="288" y="258" font-size="11" fill="#0f172a" text-anchor="end">in_play</text>
+<path d="M 549.3 254 H 578.3" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 549.3 248 V 260" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 578.3 248 V 260" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="563.3" cy="254" r="4.5" fill="#c2410c"/>
+<text x="586.292097044506" y="258" font-size="10" fill="#475569" text-anchor="start">+0.1023</text>
+<text x="288" y="288" font-size="11" fill="#0f172a" text-anchor="end">hit_by_pitch</text>
+<path d="M 467.7 284 H 475.7" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 467.7 278 V 290" stroke="#c2410c" stroke-width="2.5"/>
+<path d="M 475.7 278 V 290" stroke="#c2410c" stroke-width="2.5"/>
+<circle cx="471.8" cy="284" r="4.5" fill="#c2410c"/>
+<text x="483.7445475570267" y="288" font-size="10" fill="#475569" text-anchor="start">-0.0376</text>
+<text x="30" y="320" font-size="13" fill="#f59e0b" text-anchor="start" font-weight="bold">→ Medium Altitude · 57 788 pitches (394 fuera de soporte)</text>
+<text x="288" y="348" font-size="11" fill="#0f172a" text-anchor="end">ball</text>
+<path d="M 593.3 344 H 633.6" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 593.3 338 V 350" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 633.6 338 V 350" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="613.8" cy="344" r="4.5" fill="#f59e0b"/>
+<text x="641.6221945093675" y="348" font-size="10" fill="#475569" text-anchor="start">+0.1794</text>
+<text x="288" y="378" font-size="11" fill="#0f172a" text-anchor="end">called_strike</text>
+<path d="M 314.8 374 H 357.2" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 314.8 368 V 380" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 357.2 368 V 380" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="336.3" cy="374" r="4.5" fill="#f59e0b"/>
+<text x="365.15827036728797" y="378" font-size="10" fill="#475569" text-anchor="start">-0.2445</text>
+<text x="288" y="408" font-size="11" fill="#0f172a" text-anchor="end">whiff</text>
+<path d="M 627.2 404 H 664.2" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 627.2 398 V 410" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 664.2 398 V 410" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="645.6" cy="404" r="4.5" fill="#f59e0b"/>
+<text x="672.1857739044449" y="408" font-size="10" fill="#475569" text-anchor="start">+0.2280</text>
+<text x="288" y="438" font-size="11" fill="#0f172a" text-anchor="end">foul</text>
+<path d="M 500.1 434 H 518.8" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 500.1 428 V 440" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 518.8 428 V 440" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="509.3" cy="434" r="4.5" fill="#f59e0b"/>
+<text x="526.8154522993028" y="438" font-size="10" fill="#475569" text-anchor="start">+0.0198</text>
+<text x="288" y="468" font-size="11" fill="#0f172a" text-anchor="end">in_play</text>
+<path d="M 341.9 464 H 372.3" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 341.9 458 V 470" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 372.3 458 V 470" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="356.7" cy="464" r="4.5" fill="#f59e0b"/>
+<text x="380.3139493126052" y="468" font-size="10" fill="#475569" text-anchor="start">-0.2134</text>
+<text x="288" y="498" font-size="11" fill="#0f172a" text-anchor="end">hit_by_pitch</text>
+<path d="M 511.9 494 H 521.2" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 511.9 488 V 500" stroke="#f59e0b" stroke-width="2.5"/>
+<path d="M 521.2 488 V 500" stroke="#f59e0b" stroke-width="2.5"/>
+<circle cx="516.5" cy="494" r="4.5" fill="#f59e0b"/>
+<text x="529.2056035710028" y="498" font-size="10" fill="#475569" text-anchor="start">+0.0308</text>
+<text x="30" y="530" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="bold">→ No Altitude · 57 929 pitches (253 fuera de soporte)</text>
+<text x="288" y="558" font-size="11" fill="#0f172a" text-anchor="end">ball</text>
+<path d="M 350.1 554 H 387.3" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 350.1 548 V 560" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 387.3 548 V 560" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="369.1" cy="554" r="4.5" fill="#94a3b8"/>
+<text x="395.29555995275786" y="558" font-size="10" fill="#475569" text-anchor="start">-0.1944</text>
+<text x="288" y="588" font-size="11" fill="#0f172a" text-anchor="end">called_strike</text>
+<path d="M 601.1 584 H 637.7" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 601.1 578 V 590" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 637.7 578 V 590" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="619.7" cy="584" r="4.5" fill="#94a3b8"/>
+<text x="645.7238381137953" y="588" font-size="10" fill="#475569" text-anchor="start">+0.1884</text>
+<text x="288" y="618" font-size="11" fill="#0f172a" text-anchor="end">whiff</text>
+<path d="M 434.0 614 H 454.6" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 434.0 608 V 620" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 454.6 608 V 620" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="444.6" cy="614" r="4.5" fill="#94a3b8"/>
+<text x="462.6495663938081" y="618" font-size="10" fill="#475569" text-anchor="start">-0.0792</text>
+<text x="288" y="648" font-size="11" fill="#0f172a" text-anchor="end">foul</text>
+<path d="M 521.3 644 H 536.0" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 521.3 638 V 650" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 536.0 638 V 650" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="529.0" cy="644" r="4.5" fill="#94a3b8"/>
+<text x="543.9826696167033" y="648" font-size="10" fill="#475569" text-anchor="start">+0.0499</text>
+<text x="288" y="678" font-size="11" fill="#0f172a" text-anchor="end">in_play</text>
+<path d="M 504.0 674 H 525.6" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 504.0 668 V 680" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 525.6 668 V 680" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="514.6" cy="674" r="4.5" fill="#94a3b8"/>
+<text x="533.5525584907426" y="678" font-size="10" fill="#475569" text-anchor="start">+0.0279</text>
+<text x="288" y="708" font-size="11" fill="#0f172a" text-anchor="end">hit_by_pitch</text>
+<path d="M 497.4 704 H 505.3" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 497.4 698 V 710" stroke="#94a3b8" stroke-width="2.5"/>
+<path d="M 505.3 698 V 710" stroke="#94a3b8" stroke-width="2.5"/>
+<circle cx="501.2" cy="704" r="4.5" fill="#94a3b8"/>
+<text x="513.3316491170687" y="708" font-size="10" fill="#475569" text-anchor="start">+0.0074</text>
+<text x="30" y="720" font-size="11" fill="#475569" text-anchor="start">Los seis deltas de cada destino suman ~0. Cada fila compara el destino fijo con la categoría</text>
+<text x="30" y="738" font-size="11" fill="#475569" text-anchor="start">original de sus pitches elegibles; las poblaciones difieren entre destinos → no es comparación pareada.</text>
+</g>
+</svg>

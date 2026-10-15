@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="376" viewBox="0 0 860 376">
+<rect width="860" height="376" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Cambio relativo de log loss por categoría · revisión</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Positivo favorece al candidato ambiental · diagnóstico sin corrección por comparaciones múltiples</text>
+<path d="M 300.0 116 V 316" stroke="#e2e8f0"/>
+<text x="300.0" y="108" font-size="11" fill="#475569" text-anchor="middle">-0.10%</text>
+<path d="M 385.0 116 V 316" stroke="#e2e8f0"/>
+<text x="385.0" y="108" font-size="11" fill="#475569" text-anchor="middle">-0.05%</text>
+<path d="M 470.0 116 V 316" stroke="#e2e8f0"/>
+<text x="470.0" y="108" font-size="11" fill="#475569" text-anchor="middle">+0.00%</text>
+<path d="M 555.0 116 V 316" stroke="#e2e8f0"/>
+<text x="555.0" y="108" font-size="11" fill="#475569" text-anchor="middle">+0.05%</text>
+<path d="M 640.0 116 V 316" stroke="#e2e8f0"/>
+<text x="640.0" y="108" font-size="11" fill="#475569" text-anchor="middle">+0.10%</text>
+<path d="M 470.0 116 V 316" stroke="#94a3b8" stroke-width="2"/>
+<text x="288" y="156" font-size="12" fill="#0f172a" text-anchor="end">Extreme Altitude</text>
+<rect x="470.0" y="142" width="20.8" height="22" fill="#c2410c" rx="3"/>
+<text x="498.8286889497729" y="158" font-size="11" fill="#0f172a" text-anchor="start">+0.0123% · 15 400 pitches</text>
+<text x="288" y="218" font-size="12" fill="#0f172a" text-anchor="end">Medium Altitude</text>
+<rect x="470.0" y="204" width="116.5" height="22" fill="#f59e0b" rx="3"/>
+<text x="594.4549346711891" y="220" font-size="11" fill="#0f172a" text-anchor="start">+0.0685% · 14 922 pitches</text>
+<text x="288" y="280" font-size="12" fill="#0f172a" text-anchor="end">No Altitude</text>
+<rect x="333.3" y="266" width="136.7" height="22" fill="#94a3b8" rx="3"/>
+<text x="325.300670160584" y="282" font-size="11" fill="#0f172a" text-anchor="end">-0.0804% · 27 860 pitches</text>
+<text x="300" y="334" font-size="11" fill="#475569" text-anchor="start">Ninguna categoría muestra mejora consistente; el efecto se concentra en altura media</text>
+<text x="300" y="352" font-size="11" fill="#475569" text-anchor="start">(+0.07%) y se invierte sin altura (−0.08%). Solo 12 de 61 grupos tuvieron muestra suficiente.</text>
+</g>
+</svg>

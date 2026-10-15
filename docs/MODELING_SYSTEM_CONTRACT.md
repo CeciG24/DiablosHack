@@ -445,6 +445,65 @@ La ausencia de estadio, PA o run value debe aparecer en la matriz de cumplimient
 ocultarse detrás del dashboard. Haber implementado F8 no garantiza haber satisfecho todos
 los requisitos oficiales que dependen de campos aún ausentes.
 
+### F9 Mejora de Stuff+ post-release (físicas derivadas)
+
+**Objetivo tangible:** un candidato Stuff v2 que intente superar al baseline B1 con
+variables exclusivamente físicas, declarando que 2026 ya fue expuesto por F8.
+
+**Prerequisito:** F8 verificado y `artifacts/modeling/test_exposure.json` presente;
+el `release_id` de exposición debe coincidir con `F9.release_reference`. El código de
+F9 vive fuera de `modeling/` para que `release_lock.json` siga verificando el release
+congelado. La evaluación final de 2026 no se repite ni se usa para esta decisión.
+
+**Implementar:** `stuff_v2_derived_physical_v1`: las 11 columnas físicas originales más
+derivadas deterministas del mismo lanzamiento (Bauer units, magnitud y ángulo de break,
+ángulo del eje, pendientes de release) y z-scores por `auto_pitch_type` ajustados solo
+con la partición train 2024 (categoría no vista → estadísticos globales). Búsqueda
+completa de hasta 12 configuraciones predeclaradas en el contrato; ajuste en train 2024,
+selección por log loss en development 2025, decisión en phase_review 2025 con el mismo
+bootstrap pareado y la misma regla de promoción (≥1% relativo e IC95% bajo cero) frente
+a B0, B1 y el Stuff original de F2.
+
+**Entregar:** candidato seleccionado con vocabularios y estadísticos auditables,
+predicciones por pitch, métricas y comparaciones, importancia por permutación sobre la
+matriz ya derivada, checks técnicos y `decision.md`. La decisión `promote` documenta
+evidencia para una futura versión; no reabre ni modifica el release congelado.
+
+**Pruebas:** determinismo de derivadas y del refit; invarianza ante contexto/IDs/outcomes;
+rechazo de nulos/no finitos; categoría no vista con advertencia y fallback global;
+vocabularios y estadísticos ajustados solo con train; auditoría independiente
+`scripts/check_phase9.py`.
+
+**Criterio de cierre:** decisión `promote` o `retain_reference` reproducible sobre
+2024/2025 únicamente, con la exposición de 2026 declarada en el manifiesto. Esta fase
+no puede presentarse como test independiente ni producir un segundo release sin un
+protocolo nuevo etiquetado.
+
+### F10 Stuff v3 con features relativas al arsenal (post-release)
+
+**Objetivo tangible:** probar con evidencia si las features relativas a la recta del propio
+pitcher mejoran las cabezas propias de Stuff (whiff|swing, groundball|BIP, hard-contact|BIP),
+y construir un índice Stuff+ menos dominado por el tipo de pitch. Declara que 2026 ya fue
+expuesto por F8 y no lo consulta.
+
+**Prerequisito:** F8 y F9 verificados; `test_exposure.json` coincide con `F10.release_reference`.
+El código vive en `postrelease/`; el release congelado no se toca.
+
+**Implementar:** variantes `base` (11 columnas físicas), `refA` (+4 features relativas con
+referencia de la misma temporada; transductiva, solo covariables físicas) y `refB` (misma
+matriz, referencia del año previo en evaluación; desplegable). Referencia: tipo Four-Seam o
+Sinker más frecuente con al menos `F10.reference_min_fastballs` lanzamientos por pitcher-año.
+Cabezas binarias contra prevalencia suavizada de entrenamiento; modelos de evento
+`Stuff+conteo` contra B1. Ajuste en train 2024, selección por log loss en development 2025
+(hasta 3 configuraciones por modelo), comparaciones pareadas en phase_review.
+
+**Regla de decisión (predeclarada):** `adopt_refB_deployable` si refB mejora a base en
+whiff|swing con IC95% de la diferencia bajo cero; `refA_diagnostic_only` si solo mejora refA;
+en otro caso `retain_base`. El índice se normaliza con calibration 2025 (global y por tipo).
+
+**Criterio de cierre:** decisión reproducible sobre 2024/2025 únicamente, con la exposición de
+2026 declarada. No es test independiente ni un segundo release.
+
 ## 7 Interfaz de inferencia que debe implementarse
 
 Una petición acepta features observables en unidades del diccionario y una familia/política

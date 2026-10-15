@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="720" viewBox="0 0 1080 720">
+<rect width="1080" height="720" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="30" font-size="20">Calibración F1 · phase_review</text>
+<text x="30" y="54" font-size="12">X: probabilidad media · Y: frecuencia observada · 10 bins fijos · recuentos en CSV y tooltip</text>
+<text x="720" y="30" fill="#475569">B0</text>
+<text x="810" y="30" fill="#2563eb">B1</text>
+<text x="900" y="30" fill="#c2410c">B2</text>
+<text x="55" y="95" font-size="16">ball</text>
+<path d="M 55 110 V 330 M 55 330 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="55" y="348" font-size="11">0</text>
+<text x="30" y="334" font-size="11">0</text>
+<path d="M 165.0 110 V 330 M 55 220.0 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="165.0" y="348" font-size="11">0.5</text>
+<text x="30" y="224.0" font-size="11">0.5</text>
+<path d="M 275 110 V 330 M 55 110 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="275" y="348" font-size="11">1</text>
+<text x="30" y="114" font-size="11">1</text>
+<path d="M 55 330 L 275 110" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="134.935,246.658" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="134.935" cy="246.658" r="4" fill="#475569"><title>B0: n=58182; positivos=22041; bin=3</title></circle>
+<polyline points="115.866,265.123 133.050,248.995 145.373,234.581" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="115.866" cy="265.123" r="4" fill="#2563eb"><title>B1: n=7857; positivos=2317; bin=2</title></circle>
+<circle cx="133.050" cy="248.995" r="4" fill="#2563eb"><title>B1: n=32099; positivos=11819; bin=3</title></circle>
+<circle cx="145.373" cy="234.581" r="4" fill="#2563eb"><title>B1: n=18226; positivos=7905; bin=4</title></circle>
+<polyline points="114.887,264.954 133.722,247.922 146.743,234.114" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="114.887" cy="264.954" r="4" fill="#c2410c"><title>B2: n=7654; positivos=2263; bin=2</title></circle>
+<circle cx="133.722" cy="247.922" r="4" fill="#c2410c"><title>B2: n=35759; positivos=13341; bin=3</title></circle>
+<circle cx="146.743" cy="234.114" r="4" fill="#c2410c"><title>B2: n=14769; positivos=6437; bin=4</title></circle>
+<text x="405" y="95" font-size="16">called_strike</text>
+<path d="M 405 110 V 330 M 405 330 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="405" y="348" font-size="11">0</text>
+<text x="380" y="334" font-size="11">0</text>
+<path d="M 515.0 110 V 330 M 405 220.0 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="515.0" y="348" font-size="11">0.5</text>
+<text x="380" y="224.0" font-size="11">0.5</text>
+<path d="M 625 110 V 330 M 405 110 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="625" y="348" font-size="11">1</text>
+<text x="380" y="114" font-size="11">1</text>
+<path d="M 405 330 L 625 110" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="439.199,296.842" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="439.199" cy="296.842" r="4" fill="#475569"><title>B0: n=58182; positivos=8769; bin=1</title></circle>
+<polyline points="419.208,316.809 437.839,296.045 464.045,273.428 527.138,213.018" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="419.208" cy="316.809" r="4" fill="#2563eb"><title>B1: n=31755; positivos=1904; bin=0</title></circle>
+<circle cx="437.839" cy="296.045" r="4" fill="#2563eb"><title>B1: n=1555; positivos=240; bin=1</title></circle>
+<circle cx="464.045" cy="273.428" r="4" fill="#2563eb"><title>B1: n=24037; positivos=6181; bin=2</title></circle>
+<circle cx="527.138" cy="213.018" r="4" fill="#2563eb"><title>B1: n=835; positivos=444; bin=5</title></circle>
+<polyline points="418.318,317.710 436.880,298.957 462.895,274.290 474.305,264.171 510.659,236.176 526.755,209.974" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="418.318" cy="317.710" r="4" fill="#c2410c"><title>B2: n=29609; positivos=1654; bin=0</title></circle>
+<circle cx="436.880" cy="298.957" r="4" fill="#c2410c"><title>B2: n=4897; positivos=691; bin=1</title></circle>
+<circle cx="462.895" cy="274.290" r="4" fill="#c2410c"><title>B2: n=18600; positivos=4710; bin=2</title></circle>
+<circle cx="474.305" cy="264.171" r="4" fill="#c2410c"><title>B2: n=4251; positivos=1272; bin=3</title></circle>
+<circle cx="510.659" cy="236.176" r="4" fill="#c2410c"><title>B2: n=68; positivos=29; bin=4</title></circle>
+<circle cx="526.755" cy="209.974" r="4" fill="#c2410c"><title>B2: n=757; positivos=413; bin=5</title></circle>
+<text x="755" y="95" font-size="16">whiff</text>
+<path d="M 755 110 V 330 M 755 330 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="755" y="348" font-size="11">0</text>
+<text x="730" y="334" font-size="11">0</text>
+<path d="M 865.0 110 V 330 M 755 220.0 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="865.0" y="348" font-size="11">0.5</text>
+<text x="730" y="224.0" font-size="11">0.5</text>
+<path d="M 975 110 V 330 M 755 110 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="975" y="348" font-size="11">1</text>
+<text x="730" y="114" font-size="11">1</text>
+<path d="M 755 330 L 975 110" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="780.606,305.679" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="780.606" cy="305.679" r="4" fill="#475569"><title>B0: n=58182; positivos=6432; bin=1</title></circle>
+<polyline points="771.824,314.107 784.442,301.812" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="771.824" cy="314.107" r="4" fill="#2563eb"><title>B1: n=18300; positivos=1322; bin=0</title></circle>
+<circle cx="784.442" cy="301.812" r="4" fill="#2563eb"><title>B1: n=39882; positivos=5110; bin=1</title></circle>
+<polyline points="771.164,314.996 787.016,298.980 801.915,296.154" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="771.164" cy="314.996" r="4" fill="#c2410c"><title>B2: n=24355; positivos=1661; bin=0</title></circle>
+<circle cx="787.016" cy="298.980" r="4" fill="#c2410c"><title>B2: n=33723; positivos=4755; bin=1</title></circle>
+<circle cx="801.915" cy="296.154" r="4" fill="#c2410c"><title>B2: n=104; positivos=16; bin=2</title></circle>
+<text x="55" y="405" font-size="16">foul</text>
+<path d="M 55 420 V 640 M 55 640 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="55" y="658" font-size="11">0</text>
+<text x="30" y="644" font-size="11">0</text>
+<path d="M 165.0 420 V 640 M 55 530.0 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="165.0" y="658" font-size="11">0.5</text>
+<text x="30" y="534.0" font-size="11">0.5</text>
+<path d="M 275 420 V 640 M 55 420 H 275" stroke="#e2e8f0" fill="none"/>
+<text x="275" y="658" font-size="11">1</text>
+<text x="30" y="424" font-size="11">1</text>
+<path d="M 55 640 L 275 420" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="93.636,601.968" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="93.636" cy="601.968" r="4" fill="#475569"><title>B0: n=58182; positivos=10058; bin=1</title></circle>
+<polyline points="61.292,631.832 88.419,607.175 106.982,588.576" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="61.292" cy="631.832" r="4" fill="#2563eb"><title>B1: n=835; positivos=31; bin=0</title></circle>
+<circle cx="88.419" cy="607.175" r="4" fill="#2563eb"><title>B1: n=39952; positivos=5961; bin=1</title></circle>
+<circle cx="106.982" cy="588.576" r="4" fill="#2563eb"><title>B1: n=17395; positivos=4066; bin=2</title></circle>
+<polyline points="73.089,622.088 88.486,607.427 106.281,588.788 124.228,574.600" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="73.089" cy="622.088" r="4" fill="#c2410c"><title>B2: n=7136; positivos=581; bin=0</title></circle>
+<circle cx="88.486" cy="607.427" r="4" fill="#c2410c"><title>B2: n=29286; positivos=4336; bin=1</title></circle>
+<circle cx="106.281" cy="588.788" r="4" fill="#c2410c"><title>B2: n=20586; positivos=4792; bin=2</title></circle>
+<circle cx="124.228" cy="574.600" r="4" fill="#c2410c"><title>B2: n=1174; positivos=349; bin=3</title></circle>
+<text x="405" y="405" font-size="16">in_play</text>
+<path d="M 405 420 V 640 M 405 640 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="405" y="658" font-size="11">0</text>
+<text x="380" y="644" font-size="11">0</text>
+<path d="M 515.0 420 V 640 M 405 530.0 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="515.0" y="658" font-size="11">0.5</text>
+<text x="380" y="534.0" font-size="11">0.5</text>
+<path d="M 625 420 V 640 M 405 420 H 625" stroke="#e2e8f0" fill="none"/>
+<text x="625" y="658" font-size="11">1</text>
+<text x="380" y="424" font-size="11">1</text>
+<path d="M 405 640 L 625 420" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="445.870,599.609" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="445.870" cy="599.609" r="4" fill="#475569"><title>B0: n=58182; positivos=10682; bin=1</title></circle>
+<polyline points="412.965,634.731 437.888,607.089 458.611,587.432" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="412.965" cy="634.731" r="4" fill="#2563eb"><title>B1: n=835; positivos=20; bin=0</title></circle>
+<circle cx="437.888" cy="607.089" r="4" fill="#2563eb"><title>B1: n=34032; positivos=5091; bin=1</title></circle>
+<circle cx="458.611" cy="587.432" r="4" fill="#2563eb"><title>B1: n=23315; positivos=5571; bin=2</title></circle>
+<polyline points="417.909,628.247 437.009,608.240 457.205,588.581 477.597,569.390" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="417.909" cy="628.247" r="4" fill="#c2410c"><title>B2: n=2134; positivos=114; bin=0</title></circle>
+<circle cx="437.009" cy="608.240" r="4" fill="#c2410c"><title>B2: n=29724; positivos=4291; bin=1</title></circle>
+<circle cx="457.205" cy="588.581" r="4" fill="#c2410c"><title>B2: n=24897; positivos=5819; bin=2</title></circle>
+<circle cx="477.597" cy="569.390" r="4" fill="#c2410c"><title>B2: n=1427; positivos=458; bin=3</title></circle>
+<text x="755" y="405" font-size="16">hit_by_pitch</text>
+<path d="M 755 420 V 640 M 755 640 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="755" y="658" font-size="11">0</text>
+<text x="730" y="644" font-size="11">0</text>
+<path d="M 865.0 420 V 640 M 755 530.0 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="865.0" y="658" font-size="11">0.5</text>
+<text x="730" y="534.0" font-size="11">0.5</text>
+<path d="M 975 420 V 640 M 755 420 H 975" stroke="#e2e8f0" fill="none"/>
+<text x="975" y="658" font-size="11">1</text>
+<text x="730" y="424" font-size="11">1</text>
+<path d="M 755 640 L 975 420" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<polyline points="755.753,639.244" fill="none" stroke="#475569" stroke-width="2"/>
+<circle cx="755.753" cy="639.244" r="4" fill="#475569"><title>B0: n=58182; positivos=200; bin=0</title></circle>
+<polyline points="755.744,639.244" fill="none" stroke="#2563eb" stroke-width="2"/>
+<circle cx="755.744" cy="639.244" r="4" fill="#2563eb"><title>B1: n=58182; positivos=200; bin=0</title></circle>
+<polyline points="755.743,639.244" fill="none" stroke="#c2410c" stroke-width="2"/>
+<circle cx="755.743" cy="639.244" r="4" fill="#c2410c"><title>B2: n=58182; positivos=200; bin=0</title></circle>
+<text x="30" y="705" font-size="12">Diagnóstico descriptivo; bins escasos no demuestran por sí solos mala calibración. 2026 sellado.</text></g></svg>

@@ -26,7 +26,7 @@ def main():
         assert set(phase['depends_on']).issubset(seen), 'Invalid phase dependency order'
         assert re.search(r'^### ' + phase['id'] + r' ', document, re.M)
         seen.add(phase['id'])
-    assert seen == {'F'+str(i) for i in range(9)}
+    assert seen == {'F'+str(i) for i in range(11)}
     assert len(cfg['event_class_order']) == len(set(cfg['event_class_order'])) == 6
     assert set(cfg['score']['default_weights']) == set(cfg['event_class_order'])
     assert cfg['score']['represents_expected_runs'] is False
@@ -34,7 +34,7 @@ def main():
     assert max(cfg['protocol_C']['reference_years_fixed']) < protocol['development_year']
     assert cfg['protocol_C']['existing_2026_arsenal_features_allowed'] is False
     assert (run / 'feature_sets.json').exists()
-    print('PASS: contrato y configuracion coherentes; 9 fases; datos '+current)
+    print('PASS: contrato y configuracion coherentes; 11 fases; datos '+current)
     print('No se cargaron etiquetas, no se entrenaron modelos y no se evaluo 2026.')
 
 

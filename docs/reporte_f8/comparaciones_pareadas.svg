@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="502" viewBox="0 0 820 502">
+<rect width="820" height="502" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Comparaciones pareadas predeclaradas · Δ log loss (candidato − referencia)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Bootstrap pareado por partido, 500 remuestreos · todas etiquetadas report_only_no_selection</text>
+<path d="M 320.7 108 V 430" stroke="#e2e8f0"/>
+<text x="320.6896551724138" y="100" font-size="11" fill="#475569" text-anchor="middle">-0.4</text>
+<path d="M 391.4 108 V 430" stroke="#e2e8f0"/>
+<text x="391.37931034482756" y="100" font-size="11" fill="#475569" text-anchor="middle">-0.3</text>
+<path d="M 462.1 108 V 430" stroke="#e2e8f0"/>
+<text x="462.0689655172414" y="100" font-size="11" fill="#475569" text-anchor="middle">-0.2</text>
+<path d="M 532.8 108 V 430" stroke="#e2e8f0"/>
+<text x="532.7586206896551" y="100" font-size="11" fill="#475569" text-anchor="middle">-0.1</text>
+<path d="M 603.4 108 V 430" stroke="#e2e8f0"/>
+<text x="603.4482758620691" y="100" font-size="11" fill="#475569" text-anchor="middle">+0.0</text>
+<path d="M 603.4 108 V 430" stroke="#94a3b8" stroke-width="2"/>
+<text x="236" y="146" font-size="13" fill="#0d9488" text-anchor="end" font-weight="bold">Stuff − B1</text>
+<path d="M 636.7 142 H 639.9" stroke="#0d9488" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 636.7 135 V 149" stroke="#0d9488" stroke-width="2"/>
+<path d="M 639.9 135 V 149" stroke="#0d9488" stroke-width="2"/>
+<circle cx="638.3" cy="142" r="6" fill="#0d9488"/>
+<text x="668" y="146" font-size="11" fill="#334155" text-anchor="start">+0.0493</text>
+<text x="236" y="208" font-size="13" fill="#2563eb" text-anchor="end" font-weight="bold">Location − B1</text>
+<path d="M 283.5 204 H 289.6" stroke="#2563eb" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 283.5 197 V 211" stroke="#2563eb" stroke-width="2"/>
+<path d="M 289.6 197 V 211" stroke="#2563eb" stroke-width="2"/>
+<circle cx="286.7" cy="204" r="6" fill="#2563eb"/>
+<text x="668" y="208" font-size="11" fill="#334155" text-anchor="start">-0.4480</text>
+<text x="236" y="270" font-size="13" fill="#ea580c" text-anchor="end" font-weight="bold">Pitching − B1</text>
+<path d="M 272.8 266 H 278.9" stroke="#ea580c" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 272.8 259 V 273" stroke="#ea580c" stroke-width="2"/>
+<path d="M 278.9 259 V 273" stroke="#ea580c" stroke-width="2"/>
+<circle cx="275.9" cy="266" r="6" fill="#ea580c"/>
+<text x="668" y="270" font-size="11" fill="#334155" text-anchor="start">-0.4634</text>
+<text x="236" y="332" font-size="13" fill="#ea580c" text-anchor="end" font-weight="bold">Pitching − Location</text>
+<path d="M 591.6 328 H 593.5" stroke="#ea580c" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 591.6 321 V 335" stroke="#ea580c" stroke-width="2"/>
+<path d="M 593.5 321 V 335" stroke="#ea580c" stroke-width="2"/>
+<circle cx="592.6" cy="328" r="6" fill="#ea580c"/>
+<text x="668" y="332" font-size="11" fill="#334155" text-anchor="start">-0.0154</text>
+<text x="236" y="394" font-size="13" fill="#7c3aed" text-anchor="end" font-weight="bold">Ambiente − Pitching</text>
+<path d="M 603.2 390 H 603.7" stroke="#7c3aed" stroke-width="3" stroke-opacity="0.55"/>
+<path d="M 603.2 383 V 397" stroke="#7c3aed" stroke-width="2"/>
+<path d="M 603.7 383 V 397" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="603.4" cy="390" r="6" fill="#7c3aed"/>
+<text x="668" y="394" font-size="11" fill="#334155" text-anchor="start">-0.0000</text>
+<text x="30" y="460" font-size="11" fill="#475569" text-anchor="start">Solo Pitching supera a su referencia inmediata con IC completo bajo cero (−0.0154, −1.48% relativo).</text>
+<text x="30" y="478" font-size="11" fill="#475569" text-anchor="start">El candidato ambiental es estadísticamente indistinguible de Pitching (−0.00004): confirma la decisión de no promoverlo. Ninguna comparación selecciona modelos.</text>
+</g>
+</svg>

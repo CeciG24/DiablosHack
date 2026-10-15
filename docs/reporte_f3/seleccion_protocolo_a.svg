@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="448" viewBox="0 0 860 448">
+<rect width="860" height="448" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Selección de configuración LightGBM · Protocolo A · temporal (fit 2024 → eval 2025)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Selección solo en development (review nunca selecciona) · early stopping 30 · eje truncado por familia</text>
+<text x="288" y="112" font-size="11" fill="#7c3aed" text-anchor="end">stuff: modelo congelado de F2 (sin búsqueda nueva)</text>
+<text x="288" y="122" font-size="14" fill="#0d9488" text-anchor="end" font-weight="bold">Location</text>
+<text x="288" y="144" font-size="12" fill="#0f172a" text-anchor="end" font-weight="bold">candidate_01</text>
+<text x="288" y="159" font-size="9" fill="#64748b" text-anchor="end">leaves 15 · min_data 200 · L2 5 · iter 400</text>
+<rect x="300" y="132" width="56.2" height="26" fill="#0d9488" fill-opacity="1.0"/>
+<text x="364.2499999999886" y="149" font-size="11" fill="#334155" text-anchor="start">1.04881</text>
+<text x="448.2499999999886" y="149" font-size="10" fill="#0d9488" text-anchor="start" font-weight="bold">← seleccionado</text>
+<text x="288" y="184" font-size="12" fill="#64748b" text-anchor="end">candidate_02</text>
+<text x="288" y="199" font-size="9" fill="#64748b" text-anchor="end">leaves 31 · min_data 200 · L2 5 · iter 264</text>
+<rect x="300" y="172" width="110.4" height="26" fill="#0d9488" fill-opacity="0.35"/>
+<text x="418.4436699948848" y="189" font-size="11" fill="#334155" text-anchor="start">1.04934</text>
+<text x="288" y="224" font-size="12" fill="#64748b" text-anchor="end">candidate_03</text>
+<text x="288" y="239" font-size="9" fill="#64748b" text-anchor="end">leaves 63 · min_data 400 · L2 10 · iter 212</text>
+<rect x="300" y="212" width="243.7" height="26" fill="#0d9488" fill-opacity="0.35"/>
+<text x="551.7499999999886" y="229" font-size="11" fill="#334155" text-anchor="start">1.05064</text>
+<text x="288" y="272" font-size="14" fill="#16a34a" text-anchor="end" font-weight="bold">Pitching</text>
+<text x="288" y="294" font-size="12" fill="#64748b" text-anchor="end">candidate_01</text>
+<text x="288" y="309" font-size="9" fill="#64748b" text-anchor="end">leaves 15 · min_data 200 · L2 5 · iter 399</text>
+<rect x="300" y="282" width="239.9" height="26" fill="#16a34a" fill-opacity="0.35"/>
+<text x="547.8678343310723" y="299" font-size="11" fill="#334155" text-anchor="start">1.03555</text>
+<text x="288" y="334" font-size="12" fill="#0f172a" text-anchor="end" font-weight="bold">candidate_02</text>
+<text x="288" y="349" font-size="9" fill="#64748b" text-anchor="end">leaves 31 · min_data 200 · L2 5 · iter 323</text>
+<rect x="300" y="322" width="60.1" height="26" fill="#16a34a" fill-opacity="1.0"/>
+<text x="368.13216566892766" y="339" font-size="11" fill="#334155" text-anchor="start">1.03406</text>
+<text x="452.13216566892766" y="339" font-size="10" fill="#16a34a" text-anchor="start" font-weight="bold">← seleccionado</text>
+<text x="288" y="374" font-size="12" fill="#64748b" text-anchor="end">candidate_03</text>
+<text x="288" y="389" font-size="9" fill="#64748b" text-anchor="end">leaves 63 · min_data 400 · L2 10 · iter 188</text>
+<rect x="300" y="362" width="93.9" height="26" fill="#16a34a" fill-opacity="0.35"/>
+<text x="401.88460240599187" y="379" font-size="11" fill="#334155" text-anchor="start">1.03434</text>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+<rect width="800" height="420" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Comparaciones bootstrap pareadas por juego · phase review 2025</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Δ log loss (Stuff − referencia) con IC 95% · 500 remuestreos · valores negativos favorecen a Stuff</text>
+<path d="M 174.7 100 V 360" stroke="#e2e8f0"/>
+<text x="174.73684210526315" y="92" font-size="11" fill="#475569" text-anchor="middle">-0.02</text>
+<path d="M 244.2 100 V 360" stroke="#e2e8f0"/>
+<text x="244.21052631578948" y="92" font-size="11" fill="#475569" text-anchor="middle">0.00</text>
+<path d="M 313.7 100 V 360" stroke="#e2e8f0"/>
+<text x="313.6842105263158" y="92" font-size="11" fill="#475569" text-anchor="middle">0.02</text>
+<path d="M 383.2 100 V 360" stroke="#e2e8f0"/>
+<text x="383.15789473684214" y="92" font-size="11" fill="#475569" text-anchor="middle">0.04</text>
+<path d="M 452.6 100 V 360" stroke="#e2e8f0"/>
+<text x="452.6315789473684" y="92" font-size="11" fill="#475569" text-anchor="middle">0.06</text>
+<path d="M 244.2 100 V 360" stroke="#94a3b8" stroke-width="2"/>
+<text x="128" y="154" font-size="14" fill="#0f172a" text-anchor="end" font-weight="bold">Stuff vs B0</text>
+<path d="M 184.4 150 H 193.5" stroke="#16a34a" stroke-width="3"/>
+<path d="M 184.4 142 V 158" stroke="#16a34a" stroke-width="3"/>
+<path d="M 193.5 142 V 158" stroke="#16a34a" stroke-width="3"/>
+<circle cx="188.9" cy="150" r="6" fill="#16a34a"/>
+<text x="486" y="146" font-size="12" fill="#0f172a" text-anchor="start">Δ = -0.0159</text>
+<text x="486" y="164" font-size="12" fill="#475569" text-anchor="start">reducción relativa +1.04%</text>
+<text x="486" y="182" font-size="12" fill="#16a34a" text-anchor="start" font-weight="bold">decisión: promote</text>
+<text x="128" y="274" font-size="14" fill="#0f172a" text-anchor="end" font-weight="bold">Stuff vs B1</text>
+<path d="M 413.0 270 H 433.6" stroke="#d97706" stroke-width="3"/>
+<path d="M 413.0 262 V 278" stroke="#d97706" stroke-width="3"/>
+<path d="M 433.6 262 V 278" stroke="#d97706" stroke-width="3"/>
+<circle cx="423.7" cy="270" r="6" fill="#d97706"/>
+<text x="486" y="266" font-size="12" fill="#0f172a" text-anchor="start">Δ = +0.0517</text>
+<text x="486" y="284" font-size="12" fill="#475569" text-anchor="start">reducción relativa -3.53%</text>
+<text x="486" y="302" font-size="12" fill="#d97706" text-anchor="start" font-weight="bold">decisión: inconclusive</text>
+<text x="140" y="400" font-size="11" fill="#475569" text-anchor="start">Stuff mejora a B0 con evidencia (Δ&lt;0), pero es peor que B1 (Δ&gt;0, IC completo sobre cero):</text>
+<text x="140" y="418" font-size="11" fill="#475569" text-anchor="start">las variables físicas solas no capturan la señal que ya aporta el conteo.</text>
+</g>
+</svg>

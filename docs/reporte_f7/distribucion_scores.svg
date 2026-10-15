@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="529" viewBox="0 0 760 529">
+<rect width="760" height="529" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Distribución de los índices S0 (100 = media de calibración 2025)</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Misma utilidad, escalas distintas: la σ pequeña de Stuff estira su índice — no comparar entre familias</text>
+<path d="M 142.4 90 V 460" stroke="#e2e8f0"/>
+<text x="142.4" y="82" font-size="11" fill="#475569" text-anchor="middle">40</text>
+<path d="M 232.0 90 V 460" stroke="#e2e8f0"/>
+<text x="232.0" y="82" font-size="11" fill="#475569" text-anchor="middle">60</text>
+<path d="M 321.6 90 V 460" stroke="#e2e8f0"/>
+<text x="321.6" y="82" font-size="11" fill="#475569" text-anchor="middle">80</text>
+<path d="M 411.2 90 V 460" stroke="#e2e8f0"/>
+<text x="411.2" y="82" font-size="11" fill="#475569" text-anchor="middle">100</text>
+<path d="M 500.8 90 V 460" stroke="#e2e8f0"/>
+<text x="500.8" y="82" font-size="11" fill="#475569" text-anchor="middle">120</text>
+<path d="M 590.4 90 V 460" stroke="#e2e8f0"/>
+<text x="590.4" y="82" font-size="11" fill="#475569" text-anchor="middle">140</text>
+<path d="M 680.0 90 V 460" stroke="#e2e8f0"/>
+<text x="680.0" y="82" font-size="11" fill="#475569" text-anchor="middle">160</text>
+<path d="M 411.2 90 V 460" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="30" y="120" font-size="14" fill="#0d9488" text-anchor="start" font-weight="bold">Stuff+</text>
+<text x="30" y="136" font-size="10" fill="#475569" text-anchor="start">n=251 969 · rango 39–158</text>
+<rect x="120.0" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="142.4" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="164.8" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="187.2" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="209.6" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="232.0" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="254.4" y="204.9" width="21.4" height="0.1" fill="#0d9488"/>
+<rect x="276.8" y="204.7" width="21.4" height="0.3" fill="#0d9488"/>
+<rect x="299.2" y="202.6" width="21.4" height="2.4" fill="#0d9488"/>
+<rect x="321.6" y="195.6" width="21.4" height="9.4" fill="#0d9488"/>
+<rect x="344.0" y="162.0" width="21.4" height="43.0" fill="#0d9488"/>
+<rect x="366.4" y="120.0" width="21.4" height="85.0" fill="#0d9488"/>
+<rect x="388.8" y="133.0" width="21.4" height="72.0" fill="#0d9488"/>
+<rect x="411.2" y="154.8" width="21.4" height="50.2" fill="#0d9488"/>
+<rect x="433.6" y="162.6" width="21.4" height="42.4" fill="#0d9488"/>
+<rect x="456.0" y="164.8" width="21.4" height="40.2" fill="#0d9488"/>
+<rect x="478.4" y="184.5" width="21.4" height="20.5" fill="#0d9488"/>
+<rect x="500.8" y="198.4" width="21.4" height="6.6" fill="#0d9488"/>
+<rect x="523.2" y="203.0" width="21.4" height="2.0" fill="#0d9488"/>
+<rect x="545.6" y="204.5" width="21.4" height="0.5" fill="#0d9488"/>
+<rect x="568.0" y="204.9" width="21.4" height="0.1" fill="#0d9488"/>
+<rect x="590.4" y="204.9" width="21.4" height="0.1" fill="#0d9488"/>
+<rect x="612.8" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="635.2" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<rect x="657.6" y="205.0" width="21.4" height="0.0" fill="#0d9488"/>
+<path d="M 120 205 H 680" stroke="#94a3b8"/>
+<text x="30" y="240" font-size="14" fill="#2563eb" text-anchor="start" font-weight="bold">Location+</text>
+<text x="30" y="256" font-size="10" fill="#475569" text-anchor="start">n=251 969 · rango 71–125</text>
+<rect x="276.8" y="324.7" width="21.4" height="0.3" fill="#2563eb"/>
+<rect x="299.2" y="324.2" width="21.4" height="0.8" fill="#2563eb"/>
+<rect x="321.6" y="294.7" width="21.4" height="30.3" fill="#2563eb"/>
+<rect x="344.0" y="284.9" width="21.4" height="40.1" fill="#2563eb"/>
+<rect x="366.4" y="297.4" width="21.4" height="27.6" fill="#2563eb"/>
+<rect x="388.8" y="296.0" width="21.4" height="29.0" fill="#2563eb"/>
+<rect x="411.2" y="240.0" width="21.4" height="85.0" fill="#2563eb"/>
+<rect x="433.6" y="277.9" width="21.4" height="47.1" fill="#2563eb"/>
+<rect x="456.0" y="286.5" width="21.4" height="38.5" fill="#2563eb"/>
+<rect x="478.4" y="312.0" width="21.4" height="13.0" fill="#2563eb"/>
+<rect x="500.8" y="322.1" width="21.4" height="2.9" fill="#2563eb"/>
+<path d="M 120 325 H 680" stroke="#94a3b8"/>
+<text x="30" y="360" font-size="14" fill="#ea580c" text-anchor="start" font-weight="bold">Pitching+</text>
+<text x="30" y="376" font-size="10" fill="#475569" text-anchor="start">n=251 969 · rango 70–124</text>
+<rect x="276.8" y="444.8" width="21.4" height="0.2" fill="#ea580c"/>
+<rect x="299.2" y="444.2" width="21.4" height="0.8" fill="#ea580c"/>
+<rect x="321.6" y="414.5" width="21.4" height="30.5" fill="#ea580c"/>
+<rect x="344.0" y="401.5" width="21.4" height="43.5" fill="#ea580c"/>
+<rect x="366.4" y="418.2" width="21.4" height="26.8" fill="#ea580c"/>
+<rect x="388.8" y="415.1" width="21.4" height="29.9" fill="#ea580c"/>
+<rect x="411.2" y="360.0" width="21.4" height="85.0" fill="#ea580c"/>
+<rect x="433.6" y="395.0" width="21.4" height="50.0" fill="#ea580c"/>
+<rect x="456.0" y="405.4" width="21.4" height="39.6" fill="#ea580c"/>
+<rect x="478.4" y="431.4" width="21.4" height="13.6" fill="#ea580c"/>
+<rect x="500.8" y="442.0" width="21.4" height="3.0" fill="#ea580c"/>
+<path d="M 120 445 H 680" stroke="#94a3b8"/>
+<text x="30" y="484" font-size="11" fill="#475569" text-anchor="start">Location y Pitching se concentran en 80–115; Stuff llega a ~158 porque su σ de utilidad es ~9× menor.</text>
+<text x="30" y="502" font-size="11" fill="#475569" text-anchor="start">Cada familia describe un componente distinto: los índices no se suman ni se comparan como una sola magnitud.</text>
+</g>
+</svg>

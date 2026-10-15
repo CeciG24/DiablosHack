@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="475" viewBox="0 0 760 475">
+<rect width="760" height="475" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a">
+<text x="30" y="34" font-size="20" fill="#0f172a" text-anchor="start" font-weight="bold">Calibración del modelo Pitching en el test 2026 · diez bins por clase</text>
+<text x="30" y="56" font-size="12" fill="#475569" text-anchor="start">Probabilidad media predicha vs frecuencia observada (cohorte común) · tamaño ∝ n del bin</text>
+<text x="70" y="97" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">ball</text>
+<rect x="70" y="105" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 70 210 L 230 105" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="73.6" cy="208.7" r="4.6" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 73.6 208.7 L 93.4 197.8" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="93.4" cy="197.8" r="3.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 93.4 197.8 L 109.7 186.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="109.7" cy="186.4" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 109.7 186.4 L 125.8 175.8" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="125.8" cy="175.8" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 125.8 175.8 L 142.0 163.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="142.0" cy="163.4" r="2.8" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 142.0 163.4 L 158.0 154.5" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="158.0" cy="154.5" r="2.8" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 158.0 154.5 L 174.1 143.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="174.1" cy="143.4" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 174.1 143.4 L 190.2 133.6" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="190.2" cy="133.6" r="3.0" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 190.2 133.6 L 206.6 121.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="206.6" cy="121.2" r="3.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 206.6 121.2 L 223.0 109.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="223.0" cy="109.2" r="3.5" fill="#ea580c" fill-opacity="0.8"/>
+<text x="70" y="226" font-size="10" fill="#475569" text-anchor="start">freq. global 96.0%</text>
+<text x="70" y="262" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">called strike</text>
+<rect x="70" y="270" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 70 375 L 230 270" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="73.8" cy="372.0" r="5.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 73.8 372.0 L 93.0 355.0" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="93.0" cy="355.0" r="3.3" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 93.0 355.0 L 109.5 344.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="109.5" cy="344.2" r="3.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 109.5 344.2 L 126.0 334.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="126.0" cy="334.7" r="3.0" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 126.0 334.7 L 142.0 327.0" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="142.0" cy="327.0" r="3.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 142.0 327.0 L 157.2 316.5" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="157.2" cy="316.5" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 157.2 316.5 L 172.9 306.0" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="172.9" cy="306.0" r="2.6" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 172.9 306.0 L 188.8 295.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="188.8" cy="295.7" r="2.4" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 188.8 295.7 L 205.8 281.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="205.8" cy="281.7" r="2.3" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 205.8 281.7 L 216.5 276.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="216.5" cy="276.2" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<text x="70" y="391" font-size="10" fill="#475569" text-anchor="start">freq. global 94.1%</text>
+<text x="70" y="427" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">whiff</text>
+<rect x="70" y="435" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 70 540 L 230 435" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="77.9" cy="535.1" r="5.0" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 77.9 535.1 L 92.6 524.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="92.6" cy="524.7" r="4.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 92.6 524.7 L 109.1 514.8" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="109.1" cy="514.8" r="3.3" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 109.1 514.8 L 124.8 507.5" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="124.8" cy="507.5" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 124.8 507.5 L 140.1 501.5" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="140.1" cy="501.5" r="2.5" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 140.1 501.5 L 155.3 493.6" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="155.3" cy="493.6" r="2.2" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 155.3 493.6 L 168.8 502.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="168.8" cy="502.2" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<text x="70" y="556" font-size="10" fill="#475569" text-anchor="start">freq. global 36.0%</text>
+<text x="285" y="97" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">foul</text>
+<rect x="285" y="105" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 285 210 L 445 105" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="290.5" cy="206.5" r="4.5" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 290.5 206.5 L 309.2 193.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="309.2" cy="193.7" r="3.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 309.2 193.7 L 324.7 183.2" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="324.7" cy="183.2" r="3.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 324.7 183.2 L 340.0 174.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="340.0" cy="174.4" r="3.5" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 340.0 174.4 L 354.9 166.1" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="354.9" cy="166.1" r="3.0" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 354.9 166.1 L 367.6 163.6" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="367.6" cy="163.6" r="2.2" fill="#ea580c" fill-opacity="0.8"/>
+<text x="285" y="226" font-size="10" fill="#475569" text-anchor="start">freq. global 44.2%</text>
+<text x="285" y="262" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">in play</text>
+<rect x="285" y="270" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 285 375 L 445 270" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="290.1" cy="371.7" r="4.6" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 290.1 371.7 L 308.7 359.1" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="308.7" cy="359.1" r="3.7" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 308.7 359.1 L 324.7 349.0" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="324.7" cy="349.0" r="3.6" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 324.7 349.0 L 340.7 338.1" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="340.7" cy="338.1" r="3.3" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 340.7 338.1 L 356.6 327.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="356.6" cy="327.7" r="3.2" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 356.6 327.7 L 371.1 319.0" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="371.1" cy="319.0" r="2.9" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 371.1 319.0 L 383.4 311.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="383.4" cy="311.4" r="2.2" fill="#ea580c" fill-opacity="0.8"/>
+<text x="285" y="391" font-size="10" fill="#475569" text-anchor="start">freq. global 60.6%</text>
+<text x="285" y="427" font-size="12" fill="#0f172a" text-anchor="start" font-weight="bold">hit by pitch</text>
+<rect x="285" y="435" width="160" height="105" fill="none" stroke="#e2e8f0"/>
+<path d="M 285 540 L 445 435" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="285.1" cy="539.9" r="6.0" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 285.1 539.9 L 307.6 518.6" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="307.6" cy="518.6" r="2.2" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 307.6 518.6 L 324.5 510.8" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="324.5" cy="510.8" r="2.2" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 324.5 510.8 L 340.8 508.8" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="340.8" cy="508.8" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 340.8 508.8 L 355.9 493.5" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="355.9" cy="493.5" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 355.9 493.5 L 373.4 496.6" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="373.4" cy="496.6" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 373.4 496.6 L 388.5 488.4" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="388.5" cy="488.4" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 388.5 488.4 L 405.2 469.1" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="405.2" cy="469.1" r="2.1" fill="#ea580c" fill-opacity="0.8"/>
+<path d="M 405.2 469.1 L 420.4 473.7" stroke="#ea580c" stroke-width="1.2"/>
+<circle cx="420.4" cy="473.7" r="2.0" fill="#ea580c" fill-opacity="0.8"/>
+<text x="285" y="556" font-size="10" fill="#475569" text-anchor="start">freq. global 63.2%</text>
+<text x="30" y="445" font-size="11" fill="#475569" text-anchor="start">Las clases frecuentes (ball, called_strike, whiff) caen sobre la diagonal; las raras (hit_by_pitch) tienen bins poblados solo en el extremo bajo.</text>
+</g>
+</svg>
