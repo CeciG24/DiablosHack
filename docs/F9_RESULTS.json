@@ -1,0 +1,549 @@
+{
+  "version": "F9-exploratory-v1",
+  "smoke": false,
+  "post_test_exposure": true,
+  "new_test_access": false,
+  "release_id": "4df11fbf516455a6c90c45bea2f780a3e2441a64f1c6f15a6e637c84c619ef64",
+  "history_coverage": [
+    {
+      "partition": "calibration",
+      "size": 59367,
+      "sum": 29140
+    },
+    {
+      "partition": "development",
+      "size": 134420,
+      "sum": 70378
+    },
+    {
+      "partition": "phase_review",
+      "size": 58182,
+      "sum": 30443
+    }
+  ],
+  "protocols": {
+    "A": {
+      "partitions": {
+        "train": {
+          "n": 239709,
+          "pitchers": 538,
+          "games": 833,
+          "ids_sha256": "b4d789cd19a6b311a1e1a91a42dfa28f25b11365a24925a837f0b61a44ef4bfd"
+        },
+        "development": {
+          "n": 134420,
+          "pitchers": 540,
+          "games": 447,
+          "ids_sha256": "2fffec06c6c110a633f1bd4a016bdaddc4bfd569c3123d05041754992eb086b4"
+        },
+        "calibration": {
+          "n": 59367,
+          "pitchers": 479,
+          "games": 197,
+          "ids_sha256": "c38b42186847f56c7221839b353e17267bf38259aa9a82ece5a2982e4c7e80bc"
+        },
+        "review": {
+          "n": 58182,
+          "pitchers": 492,
+          "games": 192,
+          "ids_sha256": "16f055be1778f6650266713977b93c151a57bb49630e1fb080ed51c35b68a032"
+        }
+      },
+      "metrics": {
+        "physical": {
+          "raw": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.5149006446215227,
+            "multiclass_brier_sum_over_classes": 0.7539418159498245
+          },
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.5144867669425675,
+            "multiclass_brier_sum_over_classes": 0.7537036088439885
+          },
+          "temperature": 0.932770916001235,
+          "rounds": 78
+        },
+        "engineered": {
+          "raw": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.5148150314821929,
+            "multiclass_brier_sum_over_classes": 0.7539654655498067
+          },
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.5144499269989704,
+            "multiclass_brier_sum_over_classes": 0.7537426641446202
+          },
+          "temperature": 0.9328657270926823,
+          "rounds": 85
+        },
+        "context": {
+          "raw": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4528517487424604,
+            "multiclass_brier_sum_over_classes": 0.733484258599032
+          },
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4525076228532385,
+            "multiclass_brier_sum_over_classes": 0.7332885975283788
+          },
+          "temperature": 0.9524502878237131,
+          "rounds": 122
+        },
+        "context_physics": {
+          "raw": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4463568512342861,
+            "multiclass_brier_sum_over_classes": 0.7315759138090503
+          },
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4458091518928928,
+            "multiclass_brier_sum_over_classes": 0.7313596223249046
+          },
+          "temperature": 0.9423044979522448,
+          "rounds": 124
+        },
+        "B0": {
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.531096466253011,
+            "multiclass_brier_sum_over_classes": 0.7582570307994873
+          }
+        },
+        "B1": {
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4634954071868878,
+            "multiclass_brier_sum_over_classes": 0.736557704853537
+          }
+        },
+        "B2": {
+          "calibrated": {
+            "n_pitches": 58182,
+            "multiclass_log_loss": 1.4546444278686808,
+            "multiclass_brier_sum_over_classes": 0.7339931225367666
+          }
+        }
+      }
+    },
+    "B": {
+      "partitions": {
+        "train": {
+          "n": 360035,
+          "pitchers": 607,
+          "games": 1667,
+          "ids_sha256": "4e4efd20fcd4593267ba8683d514dfbbbac0b1b8953357d1687d3850cd7f9d0a"
+        },
+        "development": {
+          "n": 33081,
+          "pitchers": 110,
+          "games": 643,
+          "ids_sha256": "150d854557c43f69fbfcae5b913b54c178f43430cb6311e7340bde280508a705"
+        },
+        "calibration": {
+          "n": 16117,
+          "pitchers": 73,
+          "games": 306,
+          "ids_sha256": "3a9855f75a2411ee2178af4ed761f975323135410c33c08e71953315127bb621"
+        },
+        "review": {
+          "n": 64513,
+          "pitchers": 104,
+          "games": 1313,
+          "ids_sha256": "b602988792efdc1cf5fb64232def9eadfbecd79e795b438964cbbce89de54732"
+        }
+      },
+      "metrics": {
+        "physical": {
+          "raw": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.523903433487914,
+            "multiclass_brier_sum_over_classes": 0.7582882597523329
+          },
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.5240488482985257,
+            "multiclass_brier_sum_over_classes": 0.7583691853389833
+          },
+          "temperature": 0.9799884683237575,
+          "rounds": 85
+        },
+        "engineered": {
+          "raw": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.523608097011026,
+            "multiclass_brier_sum_over_classes": 0.7581525121233709
+          },
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.5236969484089644,
+            "multiclass_brier_sum_over_classes": 0.7582054184979505
+          },
+          "temperature": 0.9854219689924272,
+          "rounds": 87
+        },
+        "context": {
+          "raw": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.4611013089819707,
+            "multiclass_brier_sum_over_classes": 0.7372151972600726
+          },
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.4614465296742551,
+            "multiclass_brier_sum_over_classes": 0.7373763085956169
+          },
+          "temperature": 0.950161581239077,
+          "rounds": 94
+        },
+        "context_physics": {
+          "raw": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.4551171647810985,
+            "multiclass_brier_sum_over_classes": 0.7355287882170322
+          },
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.455508090527003,
+            "multiclass_brier_sum_over_classes": 0.7357435083521208
+          },
+          "temperature": 0.953544288823316,
+          "rounds": 128
+        },
+        "B0": {
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.5378599078822401,
+            "multiclass_brier_sum_over_classes": 0.7619404026922325
+          }
+        },
+        "B1": {
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.4706132794155329,
+            "multiclass_brier_sum_over_classes": 0.7400181416096255
+          }
+        },
+        "B2": {
+          "calibrated": {
+            "n_pitches": 64513,
+            "multiclass_log_loss": 1.4625758465783558,
+            "multiclass_brier_sum_over_classes": 0.7375922525475075
+          }
+        }
+      }
+    },
+    "C": {
+      "partitions": {
+        "train": {
+          "n": 70378,
+          "pitchers": 251,
+          "games": 443,
+          "ids_sha256": "6b8cf3e2d780ec1d67c39ab8dd4b127243ec3b53ae890b6fe626dd607ef23094"
+        },
+        "development": {
+          "n": 70378,
+          "pitchers": 251,
+          "games": 443,
+          "ids_sha256": "6b8cf3e2d780ec1d67c39ab8dd4b127243ec3b53ae890b6fe626dd607ef23094"
+        },
+        "calibration": {
+          "n": 29140,
+          "pitchers": 227,
+          "games": 197,
+          "ids_sha256": "51143eac398f5a660c928f31cdfd664d13eb50ebb5af2159d0a833deaaa1d865"
+        },
+        "review": {
+          "n": 30443,
+          "pitchers": 236,
+          "games": 191,
+          "ids_sha256": "7cf0d1e5fd91eab56662131e9226193cf6490bd898e782607fbc77cf1b3f5b36"
+        }
+      },
+      "metrics": {
+        "context_physics": {
+          "raw": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.454223257075416,
+            "multiclass_brier_sum_over_classes": 0.7341937136619319
+          },
+          "calibrated": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.4538498129144304,
+            "multiclass_brier_sum_over_classes": 0.7340750856184204
+          },
+          "temperature": 1.0352558664772264,
+          "rounds": 200
+        },
+        "arsenal": {
+          "raw": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.4522500296334229,
+            "multiclass_brier_sum_over_classes": 0.7336522963872442
+          },
+          "calibrated": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.4518657284408467,
+            "multiclass_brier_sum_over_classes": 0.7335210554238277
+          },
+          "temperature": 1.036816957504343,
+          "rounds": 200
+        },
+        "environment": {
+          "raw": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.451838548569158,
+            "multiclass_brier_sum_over_classes": 0.7333526313332446
+          },
+          "calibrated": {
+            "n_pitches": 30443,
+            "multiclass_log_loss": 1.4514524413926708,
+            "multiclass_brier_sum_over_classes": 0.7332323578632383
+          },
+          "temperature": 1.038317136292183,
+          "rounds": 200
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "A:engineered_vs_physical": {
+      "n_pitches": 58182,
+      "n_games": 192,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -3.683994359690607e-05,
+      "relative_log_loss_reduction": 2.4325034989429606e-05,
+      "ci_low": -0.0006233022260948503,
+      "ci_high": 0.0005496898437090677,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    },
+    "A:context_physics_vs_context": {
+      "n_pitches": 58182,
+      "n_games": 192,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -0.006698470960345499,
+      "relative_log_loss_reduction": 0.004611659763400989,
+      "ci_low": -0.008113047272609088,
+      "ci_high": -0.005184154032584039,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    },
+    "B:engineered_vs_physical": {
+      "n_pitches": 64513,
+      "n_games": 1313,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -0.0003518998895614058,
+      "relative_log_loss_reduction": 0.00023089803844166337,
+      "ci_low": -0.0008431101505927263,
+      "ci_high": 0.00016739691933411518,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    },
+    "B:context_physics_vs_context": {
+      "n_pitches": 64513,
+      "n_games": 1313,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -0.005938439147252054,
+      "relative_log_loss_reduction": 0.004063398165224481,
+      "ci_low": -0.007409282535331445,
+      "ci_high": -0.004622521772172157,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    },
+    "C:arsenal_vs_context_physics": {
+      "n_pitches": 30443,
+      "n_games": 191,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -0.00198408447358343,
+      "relative_log_loss_reduction": 0.0013647107534485116,
+      "ci_low": -0.004139140950481176,
+      "ci_high": -0.00017912978048835267,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    },
+    "C:environment_vs_arsenal": {
+      "n_pitches": 30443,
+      "n_games": 191,
+      "resamples": 1000,
+      "seed": 20260929,
+      "confidence": 0.9916666666666667,
+      "delta_candidate_minus_reference": -0.00041328704817592904,
+      "relative_log_loss_reduction": 0.00028465927673611833,
+      "ci_low": -0.0014320425869231877,
+      "ci_high": 0.0006141741271539504,
+      "decision": "inconclusive",
+      "scientific_evidence": true,
+      "method": "paired percentile bootstrap by game; pitch-weighted loss",
+      "status": "exploratory_post_test_exposure",
+      "production_promotion": false,
+      "interval_note": "Bonferroni nominal familywise 95%; not independent confirmation"
+    }
+  },
+  "checks": {
+    "A_physical_reload": true,
+    "A_engineered_reload": true,
+    "A_context_reload": true,
+    "A_context_physics_reload": true,
+    "B_physical_reload": true,
+    "B_engineered_reload": true,
+    "B_context_reload": true,
+    "B_context_physics_reload": true,
+    "C_context_physics_reload": true,
+    "C_arsenal_reload": true,
+    "C_environment_reload": true,
+    "F8_unchanged": true,
+    "test_exposure_unchanged": true,
+    "reference_score_mean_100": true,
+    "reference_score_std_10": true
+  },
+  "coverage": {
+    "stuff": {
+      "input_rows": 499398,
+      "quality_filter": 2392,
+      "null_target_after_quality": 0,
+      "missing_features_after_quality_and_target": 0,
+      "eligible_rows": 497006,
+      "by_partition": {
+        "calibration": {
+          "input_rows": 60399,
+          "quality_filter": 451,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 59948
+        },
+        "development": {
+          "input_rows": 136084,
+          "quality_filter": 304,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 135780
+        },
+        "phase_review": {
+          "input_rows": 59661,
+          "quality_filter": 809,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 58852
+        },
+        "train": {
+          "input_rows": 243254,
+          "quality_filter": 828,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 242426
+        }
+      },
+      "outside_common_cohort": 5328
+    },
+    "location": {
+      "input_rows": 499398,
+      "quality_filter": 6629,
+      "null_target_after_quality": 0,
+      "missing_features_after_quality_and_target": 268,
+      "eligible_rows": 492501,
+      "by_partition": {
+        "calibration": {
+          "input_rows": 60399,
+          "quality_filter": 901,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 51,
+          "eligible_rows": 59447
+        },
+        "development": {
+          "input_rows": 136084,
+          "quality_filter": 1475,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 28,
+          "eligible_rows": 134581
+        },
+        "phase_review": {
+          "input_rows": 59661,
+          "quality_filter": 1337,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 55,
+          "eligible_rows": 58269
+        },
+        "train": {
+          "input_rows": 243254,
+          "quality_filter": 2916,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 134,
+          "eligible_rows": 240204
+        }
+      },
+      "outside_common_cohort": 823
+    },
+    "pitching": {
+      "input_rows": 499398,
+      "quality_filter": 7720,
+      "null_target_after_quality": 0,
+      "missing_features_after_quality_and_target": 0,
+      "eligible_rows": 491678,
+      "by_partition": {
+        "calibration": {
+          "input_rows": 60399,
+          "quality_filter": 1032,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 59367
+        },
+        "development": {
+          "input_rows": 136084,
+          "quality_filter": 1664,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 134420
+        },
+        "phase_review": {
+          "input_rows": 59661,
+          "quality_filter": 1479,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 58182
+        },
+        "train": {
+          "input_rows": 243254,
+          "quality_filter": 3545,
+          "null_target_after_quality": 0,
+          "missing_features_after_quality_and_target": 0,
+          "eligible_rows": 239709
+        }
+      },
+      "outside_common_cohort": 0
+    }
+  }
+}

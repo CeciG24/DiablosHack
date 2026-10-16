@@ -1,0 +1,19 @@
+{
+  "phase": "F9",
+  "status": "verified_exploratory",
+  "branch": "fase-9",
+  "unit_tests_passed": 125,
+  "internal_checks_passed": 15,
+  "independent_checks_passed": 16,
+  "manifest_sha256": "608322824348cbd2a48ad40d4d16d190d581a4d652c0dc8ef00f27f17d571b6d",
+  "config_sha256": "c1c76518676342a33cf34acc847e181ac7177633a0df80e3a0f8edf044f8702a",
+  "source_sha256": {
+    "experiments/__init__.py": "486d5e3f9e3b17444eee65330a799b75156e3c7aa88dcfcd0e6b81674ff3114d",
+    "experiments/check_phase9.py": "8bdf7406eccb858c1994aa34f17abc0b42c4cabf551dec27b94cf1ca7e468607",
+    "experiments/phase9.py": "f3c171648b68ff02a38d427f27a9dc8657e2cf997d5c944cdfbf491ee9243755",
+    "experiments/phase9_predict.py": "d17b4283997195201d0f42e5455a062817c7218d6793d5f910e6fad9e5742981"
+  },
+  "new_2026_access": false,
+  "production_release_changed": false,
+  "report_sha256": "b0597918b7236112cd94ac1f663762b7ea6c40110d7ccc2e262032cb3cd2bfb5"
+}

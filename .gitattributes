@@ -1,2 +1,15 @@
 
 *.pdf binary
+
+# Preserve the byte hashes of F9 sources and generated evidence on Windows.
+experiments/*.py text eol=lf
+config/phase9.json text eol=lf
+tests/test_phase9.py text eol=lf
+scripts/build_phase9_report.py text eol=lf
+run_phase9.ps1 text eol=lf
+docs/FASE_9_ESTRATEGIA.md text eol=lf
+docs/F9_INPUT_EXAMPLE.json text eol=lf
+docs/F9_AUDIT.json text eol=crlf
+docs/F9_RESULTS.json text eol=crlf
+docs/F9_VALIDATION.json text eol=crlf
+docs/FASE_9_IMPLEMENTACION.md text eol=crlf

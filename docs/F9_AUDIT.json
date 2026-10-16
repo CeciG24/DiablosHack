@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "artifact_hashes": true,
+    "only_development_years": true,
+    "A_partitions": true,
+    "A_metrics_recomputed": true,
+    "A_bootstrap_recomputed": true,
+    "B_partitions": true,
+    "B_metrics_recomputed": true,
+    "B_bootstrap_recomputed": true,
+    "C_partitions": true,
+    "C_metrics_recomputed": true,
+    "C_bootstrap_recomputed": true,
+    "outcome_free_inference_and_invalid_rows": true,
+    "saved_scores_reproduced": true,
+    "scouting_recomputed": true,
+    "F8_unchanged": true,
+    "test_exposure_unchanged": true
+  },
+  "F8_stuff_on_same_2025_review": {
+    "n_pitches": 58182,
+    "multiclass_log_loss": 1.5147294805622566,
+    "multiclass_brier_sum_over_classes": 0.7537502785191161
+  },
+  "comparison_scope": "descriptive_2025_reused_review_not_new_final_test",
+  "F9_manifest_sha256": "608322824348cbd2a48ad40d4d16d190d581a4d652c0dc8ef00f27f17d571b6d"
+}

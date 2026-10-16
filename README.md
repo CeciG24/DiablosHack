@@ -226,3 +226,19 @@ modelo y contribución técnica de diez páginas. Ver [implementación y pruebas
 El cierre F7 corresponde a la revisión `fd394e8`; sus artefactos se conservaron intactos.
 El release F8 exige mantener el código de modelado congelado para verificar sus hashes.
 Las etiquetas y campos externos pendientes siguen requiriendo confirmación de los organizadores.
+
+F9 se desarrolla en `fase-9`, aislada en `experiments/`: comparaciones controladas de
+física/contexto, holdout por pitcher, arsenal histórico y categoría de altura, con
+un índice experimental de contexto estandarizado. No reemplaza el release F8.
+Ver [estrategia F9](docs/FASE_9_ESTRATEGIA.md) y [reporte F9](docs/FASE_9_IMPLEMENTACION.md).
+
+```powershell
+.\run_phase9.ps1 check
+.\run_phase9.ps1 predict
+# Cada entrenamiento exige un nombre nuevo para preservar las evidencias anteriores.
+.\run_phase9.ps1 smoke -Name f9-smoke-nuevo
+.\run_phase9.ps1 train -Name f9-reproduccion
+```
+
+Los comandos usan `.venv`; requieren los datos privados y artefactos F8 locales.
+2024–2025 se reutilizan para desarrollo exploratorio; F9 no consulta registros de 2026.

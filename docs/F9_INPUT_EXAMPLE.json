@@ -1,0 +1,16 @@
+[
+  {
+    "pitch_uid": "synthetic-example-001",
+    "auto_pitch_type": "Four-Seam",
+    "pitcher_throws": "Right",
+    "rel_speed": 93.0,
+    "spin_rate": 2300.0,
+    "spin_axis_sin": 0.0,
+    "spin_axis_cos": -1.0,
+    "rel_height": 6.0,
+    "rel_side": 1.8,
+    "extension": 6.2,
+    "induced_vert_break": 16.0,
+    "horz_break": -8.0
+  }
+]
