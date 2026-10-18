@@ -1,5 +1,19 @@
 # Base de datos de pitcheo de Diablos
 
+## Backend FastAPI y Swagger
+
+El backend integra el release F8 y el simulador experimental F10 existentes.
+Incluye scores por pitch, agregaciones por pitcher/arsenal, datos para mapa de
+movimiento y escenarios de altura. Iniciar desde la raíz:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-api.txt
+.\run_backend.ps1
+```
+
+Swagger: http://127.0.0.1:8001/docs. Instrucciones, ejemplos, pruebas y alcance
+frente al hackathon en [documentación del backend](docs/BACKEND.md).
+
 ## Contenido del repositorio
 
 Este repositorio contiene el código, contratos, pruebas y documentación hasta F4.
