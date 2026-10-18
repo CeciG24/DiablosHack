@@ -1,0 +1,13 @@
+{
+  "phase": "F10",
+  "branch": "fase-9",
+  "status": "verified_exploratory",
+  "unit_tests_passed": 138,
+  "internal_checks_passed": 14,
+  "independent_checks_passed": 14,
+  "new_2026_access": false,
+  "F8_F9_unchanged": true,
+  "manifest_sha256": "51da56ce0af60d1b56fb8f98050e70595c3f63ede1dc73324bd495be637b8001",
+  "report_sha256": "dd25b6e92541df6b28c5c0d4762204bec03c03883a50278bd052007cf24c1432",
+  "config_sha256": "a68148140dba6573afdd2864c9bf84c768a8bf928d19c4d3f8c1943c44b3beee"
+}

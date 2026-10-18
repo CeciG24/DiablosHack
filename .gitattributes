@@ -13,3 +13,14 @@ docs/F9_AUDIT.json text eol=crlf
 docs/F9_RESULTS.json text eol=crlf
 docs/F9_VALIDATION.json text eol=crlf
 docs/FASE_9_IMPLEMENTACION.md text eol=crlf
+
+config/phase10.json text eol=lf
+tests/test_phase10.py text eol=lf
+scripts/build_phase10_report.py text eol=lf
+run_phase10.ps1 text eol=lf
+docs/FASE_10_ESTRATEGIA.md text eol=lf
+docs/F10_INPUT_EXAMPLE.json text eol=lf
+docs/F10_AUDIT.json text eol=crlf
+docs/F10_RESULTS.json text eol=crlf
+docs/F10_VALIDATION.json text eol=crlf
+docs/FASE_10_IMPLEMENTACION.md text eol=crlf

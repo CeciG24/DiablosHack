@@ -1,0 +1,69 @@
+{
+  "checks": {
+    "artifact_hashes": true,
+    "source_and_config_hashes": true,
+    "authorized_years_and_event_game_partitions": true,
+    "repertoire_features_recomputed": true,
+    "events_metrics_reload_and_fit_ids": true,
+    "event_bootstraps_recomputed": true,
+    "F9_same_population_metrics_recomputed": true,
+    "movement_only_2025_review": true,
+    "movement_metrics_reload_bootstraps": true,
+    "simulator_outcome_free_same_category_invalid_unknown": true,
+    "F8_unchanged": true,
+    "F9_unchanged": true,
+    "test_access_unchanged": true,
+    "F8_pitching_comparison_2025_only": true
+  },
+  "movement_by_altitude": [
+    {
+      "target": "induced_vert_break",
+      "category": "Extreme Altitude",
+      "n": 15400,
+      "control_rmse": 2.3966509424229354,
+      "environment_rmse": 1.8605241961283059
+    },
+    {
+      "target": "induced_vert_break",
+      "category": "Medium Altitude",
+      "n": 14922,
+      "control_rmse": 2.0547339184628197,
+      "environment_rmse": 1.889486008785029
+    },
+    {
+      "target": "induced_vert_break",
+      "category": "No Altitude",
+      "n": 27860,
+      "control_rmse": 2.5787014823878907,
+      "environment_rmse": 2.2747622444712126
+    },
+    {
+      "target": "horz_break",
+      "category": "Extreme Altitude",
+      "n": 15400,
+      "control_rmse": 2.2547453572407994,
+      "environment_rmse": 1.777789789363845
+    },
+    {
+      "target": "horz_break",
+      "category": "Medium Altitude",
+      "n": 14922,
+      "control_rmse": 1.9864206631801555,
+      "environment_rmse": 1.864535913483202
+    },
+    {
+      "target": "horz_break",
+      "category": "No Altitude",
+      "n": 27860,
+      "control_rmse": 2.736705527102297,
+      "environment_rmse": 2.351251860956401
+    }
+  ],
+  "manifest_sha256": "51da56ce0af60d1b56fb8f98050e70595c3f63ede1dc73324bd495be637b8001",
+  "n_saved_supported_scenarios": 2912,
+  "F8_pitching_same_review": {
+    "n_pitches": 58182,
+    "multiclass_log_loss": 1.0323530042743316,
+    "multiclass_brier_sum_over_classes": 0.5347226397096397
+  }
+}

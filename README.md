@@ -242,3 +242,19 @@ Ver [estrategia F9](docs/FASE_9_ESTRATEGIA.md) y [reporte F9](docs/FASE_9_IMPLEM
 
 Los comandos usan `.venv`; requieren los datos privados y artefactos F8 locales.
 2024–2025 se reutilizan para desarrollo exploratorio; F9 no consulta registros de 2026.
+
+F10 continúa dentro de `fase-9`: referencias de arsenal regularizadas, auditoría de
+trayectorias, controles de ubicación y modelos de movimiento con/sin altura.
+El simulador cambia el movimiento estimado entre categorías y recalcula un índice
+experimental; no identifica Harp Helú ni representa un efecto causal.
+Ver [estrategia F10](docs/FASE_10_ESTRATEGIA.md) y [reporte comparativo F10](docs/FASE_10_IMPLEMENTACION.md).
+
+```powershell
+.\run_phase10.ps1 check
+.\run_phase10.ps1 simulate -Target 'Extreme Altitude'
+.\run_phase10.ps1 smoke -Name f10-smoke-nuevo
+.\run_phase10.ps1 train -Name f10-reproduccion
+```
+
+F8 y F9 se conservan intactas. Los artefactos privados F8/F9 y el dataset local
+son necesarios para reproducir F10; el repositorio no los publica.

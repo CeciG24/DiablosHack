@@ -1,0 +1,23 @@
+# Fase 10: estrategia exploratoria dentro de fase-9
+
+17 de octubre de 2026. Se conservan F8 y F9; no se consulta 2026. Configuración independiente, sin búsqueda de hiperparámetros ni selección posterior sobre review.
+
+## Experimentos definidos antes del ajuste
+
+1. Auditar exclusivamente en 2024 las trayectorias: polinomio c0+c1·t+c2·t²; eje x longitudinal, y vertical, -z lateral. Verificar extremos frente a ubicación medida y release; la convención se infirió en una inspección inicial de 10,000 filas 2024. Exigir error mediano <=0.05 pies y p95 <=0.25 pies para habilitar geometría. Nunca llamar tunneling secuencial a una similitud geométrica.
+2. Construir referencias fijas 2024 para todos los tipos de lanzamiento. Regularizar medias, segundos momentos y uso hacia grupos mano/tipo, con fuerza 30 fijada. Guardar cantidad de historia y peso de referencia individual; cero historia usa prior explícito, no un arsenal observado inventado.
+3. Protocolo C ampliado: entrenar cinco modelos en toda la cohorte común development 2025, calibrar en calibration 2025 y evaluar review 2025. Base con features de F9; arsenal regularizado; anterior más puntos de trayectoria propios; anterior más diferencias geométricas contra rectas históricas; anterior más categoría de altura. 200 rondas fijas. Contrastes incrementales sobre filas idénticas. Comparación retrospectiva adicional contra F9 en su cohorte cubierta, etiquetada descriptiva por cambiar la población de entrenamiento. El control de trayectoria propia se añadió tras la prueba funcional y antes del entrenamiento completo: los puntos cercanos al plato contienen información de ubicación, que no debe atribuirse al arsenal ni a Stuff puro.
+4. Modelo de movimiento: ajustar IVB y HB en train 2024 a partir de tipo, mano, velocidad, spin/eje, release y extensión. Comparar con/sin categoría ambiental, presupuesto idéntico de 200 rondas. No introducir movimiento observado, ubicación, resultados ni identidad como predictores. Evaluar RMSE en review 2025, también en pitchers sin historia 2024. RMSE en pulgadas, no en carreras.
+5. Simulador: conservar el residuo del movimiento observado y sumar g(físicas, destino)-g(físicas, origen). Recalcular variables derivadas y diferenciales de arsenal. Usar la cabeza de eventos regularizada sin categoría directa ni geometría, con distribución de contexto fija de F9 y escala propia de calibración 2025. Añadir diagnóstico de contacto de F8/Pitching si hay ubicación válida. El arsenal histórico permanece fijo; no se simula el traslado completo del repertorio. No es causal ni específico de Harp.
+
+Seis contrastes primarios: cuatro de eventos y dos de error cuadrático de movimiento. Bootstrap pareado por partido, 2,000 remuestreos, intervalos nominales 99.1667% (Bonferroni para seis comparaciones). Umbral de mejora relativa de pérdida 1% y extremo superior del delta <0. Para movimiento la pérdida contrastada es MSE; se presenta además RMSE en pulgadas. Reportar resultados aunque fallen; no promoción automática.
+
+Para escenarios, exigir soporte de tipo/mano en ambas categorías, rango marginal de entrenamiento y al menos cinco pitchers de entrenamiento con 30 pitches de ese tipo en cada categoría. Son comprobaciones de soporte, no garantía de intercambio causal. El estudio usa datos reutilizados: requiere confirmación independiente.
+
+## Justificación y fuentes
+
+El modelo ambiental F9 mantiene el movimiento fijo; no mide la vía altura → movimiento → eventos. Esta fase separa esas dos relaciones, sin dar por identificado su efecto causal. La reducción de fuerzas aerodinámicas con densidad está explicada por [Alan Nathan](https://baseball.physics.illinois.edu/Denver.html). La evidencia de [SABR](https://sabr.org/journal/article/high-altitude-offense-an-empirical-examination-of-the-relationship-between-runs-scored-and-stadium-elevation/) es observacional y no calibra Harp Helú.
+
+La regularización por grupos se inspira en la separación de efectos de [Deshpande y Wyner](https://arxiv.org/abs/1704.00823), sin afirmar que implementemos su modelo bayesiano de framing. El trabajo de [Brill et al.](https://arxiv.org/abs/2210.06724) refuerza la necesidad de controlar composición y contexto. No se implementan secuencias ni LLM de [Ahn et al.](https://arxiv.org/abs/2602.07030) porque falta cronología fiable. [McBride](https://www.mdpi.com/2073-4336/17/2/15) estudia crédito entre jugadores, no una corrección de altitud; [Huang y Hsu](https://journals.sagepub.com/doi/10.1177/21582440211061566) es una revisión de datos, no una validación de eficiencia de spin en CDMX.
+
+Persisten los faltantes de estadio/Harp, atmósfera, xRunValue oficial y nueva muestra independiente. No se sustituyen por etiquetas inventadas.
