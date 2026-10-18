@@ -1,0 +1,1753 @@
+{
+  "version": "AH-exploratory-v1",
+  "smoke": false,
+  "scope": "leave-one-altitude-category-out transfer of physical movement models; categories are not stadiums; not causal; not Harp-specific",
+  "data_run": "e9e0b1114dc68eb2",
+  "new_2026_access": false,
+  "folds": {
+    "No Altitude": {
+      "train_categories": [
+        "Extreme Altitude",
+        "Medium Altitude"
+      ],
+      "train_n": 125470,
+      "train_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+      "shifted_n": 115098,
+      "shifted_games": 386,
+      "shifted_phase_review_n": 27860,
+      "indomain_n": 136871,
+      "targets": {
+        "induced_vert_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.3945867707386754,
+                "mae_inches": 2.6599065213206745,
+                "bias_oriented_inches": -1.7825210306672743
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.4359664139444797,
+                "mae_inches": 2.693331593196777,
+                "bias_oriented_inches": -1.805441381685401
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.9192059307648475,
+                "mae_inches": 1.4043662938565673,
+                "bias_oriented_inches": 0.14212296509166397
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.2269119465383365,
+                "mae_inches": 2.513147675881678,
+                "bias_oriented_inches": -1.6246048550168593
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.260677442177025,
+                "mae_inches": 2.540411379557326,
+                "bias_oriented_inches": -1.645383144570458
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.8938497544876336,
+                "mae_inches": 1.3871528540513454,
+                "bias_oriented_inches": 0.14495888351413405
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.2520778405781683,
+                "mae_inches": 2.5228145277219225,
+                "bias_oriented_inches": -1.6309529826646743
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.289191170357355,
+                "mae_inches": 2.5559603600470617,
+                "bias_oriented_inches": -1.6490679432575235
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.8878171961499073,
+                "mae_inches": 1.3807136859829083,
+                "bias_oriented_inches": 0.14400253735456986
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 115098,
+              "games": 386,
+              "delta": -1.110258633362194,
+              "relative_improvement": 0.09634969188824473,
+              "ci_low": -1.1896649314347671,
+              "ci_high": -1.0350743818057886,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 115098,
+              "games": 386,
+              "delta": -0.9472090628944627,
+              "relative_improvement": 0.08220003755995306,
+              "ci_low": -1.076341957800371,
+              "ci_high": -0.8157255646168156,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 16112,
+              "observed_oriented_mean": 7.1174469916832175,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.0559766318140107,
+                "bias_oriented_inches": -1.8984865037862277
+              },
+              "ordinal": {
+                "rmse_inches": 2.9408679727049645,
+                "bias_oriented_inches": -1.7751537001325486
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.929858677524862,
+                "bias_oriented_inches": -1.7763630245292803
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 9365,
+              "observed_oriented_mean": -7.798410859583556,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.7651992276656725,
+                "bias_oriented_inches": 1.7803990144509987
+              },
+              "ordinal": {
+                "rmse_inches": 3.613046259381709,
+                "bias_oriented_inches": 1.510006953399072
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.6507396265570264,
+                "bias_oriented_inches": 1.5754202317616743
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 3666,
+              "observed_oriented_mean": 10.614684121658483,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.069993609759569,
+                "bias_oriented_inches": -1.2668714705759943
+              },
+              "ordinal": {
+                "rmse_inches": 3.0514821310684526,
+                "bias_oriented_inches": -1.142296105539399
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.9989979252602423,
+                "bias_oriented_inches": -1.1204706561655022
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 39430,
+              "observed_oriented_mean": 17.1346831141263,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 4.200913195119209,
+                "bias_oriented_inches": -3.329075707000686
+              },
+              "ordinal": {
+                "rmse_inches": 3.953025965847288,
+                "bias_oriented_inches": -3.005443335684698
+              },
+              "ordinal_linear": {
+                "rmse_inches": 4.033031914629614,
+                "bias_oriented_inches": -3.0472278162824464
+              }
+            },
+            {
+              "auto_pitch_type": "Other",
+              "n": 32,
+              "observed_oriented_mean": -11.4115378125,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 4.466172278602569,
+                "bias_oriented_inches": 4.195607319898814
+              },
+              "ordinal": {
+                "rmse_inches": 4.086329165613257,
+                "bias_oriented_inches": 3.785121201383402
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.965648063238773,
+                "bias_oriented_inches": 3.6896833758343437
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 21826,
+              "observed_oriented_mean": 10.130179540914506,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.929980644240422,
+                "bias_oriented_inches": -2.1872904407395293
+              },
+              "ordinal": {
+                "rmse_inches": 2.738548951467978,
+                "bias_oriented_inches": -1.9640440991848191
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.708616660756606,
+                "bias_oriented_inches": -1.9388129472977507
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 23388,
+              "observed_oriented_mean": 2.875221342141269,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.035495732689697,
+                "bias_oriented_inches": -0.23624657467538634
+              },
+              "ordinal": {
+                "rmse_inches": 2.0178756721817512,
+                "bias_oriented_inches": -0.20921189339278376
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.9916026799714364,
+                "bias_oriented_inches": -0.21993466683688537
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 1279,
+              "observed_oriented_mean": 4.9752830023455825,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 4.658247516557886,
+                "bias_oriented_inches": -1.7270877693909747
+              },
+              "ordinal": {
+                "rmse_inches": 4.609219307147828,
+                "bias_oriented_inches": -1.7179590795841098
+              },
+              "ordinal_linear": {
+                "rmse_inches": 4.546749743767649,
+                "bias_oriented_inches": -1.7594558942738918
+              }
+            }
+          ]
+        },
+        "horz_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.6357714118703535,
+                "mae_inches": 2.8029232940303337,
+                "bias_oriented_inches": -1.4776940426503424
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.649586800039445,
+                "mae_inches": 2.805719630924461,
+                "bias_oriented_inches": -1.480445641770927
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.8290934552991043,
+                "mae_inches": 1.3191660693185996,
+                "bias_oriented_inches": 0.03601230336279603
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.4511203615381465,
+                "mae_inches": 2.647738439740694,
+                "bias_oriented_inches": -1.3659363202569241
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.4686494322038466,
+                "mae_inches": 2.654430771304903,
+                "bias_oriented_inches": -1.378608684008694
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.8083173397345793,
+                "mae_inches": 1.3053944960119641,
+                "bias_oriented_inches": 0.02641258757463773
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 115098,
+                "rmse_inches": 3.422572064676247,
+                "mae_inches": 2.6171561565425727,
+                "bias_oriented_inches": -1.333467749523713
+              },
+              "shifted_phase_review": {
+                "n": 27860,
+                "rmse_inches": 3.4447146105846183,
+                "mae_inches": 2.624673622117584,
+                "bias_oriented_inches": -1.3375756310255456
+              },
+              "indomain_2025": {
+                "n": 136871,
+                "rmse_inches": 1.8009928477821344,
+                "mae_inches": 1.2959615642543536,
+                "bias_oriented_inches": 0.041278352107023825
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 125470,
+                "fit_ids_sha256": "6531908e65b8ffca650c8711695f81f32139a6e78ff10143206493ef79da7285",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "Medium Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 115098,
+              "games": 386,
+              "delta": -1.308602009550558,
+              "relative_improvement": 0.09899526942931723,
+              "ci_low": -1.3987545865334765,
+              "ci_high": -1.2281420851958447,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 115098,
+              "games": 386,
+              "delta": -1.504834221471515,
+              "relative_improvement": 0.1138401653931389,
+              "ci_low": -1.6071803527936896,
+              "ci_high": -1.4027096646823327,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 16112,
+              "observed_oriented_mean": 13.697326019116185,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 4.936634238793874,
+                "bias_oriented_inches": -3.910847276331914
+              },
+              "ordinal": {
+                "rmse_inches": 4.656522773035763,
+                "bias_oriented_inches": -3.5760762467749894
+              },
+              "ordinal_linear": {
+                "rmse_inches": 4.6089837198350825,
+                "bias_oriented_inches": -3.5224375829614294
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 9365,
+              "observed_oriented_mean": -9.055693317672183,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.8114683223956,
+                "bias_oriented_inches": 2.0574515104863456
+              },
+              "ordinal": {
+                "rmse_inches": 3.666152718201522,
+                "bias_oriented_inches": 1.8213739211161348
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.693374830430003,
+                "bias_oriented_inches": 1.8402949480366992
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 3666,
+              "observed_oriented_mean": -0.16206715766503,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 0.9730720376145409,
+                "bias_oriented_inches": 0.0735723577371581
+              },
+              "ordinal": {
+                "rmse_inches": 0.9809710262017264,
+                "bias_oriented_inches": 0.08003568618541985
+              },
+              "ordinal_linear": {
+                "rmse_inches": 0.9359501639615002,
+                "bias_oriented_inches": 0.060515519385551005
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 39430,
+              "observed_oriented_mean": 9.513996096626935,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.569464161726423,
+                "bias_oriented_inches": -1.9462122092466072
+              },
+              "ordinal": {
+                "rmse_inches": 2.440584502886935,
+                "bias_oriented_inches": -1.7995661291616227
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.407825003488467,
+                "bias_oriented_inches": -1.765223269314944
+              }
+            },
+            {
+              "auto_pitch_type": "Other",
+              "n": 32,
+              "observed_oriented_mean": -12.8104575,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 3.753726874711214,
+                "bias_oriented_inches": 3.290268157730276
+              },
+              "ordinal": {
+                "rmse_inches": 4.02774568631187,
+                "bias_oriented_inches": 3.6254668887798065
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.580132982911457,
+                "bias_oriented_inches": 3.0595151550181403
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 21826,
+              "observed_oriented_mean": 15.625329253642445,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 4.257530196916224,
+                "bias_oriented_inches": -3.5265185455259114
+              },
+              "ordinal": {
+                "rmse_inches": 3.968994442068125,
+                "bias_oriented_inches": -3.190747881847911
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.913214504768804,
+                "bias_oriented_inches": -3.1204092021000327
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 23388,
+              "observed_oriented_mean": -5.067999852488455,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.5899900662328297,
+                "bias_oriented_inches": 1.3403369474686733
+              },
+              "ordinal": {
+                "rmse_inches": 3.477671225862377,
+                "bias_oriented_inches": 1.1863090204383209
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.47761461313657,
+                "bias_oriented_inches": 1.1786254892852863
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 1279,
+              "observed_oriented_mean": 7.563205856137608,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 4.959391310185762,
+                "bias_oriented_inches": -3.4010595676941153
+              },
+              "ordinal": {
+                "rmse_inches": 4.84473753491421,
+                "bias_oriented_inches": -3.293690591163671
+              },
+              "ordinal_linear": {
+                "rmse_inches": 4.757472327377526,
+                "bias_oriented_inches": -3.2345281115545044
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Medium Altitude": {
+      "train_categories": [
+        "Extreme Altitude",
+        "No Altitude"
+      ],
+      "train_n": 179785,
+      "train_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+      "shifted_n": 65116,
+      "shifted_games": 213,
+      "shifted_phase_review_n": 14922,
+      "indomain_n": 186853,
+      "targets": {
+        "induced_vert_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 2.2319247091194665,
+                "mae_inches": 1.6548721608800183,
+                "bias_oriented_inches": 0.8395581521585002
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.197337049162098,
+                "mae_inches": 1.6385200184011148,
+                "bias_oriented_inches": 0.8028353891982891
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.5233353600235975,
+                "mae_inches": 1.8958010147783972,
+                "bias_oriented_inches": 0.142946760216338
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 1.99932878224383,
+                "mae_inches": 1.4933105233237225,
+                "bias_oriented_inches": -0.3043941397334221
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.026193820963734,
+                "mae_inches": 1.506421641107039,
+                "bias_oriented_inches": -0.33606780721727014
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.101334373375696,
+                "mae_inches": 1.527924234482447,
+                "bias_oriented_inches": 0.08908488588580128
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 2.0057587994053336,
+                "mae_inches": 1.4931327186863352,
+                "bias_oriented_inches": -0.3269000302917488
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.031328412808687,
+                "mae_inches": 1.5053818975097533,
+                "bias_oriented_inches": -0.36116692757064756
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.0838228848049116,
+                "mae_inches": 1.509461794880683,
+                "bias_oriented_inches": 0.08793337756797605
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 65116,
+              "games": 213,
+              "delta": -0.9841723276694195,
+              "relative_improvement": 0.19756593732793937,
+              "ci_low": -1.3115735777206092,
+              "ci_high": -0.6654724614211223,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 65116,
+              "games": 213,
+              "delta": -0.9584195457860911,
+              "relative_improvement": 0.19239624057002488,
+              "ci_low": -1.2997031401059749,
+              "ci_high": -0.6279086035321407,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 6739,
+              "observed_oriented_mean": 5.677517882475144,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.6914444127660744,
+                "bias_oriented_inches": 0.7353315096326517
+              },
+              "ordinal": {
+                "rmse_inches": 1.5569251104588349,
+                "bias_oriented_inches": -0.4641516409605234
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.5450232327060842,
+                "bias_oriented_inches": -0.4815868516128226
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 5515,
+              "observed_oriented_mean": -7.065878830462376,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.7675201371253837,
+                "bias_oriented_inches": -0.2848551439998469
+              },
+              "ordinal": {
+                "rmse_inches": 2.8437260449973585,
+                "bias_oriented_inches": 0.8123903687431255
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.8248538888733785,
+                "bias_oriented_inches": 0.8990080047923815
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 2929,
+              "observed_oriented_mean": 9.287516971662685,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.1320213644028905,
+                "bias_oriented_inches": 0.39869665839926766
+              },
+              "ordinal": {
+                "rmse_inches": 2.0931824061496016,
+                "bias_oriented_inches": -0.4183747546480657
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.1012208488208644,
+                "bias_oriented_inches": -0.41992777996738356
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 24080,
+              "observed_oriented_mean": 14.219064835548174,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.703197290026853,
+                "bias_oriented_inches": 1.5233376816993127
+              },
+              "ordinal": {
+                "rmse_inches": 2.2527564161955405,
+                "bias_oriented_inches": -0.6608856815357668
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.2807882605658394,
+                "bias_oriented_inches": -0.6904966741833857
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 9861,
+              "observed_oriented_mean": 8.764931647905891,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.7065290365788308,
+                "bias_oriented_inches": 0.9467231489869785
+              },
+              "ordinal": {
+                "rmse_inches": 1.5121043396072866,
+                "bias_oriented_inches": -0.5438401440372754
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.5084799702759673,
+                "bias_oriented_inches": -0.5507060503593078
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 15395,
+              "observed_oriented_mean": 2.3975385709645987,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.634126082526002,
+                "bias_oriented_inches": 0.23681282903651946
+              },
+              "ordinal": {
+                "rmse_inches": 1.6016877045218754,
+                "bias_oriented_inches": 0.07560278558901964
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.5926385525830775,
+                "bias_oriented_inches": 0.010448172378440536
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 597,
+              "observed_oriented_mean": 1.8831726968174203,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.507324629259006,
+                "bias_oriented_inches": 0.758997234085261
+              },
+              "ordinal": {
+                "rmse_inches": 1.9529598133937087,
+                "bias_oriented_inches": 0.27655923934201304
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.9138581279081792,
+                "bias_oriented_inches": 0.21399230284547843
+              }
+            }
+          ]
+        },
+        "horz_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 2.1137706000550245,
+                "mae_inches": 1.5435287914909144,
+                "bias_oriented_inches": 0.6335210897441012
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.102565275267144,
+                "mae_inches": 1.5499599480027586,
+                "bias_oriented_inches": 0.635896696743719
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.536243144559905,
+                "mae_inches": 1.8863564022029997,
+                "bias_oriented_inches": 0.061918044504736904
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 1.9902557672404946,
+                "mae_inches": 1.4284795493435447,
+                "bias_oriented_inches": -0.18401508522554344
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.0175475021405433,
+                "mae_inches": 1.4554840006959886,
+                "bias_oriented_inches": -0.22005545410153335
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.142712616705356,
+                "mae_inches": 1.5353431466270056,
+                "bias_oriented_inches": -0.007309175023639165
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 65116,
+                "rmse_inches": 1.9826403156744863,
+                "mae_inches": 1.4237337998704966,
+                "bias_oriented_inches": -0.18864996470540032
+              },
+              "shifted_phase_review": {
+                "n": 14922,
+                "rmse_inches": 2.00811474743266,
+                "mae_inches": 1.44846622772946,
+                "bias_oriented_inches": -0.21970577920944062
+              },
+              "indomain_2025": {
+                "n": 186853,
+                "rmse_inches": 2.134439883205949,
+                "mae_inches": 1.5217937886339088,
+                "bias_oriented_inches": 0.009298221522953159
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 179785,
+                "fit_ids_sha256": "975c32b766e60035c02f7fbcab68ed53edcaff516a4b3367d15d958f81eede8c",
+                "train_categories": [
+                  "Extreme Altitude",
+                  "No Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 65116,
+              "games": 213,
+              "delta": -0.5069081306229289,
+              "relative_improvement": 0.11345236434255106,
+              "ci_low": -0.7754521813440566,
+              "ci_high": -0.256649736813228,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 65116,
+              "games": 213,
+              "delta": -0.537163528319152,
+              "relative_improvement": 0.12022389984454132,
+              "ci_low": -0.7964637684494736,
+              "ci_high": -0.28976266283360796,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 6739,
+              "observed_oriented_mean": 10.128677894346342,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.7126507612732693,
+                "bias_oriented_inches": 1.4624962088724185
+              },
+              "ordinal": {
+                "rmse_inches": 2.4880816814885964,
+                "bias_oriented_inches": -1.0577678615338606
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.45156735321922,
+                "bias_oriented_inches": -1.0690467092371967
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 5515,
+              "observed_oriented_mean": -7.138883095194923,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.346241226573249,
+                "bias_oriented_inches": -0.4077065523925986
+              },
+              "ordinal": {
+                "rmse_inches": 2.3886791949847774,
+                "bias_oriented_inches": 0.6950053638799418
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.39431545708675,
+                "bias_oriented_inches": 0.7668908921817754
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 2929,
+              "observed_oriented_mean": 0.008133796517582795,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.010898040141648,
+                "bias_oriented_inches": -0.08077863847242331
+              },
+              "ordinal": {
+                "rmse_inches": 1.0070308612555248,
+                "bias_oriented_inches": -0.07038120655768311
+              },
+              "ordinal_linear": {
+                "rmse_inches": 0.9910030519525932,
+                "bias_oriented_inches": -0.08935275085390613
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 24080,
+              "observed_oriented_mean": 7.389213254983389,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.4981543816201395,
+                "bias_oriented_inches": 0.8150940287405052
+              },
+              "ordinal": {
+                "rmse_inches": 1.303564691182968,
+                "bias_oriented_inches": -0.32327646658748166
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.3090244409224054,
+                "bias_oriented_inches": -0.3859420322253788
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 9861,
+              "observed_oriented_mean": 12.44284058614745,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.551572255162057,
+                "bias_oriented_inches": 1.5466331249603005
+              },
+              "ordinal": {
+                "rmse_inches": 2.111717332192093,
+                "bias_oriented_inches": -0.7541405038515935
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.0911100528034114,
+                "bias_oriented_inches": -0.7285862548679427
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 15395,
+              "observed_oriented_mean": -4.209989968821046,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.349009028989888,
+                "bias_oriented_inches": -0.10900919145672455
+              },
+              "ordinal": {
+                "rmse_inches": 2.4646380243497283,
+                "bias_oriented_inches": 0.43897323019943335
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.464702984664774,
+                "bias_oriented_inches": 0.4872141830860253
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 597,
+              "observed_oriented_mean": 4.512133668341709,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.8368853778307974,
+                "bias_oriented_inches": 1.1408419462109836
+              },
+              "ordinal": {
+                "rmse_inches": 2.375171358059978,
+                "bias_oriented_inches": -0.02973660548304688
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.2654987779252087,
+                "bias_oriented_inches": -0.11742637304561544
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Extreme Altitude": {
+      "train_categories": [
+        "Medium Altitude",
+        "No Altitude"
+      ],
+      "train_n": 174163,
+      "train_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+      "shifted_n": 71755,
+      "shifted_games": 237,
+      "shifted_phase_review_n": 15400,
+      "indomain_n": 180214,
+      "targets": {
+        "induced_vert_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 2.8242685464822586,
+                "mae_inches": 2.165341595883329,
+                "bias_oriented_inches": 1.587076960012819
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 2.758782257237397,
+                "mae_inches": 2.118630299881754,
+                "bias_oriented_inches": 1.5041474394460421
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.34456500472183,
+                "mae_inches": 1.7528245097855153,
+                "bias_oriented_inches": 0.011539888836706626
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 2.0072547155277043,
+                "mae_inches": 1.4640141194672933,
+                "bias_oriented_inches": 0.6132057902524197
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 1.9845366799439166,
+                "mae_inches": 1.4526074026342468,
+                "bias_oriented_inches": 0.5695521439586688
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.11939670460388,
+                "mae_inches": 1.5571386300010894,
+                "bias_oriented_inches": -0.009712105420873423
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 1.999023427491363,
+                "mae_inches": 1.4487070946340983,
+                "bias_oriented_inches": 0.6031213855089093
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 1.9777408499731504,
+                "mae_inches": 1.4365090365637476,
+                "bias_oriented_inches": 0.5587094465253694
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.105698493420725,
+                "mae_inches": 1.540074556691928,
+                "bias_oriented_inches": -0.004080032349384488
+              },
+              "fit": {
+                "target": "induced_vert_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 71755,
+              "games": 237,
+              "delta": -3.9474213296408047,
+              "relative_improvement": 0.49488182556025395,
+              "ci_low": -4.287373107687226,
+              "ci_high": -3.622344877533708,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 71755,
+              "games": 237,
+              "delta": -3.980398158989693,
+              "relative_improvement": 0.49901607730247977,
+              "ci_low": -4.31130237337015,
+              "ci_high": -3.654321501878822,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 7387,
+              "observed_oriented_mean": 4.8463035711384865,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.1093003599573676,
+                "bias_oriented_inches": 1.2247484551261938
+              },
+              "ordinal": {
+                "rmse_inches": 1.4396777092896227,
+                "bias_oriented_inches": 0.35614542476324346
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.4031625674396373,
+                "bias_oriented_inches": 0.31392814950114045
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 5213,
+              "observed_oriented_mean": -6.2843966084788025,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.7740658029612413,
+                "bias_oriented_inches": -1.1519805992947703
+              },
+              "ordinal": {
+                "rmse_inches": 2.4954133367793685,
+                "bias_oriented_inches": -0.5039236898322452
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.4626817865276167,
+                "bias_oriented_inches": -0.4594147003581628
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 4102,
+              "observed_oriented_mean": 7.570024641638225,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.668543069003774,
+                "bias_oriented_inches": 1.974536622570745
+              },
+              "ordinal": {
+                "rmse_inches": 3.1725076875878355,
+                "bias_oriented_inches": 1.1744599980383286
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.286289306498587,
+                "bias_oriented_inches": 1.4472769355922046
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 24990,
+              "observed_oriented_mean": 13.00475650380152,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.6130260732245865,
+                "bias_oriented_inches": 2.8917584929890006
+              },
+              "ordinal": {
+                "rmse_inches": 2.2759371007015887,
+                "bias_oriented_inches": 1.0422894097897093
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.2555450368194814,
+                "bias_oriented_inches": 1.0090808399914755
+              }
+            },
+            {
+              "auto_pitch_type": "OneSeamFastBall",
+              "n": 1,
+              "observed_oriented_mean": -0.33929,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 0.20980266053410868,
+                "bias_oriented_inches": -0.20980266053410868
+              },
+              "ordinal": {
+                "rmse_inches": 0.25592007944330264,
+                "bias_oriented_inches": -0.25592007944330264
+              },
+              "ordinal_linear": {
+                "rmse_inches": 0.7182486800025562,
+                "bias_oriented_inches": -0.7182486800025562
+              }
+            },
+            {
+              "auto_pitch_type": "Other",
+              "n": 1,
+              "observed_oriented_mean": -1.33291,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 7.716811279596248,
+                "bias_oriented_inches": -7.716811279596248
+              },
+              "ordinal": {
+                "rmse_inches": 6.699125809003609,
+                "bias_oriented_inches": -6.699125809003609
+              },
+              "ordinal_linear": {
+                "rmse_inches": 6.242833374607989,
+                "bias_oriented_inches": -6.242833374607989
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 12980,
+              "observed_oriented_mean": 7.762467322033899,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.214584049691811,
+                "bias_oriented_inches": 1.7416858446985828
+              },
+              "ordinal": {
+                "rmse_inches": 1.317966024295943,
+                "bias_oriented_inches": 0.5688029026981473
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.3094944383917542,
+                "bias_oriented_inches": 0.5628169350936449
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 15802,
+              "observed_oriented_mean": 2.063427719276041,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.7321457564184775,
+                "bias_oriented_inches": 0.4575919105047723
+              },
+              "ordinal": {
+                "rmse_inches": 1.675623562048778,
+                "bias_oriented_inches": 0.35608112497762795
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.65217068564199,
+                "bias_oriented_inches": 0.2953290064852822
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 946,
+              "observed_oriented_mean": 2.1332918498942917,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.522131402172889,
+                "bias_oriented_inches": 0.9123243339466524
+              },
+              "ordinal": {
+                "rmse_inches": 1.827962368786176,
+                "bias_oriented_inches": 0.2221957512887558
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.8584210323201151,
+                "bias_oriented_inches": 0.32564370333892373
+              }
+            },
+            {
+              "auto_pitch_type": "Sweeper",
+              "n": 332,
+              "observed_oriented_mean": -2.6977970180722894,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.5520708282400162,
+                "bias_oriented_inches": -0.6592165560597093
+              },
+              "ordinal": {
+                "rmse_inches": 1.2025668887037169,
+                "bias_oriented_inches": -0.23946910413887945
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.1571989847860247,
+                "bias_oriented_inches": -0.22200514962594495
+              }
+            },
+            {
+              "auto_pitch_type": "TwoSeamFastBall",
+              "n": 1,
+              "observed_oriented_mean": 5.59847,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 0.050617099639559626,
+                "bias_oriented_inches": -0.050617099639559626
+              },
+              "ordinal": {
+                "rmse_inches": 1.3518468413019917,
+                "bias_oriented_inches": -1.3518468413019917
+              },
+              "ordinal_linear": {
+                "rmse_inches": 0.288501016373635,
+                "bias_oriented_inches": -0.288501016373635
+              }
+            }
+          ]
+        },
+        "horz_break": {
+          "models": {
+            "control": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 2.610909639918108,
+                "mae_inches": 2.0187957887627888,
+                "bias_oriented_inches": 1.0925971449091143
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 2.6129304652177883,
+                "mae_inches": 1.9809712682178395,
+                "bias_oriented_inches": 1.0740978711686278
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.395840181301663,
+                "mae_inches": 1.752711858738674,
+                "bias_oriented_inches": -0.03963049203802363
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "control",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 1.8840719576007363,
+                "mae_inches": 1.3875279570003989,
+                "bias_oriented_inches": 0.31454130743036646
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 1.9016787868763831,
+                "mae_inches": 1.3812033055827837,
+                "bias_oriented_inches": 0.3404129147951623
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.183337368908759,
+                "mae_inches": 1.5600304837403127,
+                "bias_oriented_inches": -0.022398787667373903
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            },
+            "ordinal_linear": {
+              "shifted": {
+                "n": 71755,
+                "rmse_inches": 1.8839897592664085,
+                "mae_inches": 1.3776010390728017,
+                "bias_oriented_inches": 0.3143101232276765
+              },
+              "shifted_phase_review": {
+                "n": 15400,
+                "rmse_inches": 1.9034621606396032,
+                "mae_inches": 1.369811344395205,
+                "bias_oriented_inches": 0.33935759077577216
+              },
+              "indomain_2025": {
+                "n": 180214,
+                "rmse_inches": 2.176602375465775,
+                "mae_inches": 1.547193186737493,
+                "bias_oriented_inches": -0.009396723075382411
+              },
+              "fit": {
+                "target": "horz_break",
+                "variant": "ordinal_linear",
+                "rounds": 200,
+                "fit_n": 174163,
+                "fit_ids_sha256": "f33ecc64463ca579c48ce58837d15bbac14486617a9ae427d8f77821d70be048",
+                "train_categories": [
+                  "Medium Altitude",
+                  "No Altitude"
+                ]
+              }
+            }
+          },
+          "comparisons": {
+            "ordinal_vs_control": {
+              "n": 71755,
+              "games": 237,
+              "delta": -3.267122006399836,
+              "relative_improvement": 0.4792715718883025,
+              "ci_low": -3.5165519678088235,
+              "ci_high": -3.0052035085686764,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            },
+            "ordinal_linear_vs_control": {
+              "n": 71755,
+              "games": 237,
+              "delta": -3.2674317347966073,
+              "relative_improvement": 0.479317007600617,
+              "ci_low": -3.528380538294739,
+              "ci_high": -3.0084478202664005,
+              "confidence": 0.9958333333333333,
+              "resamples": 2000,
+              "passes": true,
+              "production_promotion": false,
+              "scope": "exploratory_reused_development_data_fixed_model_game_bootstrap"
+            }
+          },
+          "by_pitch_type": [
+            {
+              "auto_pitch_type": "Changeup",
+              "n": 7387,
+              "observed_oriented_mean": 9.594254208745092,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.4853727845363416,
+                "bias_oriented_inches": 2.65421364927541
+              },
+              "ordinal": {
+                "rmse_inches": 2.2916756392629476,
+                "bias_oriented_inches": 0.7462693460968864
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.25366223582494,
+                "bias_oriented_inches": 0.7256111583621372
+              }
+            },
+            {
+              "auto_pitch_type": "Curveball",
+              "n": 5213,
+              "observed_oriented_mean": -6.532431103011701,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.5812151447038643,
+                "bias_oriented_inches": -1.2214177485780795
+              },
+              "ordinal": {
+                "rmse_inches": 2.2401564423701474,
+                "bias_oriented_inches": -0.5175252719097033
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.2228880910909408,
+                "bias_oriented_inches": -0.45336046529154356
+              }
+            },
+            {
+              "auto_pitch_type": "Cutter",
+              "n": 4102,
+              "observed_oriented_mean": -0.1260432057532911,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 1.8726116334728777,
+                "bias_oriented_inches": -0.46480940894879547
+              },
+              "ordinal": {
+                "rmse_inches": 1.7421438133719216,
+                "bias_oriented_inches": -0.48111445249609286
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.6246575327447474,
+                "bias_oriented_inches": -0.4514228102879556
+              }
+            },
+            {
+              "auto_pitch_type": "Four-Seam",
+              "n": 24990,
+              "observed_oriented_mean": 7.150317152060825,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.078448493663264,
+                "bias_oriented_inches": 1.599290405608721
+              },
+              "ordinal": {
+                "rmse_inches": 1.3530529149232464,
+                "bias_oriented_inches": 0.6061143981290356
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.3366683787417386,
+                "bias_oriented_inches": 0.5701460636934302
+              }
+            },
+            {
+              "auto_pitch_type": "OneSeamFastBall",
+              "n": 1,
+              "observed_oriented_mean": -11.10981,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 0.007761214748322587,
+                "bias_oriented_inches": -0.007761214748322587
+              },
+              "ordinal": {
+                "rmse_inches": 1.4052709811300197,
+                "bias_oriented_inches": 1.4052709811300197
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.319711560315996,
+                "bias_oriented_inches": 3.319711560315996
+              }
+            },
+            {
+              "auto_pitch_type": "Other",
+              "n": 1,
+              "observed_oriented_mean": -0.5061,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 1.4048803678302153,
+                "bias_oriented_inches": -1.4048803678302153
+              },
+              "ordinal": {
+                "rmse_inches": 0.9949744175561277,
+                "bias_oriented_inches": -0.9949744175561277
+              },
+              "ordinal_linear": {
+                "rmse_inches": 1.4725637618536296,
+                "bias_oriented_inches": -1.4725637618536296
+              }
+            },
+            {
+              "auto_pitch_type": "Sinker",
+              "n": 12980,
+              "observed_oriented_mean": 11.72363741679507,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.4116389690817663,
+                "bias_oriented_inches": 2.7961763485435123
+              },
+              "ordinal": {
+                "rmse_inches": 2.0852383703718407,
+                "bias_oriented_inches": 0.8645974373177594
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.1042506889493766,
+                "bias_oriented_inches": 0.921463792654067
+              }
+            },
+            {
+              "auto_pitch_type": "Slider",
+              "n": 15802,
+              "observed_oriented_mean": -3.4843170541703583,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.252541514276068,
+                "bias_oriented_inches": -0.6246762519208112
+              },
+              "ordinal": {
+                "rmse_inches": 2.073888831009142,
+                "bias_oriented_inches": -0.28200025412787066
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.113056285875315,
+                "bias_oriented_inches": -0.30115887458780055
+              }
+            },
+            {
+              "auto_pitch_type": "Splitter",
+              "n": 946,
+              "observed_oriented_mean": 4.713765126849895,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 2.805325953676183,
+                "bias_oriented_inches": 1.2870928564420192
+              },
+              "ordinal": {
+                "rmse_inches": 2.2311238514465495,
+                "bias_oriented_inches": -0.02522904242388048
+              },
+              "ordinal_linear": {
+                "rmse_inches": 2.179217153921887,
+                "bias_oriented_inches": 0.16258370833679361
+              }
+            },
+            {
+              "auto_pitch_type": "Sweeper",
+              "n": 332,
+              "observed_oriented_mean": -10.367970843373495,
+              "provisional": false,
+              "control": {
+                "rmse_inches": 3.298437610552002,
+                "bias_oriented_inches": -1.6106660048694885
+              },
+              "ordinal": {
+                "rmse_inches": 2.692754868468357,
+                "bias_oriented_inches": -0.46824344336004187
+              },
+              "ordinal_linear": {
+                "rmse_inches": 3.187504261436406,
+                "bias_oriented_inches": -0.5778397873776726
+              }
+            },
+            {
+              "auto_pitch_type": "TwoSeamFastBall",
+              "n": 1,
+              "observed_oriented_mean": 12.9654,
+              "provisional": true,
+              "control": {
+                "rmse_inches": 4.407369797437637,
+                "bias_oriented_inches": -4.407369797437637
+              },
+              "ordinal": {
+                "rmse_inches": 5.581747483053126,
+                "bias_oriented_inches": -5.581747483053126
+              },
+              "ordinal_linear": {
+                "rmse_inches": 5.108411841038772,
+                "bias_oriented_inches": -5.108411841038772
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "heldout_never_in_train": true,
+    "only_2024_2025": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "AH-exploratory-v1",
+  "seed": 20260929,
+  "train_year": 2024,
+  "evaluation_year": 2025,
+  "categories": ["No Altitude", "Medium Altitude", "Extreme Altitude"],
+  "ordinal": {"No Altitude": 0, "Medium Altitude": 1, "Extreme Altitude": 2},
+  "targets": ["induced_vert_break", "horz_break"],
+  "variants": ["control", "ordinal", "ordinal_linear"],
+  "rounds": 200,
+  "parameters": {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+  "linear_lambda": 1.0,
+  "threads": 4,
+  "bootstrap_repetitions": 2000,
+  "familywise_alpha": 0.05,
+  "comparison_count": 12,
+  "minimum_relative_improvement": 0.01,
+  "minimum_group_rows": 200,
+  "smoke_max_rows": 20000,
+  "scope": "leave-one-altitude-category-out transfer of physical movement models; categories are not stadiums; not causal; not Harp-specific"
+}
