@@ -1,0 +1,118 @@
+<div class="cmp">
+  <header class="cmp__head">
+    <h1>Comparador</h1>
+    <div class="cmp__controls">
+      <span class="cmp__route" [class.cmp__route--b]="ctx.routeMode() === 'B'">
+        {{ ctx.routeMode() === 'A' ? 'Ruta A · categorías' : 'Ruta B · metadatos simulados' }}
+      </span>
+      <button type="button" class="cmp__toggle" (click)="toggleRouteB()">
+        {{ ctx.routeMode() === 'A' ? 'Simular Ruta B' : 'Volver a Ruta A' }}
+      </button>
+    </div>
+  </header>
+
+  @if (ctx.routeMode() === 'B') {
+    <app-state-banner kind="warn" title="Ruta B con metadatos simulados"
+      detail="El dataset real no trae stadium_id ni altitud en metros; los nombres de parque son ilustrativos y no son un resultado validado." />
+  }
+
+  <div class="cmp__selectors">
+    <label>Escenario A
+      <select [value]="catA()" (change)="catA.set($any($event.target).value)">
+        @for (c of categories; track c) { <option [value]="c">{{ scenarioLabel(c) }}</option> }
+      </select>
+    </label>
+    <span class="cmp__vs">vs</span>
+    <label>Escenario B
+      <select [value]="catB()" (change)="catB.set($any($event.target).value)">
+        @for (c of categories; track c) { <option [value]="c">{{ scenarioLabel(c) }}</option> }
+      </select>
+    </label>
+    <label class="cmp__same">
+      <input type="checkbox" [checked]="sameLocation()" (change)="sameLocation.set(!sameLocation())" />
+      ubicación fija (supuesto declarado)
+    </label>
+  </div>
+
+  @if (bundle(); as b) {
+    <div class="cmp__columns">
+      <!-- Columna A -->
+      <div class="cmp__col">
+        <h2 class="cmp__cat">{{ scenarioLabel(catA()) }}</h2>
+        <app-tile label="Stuff+">
+          @if (stuffA(); as s) {
+            <div class="kpi"><span class="kpi__value">{{ s.value }}</span><span class="kpi__unit">pts · n={{ s.n }}</span></div>
+          } @else { <app-state-banner kind="empty" title="Sin datos" /> }
+        </app-tile>
+        <app-tile label="IVB × HB">
+          @if (pitchesA().length > 0) {
+            <app-movement-chart [pitches]="pitchesA()" [throws]="b.pitcher.throws" />
+          } @else { <app-state-banner kind="empty" title="Sin pitches" /> }
+        </app-tile>
+        <app-tile label="Trayectoria">
+          @if (sampleOf(catA()); as s) {
+            <app-trajectory [pitch]="s" [caption]="scenarioLabel(catA())" />
+          } @else { <app-state-banner kind="empty" title="Sin muestra" /> }
+        </app-tile>
+      </div>
+
+      <!-- Δ central -->
+      <div class="cmp__delta">
+        <app-tile label="Δ Stuff+ (A − B)" class="cmp__delta-tile">
+          @if (delta(); as d) {
+            @if (d.regime === 'insuficiente') {
+              <app-state-banner kind="insufficient" title="Comparación no estimable"
+                detail="Soporte muestral insuficiente (n mínimo bajo); el Δ no se reporta para no fingir precisión." />
+              <p class="cmp__n">n={{ d.nA }} vs n={{ d.nB }}</p>
+            } @else {
+              <div class="kpi">
+                <span class="kpi__value" [class.neg]="d.delta < 0">{{ d.delta > 0 ? '+' : '' }}{{ d.delta }}</span>
+                <span class="kpi__unit">pts de Stuff+</span>
+                <span class="kpi__stats">
+                  <span>IC <strong>{{ d.ci[0] }} a {{ d.ci[1] }}</strong></span>
+                  <span>n <strong>{{ d.nA }} vs {{ d.nB }}</strong></span>
+                </span>
+              </div>
+              <span class="cmp__regime cmp__regime--{{ d.regime }}">{{ d.regime }}</span>
+            }
+          } @else {
+            <app-state-banner kind="empty" title="Sin par de escenarios"
+              detail="No hay delta estimado para esta combinación." />
+          }
+          @if (showLeagueFallback()) {
+            @if (leagueDelta(); as lg) {
+              <div class="kpi kpi--league">
+                <span class="kpi__value" [class.neg]="lg.delta < 0">{{ lg.delta > 0 ? '+' : '' }}{{ lg.delta }}</span>
+                <span class="kpi__unit">pts · agregado de liga F10 · n={{ lg.n }}</span>
+              </div>
+              <p class="cmp__assumption">Nivel liga (No Altitude → Extreme, n={{ lg.n }} simulados): referencia cuando el pitcher no tiene historial ni simulaciones suficientes en la pareja. No es señal del pitcher.</p>
+            }
+          }
+          @if (sameLocation()) {
+            <p class="cmp__assumption">Supuesto declarado: ubicación fija — el Δ solo refleja shape, no Location+.</p>
+          }
+        </app-tile>
+      </div>
+
+      <!-- Columna B -->
+      <div class="cmp__col">
+        <h2 class="cmp__cat">{{ scenarioLabel(catB()) }}</h2>
+        <app-tile label="Stuff+">
+          @if (stuffB(); as s) {
+            <div class="kpi"><span class="kpi__value">{{ s.value }}</span><span class="kpi__unit">pts · n={{ s.n }}</span></div>
+          } @else { <app-state-banner kind="empty" title="Sin datos" /> }
+        </app-tile>
+        <app-tile label="IVB × HB">
+          @if (pitchesB().length > 0) {
+            <app-movement-chart [pitches]="pitchesB()" [throws]="b.pitcher.throws" />
+          } @else { <app-state-banner kind="empty" title="Sin pitches" /> }
+        </app-tile>
+        <app-tile label="Trayectoria">
+          @if (sampleOf(catB()); as s) {
+            <app-trajectory [pitch]="s" [caption]="scenarioLabel(catB())" />
+          } @else { <app-state-banner kind="empty" title="Sin muestra" /> }
+        </app-tile>
+      </div>
+    </div>
+  }
+</div>

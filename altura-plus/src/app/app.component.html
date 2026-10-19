@@ -1,0 +1,76 @@
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<div class="shell">
+  <nav class="sidebar" aria-label="Navegación principal">
+    <div class="sidebar__brand">
+      <img class="sidebar__logo" src="mictlan-logo.png" alt="MICTLAN" />
+      <span class="sidebar__name">MICTLAN</span>
+    </div>
+
+    <ul class="sidebar__list">
+      @for (item of nav; track item.path) {
+        <li>
+          <a [routerLink]="item.path" routerLinkActive="is-active"
+             class="sidebar__link" ariaCurrentWhenActive="page" [attr.aria-label]="item.label">
+            <svg viewBox="0 0 24 24" class="sidebar__icon" aria-hidden="true">
+              @switch (item.icon) {
+                @case ('home') { <path d="M3 11.5 12 4l9 7.5M5 10v10h14V10" /> }
+                @case ('pitcher') { <circle cx="12" cy="7" r="3.2" /><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6" /> }
+                @case ('compare') { <path d="M8 4v16M8 8h11l-3-3M16 20V8M16 16H5l3 3" /> }
+                @case ('sliders') { <path d="M4 7h10M18 7h2M4 17h4M12 17h8M4 12h4M12 12h8" /><circle cx="16" cy="7" r="2" /><circle cx="10" cy="12" r="2" /><circle cx="10" cy="17" r="2" /> }
+                @case ('clipboard') { <rect x="6" y="4" width="12" height="17" rx="2" /><path d="M9 4h6v3H9zM9 11h6M9 15h4" /> }
+                @case ('book') { <path d="M5 5a2 2 0 0 1 2-2h12v16H7a2 2 0 0 0-2 2zM5 19V5" /><path d="M9 8h6M9 12h4" /> }
+              }
+            </svg>
+            <span class="sidebar__label">{{ item.label }}</span>
+            <span class="sidebar__short">{{ item.shortLabel }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <p class="sidebar__foot">Scouting para Diablos Rojos<br />Comparación por altitud</p>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar__left">
+        <strong class="topbar__title">MICTLAN</strong>
+        <span class="topbar__sub">Scouting de pitchers · LMB</span>
+      </div>
+
+      <div class="topbar__pitcher">
+        <label class="topbar__field">
+          <span>Lanzador de referencia</span>
+          <select [value]="ctx.pitcherId()" (change)="selectPitcher($event)" [disabled]="data.status() === 'loading'">
+            @for (b of data.bundles(); track b.pitcher.id) {
+              <option [value]="b.pitcher.id">{{ b.pitcher.label }}</option>
+            }
+          </select>
+        </label>
+        <span class="topbar__badge" [title]="data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
+          {{ data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
+        </span>
+      </div>
+
+      <div class="topbar__right">
+        <button type="button" class="button button--quiet" (click)="data.reload()" [disabled]="data.status() === 'loading'">Actualizar datos</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="content" tabindex="-1">
+      @if (data.status() === 'loading') {
+        <div class="content__loading" role="status" aria-live="polite">
+          <div class="loading-skeleton" aria-hidden="true"></div>
+          <span>Consultando lanzadores y rendimiento…</span>
+        </div>
+      } @else if (data.status() === 'error') {
+        <div class="content__error" role="alert">
+          <p>No se pudieron cargar los datos: {{ data.errorMessage() }}</p>
+          <button type="button" class="button" (click)="data.reload()">Reintentar</button>
+        </div>
+      } @else {
+        <router-outlet />
+      }
+    </main>
+  </div>
+</div>

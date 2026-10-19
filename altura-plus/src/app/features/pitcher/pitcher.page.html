@@ -1,0 +1,163 @@
+@if (bundle(); as b) {
+  <div class="grid">
+
+    <!-- Perfil: los tres índices y el spin -->
+    <app-tile label="Stuff+ físico" class="span-3" [attr.title]="'Stuff+ físico: calidad del pitch por shape (velo, spin, movimiento). Escala 100 = media; ±10 = 1 DE.'">
+      <app-gauge [value]="b.stuffPlus.value" [avg]="b.stuffPlus.avg" [maxStat]="b.stuffPlus.max"
+                 unit="pts" title="Stuff+ físico" accent="var(--red)" />
+      <p class="tile-note">{{ bandFor(b.stuffPlus.value).label }} ({{ bandFor(b.stuffPlus.value).detail }}) ·
+        IC {{ b.stuffPlus.ci[0] }}–{{ b.stuffPlus.ci[1] }} · n={{ b.stuffPlus.n }}</p>
+    </app-tile>
+
+    <app-tile label="Location+" class="span-3" title="Location+: precisión de ubicación en la zona. Escala 100 = media.">
+      <app-gauge [value]="b.locationPlus.value" [avg]="b.locationPlus.avg" [maxStat]="b.locationPlus.max"
+                 unit="pts" title="Location+" accent="var(--green-mx)" [modelAvailable]="b.locationPlus.modelAvailable" />
+      @if (b.locationPlus.modelAvailable) {
+        <p class="tile-note">{{ bandFor(b.locationPlus.value).label }} ({{ bandFor(b.locationPlus.value).detail }}) ·
+          IC {{ b.locationPlus.ci[0] }}–{{ b.locationPlus.ci[1] }} · n={{ b.locationPlus.n }}</p>
+      } @else {
+        <p class="tile-note">Modelo ausente: no interpretar este índice.</p>
+      }
+    </app-tile>
+
+    <app-tile label="Pitching+" class="span-3" title="Pitching+: resultado combinado de stuff y ubicación.">
+      <app-gauge [value]="b.pitchingPlus.value" [avg]="b.pitchingPlus.avg" [maxStat]="b.pitchingPlus.max"
+                 unit="pts" title="Pitching+" accent="var(--ink)" />
+      <p class="tile-note">{{ bandFor(b.pitchingPlus.value).label }} ({{ bandFor(b.pitchingPlus.value).detail }}) ·
+        IC {{ b.pitchingPlus.ci[0] }}–{{ b.pitchingPlus.ci[1] }} · n={{ b.pitchingPlus.n }}</p>
+    </app-tile>
+
+    <app-tile label="Total spin" class="span-3">
+      <div class="spin-tile">
+        <div class="spin-tile__ball" aria-hidden="true">
+          <span class="spin-tile__seam"></span>
+        </div>
+        <div class="kpi">
+          <span class="kpi__value">{{ b.spin.avgRpm }}</span>
+          <span class="kpi__unit">RPM</span>
+          <span class="kpi__stats">
+            <span>MAX <strong>{{ b.spin.maxRpm }}</strong></span>
+            <span>EJE <strong>{{ b.spin.axisDeg }}°</strong></span>
+          </span>
+        </div>
+      </div>
+    </app-tile>
+
+    <!-- Arsenal: filtro por tipo + conteo + reparto por categoría -->
+    <app-tile label="Arsenal" class="span-12">
+      <div class="ars">
+        <div class="ars__types">
+          <p class="tile-note tile-note--left">Toca un tipo de pitch para filtrar toda la vista.</p>
+          <app-pitch-type-grid [cells]="pitchTypeCells()" [selected]="ctx.pitchType()"
+                               (select)="onPitchType($event)" />
+        </div>
+        <div class="ars__side">
+          <div class="kpi">
+            <span class="kpi__value">{{ filteredPitches().length }}</span>
+            <span class="kpi__unit">lanzamientos en la vista</span>
+            @if (nTest2026() > 0) {
+              <span class="kpi__stats">
+                <span class="ars__test-chip">test 2026 · n={{ nTest2026() }} · scores F8 inferidos, sin calibración F9</span>
+              </span>
+            }
+          </div>
+          <label class="filter">
+            Categoría de la vista
+            <select [value]="ctx.category()" (change)="onCategory($event)">
+              <option value="ALL">Todas</option>
+              @for (c of categories; track c) { <option [value]="c">{{ c }}</option> }
+            </select>
+          </label>
+          <p class="ars__dist-label">Reparto del arsenal por categoría</p>
+          <ul class="dist">
+            @for (row of countByCategory(); track row.cat) {
+              <li [class.dist--active]="ctx.category() === row.cat">
+                <span class="dist__cat">{{ row.cat }}</span>
+                <span class="dist__bar"><span class="dist__fill" [style.width.%]="row.pct"></span></span>
+                <span class="dist__pct">{{ row.pct }}%</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </app-tile>
+
+    <!-- Movimiento IVB × HB -->
+    <app-tile label="Movimiento · IVB × HB" class="span-6"
+              [attr.aria-label]="'Gráfico de movimiento, ' + filteredPitches().length + ' pitches'">
+      @if (filteredPitches().length === 0) {
+        <app-state-banner kind="empty" title="Sin pitches" detail="No hay lanzamientos con los filtros actuales." />
+      } @else {
+        <div class="traj-controls" role="group" aria-label="Color de los puntos">
+          <button type="button" [class.is-active]="colorMode() === 'type'" (click)="toggleColorMode('type')">Por tipo de pitch</button>
+          <button type="button" [class.is-active]="colorMode() === 'stuff'" (click)="toggleColorMode('stuff')">Por Stuff+ predicho</button>
+        </div>
+        <app-movement-chart [pitches]="filteredPitches()" [throws]="b.pitcher.throws" [colorBy]="colorMode()" />
+        <p class="tile-note">
+          Vista del catcher, espejado por mano ({{ b.pitcher.throws }}HP) · pulgadas.
+          @if (colorMode() === 'stuff') { Color = Stuff+ predicho (80→120), no resultado individual. }
+        </p>
+      }
+    </app-tile>
+
+    <!-- Panel de trayectoria -->
+    <app-tile label="Trayectoria → zona de strike" class="span-6">
+      <div class="traj-controls" role="group" aria-label="Modo de trayectoria">
+        <button type="button" [class.is-active]="mode() === 'real'" (click)="toggleTrajectory('real')">Pitch real</button>
+        <button type="button" [class.is-active]="mode() === 'simulated'" (click)="toggleTrajectory('simulated')">Simulado</button>
+      </div>
+      @if (selectedPitch(); as p) {
+        <app-trajectory [pitch]="trajectoryPitch()" [color]="trajectoryColor()"
+                        [caption]="(mode() === 'real' ? 'Pitch real' : 'Simulado · shape hipotético') + ' — ' + pitchTypeNames[p.pitchType] + ' (' + p.pitchType + ') ' + p.veloMph + ' mph'" />
+      } @else {
+        <app-state-banner kind="empty" title="Sin pitch seleccionado" detail="Ajusta los filtros o elige un tipo de pitch." />
+      }
+    </app-tile>
+
+    <!-- Efecto de la altitud: matriz tipo × categoría -->
+    <app-tile label="Efecto de la altitud en Stuff+" class="span-12"
+              title="Δ Stuff+ por categoría vs. No Altitude (Ruta A).">
+      <p class="tile-note tile-note--left">Cambio estimado al lanzar en cada categoría, comparado con No Altitude. Positivo = mejor Stuff+.</p>
+      @if (sensitivityRows().length === 0) {
+        <app-state-banner kind="insufficient" title="Sin comparaciones" detail="No hay pares de categoría para los filtros actuales." />
+      } @else {
+        <table class="alt">
+          <thead>
+            <tr>
+              <th scope="col">Tipo de pitch</th>
+              @for (cat of altCols; track cat) { <th scope="col">{{ cat }}</th> }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of sensitivityRows(); track row.type) {
+              <tr>
+                <th scope="row">{{ pitchTypeNames[row.type] }} <span class="alt__code">{{ row.type }}</span></th>
+                @for (cell of row.cells; track $index) {
+                  <td>
+                    @if (cell) {
+                      @if (cell.regime === 'insuficiente') {
+                        <span class="alt__na">Sin soporte<small>n={{ cell.n }}</small></span>
+                      } @else {
+                        <div class="alt__cell">
+                          <strong [class.neg]="cell.delta < 0">{{ cell.delta > 0 ? '+' : '' }}{{ cell.delta }} pts</strong>
+                          <small>Rango {{ cell.ci[0] }} a {{ cell.ci[1] }} · n={{ cell.n }}</small>
+                          <span class="alt__regime alt__regime--{{ cell.regime }}">{{ cell.regime }}</span>
+                        </div>
+                      }
+                    } @else {
+                      <span class="alt__empty">—</span>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      <p class="tile-note tile-note--left">Interpolado = dentro de lo observado · extrapolado = fuera del rango · insuficiente = muestra baja.</p>
+    </app-tile>
+
+  </div>
+} @else {
+  <app-state-banner kind="empty" title="Sin pitcher" detail="Selecciona un pitcher en la barra superior." />
+}

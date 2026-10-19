@@ -1,0 +1,58 @@
+<div class="section-head">
+  <h2>Recomendaciones de selección de lanzamientos</h2>
+  <p>Exploración deportiva · requiere validación en campo</p>
+</div>
+<section class="panel" aria-labelledby="candidate-heading">
+  <h3 id="candidate-heading">¿Qué tipos del arsenal conservan más valor en destino?</h3>
+  <p class="note">Compara {{ candidates().length }} perfiles medios del lanzador de referencia: revisión 2025 en {{ labels[source()] }} → {{ labels[target()] }}. Se evalúan las medias observadas del arsenal, no el pitch editado en el formulario.</p>
+  <button class="button button--quiet" type="button" [disabled]="pending() || candidates().length === 0" (click)="compare()">{{ pending() ? 'Evaluando candidatos…' : 'Comparar arsenal en destino' }}</button>
+  @if (!candidates().length) { <p class="note">No hay perfiles físicos completos para esta categoría de origen. Elige otra categoría o lanzador; no se generan candidatos ficticios.</p> }
+  @if (error()) { <p class="notice" role="alert">No se pudieron evaluar los candidatos. Usa el botón para reintentar.</p> }
+  @if (result(); as result) {
+    <p class="note" role="status">{{ result.supported }} perfiles con soporte · {{ result.unsupported }} sin soporte. Orden por score experimental en destino, no por Stuff+.</p>
+    <div class="table-wrap" role="region" aria-label="Ranking de candidatos enviados" tabindex="0">
+      <table class="data-table"><thead><tr><th scope="col">Tipo</th><th scope="col">Score origen</th><th scope="col">Score destino</th><th scope="col">Δ score</th><th scope="col">Lectura</th></tr></thead><tbody>
+        @for (candidate of result.ranked_candidates; track candidate.input_index) {
+          <tr><th scope="row">{{ candidate.profile.auto_pitch_type }}</th><td>{{ metric(candidate.simulation.source_score) }}</td><td><strong>{{ metric(candidate.simulation.target_score) }}</strong></td><td>{{ metric(candidate.simulation.delta_score) }}</td>
+            <td>{{ candidate.simulation.delta_score === null ? 'Sin estimación' : candidate.simulation.delta_score > 0 ? 'Gana valor relativo' : candidate.simulation.delta_score < 0 ? 'Pierde valor relativo' : 'Sin cambio estimado' }}</td></tr>
+        } @empty { <tr><td colspan="5">Ningún perfil alcanzó soporte para esta comparación.</td></tr> }
+      </tbody></table>
+    </div>
+    <p class="note">Ordena únicamente los candidatos enviados. No demuestra el mejor pitch posible ni una recomendación causal.</p>
+  }
+</section>
+
+<div class="section-head"><h2>Perfiles de scouting por altitud</h2><p>Sin altitud → altitud extrema · evidencia precomputada</p></div>
+@if (insights.profile(); as profile) {
+  <div class="two-columns">
+    <section class="panel"><h3>Perfiles que ganan o resisten</h3><p>{{ productText(profile.answers.q1_ganan_en_altura) }}</p></section>
+    <section class="panel"><h3>Perfiles que pierden valor</h3><p>{{ productText(profile.answers.q2_pierden_en_altura) }}</p></section>
+  </div>
+  <section class="panel" style="margin-top: 20px"><h3>Qué buscar para Diablos Rojos</h3><p>{{ productText(profile.answers.q3_perfil_prospecto) }}</p></section>
+  <p class="note">{{ profile.n_simulated }} escenarios en el análisis global. Estos hallazgos no cambian con el lanzador ni el destino seleccionados en el formulario.</p>
+  <div class="table-wrap" role="region" aria-label="Cambios de movimiento y rendimiento por tipo" tabindex="0">
+    <table class="data-table"><thead><tr><th scope="col">Tipo</th><th scope="col">Δ score experimental</th><th scope="col">Δ IVB (in)</th><th scope="col">Δ HB (in)</th><th scope="col">Δ contacto duro | bola en juego</th><th scope="col">n</th></tr></thead><tbody>
+      @for (row of profile.by_pitch_type; track row.auto_pitch_type) {
+        <tr><th scope="row">{{ row.auto_pitch_type }}</th><td [class.negative]="row.delta_score < 0" [class.positive]="row.delta_score > 0">{{ metric(row.delta_score) }}</td><td>{{ metric(row.delta_ivb_in) }}</td><td>{{ metric(row.delta_hb_in) }}</td><td>{{ metric(row.delta_hard_contact_bip_pp) }} pp</td><td>{{ row.n }}</td></tr>
+      }
+    </tbody></table>
+  </div>
+  <div class="section-head"><h2>Características de perfiles resistentes y sensibles</h2><p>Comparación descriptiva · no es una receta causal</p></div>
+  @for (row of profile.prospect_profile; track row.auto_pitch_type) {
+    <details class="panel" style="margin-bottom: 12px">
+      <summary>{{ row.auto_pitch_type }} · explorar físicas y diferencias</summary>
+      <div class="table-wrap" role="region" [attr.aria-label]="'Perfiles físicos de ' + row.auto_pitch_type" tabindex="0" style="margin-top: 14px">
+        <table class="data-table"><thead><tr><th scope="col">Perfil</th><th scope="col">Velo (mph)</th><th scope="col">Spin (rpm)</th><th scope="col">IVB / HB (in)</th><th scope="col">Extensión (ft)</th><th scope="col">Δ score medio</th></tr></thead><tbody>
+          <tr><th scope="row">Resistente</th><td>{{ row.resists.velo_mph }}</td><td>{{ row.resists.spin_rpm }}</td><td>{{ row.resists.ivb_in }} / {{ row.resists.hb_in }}</td><td>{{ row.resists.extension_ft }}</td><td>{{ row.resists.delta_score_mean }}</td></tr>
+          <tr><th scope="row">Sensible</th><td>{{ row.drops.velo_mph }}</td><td>{{ row.drops.spin_rpm }}</td><td>{{ row.drops.ivb_in }} / {{ row.drops.hb_in }}</td><td>{{ row.drops.extension_ft }}</td><td>{{ row.drops.delta_score_mean }}</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+  }
+  <p class="note">{{ productText(profile.caveats.join(' ')) }}</p>
+} @else {
+  <section class="panel">
+    <p class="note" role="status">{{ insights.status() === 'loading' ? 'Consultando los perfiles de scouting…' : 'Los perfiles de scouting no están disponibles. No se sustituyen por recomendaciones de demostración.' }}</p>
+    @if (insights.status() === 'error') { <button class="button button--quiet" type="button" (click)="insights.reload()">Reintentar perfiles</button> }
+  </section>
+}

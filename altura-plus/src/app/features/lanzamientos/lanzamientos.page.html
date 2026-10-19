@@ -1,0 +1,99 @@
+<header class="page-head">
+  <div><h1>Análisis de lanzamientos</h1><p>Del repertorio al pitch individual. Filtra la muestra y selecciona un registro para revisar sus características y probabilidades.</p></div>
+  <span class="status-tag">{{ data.source() === 'api' ? 'Muestra real · evaluación provisional' : 'Demostración · datos sintéticos' }}</span>
+</header>
+<app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="updateFilters($event)" />
+<dl class="metrics-strip">
+  <div><dt>Stuff+ medio</dt><dd>{{ metric(metrics().stuff) }}</dd><small>De la muestra filtrada</small></div>
+  <div><dt>Location+ medio</dt><dd>{{ metric(metrics().location) }}</dd><small>De la muestra filtrada</small></div>
+  <div><dt>Pitching+ medio</dt><dd>{{ metric(metrics().pitching) }}</dd><small>De la muestra filtrada</small></div>
+  <div><dt>Lanzamientos</dt><dd>{{ pitches().length }}</dd><small>{{ pitchers().length }} lanzadores cargados</small></div>
+</dl>
+@if (pitches().length === 0) {
+  <div class="empty-state" role="status">No hay lanzamientos con estos filtros. Usa “Limpiar filtros” o elige otra combinación.</div>
+} @else {
+  <div class="section-head"><h2>Registro de lanzamientos</h2><p>Selecciona un ID para inspeccionar el pitch · desplaza la tabla para ver todas las físicas</p></div>
+  <div class="table-wrap" role="region" aria-label="Tabla de lanzamientos, desplazamiento horizontal" tabindex="0">
+    <table class="data-table">
+      <caption class="visually-hidden">Scores y características físicas por lanzamiento. Los valores no disponibles se muestran con un guion.</caption>
+      <thead><tr>
+        <th scope="col">Registro</th><th scope="col">Lanzador</th><th scope="col">Temporada</th><th scope="col">Altitud</th><th scope="col">Tipo</th>
+        <th scope="col">Stuff+</th><th scope="col">Location+</th><th scope="col">Pitching+</th>
+        <th scope="col">Velo (mph)</th><th scope="col">Spin (rpm)</th><th scope="col">HB (in)</th><th scope="col">IVB (in)</th>
+        <th scope="col">Extensión (ft)</th><th scope="col">Release Z (ft)</th><th scope="col">Release X (ft)</th>
+      </tr></thead>
+      <tbody>
+        @for (p of pagePitches(); track p.id) {
+          <tr [class.selected]="selected()?.id === p.id">
+            <td><button type="button" (click)="selectedId.set(p.id)" [attr.aria-pressed]="selected()?.id === p.id" [attr.aria-label]="'Seleccionar lanzamiento ' + p.id" [title]="p.id">{{ p.id.slice(0, 8) }}</button></td>
+            <td>{{ data.bundleOf(p.pitcherId)?.pitcher?.label }}</td><td>{{ p.season }}</td><td>{{ labels[p.category] }}</td><td>{{ p.pitchType }}</td>
+            <td><strong>{{ metric(p.stuffPlus) }}</strong></td><td>{{ metric(p.locationPlus) }}</td><td>{{ metric(p.pitchingPlus) }}</td>
+            <td>{{ metric(p.veloMph) }}</td><td>{{ metric(p.spinRpm, 0) }}</td><td>{{ metric(p.hbIn) }}</td><td>{{ metric(p.ivbIn) }}</td>
+            <td>{{ metric(p.extensionFt, 2) }}</td><td>{{ metric(p.releaseHeightFt, 2) }}</td><td>{{ metric(p.releaseSideFt, 2) }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span role="status">Página {{ page() + 1 }} de {{ pageCount() }} · {{ pitches().length }} registros</span>
+    <div>
+      <button type="button" class="button button--quiet" [disabled]="page() === 0" (click)="turnPage(-1)">Anterior</button>
+      <button type="button" class="button button--quiet" [disabled]="page() + 1 >= pageCount()" (click)="turnPage(1)">Siguiente</button>
+    </div>
+  </div>
+
+  @if (selected(); as p) {
+    <section class="panel" style="margin-top: 24px" aria-labelledby="pitch-detail" aria-live="polite">
+      <h2 id="pitch-detail">Pitch seleccionado · {{ names[p.pitchType] }}</h2>
+      <p class="note">{{ selectedBundle()?.pitcher?.label }} · {{ p.season }} · {{ labels[p.category] }} · registro {{ p.id }}</p>
+      @if (p.partition === 'test_2026') {
+        <p class="notice">Conjunto de prueba 2026: scores inferidos, sin usar estos registros para entrenar o calibrar.</p>
+      }
+      <dl class="inline-stats">
+        <div><dt>Stuff+</dt><dd>{{ metric(p.stuffPlus) }}</dd></div>
+        <div><dt>Location+</dt><dd>{{ metric(p.locationPlus) }}</dd></div>
+        <div><dt>Pitching+</dt><dd>{{ metric(p.pitchingPlus) }}</dd></div>
+        <div><dt>Extensión</dt><dd>{{ metric(p.extensionFt, 2) }} ft</dd></div>
+        <div><dt>Liberación Z / X</dt><dd>{{ metric(p.releaseHeightFt, 2) }} / {{ metric(p.releaseSideFt, 2) }} ft</dd></div>
+      </dl>
+      <h3>Probabilidades estimadas a partir de las físicas</h3>
+      @if (probabilityStatus() === 'loading') {
+        <p class="note" role="status">Evaluando el pitch seleccionado…</p>
+      } @else {
+      @if (probabilities(); as probabilities) {
+        <dl class="inline-stats">
+          <div><dt>Swing fallido · por pitch</dt><dd>{{ percent(probabilities.whiff) }}</dd></div>
+          <div><dt>Contacto débil · dado bola en juego</dt><dd>{{ percent(probabilities.weak) }}</dd></div>
+          <div><dt>Rodado · dado bola en juego</dt><dd>{{ percent(probabilities.groundball) }}</dd></div>
+        </dl>
+        <p class="note"><strong>Contacto débil:</strong> {{ probabilities.contactSource }}</p>
+        <p class="note"><strong>Rodado:</strong> {{ probabilities.groundballSource }}</p>
+        @if (probabilities.warning) { <p class="note">{{ probabilities.warning }}</p> }
+      } @else {
+        <p class="note">{{ probabilityStatus() === 'error' ? 'No se pudieron consultar las probabilidades de este registro.' : 'Probabilidades no disponibles: requieren backend y todas las características físicas del pitch.' }}</p>
+        @if (probabilityStatus() === 'error') {
+          <button class="button button--quiet" type="button" (click)="retryProbabilities()">Reintentar probabilidades</button>
+        }
+      }
+      }
+      <p class="note">Diagnóstico del modelo físico, no condicionado a conteo ni bateador. El contacto débil es un proxy; no se dispone de probabilidad de elevado y no se sustituye por el complemento de rodado.</p>
+    </section>
+  }
+  <div class="two-columns">
+    <section class="panel">
+      <h2>Ubicación en la zona de strike</h2>
+      <app-strike-zone [pitches]="chartPitches()" [selectedId]="selected()?.id ?? null" />
+      <p class="note">Vista del catcher · zona de referencia fija (18–44 in), no ajustada a cada bateador. El punto con borde es el pitch seleccionado.</p>
+    </section>
+    <section class="panel">
+      <h2>Mapa de movimiento</h2>
+      <app-movement-chart [pitches]="chartPitches()" [mirrorLefties]="false" [highlightIndex]="highlightIndex()" />
+      <p class="note">HB e IVB en pulgadas · coordenadas originales, sin espejo por mano. La zona de strike y el movimiento son mapas distintos.</p>
+    </section>
+  </div>
+  <div class="chart-legend" style="margin-top: 12px" aria-label="Leyenda de tipos de pitcheo">
+    @for (type of legend(); track type) { <span><i [style.background]="colors[type]" aria-hidden="true"></i>{{ names[type] }}</span> }
+  </div>
+  @if (pitches().length > 600) { <p class="note">Los mapas muestran hasta 600 pitches de la muestra filtrada, incluyendo el seleccionado. La tabla y las medias usan todos los registros filtrados.</p> }
+}

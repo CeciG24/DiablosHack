@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 from threading import RLock
 
+import numpy as np
+import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
@@ -63,9 +65,9 @@ def create_app(predictor=None, simulator=None):
                     # Verification failures must never fall back to unverified models.
                     log.exception('No se pudo cargar %s', name)
         yield
-        app.state.predictor = app.state.simulator = None
+        app.state.predictor = app.state.simulator = app.state.review = app.state.scenarios = None
 
-    app = FastAPI(title='Diablos — Stuff+ API', version='1.0.0', lifespan=lifespan,
+    app = FastAPI(title='Diablos — Stuff+ API', version='1.1.0', lifespan=lifespan,
         description='Backend del hackathon LMB. F8: Stuff+, Location+ y Pitching+ provisionales, '
         '100 + 10 × z(utilidad), referencia fija de calibración 2025. F10: escenarios '
         'experimentales de movimiento y arsenal. No representa xRunValue, probabilidad de out '
@@ -73,6 +75,9 @@ def create_app(predictor=None, simulator=None):
         'No requiere outcomes ni consulta registros del test 2026.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
     app.state.inference_lock = RLock()
+    app.state.review = None
+    app.state.scenarios = None
+    app.state.test2026 = None
     app.add_middleware(BodyLimit)
     origins = [s.strip() for s in os.getenv('DIABLOS_CORS_ORIGINS', '').split(',') if s.strip()]
     if origins:
@@ -125,6 +130,13 @@ def create_app(predictor=None, simulator=None):
         return {'release_id': model.lock['release_id'], 'features': FEATURES,
                 'physical_bounds': model.contract['physical_review_bounds'],
                 'scale': '100 + 10 * z(P(whiff)+P(called_strike)-0.5*P(ball)-P(hit_by_pitch))',
+                'scale_bands': [{'min': 120, 'label': 'elite', 'detail': '~percentil 97 (2+ desviaciones mejor que promedio)'},
+                                {'min': 110, 'label': 'sobre promedio', 'detail': 'una desviación estándar mejor'},
+                                {'min': 90, 'label': 'promedio', 'detail': '±1 desviación estándar de la media'},
+                                {'min': 80, 'label': 'bajo promedio', 'detail': 'una desviación estándar peor'},
+                                {'min': 0, 'label': 'por debajo de reemplazo', 'detail': 'dos o más desviaciones peor'}],
+                'scale_caveat': 'Referencia fija de calibración 2025 por familia; ajustada por temporada '
+                                'pero NO por estadio (sin stadium_id). Las bandas son orientativas.',
                 'reference': 'F8 calibration 2025, fixed per family',
                 'environment': model.contract['altitude_categories'],
                 'f10_available': getattr(app.state, 'simulator', None) is not None,
@@ -133,10 +145,11 @@ def create_app(predictor=None, simulator=None):
                     'Sin mapping Harp Helú, metros, park holdout o efecto causal',
                     'Sin xRunValue, HR, barrel ni out dentro de PA']}
 
-    @app.get('/api/v1/validation', tags=['Modelo'], summary='Evidencia guardada de validación; no reentrena')
+    @app.get('/api/v1/validation', tags=['Modelo'], summary='Evidencia guardada F8/F10 y holdout de altitud; no reentrena')
     def validation() -> dict:
         return {name: json.loads((ROOT/'docs'/filename).read_text(encoding='utf-8'))
-                for name, filename in [('f8', 'F8_FINAL_METRICS.json'), ('f10', 'F10_RESULTS.json')]}
+                for name, filename in [('f8', 'F8_FINAL_METRICS.json'), ('f10', 'F10_RESULTS.json'),
+                                       ('altitude_holdout', 'ALTITUDE_HOLDOUT_RESULTS.json')]}
 
     @app.post('/api/v1/predict', response_model=PredictionResponse, tags=['Scores'],
               summary='Score por lanzamiento, una familia o las tres', responses={503: {'description': 'F8 no disponible'}})
@@ -189,6 +202,254 @@ def create_app(predictor=None, simulator=None):
                   for i, (p, r) in enumerate(zip(payload.records, results)) if r['status'] == 'experimental']
         ranked.sort(key=lambda r: r['simulation']['target_score'], reverse=True)
         return dict(supported=len(ranked), unsupported=len(results)-len(ranked), ranked_candidates=ranked)
+
+    def scouting_file():
+        candidates = [os.getenv('DIABLOS_SCOUTING'),
+                      ROOT/'artifacts/modeling/f10-full/F10/scouting.csv',
+                      ROOT/'artifacts/modeling/f9-full/F9/scouting.csv']
+        for candidate in candidates:
+            if candidate and Path(candidate).is_file():
+                return Path(candidate)
+        return None
+
+    @app.get('/api/v1/scouting', tags=['Scores'], summary='Agregados pitcher×tipo del review 2025 para ranking',
+             description='Lee scouting.csv de los artefactos F9/F10 (o la ruta DIABLOS_SCOUTING). '
+             'Ordena por score descendente. Medias sobre la mezcla observada de lanzamientos; '
+             'no es ranking poblacional ni evidencia causal.',
+             responses={503: {'description': 'scouting.csv no disponible'}})
+    def scouting(pitcher_anon_id: str | None = None, auto_pitch_type: str | None = None,
+                 min_n: int = 30, limit: int = 200):
+        path = scouting_file()
+        if path is None:
+            raise HTTPException(503, 'scouting.csv no disponible; restaurar artefactos F9/F10 o fijar DIABLOS_SCOUTING')
+        table = pd.read_csv(path)
+        if pitcher_anon_id:
+            table = table.loc[table.pitcher_anon_id == pitcher_anon_id]
+        if auto_pitch_type:
+            table = table.loc[table.auto_pitch_type == auto_pitch_type]
+        table = table.loc[table.n >= min_n].sort_values('score', ascending=False).head(min(limit, 1000))
+        return {'source': str(path), 'rows': int(len(table)), 'records': table.to_dict('records')}
+
+    REVIEW_FEATURES = ['pitch_uid', 'pitcher_throws', 'rel_speed', 'spin_rate',
+        'spin_axis_sin', 'spin_axis_cos', 'rel_height', 'rel_side', 'extension',
+        'induced_vert_break', 'horz_break', 'plate_loc_height', 'plate_loc_side',
+        'balls', 'strikes', 'batter_side']
+    CATEGORIES = ('No Altitude', 'Medium Altitude', 'Extreme Altitude')
+
+    def review_frame():
+        """Review 2025: features físicas + score experimental F9, cacheado en memoria."""
+        if app.state.review is None:
+            f9 = Path(os.getenv('DIABLOS_F9', str(ROOT/'artifacts/modeling/f9-full/F9')))
+            scores_path, cohort_path = f9/'standardized_scores.parquet', f9/'cohort.parquet'
+            if not scores_path.is_file() or not cohort_path.is_file():
+                raise HTTPException(503, 'Artefactos F9 no disponibles; restaurar artifacts/modeling/f9-full o fijar DIABLOS_F9')
+            scores = pd.read_parquet(scores_path)
+            cohort = pd.read_parquet(cohort_path)
+            app.state.review = scores.merge(cohort[REVIEW_FEATURES], on='pitch_uid', validate='1:1')
+        return app.state.review
+
+    def test2026_frame():
+        """Partición sellada 2026: se sirve para visualización con scores F8
+        inferidos en vivo; nunca entró a entrenamiento ni calibración F8/F9/F10.
+        """
+        if app.state.test2026 is None:
+            run = Path(os.getenv('DIABLOS_RUN', str(ROOT/'data/runs/e9e0b1114dc68eb2')))
+            path = run/'pitches.parquet'
+            if not path.is_file():
+                raise HTTPException(503, 'Partición 2026 no disponible; fijar DIABLOS_RUN al run con pitches.parquet')
+            cols = ['pitch_uid', 'year', 'game_anon_id', 'pitcher_anon_id', 'pitcher_throws',
+                'auto_pitch_type', 'altitude_category', 'spin_axis',
+                'rel_speed', 'spin_rate', 'rel_height', 'rel_side', 'extension',
+                'induced_vert_break', 'horz_break',
+                'plate_loc_height', 'plate_loc_side', 'balls', 'strikes', 'batter_side']
+            frame = pd.read_parquet(path, columns=cols)
+            frame = frame.loc[frame.year == 2026].copy()
+            rad = np.radians(frame.spin_axis.astype(float))
+            frame['spin_axis_sin'] = np.sin(rad)
+            frame['spin_axis_cos'] = np.cos(rad)
+            app.state.test2026 = frame.drop(columns=['spin_axis'])
+        return app.state.test2026
+
+    def scenario_frame():
+        """Deltas contrafactuales F10 precomputados (scenarios.json) unidos a pitcher/tipo."""
+        if app.state.scenarios is None:
+            f10 = Path(os.getenv('DIABLOS_F10', str(ROOT/'artifacts/modeling/f10-full/F10')))
+            path = f10/'scenarios.json'
+            frame = review_frame()
+            if not path.is_file():
+                raise HTTPException(503, 'scenarios.json no disponible; restaurar artefactos F10')
+            scenarios = pd.DataFrame(json.loads(path.read_text(encoding='utf-8')))
+            keys = frame[['pitch_uid', 'pitcher_anon_id', 'auto_pitch_type']]
+            app.state.scenarios = scenarios.merge(keys, on='pitch_uid', validate='m:1')
+        return app.state.scenarios
+
+    def regime(n_a, n_b):
+        least = min(n_a, n_b)
+        return 'interpolado' if least >= 120 else 'extrapolado' if least >= 40 else 'insuficiente'
+
+    def mean_ci(values):
+        series = pd.to_numeric(pd.Series(values), errors='coerce').dropna()
+        if series.empty:
+            return None, None
+        half = 1.96 * series.std(ddof=1) / np.sqrt(len(series)) if len(series) > 1 else 0.0
+        return float(series.mean()), [float(series.mean() - half), float(series.mean() + half)]
+
+    @app.get('/api/v1/pitchers', tags=['Dashboard'], summary='Pitchers del review 2025 con volumen y score medio',
+             description='Agregados reales de standardized_scores (partición phase_review). '
+             'Sirven para poblar selectores; no son ranking poblacional.',
+             responses={503: {'description': 'Artefactos F9 no disponibles'}})
+    def pitchers(min_n: int = 60, limit: int = 60):
+        frame = review_frame()
+        try:
+            in2026 = set(test2026_frame().pitcher_anon_id.unique())
+        except HTTPException:
+            in2026 = set()
+        grouped = frame.groupby('pitcher_anon_id')
+        rows = []
+        for pitcher, sub in grouped:
+            if len(sub) < min_n:
+                continue
+            throws = sub.pitcher_throws.mode()
+            rows.append(dict(pitcher_anon_id=pitcher, throws=throws.iat[0] if len(throws) else None,
+                             n=int(len(sub)), games=int(sub.game_anon_id.nunique()),
+                             n_categories=int(sub.altitude_category.nunique()),
+                             has_2026=pitcher in in2026,
+                             experimental_score=float(sub.experimental_score.mean())))
+        rows.sort(key=lambda r: r['experimental_score'], reverse=True)
+        return {'scope': 'Review 2025 agregado; score experimental F9, no comparable con F8',
+                'rows': int(len(rows[:limit])), 'records': rows[:limit]}
+
+    @app.get('/api/v1/pitcher/{pitcher_anon_id}', tags=['Dashboard'],
+             summary='Bundle de un pitcher: scores F8 por pitch, arsenal por categoría y deltas F10',
+             description='Pitches reales del review 2025 con físicas y scores F8 (stuff/location/pitching) '
+             'más el score experimental F9. Arsenal agregado por tipo×categoría. Deltas contrafactuales '
+             'por pareja de categorías desde scenarios.json F10 (escala experimental). '
+             'Con include_2026=true agrega pitches de la partición sellada 2026 scoreados '
+             'con F8 en vivo (inferencia; nunca entraron a entrenamiento ni calibración) — '
+             'llevan partition=test_2026 y no tienen experimental_score F9.',
+             responses={404: {'description': 'Pitcher sin lanzamientos en review 2025'},
+                        503: {'description': 'Artefactos F9/F8 no disponibles'}})
+    def pitcher_bundle(pitcher_anon_id: str, max_pitches: int = 400,
+                       include_2026: bool = True, max_2026: int = 200):
+        frame = review_frame()
+        model = require('predictor')
+        sub = frame.loc[frame.pitcher_anon_id == pitcher_anon_id].reset_index(drop=True)
+        if sub.empty:
+            raise HTTPException(404, 'Pitcher sin lanzamientos en el review 2025')
+        rows = sub.to_dict('records')
+        with app.state.inference_lock:
+            families = {f: model.records(rows, f) for f in ('stuff', 'location', 'pitching')}
+        axes = np.degrees(np.arctan2(sub.spin_axis_sin, sub.spin_axis_cos)) % 360
+        pitches = []
+        for i, row in sub.iterrows():
+            pitches.append(dict(pitch_uid=row.pitch_uid, auto_pitch_type=row.auto_pitch_type,
+                year=int(row.year), partition='phase_review',
+                altitude_category=row.altitude_category,
+                rel_speed=row.rel_speed, spin_rate=row.spin_rate,
+                spin_axis_sin=row.spin_axis_sin, spin_axis_cos=row.spin_axis_cos,
+                rel_height=row.rel_height, rel_side=row.rel_side, extension=row.extension,
+                induced_vert_break=row.induced_vert_break, horz_break=row.horz_break,
+                plate_loc_height=row.plate_loc_height, plate_loc_side=row.plate_loc_side,
+                stuff_plus=families['stuff'][i]['score'],
+                location_plus=families['location'][i]['score'],
+                pitching_plus=families['pitching'][i]['score'],
+                experimental_score=row.experimental_score))
+        pitches = pitches[:max_pitches]
+        # Partición sellada 2026: pitches reales scoreados con F8 en vivo
+        # (inferencia pura — nunca entraron a train/calibración). Sin score F9.
+        n_2026 = 0
+        if include_2026:
+            try:
+                t26 = test2026_frame()
+                own26 = t26.loc[t26.pitcher_anon_id == pitcher_anon_id].head(max_2026).reset_index(drop=True)
+                if len(own26):
+                    rows26 = own26.to_dict('records')
+                    with app.state.inference_lock:
+                        fam26 = {f: model.records(rows26, f) for f in ('stuff', 'location', 'pitching')}
+                    n_2026 = int(len(own26))
+                    for i, row in own26.iterrows():
+                        pitches.append(dict(pitch_uid=row.pitch_uid, auto_pitch_type=row.auto_pitch_type,
+                            year=int(row.year), partition='test_2026',
+                            altitude_category=row.altitude_category,
+                            rel_speed=row.rel_speed, spin_rate=row.spin_rate,
+                            spin_axis_sin=row.spin_axis_sin, spin_axis_cos=row.spin_axis_cos,
+                            rel_height=row.rel_height, rel_side=row.rel_side, extension=row.extension,
+                            induced_vert_break=row.induced_vert_break, horz_break=row.horz_break,
+                            plate_loc_height=row.plate_loc_height, plate_loc_side=row.plate_loc_side,
+                            stuff_plus=fam26['stuff'][i]['score'],
+                            location_plus=fam26['location'][i]['score'],
+                            pitching_plus=fam26['pitching'][i]['score'],
+                            experimental_score=None))
+            except HTTPException:
+                pass
+        summaries = {}
+        for family in ('stuff', 'location', 'pitching'):
+            mean, ci = mean_ci([r['score'] for r in families[family]])
+            summaries[family] = dict(mean=mean, ci=ci, n=int(len(sub)))
+        arsenal = []
+        for (pitch_type, category), cell in sub.groupby(['auto_pitch_type', 'altitude_category']):
+            stuff = [families['stuff'][j]['score'] for j in cell.index]
+            mean, ci = mean_ci(stuff)
+            arsenal.append(dict(auto_pitch_type=pitch_type, altitude_category=category, n=int(len(cell)),
+                usage=len(cell)/len(sub), rel_speed=float(cell.rel_speed.mean()), spin_rate=float(cell.spin_rate.mean()),
+                spin_axis_sin=float(cell.spin_axis_sin.mean()), spin_axis_cos=float(cell.spin_axis_cos.mean()),
+                rel_height=float(cell.rel_height.mean()), rel_side=float(cell.rel_side.mean()),
+                extension=float(cell.extension.mean()),
+                induced_vert_break=float(cell.induced_vert_break.mean()), horz_break=float(cell.horz_break.mean()),
+                stuff_plus=mean, ci=ci))
+        deltas = []
+        try:
+            scenarios = scenario_frame()
+            own = scenarios.loc[scenarios.pitcher_anon_id == pitcher_anon_id]
+            for pitch_type, typed in sub.groupby('auto_pitch_type'):
+                counts = typed.altitude_category.value_counts()
+                observed = {c: int(counts.get(c, 0)) for c in CATEGORIES}
+                cell = own.loc[own.auto_pitch_type == pitch_type]
+                for a, b in (('No Altitude', 'Medium Altitude'), ('No Altitude', 'Extreme Altitude'),
+                             ('Medium Altitude', 'Extreme Altitude')):
+                    direct = cell.delta_score[(cell.source == a) & (cell.target == b)]
+                    inverse = -cell.delta_score[(cell.source == b) & (cell.target == a)]
+                    oriented = pd.concat([direct, inverse]).dropna()
+                    mean, ci = mean_ci(oriented)
+                    n_sim = int(len(oriented))
+                    # La evidencia del delta exige pitches observados en ambos buckets y
+                    # cobertura contrafactual; sin simulaciones el régimen cae a insuficiente.
+                    if observed[a] == 0 or observed[b] == 0 or n_sim < 5:
+                        delta_regime = 'insuficiente'
+                    elif min(observed[a], observed[b]) >= 120 and n_sim >= 15:
+                        delta_regime = 'interpolado'
+                    else:
+                        delta_regime = 'extrapolado'
+                    row = dict(auto_pitch_type=pitch_type, scenario_a=a, scenario_b=b,
+                        delta_score=mean, ci=ci, n_a=observed[a], n_b=observed[b],
+                        n_simulated=n_sim, regime=delta_regime)
+                    if len(cell):
+                        row['score_version'] = cell.score_version.iloc[0]
+                        row['scope'] = cell.scope.iloc[0]
+                    deltas.append(row)
+        except HTTPException:
+            pass
+        return {'pitcher_anon_id': pitcher_anon_id,
+                'throws': sub.pitcher_throws.mode().iat[0] if len(sub.pitcher_throws.mode()) else None,
+                'n': int(len(sub)), 'games': int(sub.game_anon_id.nunique()),
+                'n_2026': n_2026,
+                'spin': dict(avg_rpm=float(sub.spin_rate.mean()), max_rpm=float(sub.spin_rate.max()),
+                             axis_deg=float(pd.Series(axes).mean())),
+                'summaries': summaries, 'arsenal': arsenal,
+                'pitches': pitches, 'deltas': deltas,
+                'scope': 'Pitches y medias del review 2025; scores F8 provisionales + F9 experimental; '
+                         'pitches 2026 = partición sellada con scores F8 inferidos (sin F9); '
+                         'deltas en escala F10 experimental, no comparables con F8'}
+
+    @app.get('/api/v1/profile', tags=['Dashboard'], summary='Perfil físico ideal por categoría de altitud (H1–H4)',
+             description='Sirve docs/F10_IDEAL_PROFILE.json, evidencia generada offline con el simulador F10 '
+             '(plan §4.5). 404 mientras no se haya generado.',
+             responses={404: {'description': 'Perfil ideal aún no generado'}})
+    def profile():
+        path = ROOT/'docs'/'F10_IDEAL_PROFILE.json'
+        if not path.is_file():
+            raise HTTPException(404, 'Perfil ideal aún no generado; falta docs/F10_IDEAL_PROFILE.json (plan §4.5)')
+        return json.loads(path.read_text(encoding='utf-8'))
 
     return app
 

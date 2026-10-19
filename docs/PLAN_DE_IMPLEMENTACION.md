@@ -33,7 +33,10 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 | Cobertura de arsenal ampliada (de ~52% a 100% con prior de grupo) | ✅ Implementado en F10 |
 | Simulador contrafactual que cambia movimiento (residual anchored) | ✅ Implementado en F10 |
 | Escenarios `No/Medium/Extreme Altitude` y deltas de score | ✅ Implementado en F10 |
-| **Backend FastAPI con Swagger** (`backend/`, `tests/test_backend.py`, `docs/BACKEND.md`) | ✅ **Mergeado a `fase-9`** (`6eab4c9`). 6 tests pasan; `test_real_models` skipped (requiere artefactos F8/F10 no versionados) |
+| **Backend FastAPI con Swagger** (`backend/`, `tests/test_backend.py`, `docs/BACKEND.md`) | ✅ **Mergeado a `fase-9`** (`6eab4c9`). Endpoints: `predict`, `summary`, `movement-map`, `simulate`, `recommendations`, `scouting` (lee `scouting.csv` F9/F10 o `DIABLOS_SCOUTING`), `profile` (sirve `docs/F10_IDEAL_PROFILE.json`, 404 hasta §4.5), `validation` (incluye evidencia del holdout). **10/10 tests pasan incluido `test_real_models` con artefactos reales** (`/ready`=200, `/simulate` experimental) |
+| **Artefactos restaurados localmente** (`data/runs/e9e0b1114dc68eb2`, release F8, `test_exposure.json`) | ✅ Copiados de `../DiablosHack`. `expected_data_run` del contrato ajustado `c1c8ba48818dc878`→`e9e0b1114dc68eb2`; release hermano `f8-release-20261014` montado como `f8-release-20261013` (lock verifica íntegro contra este `modeling/`) |
+| **`f9-full` regenerado localmente** (`artifacts/modeling/f9-full/F9`) | ✅ Corrido completo (11 modelos, protocolos A/B/C, ~240k train / ~58k review). 15/15 checks internos; `check_phase9` independiente 16/16 (`docs/F9_LOCAL_CHECK.json`). Produce `scouting.csv` (2,398 filas pitcher×tipo) y `standardized_scores.parquet` |
+| **`f10-full` regenerado localmente** (`artifacts/modeling/f10-full/F10`) | ✅ Corrido completo (5 modelos eventos + 4 movimiento, trayectoria 99.17%, escenarios). 14/14 checks internos; `check_phase10` independiente 14/14 (`docs/F10_LOCAL_CHECK.json`) |
 | **Holdout por categoría de altitud — movimiento IVB/HB** (`experiments/altitude_holdout.py`) | ✅ **Implementado y ejecutado** (`e4b67dc`). 8 tests pasan, corrida completa `ah-full` con 2024 train / 2025 review, 3 folds, 2,000 bootstrap |
 | Reporte de análisis F10 (`docs/ANALISIS_F10.md`) | ✅ Generado |
 | Reporte holdout de altitud (`docs/ALTITUDE_HOLDOUT.md` + `ALTITUDE_HOLDOUT_RESULTS.json`) | ✅ Generado |
@@ -74,12 +77,13 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 - **Falta:** el mismo protocolo sobre el modelo de **eventos** (log loss/Brier por categoría retenida) para cerrar la evaluación de generalización ambiente→outcome.
 - **Falta:** conectar los resultados con el simulador F10 (verificar si el delta de score del simulador se alinea con el sesgo de movimiento observado).
 
-### 4.2 Dashboard / Simulador funcional para el coach
+### 4.2 Dashboard / Simulador funcional para el coach ✅ integrado
 
-- **Backend ya integrado** (`backend/main.py` expone scores, simulate, scouting). Falta la capa de presentación:
-  - CLI o mini-web donde el coach ingrese features físicas de un pitch y obtenga score F10 + probabilidades de eventos.
-  - Comparación lado a lado `No Altitude` vs. `Extreme Altitude` vía `phase10_simulator.py`.
-  - Mapa de movimiento (IVB vs HB) coloreado por score y por `altitude_category`.
+- **Backend ya integrado** (`backend/main.py` expone scores, simulate, `scouting` — ranking pitcher×tipo — y `profile` para el perfil ideal). **Nuevos endpoints para el frontend Angular:**
+  - `GET /api/v1/pitchers`: pitchers reales del review 2025 (n, juegos, mano, score F9 medio) desde `standardized_scores.parquet`.
+  - `GET /api/v1/pitcher/{id}`: bundle completo — pitches reales con físicas + scores F8 por familia + score F9, arsenal por tipo×categoría, y deltas contrafactuales por pareja de categorías agregados de `scenarios.json` F10 (con `n_simulated` y régimen que exige soporte observado **y** simulado).
+- **Frontend Angular** (`../../altura-plus`, Angular 19): `ApiService` + `api-mappers.ts` (`Four-Seam`→`FB`, `Extreme Altitude`→`Extreme`, etc.). `DataService` intenta el API primero (`source='api'`, badge "API · review 2025"); si el backend no responde cae al generador sintético con badge "SINTÉTICO · demo" — nunca se presentan números inventados como evidencia real. Simulador cableado a `/predict` (scores F8 reales, debounce 250 ms) y `/simulate` (contrafactual F10 con selector origen/destino). Comparador corregido: `Extreme` ya no se etiqueta "Harp Helú" sin disclaimer de proxy.
+- **CORS:** `DIABLOS_CORS_ORIGINS=http://localhost:4200` para `ng serve`.
 - **Por qué:** Entregable obligatorio #4 del hackathon ("Dashboard Simulador").
 - **Restricción:** comparación por `altitude_category` (proxy de CDMX), con advertencia de que no es delta específico del Harp.
 
@@ -112,6 +116,7 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
   - ¿Los perfiles `groundball` son más valiosos en altitud? (H3)
   - ¿`spin_rate` solo es insuficiente vs. `spin_per_mph`/movimiento? (H4)
 - **Método:** simulador F10 + agregados por pitcher/tipo/arsenal con soporte mínimo (`scouting.csv` extendido). El holdout de altitud ya muestra que las rectas (Four-Seam) concentran el mayor sesgo — insumo directo para H1.
+- **Salida:** generar `docs/F10_IDEAL_PROFILE.json` (versionado); el backend ya lo expone en `GET /api/v1/profile`.
 
 ### 4.6 Demo de 10 minutos para coach/director
 
@@ -122,12 +127,10 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
   - Recomendación táctica (ej. preferir perfiles sinker/groundball en `Extreme`).
 - **Por qué:** "Aplicabilidad real" pesa 25% de la rúbrica.
 
-### 4.7 Integración final de artefactos y validación local
+### 4.7 Integración final de artefactos y validación local ✅ hecho
 
-- **Qué falta:** restaurar en el clone los artefactos no versionados:
-  - `data/runs/e9e0b1114dc68eb2`, `artifacts/modeling/f8-release-20261013`, `f9-full`, `f10-full` (copiar de `../DiablosHack` ajustando el data run `c1c8ba48818dc878`↔`e9e0b1114dc68eb2` y `RELEASE` en `experiments/phase9.py`/`phase10.py`).
-  - Correr `run_phase9.ps1 check`, `run_phase10.ps1 check` y levantar el backend contra artefactos reales (desbloquea `test_real_models`).
-- **Nota:** el holdout de altitud ya corre sin esos artefactos usando `--data-run` externo.
+- **Hecho:** datos `e9e0b1114dc68eb2` + release F8 + `test_exposure.json` restaurados de `../DiablosHack`; `f9-full` y `f10-full` regenerados con el pipeline de esta rama (smoke primero, luego full); `check_phase9`/`check_phase10` independientes en verde; backend levantado contra artefactos reales (`/ready`=200, `test_real_models` pasa).
+- **Nota:** los artefactos quedaron fuera de Git (`.gitignore`); reproducibles con `python -m experiments.phase9 --name f9-full` y `python -m experiments.phase10 --name f10-full`.
 
 ---
 
@@ -140,9 +143,9 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 | 🔴 Alta | Holdout por altitud sobre eventos (log loss/Brier) | ⬜ Pendiente | `altitude_holdout.py` + modelo de eventos F9/F10 |
 | 🔴 Alta | Documento técnico 6–10 páginas | ⬜ Pendiente | Resultados F9/F10/AH ya calculados |
 | 🔴 Alta | Reportes visuales `REPORTE_F9/F10.md` + figuras | ⬜ Pendiente | `ALTITUDE_HOLDOUT_RESULTS.json` y JSONs F9/F10 |
-| 🟡 Media | Dashboard/simulador comparativo para coach | ⬜ Pendiente | Backend ya mergeado + `phase10_simulator.py` |
+| 🟡 Media | Dashboard/simulador comparativo para coach | ✅ **Integrado** | Angular `altura-plus` + `/pitchers`, `/pitcher/{id}`, `/predict`, `/simulate` |
 | 🟡 Media | Perfil físico ideal + recomendaciones (H1–H4) | ⬜ Pendiente | Simulador F10 + `scouting.csv` + sesgo del holdout |
-| 🟡 Media | Restaurar artefactos locales y correr checks F9/F10 | ⬜ Pendiente | Copiar `data/` y `artifacts/` de `../DiablosHack` |
+| 🟡 Media | Restaurar artefactos locales y correr checks F9/F10 | ✅ **Hecho** (`docs/F9_LOCAL_CHECK.json`, `docs/F10_LOCAL_CHECK.json`) | — |
 | 🟡 Media | Demo de 10 minutos para coach/director | ⬜ Pendiente | Dashboard + perfil ideal |
 | ⚪ Baja | Pedir a organizadores `stadium_id`, `altitude_m`, `runners_on_base` | ⬜ Descartado por instrucción | — |
 
@@ -168,9 +171,9 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 - [x] F9 implementado y verificado (125 tests, protocolos A/B/C)
 - [x] F10 implementado y verificado (138 tests, arsenal regularizado + altura)
 - [x] Backend FastAPI mergeado a `fase-9` (`6eab4c9`)
-- [ ] Artefactos pesados restaurados en el clone (data run, f8-release, f9-full, f10-full)
-- [ ] `check` F9/F10 corriendo localmente con artefactos propios
-- [ ] Backend levantado contra artefactos reales (`test_real_models` sin skip)
+- [x] Artefactos pesados restaurados en el clone (data run `e9e0b1114dc68eb2`, f8-release, `f9-full`, `f10-full` regenerados)
+- [x] `check` F9/F10 corriendo localmente con artefactos propios (`F9_LOCAL_CHECK.json` 16/16, `F10_LOCAL_CHECK.json` 14/14)
+- [x] Backend levantado contra artefactos reales (`test_real_models` pasa, `/ready`=200)
 
 ### Validación de generalización
 - [x] Holdout por categoría de altitud — movimiento IVB/HB (`e4b67dc`, `ah-full`)
@@ -185,7 +188,7 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 - [x] Comparación CDMX vs. otros estadios por proxy de `altitude_category` (deltas F10 + holdout)
 - [ ] Perfil físico ideal para Diablos Rojos (H1–H4 respondidas con evidencia)
 - [ ] Recomendaciones operativas (qué perfiles ganan/pierden en altitud, scouting de prospectos)
-- [ ] Dashboard simulador (comparador `Extreme` vs `No`, mapa de movimiento)
+- [x] Dashboard simulador (comparador `Extreme` vs `No`, mapa de movimiento) — Angular conectado al backend real
 - [ ] Documento técnico 6–10 páginas
 - [ ] Reportes visuales `REPORTE_F9.md` / `REPORTE_F10.md` / figuras holdout
 - [ ] Demo de 10 minutos para coach/director

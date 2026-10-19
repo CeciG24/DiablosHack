@@ -9,6 +9,9 @@ __pycache__/
 *.duckdb
 *.duckdb.wal
 data/
+!altura-plus/public/data/
+/altura-plus/public/data/*
+!altura-plus/public/data/synthetic_examples.json
 analysis/docx_preview/
 outputs/
 artifacts/modeling/

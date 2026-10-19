@@ -1,0 +1,93 @@
+<header class="page-head">
+  <div><h1>Lanzadores y arsenales</h1><p>Encuentra perfiles para Diablos Rojos. Evalúa el repertorio, sus diferenciales y el soporte de cada señal de altitud.</p></div>
+  <span class="status-tag">{{ data.source() === 'api' ? 'Revisión 2025 · agregados completos del lanzador' : 'Demostración · datos sintéticos' }}</span>
+</header>
+<div class="section-head"><h2>Lanzadores disponibles</h2><p>{{ data.bundles().length }} perfiles cargados · ordenados por Stuff+</p></div>
+<div class="filters" style="margin-bottom: 14px">
+  <label>Buscar lanzador<input type="search" [value]="search()" (input)="setSearch($event)" placeholder="ID o nombre del lanzador" /></label>
+</div>
+<div class="table-wrap" role="region" aria-label="Listado de lanzadores" tabindex="0">
+  <table class="data-table">
+    <thead><tr><th scope="col">Lanzador</th><th scope="col">Mano</th><th scope="col">Pitches</th><th scope="col">Stuff+</th><th scope="col">Location+</th><th scope="col">Pitching+</th><th scope="col">Lectura de scouting</th></tr></thead>
+    <tbody>
+      @for (b of pitchers(); track b.pitcher.id) {
+        <tr [class.selected]="ctx.pitcherId() === b.pitcher.id">
+          <th scope="row"><button type="button" [attr.aria-pressed]="ctx.pitcherId() === b.pitcher.id" (click)="ctx.selectPitcher(b.pitcher.id)">{{ b.pitcher.label }}</button></th>
+          <td>{{ b.pitcher.throws === 'L' ? 'Zurdo' : 'Derecho' }}</td><td>{{ b.stuffPlus.n }}</td>
+          <td>{{ metric(b.stuffPlus.modelAvailable ? b.stuffPlus.value : null) }}</td><td>{{ metric(b.locationPlus.modelAvailable ? b.locationPlus.value : null) }}</td><td>{{ metric(b.pitchingPlus.modelAvailable ? b.pitchingPlus.value : null) }}</td>
+          <td>{{ b.stuffPlus.modelAvailable && b.stuffPlus.value >= 105 && b.stuffPlus.n >= 120 ? 'Revisar perfil físico favorable' : b.stuffPlus.n < 120 ? 'Ampliar muestra' : 'Explorar repertorio' }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="7">No se encontraron lanzadores. Prueba otro ID o limpia la búsqueda.</td></tr>
+      }
+    </tbody>
+  </table>
+</div>
+<p class="note">Lista de perfiles cargados, no ranking poblacional. Una señal física favorable no demuestra adaptación a la altitud ni sustituye una evaluación deportiva.</p>
+
+@if (bundle(); as b) {
+  <div class="section-head">
+    <h2>{{ b.pitcher.label }} · ficha individual</h2>
+    <a class="button button--quiet" routerLink="/lanzamientos" [queryParams]="{ pitcher: b.pitcher.id }">Ver sus lanzamientos</a>
+  </div>
+  <dl class="metrics-strip">
+    <div><dt>Stuff+ físico</dt><dd>{{ metric(b.stuffPlus.modelAvailable ? b.stuffPlus.value : null) }}</dd><small>n={{ b.stuffPlus.n }} · revisión 2025</small></div>
+    <div><dt>Location+</dt><dd>{{ metric(b.locationPlus.modelAvailable ? b.locationPlus.value : null) }}</dd><small>n={{ b.locationPlus.n }} · revisión 2025</small></div>
+    <div><dt>Pitching+</dt><dd>{{ metric(b.pitchingPlus.modelAvailable ? b.pitchingPlus.value : null) }}</dd><small>n={{ b.pitchingPlus.n }} · revisión 2025</small></div>
+    <div><dt>Spin promedio</dt><dd>{{ b.spin.avgRpm }}</dd><small>rpm · máximo {{ b.spin.maxRpm }}</small></div>
+  </dl>
+  <div class="filters">
+    <label>Temporada del arsenal
+      <select [value]="season()" (change)="setSeason($event)">
+        @for (year of seasons(); track year) { <option [value]="year">{{ year }}</option> }
+      </select>
+    </label>
+    <label>Tipo en comparación de altitud
+      <select [value]="comparisonType()" (change)="setType($event)">
+        <option value="ALL">Todo el repertorio</option>
+        @for (row of arsenal(); track row.type) { <option [value]="row.type">{{ names[row.type] }}</option> }
+      </select>
+    </label>
+  </div>
+  <div class="section-head"><h2>Repertorio y relación con la recta</h2><p>Uso ponderado por número de pitches</p></div>
+  @if (baseline(); as base) {
+    <p class="note">Diferenciales = cada pitch menos {{ names[base.type] }}. Separación de velocidad y movimiento; no estima tunneling ni secuencias.</p>
+  } @else { <p class="notice">Sin recta de referencia en esta muestra. Los diferenciales no están disponibles.</p> }
+  <div class="table-wrap" role="region" aria-label="Comparación del arsenal y diferenciales" tabindex="0">
+    <table class="data-table">
+      <thead><tr><th scope="col">Pitcheo</th><th scope="col">Uso</th><th scope="col">n</th><th scope="col">Stuff+</th><th scope="col">Velo (mph)</th><th scope="col">HB / IVB (in)</th><th scope="col">Δ velo (mph)</th><th scope="col">Δ HB (in)</th><th scope="col">Δ IVB (in)</th></tr></thead>
+      <tbody>
+        @for (row of relationships(); track row.type) {
+          <tr><th scope="row">{{ names[row.type] }}</th><td>{{ metric(row.usage) }}%</td><td>{{ row.n }}</td><td><strong>{{ metric(row.stuff) }}</strong></td><td>{{ metric(row.velo) }}</td><td>{{ metric(row.hb) }} / {{ metric(row.ivb) }}</td><td>{{ metric(row.deltaVelo) }}</td><td>{{ metric(row.deltaHb) }}</td><td>{{ metric(row.deltaIvb) }}</td></tr>
+        } @empty { <tr><td colspan="9">No hay arsenal agregado para esta temporada.</td></tr> }
+      </tbody>
+    </table>
+  </div>
+  <div class="two-columns">
+    <section class="panel">
+      <h2>Stuff+ observado por altitud</h2>
+      <p class="note">Mismo lanzador, mezcla observada por categoría. No representa el traslado del mismo pitch.</p>
+      <div class="table-wrap" role="region" aria-label="Stuff observado por altitud" tabindex="0">
+        <table class="data-table"><thead><tr><th scope="col">Altitud</th><th scope="col">Stuff+</th><th scope="col">n</th></tr></thead><tbody>
+          @for (row of comparison(); track row.category) { <tr><th scope="row">{{ labels[row.category] }}</th><td>{{ metric(row.stuff) }}</td><td>{{ row.n }}</td></tr> }
+        </tbody></table>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Cambio experimental por altitud</h2>
+      <p class="note">Sin altitud → altitud extrema · escenarios de revisión 2025. Escala distinta de Stuff+; no comparar los valores directamente.</p>
+      <div class="table-wrap" role="region" aria-label="Cambios experimentales por pitcheo" tabindex="0">
+        <table class="data-table"><thead><tr><th scope="col">Tipo</th><th scope="col">Δ score</th><th scope="col">Soporte</th></tr></thead><tbody>
+          @for (d of deltas(); track d.pitchType) {
+            <tr><th scope="row">{{ d.pitchType }}</th><td>{{ d.regime === 'insuficiente' ? 'Sin estimación' : metric(d.delta) }}</td><td>{{ d.regime }} · n={{ d.nA }} / {{ d.nB }}</td></tr>
+          } @empty { <tr><td colspan="3">No hay escenarios disponibles para este tipo y lanzador.</td></tr> }
+        </tbody></table>
+      </div>
+    </section>
+  </div>
+  <div class="notice">
+    <strong>Siguiente paso de scouting</strong>
+    <p>Prioriza repertorios con calidad física y muestra suficiente. Confirma las señales de altitud con un bullpen; un cambio de score experimental no prueba mayor riesgo de jonrón.</p>
+  </div>
+  <a routerLink="/simulador" class="button">Simular con este lanzador como referencia</a>
+}

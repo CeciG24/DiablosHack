@@ -1,0 +1,19 @@
+.leaders {
+  list-style: none; padding: 0; margin: 16px 0 0;
+  li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 16px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); font-size: 0.82rem; }
+  a, &__name { color: var(--ink); font-weight: 600; }
+  a { text-decoration-color: var(--red); text-underline-offset: 4px; }
+  span:not(.leaders__name) { color: var(--muted); font-size: 0.72rem; }
+  strong { font-size: 1.1rem; }
+}
+.altitude-signals {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 22px 0;
+  > div { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+  span { font-size: 0.86rem; font-weight: 500; }
+  strong { font-size: 1.6rem; }
+  small { color: var(--muted); font-size: 0.72rem; }
+}
+@media (max-width: 720px) {
+  .altitude-signals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .leaders li { gap: 10px; }
+}

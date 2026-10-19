@@ -1,0 +1,7 @@
+[
+  { "label": "FB élite", "pitchType": "FB", "veloMph": 95.2, "spinRpm": 2480, "ivbIn": 17.4, "hbIn": -6.1, "plateXIn": 0.4, "plateZIn": 31.2 },
+  { "label": "SI hundida", "pitchType": "SI", "veloMph": 91.8, "spinRpm": 2180, "ivbIn": 8.9, "hbIn": -14.8, "plateXIn": -6.2, "plateZIn": 22.4 },
+  { "label": "SL barrido", "pitchType": "SL", "veloMph": 84.3, "spinRpm": 2560, "ivbIn": 1.6, "hbIn": 8.3, "plateXIn": 7.9, "plateZIn": 17.8 },
+  { "label": "CB 12-6", "pitchType": "CB", "veloMph": 77.9, "spinRpm": 2680, "ivbIn": -9.6, "hbIn": 9.4, "plateXIn": 2.1, "plateZIn": 14.6 },
+  { "label": "CH flotante", "pitchType": "CH", "veloMph": 85.1, "spinRpm": 1740, "ivbIn": 7.2, "hbIn": -11.3, "plateXIn": -3.8, "plateZIn": 20.9 }
+]

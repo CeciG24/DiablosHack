@@ -1,6 +1,8 @@
 """HTTP contracts with synthetic doubles; optional private-artifact integration."""
 import os
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from fastapi.testclient import TestClient
@@ -71,6 +73,75 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.client.post('/api/v1/recommendations', json=payload).json()['supported'], 1)
         payload['target'] = 'Harp Helu'
         self.assertEqual(self.client.post('/api/v1/simulate', json=payload).status_code, 422)
+
+    def test_validation_evidence(self):
+        evidence = self.client.get('/api/v1/validation').json()
+        self.assertIn('altitude_holdout', evidence)
+
+    def test_scouting_endpoint(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = Path(tmp)/'scouting.csv'
+            csv_path.write_text('pitcher_anon_id,auto_pitch_type,n,games,score,provisional,scope\n'
+                                'p1,Four-Seam,300,10,105.0,False,x\n'
+                                'p2,Slider,20,3,95.0,True,x\n', encoding='utf-8')
+            with patch.dict(os.environ, {'DIABLOS_SCOUTING': str(csv_path)}):
+                records = self.client.get('/api/v1/scouting', params={'min_n': 0}).json()['records']
+                self.assertEqual(records[0]['pitcher_anon_id'], 'p1')
+                filtered = self.client.get('/api/v1/scouting', params={'min_n': 100}).json()['records']
+                self.assertEqual(len(filtered), 1)
+            env = {k: v for k, v in os.environ.items() if k != 'DIABLOS_SCOUTING'}
+            with patch('backend.main.ROOT', Path(tmp)), patch.dict(os.environ, env, clear=True):
+                self.assertEqual(self.client.get('/api/v1/scouting').status_code, 503)
+
+    def test_profile_endpoint(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp)/'docs').mkdir()
+            with patch('backend.main.ROOT', Path(tmp)):
+                self.assertEqual(self.client.get('/api/v1/profile').status_code, 404)
+                (Path(tmp)/'docs'/'F10_IDEAL_PROFILE.json').write_text('{"h1": "demo"}', encoding='utf-8')
+                self.assertEqual(self.client.get('/api/v1/profile').json()['h1'], 'demo')
+
+    def _fake_review(self, client):
+        """Injecta un frame review y escenarios mínimos para /pitchers y /pitcher/{id}."""
+        import pandas as pd
+        rows = [dict(pitch_uid=f'u{i}', year=2025, game_anon_id='g1', pitcher_anon_id='p1',
+                     pitcher_split='dev', game_cv_fold=0, partition='phase_review',
+                     auto_pitch_type='Four-Seam' if i % 2 else 'Slider',
+                     altitude_category='No Altitude' if i < 3 else 'Extreme Altitude',
+                     experimental_score=105.0, pitcher_throws='Right', rel_speed=93.0,
+                     spin_rate=2300.0, spin_axis_sin=0.5, spin_axis_cos=-0.866,
+                     rel_height=6.0, rel_side=1.8, extension=6.2, induced_vert_break=16.0,
+                     horz_break=-8.0, plate_loc_height=2.5, plate_loc_side=0.0,
+                     balls=0, strikes=0, batter_side='Right') for i in range(5)]
+        client.app.state.review = pd.DataFrame(rows)
+        client.app.state.scenarios = pd.DataFrame([
+            dict(pitch_uid='u4', pitcher_anon_id='p1', auto_pitch_type='Four-Seam',
+                 source='No Altitude', target='Extreme Altitude', delta_score=-4.0,
+                 score_version='v', scope='s'),
+            dict(pitch_uid='u1', pitcher_anon_id='p1', auto_pitch_type='Four-Seam',
+                 source='No Altitude', target='Extreme Altitude', delta_score=-6.0,
+                 score_version='v', scope='s'),
+        ])
+
+    def test_pitchers_and_bundle_endpoints(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            env = {**os.environ, 'DIABLOS_F9': tmp}
+            with patch.dict(os.environ, env, clear=True):
+                self.assertEqual(self.client.get('/api/v1/pitchers').status_code, 503)
+        self._fake_review(self.client)
+        pitchers = self.client.get('/api/v1/pitchers', params={'min_n': 1}).json()
+        self.assertEqual(pitchers['records'][0]['pitcher_anon_id'], 'p1')
+        self.assertEqual(self.client.get('/api/v1/pitcher/nadie').status_code, 404)
+        bundle = self.client.get('/api/v1/pitcher/p1').json()
+        self.assertEqual(bundle['n'], 5)
+        self.assertEqual(bundle['throws'], 'Right')
+        self.assertEqual(len(bundle['pitches']), 5)
+        self.assertIn('stuff_plus', bundle['pitches'][0])
+        self.assertEqual(set(bundle['summaries']), {'stuff', 'location', 'pitching'})
+        delta = [d for d in bundle['deltas']
+                 if d['auto_pitch_type'] == 'Four-Seam' and d['scenario_b'] == 'Extreme Altitude'][0]
+        self.assertAlmostEqual(delta['delta_score'], -5.0)
+        self.assertEqual(delta['n_simulated'], 2)
 
     def test_body_limit(self):
         response = self.client.post('/api/v1/predict', content=b' '*1_000_001)

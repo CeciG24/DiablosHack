@@ -1,0 +1,79 @@
+<header class="page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p>El rendimiento, en contexto. Explora la calidad del pitcheo y las señales asociadas a la altitud.</p>
+  </div>
+  <a routerLink="/lanzamientos" class="button">Explorar lanzamientos</a>
+</header>
+
+<app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="filters.set($event)" />
+@if (data.source() !== 'api') {
+  <div class="notice" role="note"><strong>Modo demostración.</strong> Todos los indicadores son sintéticos; no son evidencia deportiva. Usa “Actualizar datos” para reconectar.</div>
+}
+<dl class="metrics-strip" aria-label="Indicadores de la muestra filtrada">
+  <div><dt>Stuff+ físico</dt><dd>{{ metric(metrics().stuff) }}</dd><small>Calidad física del lanzamiento</small></div>
+  <div><dt>Location+</dt><dd>{{ metric(metrics().location) }}</dd><small>Ubicación y contexto del pitch</small></div>
+  <div><dt>Pitching+</dt><dd>{{ metric(metrics().pitching) }}</dd><small>Evaluación física y de ubicación</small></div>
+  <div><dt>Lanzamientos en la vista</dt><dd>{{ pitches().length }}</dd><small>{{ pitcherCount() }} lanzadores · muestra cargada</small></div>
+</dl>
+<p class="note">Índices provisionales: 100 es la referencia de calibración. Las medias corresponden a los pitches cargados y filtrados; no representan toda la liga ni un efecto causal.</p>
+
+@if (pitches().length === 0) {
+  <div class="empty-state" role="status">No hay lanzamientos con estos filtros. Prueba otra temporada, lanzador o categoría de altitud.</div>
+} @else {
+  <div class="section-head"><h2>Rendimiento por altitud</h2><p>Medias observadas · no es el mismo pitch trasladado</p></div>
+  <div class="table-wrap" role="region" aria-label="Comparación por altitud" tabindex="0">
+    <table class="data-table">
+      <thead><tr><th scope="col">Categoría</th><th scope="col">Stuff+</th><th scope="col">Location+</th><th scope="col">Pitching+</th><th scope="col">Pitches</th></tr></thead>
+      <tbody>
+        @for (row of categories(); track row.category) {
+          <tr><th scope="row">{{ row.label }}</th><td>{{ metric(row.stuff) }}</td><td>{{ metric(row.location) }}</td><td>{{ metric(row.pitching) }}</td><td>{{ row.n }}</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="two-columns">
+    <section class="panel" aria-labelledby="pitcher-leaders">
+      <h2 id="pitcher-leaders">Lanzadores destacados</h2>
+      <p class="note">Ordenados por Stuff+ de la muestra filtrada. Revisa el volumen antes de comparar.</p>
+      <ol class="leaders">
+        @for (row of leaders(); track row.pitcher.id) {
+          <li><a routerLink="/lanzadores" (click)="ctx.selectPitcher(row.pitcher.id)">{{ row.pitcher.label }}</a><span>{{ row.n }} pitches</span><strong>{{ metric(row.stuff) }}</strong></li>
+        }
+      </ol>
+    </section>
+    <section class="panel" aria-labelledby="pitch-leaders">
+      <h2 id="pitch-leaders">Tipos de pitcheo destacados</h2>
+      <p class="note">Calidad física media por tipo; las mezclas de lanzadores y categorías pueden diferir.</p>
+      <ol class="leaders">
+        @for (row of pitchLeaders(); track row.type) {
+          <li><span class="leaders__name">{{ names[row.type] }}</span><span>{{ row.n }} pitches</span><strong>{{ metric(row.stuff) }}</strong></li>
+        }
+      </ol>
+    </section>
+  </div>
+}
+
+<div class="section-head"><h2>Señales de altitud</h2><p>Simulación experimental · escala independiente de los índices anteriores</p></div>
+@if (insights.profile(); as profile) {
+  <section class="panel">
+    <p class="note">Sin altitud → altitud extrema · {{ profile.n_simulated }} escenarios precomputados. Este agregado no cambia con los filtros de la muestra.</p>
+    <div class="altitude-signals">
+      @for (row of profile.by_pitch_type; track row.auto_pitch_type) {
+        <div><span>{{ row.auto_pitch_type }}</span><strong [class.negative]="row.delta_score < 0" [class.positive]="row.delta_score > 0">{{ row.delta_score > 0 ? '+' : '' }}{{ metric(row.delta_score) }}</strong><small>Δ score experimental · n={{ row.n }}</small></div>
+      }
+    </div>
+    <a routerLink="/simulador" class="button button--quiet">Ver simulación y recomendaciones</a>
+  </section>
+} @else {
+  <section class="panel">
+    <p class="note" role="status">{{ insights.status() === 'loading' ? 'Consultando hallazgos de altitud…' : 'Los escenarios de altitud no están disponibles. No se estima un efecto con los datos de demostración.' }}</p>
+    @if (insights.status() === 'error') { <button class="button button--quiet" type="button" (click)="insights.reload()">Reintentar hallazgos</button> }
+  </section>
+}
+<section class="notice" aria-labelledby="alerts-heading">
+  <strong id="alerts-heading">Hallazgos y alertas</strong>
+  <p>No hay identificación de estadios: la comparación utiliza categorías de altitud, no parques específicos.</p>
+  @if (testCount() > 0) { <p>{{ testCount() }} pitches son del conjunto de prueba 2026: solo inferencia, sin entrenamiento ni calibración con esa partición.</p> }
+  <p>El score de simulación no se resta de Stuff+, Location+ o Pitching+. Las decisiones de scouting requieren confirmación en campo.</p>
+</section>

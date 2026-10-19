@@ -1,0 +1,95 @@
+.sim { display: flex; flex-direction: column; gap: 14px; }
+.sim__head h1 { margin: 0; font-size: 1.2rem; }
+
+/* Contrato del simulador: callout visible, no texto suelto. */
+.sim__contract {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 6px; padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px; background: var(--tile);
+  font-size: 0.9rem; color: var(--ink);
+}
+
+/* Chips de procedencia, caveats y bandas de escala. */
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 10px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.01em;
+  border: 1px solid var(--line); background: var(--bg); color: var(--muted);
+  white-space: normal;
+}
+.tag--warn { border-color: #f59e0b; background: #fef9ec; color: var(--amber); }
+.tag--info { border-color: #93c5fd; background: #eff6ff; color: #1d4ed8; }
+.tag--ok { border-color: #86efac; background: #f0fdf4; color: var(--green); }
+.tag--muted { border-style: dashed; color: var(--muted); font-weight: 600; }
+.tag--band { border-color: var(--ink); color: var(--ink); background: var(--tile); }
+
+.sim__flags {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  &--warn { margin-top: 8px; }
+}
+
+.ctl {
+  display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;
+  font-size: 0.9rem; font-weight: 600; color: var(--muted);
+  output { color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+  input[type='range'] { width: 100%; }
+  select, input[type='number'] {
+    border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px;
+    font-size: 0.92rem; background: var(--bg); color: var(--ink);
+    &:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  }
+  &__hint { font-size: 0.82rem; color: var(--amber); font-weight: 500; }
+  .tag { align-self: flex-start; margin-top: 2px; }
+  &__row { display: flex; gap: 12px;
+    label { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+  }
+}
+
+.sim__physics {
+  border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin: 0 0 16px;
+  legend { padding: 0 6px; font-size: 0.86rem; font-weight: 600; }
+}
+.sim__vs-cat { text-align: center; }
+@media (max-width: 480px) {
+  .sim__vs { gap: 5px; }
+  .sim__vs-side { padding: 10px 5px; }
+  .sim__vs-cat { font-size: 0.68rem; }
+  .sim__vs-mov { font-size: 0.68rem; }
+}
+
+.sim__examples {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  font-size: 0.86rem; color: var(--muted);
+  button {
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    border-radius: 999px; padding: 3px 10px; font-size: 0.86rem; font-weight: 600;
+    cursor: pointer; transition: border-color 160ms ease;
+    &:hover { border-color: var(--red); }
+    &:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  }
+}
+
+.sim__results { display: flex; flex-direction: column; gap: 12px; }
+.sim__note { margin: 6px 0 0; font-size: 0.82rem; color: var(--muted); text-align: center; }
+.sim__note--delta { font-size: 0.95rem; color: var(--ink); }
+
+/* Comparación lado a lado del mismo pitch en dos escenarios F10. */
+.sim__vs {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 12px; margin: 4px 0 2px;
+}
+.sim__vs-side {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg);
+}
+.sim__vs-cat { font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+.sim__vs-score { font-size: 1.9rem; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.sim__vs-sub { font-size: 0.75rem; color: var(--muted); }
+.sim__vs-mov { font-size: 0.78rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sim__vs-delta { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.sim__vs-arrow { font-size: 1.3rem; color: var(--muted); }
+.sim__vs-dnum { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--muted); }
+.sim__vs-dnum--neg { color: var(--red); }
+.sim__vs-dnum--pos { color: var(--green); }

@@ -102,13 +102,19 @@ def standardized_probabilities(model, scaler, rows, distribution):
     """Marginal association under the same training context mix for every pitch."""
     if not distribution or not np.isclose(sum(d['weight'] for d in distribution), 1):
         raise ValueError('Invalid context weights')
-    p = np.zeros((len(rows), 6))
-    for context in distribution:
-        if not np.isfinite(context['weight']) or context['weight'] < 0:
-            raise ValueError('Invalid context weight')
-        changed = rows.assign(**{k: context[k] for k in ('balls', 'strikes', 'batter_side')})
-        p += context['weight'] * scaler.transform(model.predict(changed))
-    return p
+    if rows.empty:
+        return np.zeros((0, 6))
+    weights = np.array([context['weight'] for context in distribution], dtype=float)
+    if not np.isfinite(weights).all() or (weights < 0).any():
+        raise ValueError('Invalid context weight')
+    # Expand rows × contexts into a single predict batch instead of one call
+    # per context; the weighted sum is identical and pandas overhead is paid once.
+    n, m = len(rows), len(distribution)
+    expanded = rows.iloc[np.tile(np.arange(n), m)].reset_index(drop=True)
+    for key in ('balls', 'strikes', 'batter_side'):
+        expanded[key] = np.repeat([context[key] for context in distribution], n)
+    p = scaler.transform(model.predict(expanded))
+    return (p.reshape(m, n, 6) * weights[:, None, None]).sum(axis=0)
 
 
 def diagnostics(rows, p, name, folder):

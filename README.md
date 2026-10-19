@@ -14,6 +14,30 @@ movimiento y escenarios de altura. Iniciar desde la raíz:
 Swagger: http://127.0.0.1:8001/docs. Instrucciones, ejemplos, pruebas y alcance
 frente al hackathon en [documentación del backend](docs/BACKEND.md).
 
+## Frontend MICTLAN
+
+El frontend Angular se encuentra en `altura-plus/` y contiene cuatro módulos:
+Dashboard, Análisis de lanzamientos, Lanzadores y arsenales, y Simulador y
+recomendaciones. Para iniciarlo:
+
+```sh
+cd altura-plus
+npm ci
+npm start
+```
+
+Abrir http://localhost:4200. Antes de iniciar el backend, configurar
+`DIABLOS_CORS_ORIGINS=http://localhost:4200` para autorizar ese origen.
+El frontend utiliza la API en http://127.0.0.1:8001 por defecto. Sin backend
+o artefactos privados disponibles, identifica los datos de demostración y no
+fabrica scores del simulador.
+
+La comparación es por categorías de altitud, no por estadios identificados.
+Los índices de evaluación y el score experimental de simulación permanecen
+separados. Ver [estructura, límites y pruebas del frontend](altura-plus/README.md).
+Dependencias, compilados, datos privados, modelos y capturas locales no se
+incluyen en Git.
+
 ## Contenido del repositorio
 
 Este repositorio contiene el código, contratos, pruebas y documentación hasta F4.

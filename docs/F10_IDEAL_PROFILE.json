@@ -1,0 +1,245 @@
+{
+  "generated_from": "artifacts/modeling/f10-full/F10/scenarios.json + cohort.parquet",
+  "score_version": "F10_regularized_context_standardized_utility_v1",
+  "scope": "categorical_association_fixed_history_not_causal_not_Harp",
+  "pair_focus": "No Altitude -> Extreme Altitude",
+  "n_simulated": 490,
+  "global_delta_hard_contact_bip_pp": 1.01,
+  "by_pitch_type": [
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Four-Seam",
+      "n": 165,
+      "delta_score": -6.13,
+      "delta_ivb_in": -3.64,
+      "delta_hb_in": -1.04,
+      "delta_hard_contact_bip_pp": 1.53,
+      "delta_groundball_bip_pp": 7.97
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Sinker",
+      "n": 95,
+      "delta_score": -4.03,
+      "delta_ivb_in": -2.35,
+      "delta_hb_in": -2.08,
+      "delta_hard_contact_bip_pp": 1.5,
+      "delta_groundball_bip_pp": 4.44
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Changeup",
+      "n": 65,
+      "delta_score": -1.42,
+      "delta_ivb_in": -1.73,
+      "delta_hb_in": -1.9,
+      "delta_hard_contact_bip_pp": 1.09,
+      "delta_groundball_bip_pp": 1.96
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Slider",
+      "n": 112,
+      "delta_score": -0.59,
+      "delta_ivb_in": -0.33,
+      "delta_hb_in": 0.4,
+      "delta_hard_contact_bip_pp": 0.09,
+      "delta_groundball_bip_pp": 0.32
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Curveball",
+      "n": 36,
+      "delta_score": -0.38,
+      "delta_ivb_in": 1.64,
+      "delta_hb_in": 0.54,
+      "delta_hard_contact_bip_pp": 0.39,
+      "delta_groundball_bip_pp": -1.28
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Cutter",
+      "n": 17,
+      "delta_score": 0.74,
+      "delta_ivb_in": -1.68,
+      "delta_hb_in": 0.14,
+      "delta_hard_contact_bip_pp": 0.26,
+      "delta_groundball_bip_pp": 1.47
+    }
+  ],
+  "prospect_profile": [
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Changeup",
+      "resists": {
+        "velo_mph": 83.7,
+        "spin_rpm": 1882.0,
+        "ivb_in": 8.0,
+        "hb_in": 2.9,
+        "extension_ft": 6.15,
+        "delta_score_mean": 3.37
+      },
+      "drops": {
+        "velo_mph": 84.2,
+        "spin_rpm": 1851.0,
+        "ivb_in": 9.1,
+        "hb_in": 4.3,
+        "extension_ft": 5.84,
+        "delta_score_mean": -7.02
+      },
+      "corr_delta_with": {
+        "rel_speed": -0.08,
+        "spin_rate": -0.07,
+        "source_ivb": -0.17,
+        "source_hb": -0.04,
+        "extension": 0.16
+      }
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Curveball",
+      "resists": {
+        "velo_mph": 80.1,
+        "spin_rpm": 2506.0,
+        "ivb_in": -10.5,
+        "hb_in": -7.2,
+        "extension_ft": 5.22,
+        "delta_score_mean": 3.13
+      },
+      "drops": {
+        "velo_mph": 79.3,
+        "spin_rpm": 2299.0,
+        "ivb_in": -8.0,
+        "hb_in": -1.2,
+        "extension_ft": 5.17,
+        "delta_score_mean": -3.94
+      },
+      "corr_delta_with": {
+        "rel_speed": 0.01,
+        "spin_rate": 0.07,
+        "source_ivb": -0.09,
+        "source_hb": -0.15,
+        "extension": -0.05
+      }
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Cutter",
+      "resists": {
+        "velo_mph": 89.2,
+        "spin_rpm": 2192.0,
+        "ivb_in": 8.7,
+        "hb_in": 0.1,
+        "extension_ft": 5.71,
+        "delta_score_mean": 3.73
+      },
+      "drops": {
+        "velo_mph": 88.8,
+        "spin_rpm": 2399.0,
+        "ivb_in": 11.9,
+        "hb_in": -2.5,
+        "extension_ft": 5.7,
+        "delta_score_mean": -1.48
+      },
+      "corr_delta_with": {
+        "rel_speed": 0.32,
+        "spin_rate": -0.07,
+        "source_ivb": -0.35,
+        "source_hb": 0.4,
+        "extension": 0.1
+      }
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Four-Seam",
+      "resists": {
+        "velo_mph": 90.1,
+        "spin_rpm": 2283.0,
+        "ivb_in": 15.7,
+        "hb_in": 4.0,
+        "extension_ft": 6.12,
+        "delta_score_mean": -0.19
+      },
+      "drops": {
+        "velo_mph": 93.1,
+        "spin_rpm": 2371.0,
+        "ivb_in": 18.5,
+        "hb_in": 4.2,
+        "extension_ft": 5.8,
+        "delta_score_mean": -12.49
+      },
+      "corr_delta_with": {
+        "rel_speed": -0.47,
+        "spin_rate": -0.15,
+        "source_ivb": -0.39,
+        "source_hb": -0.03,
+        "extension": 0.23
+      }
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Sinker",
+      "resists": {
+        "velo_mph": 90.3,
+        "spin_rpm": 2167.0,
+        "ivb_in": 6.2,
+        "hb_in": 7.2,
+        "extension_ft": 5.82,
+        "delta_score_mean": 0.69
+      },
+      "drops": {
+        "velo_mph": 91.4,
+        "spin_rpm": 2298.0,
+        "ivb_in": 15.3,
+        "hb_in": 8.1,
+        "extension_ft": 5.92,
+        "delta_score_mean": -9.08
+      },
+      "corr_delta_with": {
+        "rel_speed": -0.13,
+        "spin_rate": -0.26,
+        "source_ivb": -0.66,
+        "source_hb": -0.03,
+        "extension": -0.09
+      }
+    },
+    {
+      "pair": "No Altitude -> Extreme Altitude",
+      "auto_pitch_type": "Slider",
+      "resists": {
+        "velo_mph": 84.7,
+        "spin_rpm": 2470.0,
+        "ivb_in": 2.8,
+        "hb_in": -1.0,
+        "extension_ft": 5.58,
+        "delta_score_mean": 1.43
+      },
+      "drops": {
+        "velo_mph": 82.2,
+        "spin_rpm": 2387.0,
+        "ivb_in": 1.0,
+        "hb_in": -2.7,
+        "extension_ft": 5.46,
+        "delta_score_mean": -3.1
+      },
+      "corr_delta_with": {
+        "rel_speed": 0.45,
+        "spin_rate": 0.05,
+        "source_ivb": 0.06,
+        "source_hb": 0.22,
+        "extension": 0.19
+      }
+    }
+  ],
+  "answers": {
+    "q1_ganan_en_altura": "Slider (-0.6), Curveball (-0.4) y Cutter (+0.7) conservan o mejoran el score relativo: dependen de barrido lateral/gyro, no de \"ride\" vertical. En aire delgado la fuerza de Magnus cae y los perfiles de rompimiento lateral pierden menos ventaja comparativa que la recta de carry.",
+    "q2_pierden_en_altura": "Four-Seam (-6.1 pts, IVB -3.6 in) y Sinker (-4.0 pts, IVB -2.4 in, HB -2.1 in): pitches que viven del carry/sink via IVB pierden pulgadas de quiebre real -> quedan mas planos. Riesgo asociado: hard_contact|BIP sube ~+1.5 pp en FB (global +1.0 pp). No hay etiqueta de jonron: el proxy declarado es hard contact >=95 mph; el riesgo de HR se lee como proxy, no como estimacion.",
+    "q3_perfil_prospecto": "Dentro de Four-Seam, quienes resisten mejor en Extreme tienen MENOS IVB y velo observados (corr delta vs velo -0.47, vs IVB -0.39) y mayor extension (+0.23): el carry extremo es lo que mas se comprime en altura, asi que el diferencial real esta en arsenal secundario (slider/curve de alto spin) y extension. Perfilar un prospecto para CDMX = priorizar secundaria de barrido + extension sobre FB de ride puro."
+  },
+  "caveats": [
+    "Categorias de altitud; Extreme Altitude no identifica Harp Helu ni ningun estadio.",
+    "Asociacion observacional con historia fija 2024; no es efecto causal del parque.",
+    "hard_contact es proxy declarado (>=95 mph); no existe etiqueta de jonron ni barrel.",
+    "Deltas en escala F10 experimental; no comparables con F8."
+  ]
+}
