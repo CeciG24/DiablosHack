@@ -1,0 +1,32 @@
+{
+  "version": "F11_physics_location_arsenal_context_event_utility_v1",
+  "experimental": true,
+  "production_promotion": false,
+  "post_test_exposure": true,
+  "new_test_access": false,
+  "fit_n": 134420,
+  "calibration_n": 59367,
+  "review_n": 58182,
+  "review_games": 192,
+  "base_log_loss": 1.0303224471352468,
+  "combined_log_loss": 1.0308166407070913,
+  "base_brier": 0.533066368780891,
+  "combined_brier": 0.5331192833504518,
+  "comparison": {
+    "decision": "inconclusive",
+    "delta_candidate_minus_reference": 0.0004941935718443708,
+    "ci_low": -0.0006725042722007684,
+    "ci_high": 0.0016197265724691178,
+    "resamples": 500,
+    "confidence": 0.95,
+    "scientific_evidence": false
+  },
+  "checks": {
+    "arsenal_used_by_trees": true,
+    "reload_identical": true,
+    "reference_mean_100": true,
+    "reference_std_10": true,
+    "F8_unchanged": true,
+    "test_exposure_unchanged": true
+  }
+}

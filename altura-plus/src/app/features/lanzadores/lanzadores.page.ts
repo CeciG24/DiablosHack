@@ -2,13 +2,16 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/data-access/data.service';
 import { ScoutingContextService } from '../../core/state/scouting-context.service';
-import { ALTITUDE_CATEGORIES, ALTITUDE_LABELS, PITCH_TYPE_NAMES, PitchType } from '../../core/models/domain.types';
+import { ALTITUDE_CATEGORIES, ALTITUDE_LABELS, PITCH_TYPE_NAMES, PitchType, PitcherBundle } from '../../core/models/domain.types';
 import { arsenalByType, metric } from '../../core/models/pitch-analysis';
+
+type SortKey = 'label' | 'throws' | 'n' | 'stuff' | 'location' | 'pitching';
 
 @Component({
   selector: 'app-lanzadores-page',
   imports: [RouterLink],
   templateUrl: './lanzadores.page.html',
+  styleUrl: './lanzadores.page.scss',
 })
 export class LanzadoresPage {
   protected readonly data = inject(DataService);
@@ -17,12 +20,35 @@ export class LanzadoresPage {
   protected readonly labels = ALTITUDE_LABELS;
   protected readonly names = PITCH_TYPE_NAMES;
   readonly search = signal('');
+  /** Por defecto sólo pitchers con muestra suficiente (n ≥ 120, mismo umbral
+   * que la lectura de scouting "Ampliar muestra"). */
+  readonly onlySufficient = signal(true);
   readonly season = signal(2025);
   readonly comparisonType = signal<PitchType | 'ALL'>('ALL');
+  readonly sortKey = signal<SortKey>('stuff');
+  readonly sortDir = signal<1 | -1>(-1);
   readonly bundle = computed(() => this.data.bundleOf(this.ctx.pitcherId()));
-  readonly pitchers = computed(() => this.data.bundles()
-    .filter((b) => b.pitcher.label.toLowerCase().includes(this.search().toLowerCase()))
-    .sort((a, b) => Number(b.stuffPlus.modelAvailable) - Number(a.stuffPlus.modelAvailable) || b.stuffPlus.value - a.stuffPlus.value));
+  readonly pitchers = computed(() => {
+    const key = this.sortKey();
+    const dir = this.sortDir();
+    const val = (b: PitcherBundle): string | number | null =>
+      key === 'label' ? b.pitcher.label
+      : key === 'throws' ? b.pitcher.throws
+      : key === 'n' ? b.stuffPlus.n
+      : key === 'location' ? (b.locationPlus.modelAvailable ? b.locationPlus.value : null)
+      : key === 'pitching' ? (b.pitchingPlus.modelAvailable ? b.pitchingPlus.value : null)
+      : (b.stuffPlus.modelAvailable ? b.stuffPlus.value : null);
+    return this.data.bundles()
+      .filter((b) => b.pitcher.label.toLowerCase().includes(this.search().toLowerCase()))
+      .filter((b) => !this.onlySufficient() || b.stuffPlus.n >= 120)
+      .sort((a, b) => {
+        const va = val(a), vb = val(b);
+        if (va === null && vb === null) return 0;
+        if (va === null) return 1;
+        if (vb === null) return -1;
+        return (va < vb ? -1 : va > vb ? 1 : 0) * dir;
+      });
+  });
   readonly seasons = computed(() => [...new Set(this.bundle()?.arsenal.map((r) => r.season) ?? [])].sort());
   readonly arsenalRows = computed(() => this.bundle()?.arsenal.filter((r) => r.season === this.season()) ?? []);
   readonly arsenal = computed(() => arsenalByType(this.arsenalRows()));
@@ -49,7 +75,26 @@ export class LanzadoresPage {
       delta: d.deltaStuffPlus === null ? null : (d.scenarioB === 'Extreme' ? d.deltaStuffPlus : -d.deltaStuffPlus),
     })).filter((d) => this.comparisonType() === 'ALL' || d.pitchType === this.comparisonType()) ?? []);
 
+  setSort(key: SortKey): void {
+    if (this.sortKey() === key) {
+      this.sortDir.update((d) => (d === 1 ? -1 : 1) as 1 | -1);
+      return;
+    }
+    this.sortKey.set(key);
+    // Numérico por defecto descendente; texto ascendente.
+    this.sortDir.set(key === 'label' || key === 'throws' ? 1 : -1);
+  }
+
+  sortIcon(key: SortKey): string {
+    return this.sortKey() === key ? (this.sortDir() === 1 ? '▲' : '▼') : '';
+  }
+
+  ariaSort(key: SortKey): 'ascending' | 'descending' | 'none' {
+    return this.sortKey() === key ? (this.sortDir() === 1 ? 'ascending' : 'descending') : 'none';
+  }
+
   setSearch(event: Event): void { this.search.set((event.target as HTMLInputElement).value); }
+  setOnlySufficient(event: Event): void { this.onlySufficient.set((event.target as HTMLInputElement).checked); }
   setSeason(event: Event): void { this.season.set(Number((event.target as HTMLSelectElement).value)); }
   setType(event: Event): void { this.comparisonType.set((event.target as HTMLSelectElement).value as PitchType | 'ALL'); }
 }

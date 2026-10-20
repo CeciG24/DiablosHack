@@ -100,6 +100,14 @@ son resultados de evaluación y no deben tratarse como score cero.
 
 ## Alcance para la entrega
 
+Actualización con arsenal: [Stuff+ final experimental F11](FINAL_SCORE.md).
+`POST /api/v1/final-score` combina físicas, ubicación, arsenal histórico fijo y
+contexto, con su propia escala de calibración 2025. No reemplaza las familias
+F8: la comparación con/sin arsenal no demuestra una mejora global. La columna
+y el modal de Análisis de lanzamientos lo identifican como experimental.
+Configurar `DIABLOS_FINAL_SCORE` si los artefactos no están en
+`artifacts/modeling/final-score-v1`.
+
 F8 conserva las tres escalas provisionales congeladas de utilidad de eventos;
 100 representa la referencia de calibración 2025 de cada familia, no una nueva
 normalización sobre el lote. F8 no usa ambiente ni arsenal. F10 integra arsenal

@@ -75,6 +75,9 @@ function mapPitch(p: ApiPitch, pitcherId: string): PitchScore | null {
     hbIn: p.horz_break,
     plateXIn: p.plate_loc_side * 12,
     plateZIn: p.plate_loc_height * 12,
+    balls: p.balls ?? null,
+    strikes: p.strikes ?? null,
+    batterSide: p.batter_side === 'Left' || p.batter_side === 'Right' ? (p.batter_side === 'Left' ? 'L' : 'R') : null,
     extensionFt: p.extension,
     releaseHeightFt: p.rel_height,
     releaseSideFt: p.rel_side,
@@ -84,6 +87,9 @@ function mapPitch(p: ApiPitch, pitcherId: string): PitchScore | null {
     stuffPlus: p.stuff_plus === null ? null : round1(p.stuff_plus),
     locationPlus: p.location_plus === null ? null : round1(p.location_plus),
     pitchingPlus: p.pitching_plus === null ? null : round1(p.pitching_plus),
+    stuffFinal: p.stuff_final == null ? null : round1(p.stuff_final),
+    finalHistoryN: p.final_history_n ?? null,
+    finalHistoryStatus: p.final_history_status ?? null,
   };
 }
 

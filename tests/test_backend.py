@@ -15,6 +15,10 @@ class Predictor:
     lock = {'release_id': 'fixture'}
     contract = {'physical_review_bounds': {}, 'altitude_categories': ['No Altitude']}
 
+    def predict(self, rows, family):
+        import pandas as pd
+        return pd.DataFrame({'score': [r['score'] for r in self.records(rows, family)]})
+
     def records(self, rows, family):
         return [dict(family=family, status='ok', score=100+i*10,
                      stuff_plus=100 if family == 'stuff' else None,
@@ -55,6 +59,27 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(summary['pitchers'][0]['pitching_plus'], 105)
         self.assertEqual(summary['arsenal'][0]['coverage'], 1)
         self.assertEqual(self.client.post('/api/v1/movement-map', json=payload).json()['records'][0]['ivb'], 16)
+
+    def test_final_score_is_separate_and_requires_verified_model_and_context(self):
+        from unittest.mock import Mock
+        payload = {'records': [EXAMPLE]}
+        self.assertEqual(self.client.post('/api/v1/final-score', json=payload).status_code, 503)
+        model = Mock()
+        model.records.return_value = [dict(pitch_uid=None, status='experimental', score=103.,
+            probabilities={'whiff': .2, 'ball': .8}, model_id='fixture', score_version='F11',
+            history_status='group_prior_only', history_n=0, warnings='group_prior_only',
+            context_mode='observed_location_count_batter_side')]
+        self.client.app.state.final_predictor = model
+        response = self.client.post('/api/v1/final-score', json=payload)
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()['records'][0]['score'], 103.)
+        self.assertEqual(response.json()['records'][0]['history_n'], 0)
+        missing = {'records': [{k: v for k, v in EXAMPLE.items() if k != 'balls'}]}
+        self.assertEqual(self.client.post('/api/v1/final-score', json=missing).status_code, 422)
+        injected = {'records': [EXAMPLE | {'ars_0_usage': .5}]}
+        self.assertEqual(self.client.post('/api/v1/final-score', json=injected).status_code, 422)
+        self.assertEqual(set(self.client.post('/api/v1/predict', json=payload).json()['records'][0]),
+                         {'stuff', 'location', 'pitching'})
 
     def test_validation(self):
         for updates in ({'rel_speed': -1}, {'balls': True}, {'rel_speed': True}, {'spin_axis_cos': .5},

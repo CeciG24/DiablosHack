@@ -67,6 +67,11 @@ export interface PitchScore {
   hbIn: number;
   plateXIn: number;
   plateZIn: number;
+  /** Contexto del conteo/lado: necesario para evaluar con la familia combinada
+   * `pitching` (no solo con `stuff`). Ausente en datos sintéticos. */
+  balls?: number | null;
+  strikes?: number | null;
+  batterSide?: 'L' | 'R' | null;
   extensionFt?: number | null;
   releaseHeightFt?: number | null;
   releaseSideFt?: number | null;
@@ -76,6 +81,10 @@ export interface PitchScore {
   stuffPlus: number | null;
   locationPlus: number | null;
   pitchingPlus: number | null;
+  /** F11 experimental: physical + location + historical arsenal + observed context. */
+  stuffFinal?: number | null;
+  finalHistoryN?: number | null;
+  finalHistoryStatus?: 'regularized_2024_history' | 'group_prior_only' | null;
 }
 
 export interface ArsenalRow {

@@ -39,14 +39,16 @@
       </div>
 
       <div class="topbar__pitcher">
-        <label class="topbar__field">
-          <span>Lanzador de referencia</span>
-          <select [value]="ctx.pitcherId()" (change)="selectPitcher($event)" [disabled]="data.status() === 'loading'">
-            @for (b of data.bundles(); track b.pitcher.id) {
-              <option [value]="b.pitcher.id">{{ b.pitcher.label }}</option>
-            }
-          </select>
-        </label>
+        @if (showPitcherSelector()) {
+          <label class="topbar__field">
+            <span>Lanzador de referencia</span>
+            <select [value]="ctx.pitcherId()" (change)="selectPitcher($event)" [disabled]="data.status() === 'loading'">
+              @for (b of data.bundles(); track b.pitcher.id) {
+                <option [value]="b.pitcher.id">{{ b.pitcher.label }}</option>
+              }
+            </select>
+          </label>
+        }
         <span class="topbar__badge" [title]="data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
           {{ data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
         </span>

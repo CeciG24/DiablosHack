@@ -4,7 +4,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from threading import RLock
+from threading import RLock, Thread
 
 import numpy as np
 import pandas as pd
@@ -14,8 +14,9 @@ from fastapi.responses import JSONResponse, RedirectResponse
 
 from backend.schemas import (Batch, PredictionRequest, PredictionResponse,
     SimulationRequest, SimulationResponse, SummaryResponse, MovementResponse,
-    RecommendationResponse)
+    RecommendationResponse, FinalScoreResponse)
 from modeling.datasets import FEATURES
+from modeling.final_score import FinalScorePredictor
 from modeling.inference import ReleasePredictor
 from experiments.phase10_simulator import Simulator
 
@@ -47,10 +48,11 @@ class BodyLimit:
         await self.app(scope, replay, send)
 
 
-def create_app(predictor=None, simulator=None):
+def create_app(predictor=None, simulator=None, final_predictor=None):
     @asynccontextmanager
     async def lifespan(app):
         app.state.predictor, app.state.simulator = predictor, simulator
+        app.state.final_predictor = final_predictor
         for name, factory, path in (
             ('predictor', ReleasePredictor, os.getenv('DIABLOS_RELEASE', str(ROOT/'artifacts/modeling/releases/f8-release-20261013'))),
             ('simulator', lambda path: Simulator(path, contact=False), os.getenv('DIABLOS_F10', str(ROOT/'artifacts/modeling/f10-full/F10'))),
@@ -64,13 +66,35 @@ def create_app(predictor=None, simulator=None):
                 except Exception:
                     # Verification failures must never fall back to unverified models.
                     log.exception('No se pudo cargar %s', name)
+
+        final_path = Path(os.getenv('DIABLOS_FINAL_SCORE', str(ROOT/'artifacts/modeling/final-score-v1')))
+        if predictor is None and final_predictor is None and (final_path/'manifest.json').is_file():
+            try:
+                app.state.final_predictor = FinalScorePredictor(final_path)
+            except Exception:
+                log.exception('No se pudo verificar Stuff+ final; F8 permanece disponible')
+
+        def warm():
+            try:
+                scored(review_frame())
+                try:
+                    scored(test2026_frame())
+                except HTTPException:
+                    pass
+            except Exception:
+                log.exception('Precálculo F8 en segundo plano falló')
+        if predictor is None and app.state.predictor is not None:
+            Thread(target=warm, daemon=True).start()
         yield
         app.state.predictor = app.state.simulator = app.state.review = app.state.scenarios = None
+        app.state.final_predictor = None
 
-    app = FastAPI(title='Diablos — Stuff+ API', version='1.1.0', lifespan=lifespan,
+    app = FastAPI(title='Diablos — Stuff+ API', version='1.2.0', lifespan=lifespan,
         description='Backend del hackathon LMB. F8: Stuff+, Location+ y Pitching+ provisionales, '
         '100 + 10 × z(utilidad), referencia fija de calibración 2025. F10: escenarios '
-        'experimentales de movimiento y arsenal. No representa xRunValue, probabilidad de out '
+        'experimentales de movimiento y arsenal. F11: Stuff+ final experimental con '
+        'fisicas, ubicacion, arsenal y contexto, escala propia; no reemplaza F8. '
+        'No representa xRunValue, probabilidad de out '
         'en PA, barril ni jonrón. Las categorías de altura no identifican Harp Helú. '
         'No requiere outcomes ni consulta registros del test 2026.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
@@ -78,6 +102,7 @@ def create_app(predictor=None, simulator=None):
     app.state.review = None
     app.state.scenarios = None
     app.state.test2026 = None
+    app.state.bundle_cache = {}
     app.add_middleware(BodyLimit)
     origins = [s.strip() for s in os.getenv('DIABLOS_CORS_ORIGINS', '').split(',') if s.strip()]
     if origins:
@@ -117,7 +142,8 @@ def create_app(predictor=None, simulator=None):
 
     @app.get('/health', tags=['Sistema'], summary='Estado del proceso')
     def health() -> dict:
-        return {'status': 'ok', 'models': {n: getattr(app.state, n, None) is not None for n in ('predictor', 'simulator')}}
+        return {'status': 'ok', 'models': {n: getattr(app.state, n, None) is not None
+                                         for n in ('predictor', 'simulator', 'final_predictor')}}
 
     @app.get('/ready', tags=['Sistema'], summary='Disponibilidad de F8 y F10', responses={503: {'description': 'Faltan modelos verificados'}})
     def ready() -> dict:
@@ -140,6 +166,13 @@ def create_app(predictor=None, simulator=None):
                 'reference': 'F8 calibration 2025, fixed per family',
                 'environment': model.contract['altitude_categories'],
                 'f10_available': getattr(app.state, 'simulator', None) is not None,
+                'final_score': {
+                    'available': app.state.final_predictor is not None,
+                    'features': app.state.final_predictor.model.features if app.state.final_predictor else [],
+                    'experimental': True,
+                    'endpoint': '/api/v1/final-score',
+                    'scope': 'F11: fisica + ubicacion + arsenal fijo 2024 + conteo/lado; escala propia',
+                    'targets': 'Utilidad de eventos; cabezas auxiliares F8 no alimentan este score'},
                 'limitations': ['F8 no ajusta arsenal ni ambiente', 'Stuff físico F8 es diagnóstico',
                     'F10 es experimental, asociación categórica con historia fija 2024',
                     'Sin mapping Harp Helú, metros, park holdout o efecto causal',
@@ -149,12 +182,26 @@ def create_app(predictor=None, simulator=None):
     def validation() -> dict:
         return {name: json.loads((ROOT/'docs'/filename).read_text(encoding='utf-8'))
                 for name, filename in [('f8', 'F8_FINAL_METRICS.json'), ('f10', 'F10_RESULTS.json'),
-                                       ('altitude_holdout', 'ALTITUDE_HOLDOUT_RESULTS.json')]}
+                                       ('altitude_holdout', 'ALTITUDE_HOLDOUT_RESULTS.json'),
+                                       ('final_score', 'FINAL_SCORE_RESULTS.json')]}
 
     @app.post('/api/v1/predict', response_model=PredictionResponse, tags=['Scores'],
               summary='Score por lanzamiento, una familia o las tres', responses={503: {'description': 'F8 no disponible'}})
     def predict(payload: PredictionRequest):
         return score(payload)
+
+    @app.post('/api/v1/final-score', response_model=FinalScoreResponse, tags=['Scores'],
+              summary='Stuff+ final experimental: fisica, ubicacion, arsenal y contexto',
+              description='Escala F11 propia (100 + 10 z), calibracion 2025; no sustituye F8. '
+              'Arsenal regularizado de 2024; sin historia usa prior de grupo, informado en history_status.')
+    def final_score(payload: Batch):
+        model = require('final_predictor')
+        missing = sorted({field for pitch in payload.records for field in FEATURES['pitching']
+                          if field not in pitch.record()})
+        if missing:
+            raise HTTPException(422, 'Faltan variables para Stuff+ final: '+', '.join(missing))
+        with app.state.inference_lock:
+            return {'records': model.records([p.record() for p in payload.records])}
 
     @app.post('/api/v1/summary', response_model=SummaryResponse, tags=['Scores'],
               summary='Agregación por pitcher y arsenal del lote enviado')
@@ -283,6 +330,41 @@ def create_app(predictor=None, simulator=None):
             app.state.scenarios = scenarios.merge(keys, on='pitch_uid', validate='m:1')
         return app.state.scenarios
 
+    def scored(frame):
+        """Cache scores once per frame, with separate F8/F11 completion markers."""
+        final = app.state.final_predictor
+        if frame.attrs.get('f8_scored') and (final is None or frame.attrs.get('final_scored')):
+            return frame
+        model = require('predictor')
+        with app.state.inference_lock:
+            if not frame.attrs.get('f8_scored'):
+                rows = frame.to_dict('records')
+                plus = {f: model.predict(rows, f)['score'].to_numpy() for f in ('stuff', 'location', 'pitching')}
+                for family, values in plus.items():
+                    frame[family + '_plus'] = values
+                frame.attrs['f8_scored'] = True
+                del rows
+            if final is not None and not frame.attrs.get('final_scored'):
+                scores, counts, statuses = [], [], []
+                for start in range(0, len(frame), 4096):
+                    batch = final.records(frame.iloc[start:start+4096].to_dict('records'))
+                    scores.extend(r['score'] for r in batch)
+                    counts.extend(r['history_n'] for r in batch)
+                    statuses.extend(r['history_status'] for r in batch)
+                frame['stuff_final'] = scores
+                frame['final_history_n'] = counts
+                frame['final_history_status'] = statuses
+                frame.attrs['final_scored'] = True
+        return frame
+
+    def clean_json(value):
+        """NaN/inf no son JSON válidos: se convierten a null recursivamente."""
+        if isinstance(value, dict):
+            return {k: clean_json(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [clean_json(v) for v in value]
+        return None if isinstance(value, (float, np.floating)) and not np.isfinite(value) else value
+
     def regime(n_a, n_b):
         least = min(n_a, n_b)
         return 'interpolado' if least >= 120 else 'extrapolado' if least >= 40 else 'insuficiente'
@@ -331,17 +413,18 @@ def create_app(predictor=None, simulator=None):
                         503: {'description': 'Artefactos F9/F8 no disponibles'}})
     def pitcher_bundle(pitcher_anon_id: str, max_pitches: int = 400,
                        include_2026: bool = True, max_2026: int = 200):
-        frame = review_frame()
-        model = require('predictor')
+        key = (pitcher_anon_id, max_pitches, include_2026, max_2026)
+        if key in app.state.bundle_cache:
+            return app.state.bundle_cache[key]
+        frame = scored(review_frame())
         sub = frame.loc[frame.pitcher_anon_id == pitcher_anon_id].reset_index(drop=True)
         if sub.empty:
             raise HTTPException(404, 'Pitcher sin lanzamientos en el review 2025')
-        rows = sub.to_dict('records')
-        with app.state.inference_lock:
-            families = {f: model.records(rows, f) for f in ('stuff', 'location', 'pitching')}
+        families = {f: [None if pd.isna(v) else float(v) for v in sub[f + '_plus']]
+                    for f in ('stuff', 'location', 'pitching')}
         axes = np.degrees(np.arctan2(sub.spin_axis_sin, sub.spin_axis_cos)) % 360
         pitches = []
-        for i, row in sub.iterrows():
+        for i, row in enumerate(sub.head(max_pitches).itertuples()):
             pitches.append(dict(pitch_uid=row.pitch_uid, auto_pitch_type=row.auto_pitch_type,
                 year=int(row.year), partition='phase_review',
                 altitude_category=row.altitude_category,
@@ -350,9 +433,15 @@ def create_app(predictor=None, simulator=None):
                 rel_height=row.rel_height, rel_side=row.rel_side, extension=row.extension,
                 induced_vert_break=row.induced_vert_break, horz_break=row.horz_break,
                 plate_loc_height=row.plate_loc_height, plate_loc_side=row.plate_loc_side,
-                stuff_plus=families['stuff'][i]['score'],
-                location_plus=families['location'][i]['score'],
-                pitching_plus=families['pitching'][i]['score'],
+                balls=None if pd.isna(row.balls) else int(row.balls),
+                strikes=None if pd.isna(row.strikes) else int(row.strikes),
+                batter_side=row.batter_side if isinstance(row.batter_side, str) else None,
+                stuff_plus=families['stuff'][i],
+                location_plus=families['location'][i],
+                pitching_plus=families['pitching'][i],
+                stuff_final=getattr(row, 'stuff_final', None),
+                final_history_n=getattr(row, 'final_history_n', None),
+                final_history_status=getattr(row, 'final_history_status', None),
                 experimental_score=row.experimental_score))
         pitches = pitches[:max_pitches]
         # Partición sellada 2026: pitches reales scoreados con F8 en vivo
@@ -360,14 +449,13 @@ def create_app(predictor=None, simulator=None):
         n_2026 = 0
         if include_2026:
             try:
-                t26 = test2026_frame()
+                t26 = scored(test2026_frame())
                 own26 = t26.loc[t26.pitcher_anon_id == pitcher_anon_id].head(max_2026).reset_index(drop=True)
                 if len(own26):
-                    rows26 = own26.to_dict('records')
-                    with app.state.inference_lock:
-                        fam26 = {f: model.records(rows26, f) for f in ('stuff', 'location', 'pitching')}
+                    fam26 = {f: [None if pd.isna(v) else float(v) for v in own26[f + '_plus']]
+                             for f in ('stuff', 'location', 'pitching')}
                     n_2026 = int(len(own26))
-                    for i, row in own26.iterrows():
+                    for i, row in enumerate(own26.itertuples()):
                         pitches.append(dict(pitch_uid=row.pitch_uid, auto_pitch_type=row.auto_pitch_type,
                             year=int(row.year), partition='test_2026',
                             altitude_category=row.altitude_category,
@@ -376,19 +464,25 @@ def create_app(predictor=None, simulator=None):
                             rel_height=row.rel_height, rel_side=row.rel_side, extension=row.extension,
                             induced_vert_break=row.induced_vert_break, horz_break=row.horz_break,
                             plate_loc_height=row.plate_loc_height, plate_loc_side=row.plate_loc_side,
-                            stuff_plus=fam26['stuff'][i]['score'],
-                            location_plus=fam26['location'][i]['score'],
-                            pitching_plus=fam26['pitching'][i]['score'],
+                            balls=None if pd.isna(row.balls) else int(row.balls),
+                            strikes=None if pd.isna(row.strikes) else int(row.strikes),
+                            batter_side=row.batter_side if isinstance(row.batter_side, str) else None,
+                            stuff_plus=fam26['stuff'][i],
+                            location_plus=fam26['location'][i],
+                            pitching_plus=fam26['pitching'][i],
+                            stuff_final=getattr(row, 'stuff_final', None),
+                            final_history_n=getattr(row, 'final_history_n', None),
+                            final_history_status=getattr(row, 'final_history_status', None),
                             experimental_score=None))
             except HTTPException:
                 pass
         summaries = {}
         for family in ('stuff', 'location', 'pitching'):
-            mean, ci = mean_ci([r['score'] for r in families[family]])
+            mean, ci = mean_ci(families[family])
             summaries[family] = dict(mean=mean, ci=ci, n=int(len(sub)))
         arsenal = []
         for (pitch_type, category), cell in sub.groupby(['auto_pitch_type', 'altitude_category']):
-            stuff = [families['stuff'][j]['score'] for j in cell.index]
+            stuff = [families['stuff'][j] for j in cell.index]
             mean, ci = mean_ci(stuff)
             arsenal.append(dict(auto_pitch_type=pitch_type, altitude_category=category, n=int(len(cell)),
                 usage=len(cell)/len(sub), rel_speed=float(cell.rel_speed.mean()), spin_rate=float(cell.spin_rate.mean()),
@@ -429,7 +523,7 @@ def create_app(predictor=None, simulator=None):
                     deltas.append(row)
         except HTTPException:
             pass
-        return {'pitcher_anon_id': pitcher_anon_id,
+        response = {'pitcher_anon_id': pitcher_anon_id,
                 'throws': sub.pitcher_throws.mode().iat[0] if len(sub.pitcher_throws.mode()) else None,
                 'n': int(len(sub)), 'games': int(sub.game_anon_id.nunique()),
                 'n_2026': n_2026,
@@ -437,9 +531,17 @@ def create_app(predictor=None, simulator=None):
                              axis_deg=float(pd.Series(axes).mean())),
                 'summaries': summaries, 'arsenal': arsenal,
                 'pitches': pitches, 'deltas': deltas,
+                'final_score': {
+                    'available': app.state.final_predictor is not None,
+                    'experimental': True,
+                    'score_version': app.state.final_predictor.scale['version'] if app.state.final_predictor else None,
+                    'model_id': app.state.final_predictor.model_id if app.state.final_predictor else None},
                 'scope': 'Pitches y medias del review 2025; scores F8 provisionales + F9 experimental; '
                          'pitches 2026 = partición sellada con scores F8 inferidos (sin F9); '
                          'deltas en escala F10 experimental, no comparables con F8'}
+        # Artefactos inmutables por proceso: el bundle sólo depende de la query.
+        app.state.bundle_cache[key] = clean_json(response)
+        return app.state.bundle_cache[key]
 
     @app.get('/api/v1/profile', tags=['Dashboard'], summary='Perfil físico ideal por categoría de altitud (H1–H4)',
              description='Sirve docs/F10_IDEAL_PROFILE.json, evidencia generada offline con el simulador F10 '

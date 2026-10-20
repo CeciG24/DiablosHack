@@ -155,6 +155,10 @@
           }
         </div>
         <div class="grid sim__scores">
+          <div class="sim__scale span-12" role="note">
+            <strong>F8 · escala calibrada 2025</strong>
+            <span>100 = promedio de la referencia 2025 · ±10 pts = 1 desviación estándar · las tres tarjetas sí son comparables entre sí</span>
+          </div>
           <app-tile label="Stuff+ físico" class="span-4">
             <app-gauge [value]="stuffPlus() ?? 0" [modelAvailable]="stuffPlus() !== null" [avg]="100" unit="pts"
               title="Stuff+ físico provisional" accent="var(--red)" />
@@ -177,6 +181,10 @@
             }
           </app-tile>
           @if (live(); as l) {
+            <div class="sim__scale sim__scale--exp span-12" role="note">
+              <strong>F10 · escala experimental</strong>
+              <span>100 = promedio de su propia referencia · ±10 pts = 1σ F10 · solo comparar dentro de esta tarjeta, nunca contra las tarjetas F8</span>
+            </div>
             <app-tile label="Mismo pitch, dos escenarios de altitud" class="span-12">
               @if (l.simStatus === 'experimental') {
                 <div class="sim__vs" role="group" aria-label="Comparación lado a lado del mismo pitch">

@@ -102,5 +102,22 @@ describe('api-mappers', () => {
     expect(bundle.pitches[0].pitchingPlus).toBeNull();
     expect(bundle.arsenal[0].stuffPlus).toBeNull();
     expect(bundle.arsenal[0].stuffCi).toBeNull();
+    expect(bundle.pitches[0].stuffFinal).toBeNull();
+  });
+
+  it('conserva el score final y la procedencia del arsenal sin reemplazar scores F8', () => {
+    const b = apiBundleToDomain({
+      ...BUNDLE, pitches: [{
+        ...BUNDLE.pitches[0], stuff_final: 109.36,
+        final_history_n: 180, final_history_status: 'regularized_2024_history',
+        balls: 1, strikes: 2, batter_side: 'Left',
+      }],
+    });
+    expect(b.pitches[0].stuffFinal).toBe(109.4);
+    expect(b.pitches[0].stuffPlus).toBe(105.3);
+    expect(b.pitches[0].pitchingPlus).toBe(97.);
+    expect(b.pitches[0].finalHistoryN).toBe(180);
+    expect(b.pitches[0].balls).toBe(1);
+    expect(b.pitches[0].batterSide).toBe('L');
   });
 });

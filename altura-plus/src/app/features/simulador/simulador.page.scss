@@ -70,6 +70,15 @@
   }
 }
 
+/* Separador de familia de escala: F8 calibrada vs F10 experimental. */
+.sim__scale {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+  font-size: 0.82rem; color: var(--muted);
+  border-left: 3px solid var(--line); padding-left: 10px;
+  strong { color: var(--ink); font-size: 0.86rem; letter-spacing: 0.02em; }
+  &--exp { border-left-color: #f59e0b; }
+}
+
 .sim__results { display: flex; flex-direction: column; gap: 12px; }
 .sim__note { margin: 6px 0 0; font-size: 0.82rem; color: var(--muted); text-align: center; }
 .sim__note--delta { font-size: 0.95rem; color: var(--ink); }
