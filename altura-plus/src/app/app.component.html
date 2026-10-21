@@ -49,8 +49,8 @@
             </select>
           </label>
         }
-        <span class="topbar__badge" [title]="data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
-          {{ data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
+        <span class="topbar__badge" [title]="independentRoute() ? 'Cada panel del perfilador indica su fuente y disponibilidad' : data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
+          {{ independentRoute() ? 'Perfilador · procedencia en cada panel' : data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
         </span>
       </div>
 
@@ -60,12 +60,12 @@
     </header>
 
     <main id="main-content" #mainContent class="content" tabindex="-1">
-      @if (data.status() === 'loading') {
+      @if (data.status() === 'loading' && !independentRoute()) {
         <div class="content__loading" role="status" aria-live="polite">
           <div class="loading-skeleton" aria-hidden="true"></div>
           <span>Consultando lanzadores y rendimiento…</span>
         </div>
-      } @else if (data.status() === 'error') {
+      } @else if (data.status() === 'error' && !independentRoute()) {
         <div class="content__error" role="alert">
           <p>No se pudieron cargar los datos: {{ data.errorMessage() }}</p>
           <button type="button" class="button" (click)="data.reload()">Reintentar</button>

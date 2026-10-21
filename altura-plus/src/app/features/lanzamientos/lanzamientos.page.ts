@@ -45,6 +45,7 @@ export class LanzamientosPage {
     };
   });
   readonly page = signal(0);
+  readonly showPhysics = signal(false);
   readonly pageSize = 20;
   readonly pageCount = computed(() => Math.max(1, Math.ceil(this.pitches().length / this.pageSize)));
   readonly sortKey = signal<SortKey>('final');
@@ -180,6 +181,15 @@ export class LanzamientosPage {
       this.sortDir.set(TEXT_KEYS.has(key) ? 1 : -1);
     }
     this.page.set(0);
+  }
+
+  togglePhysics(): void {
+    this.showPhysics.update((value) => !value);
+    if (!this.showPhysics() && ['velo', 'spin', 'hb', 'ivb', 'ext', 'relZ', 'relX'].includes(this.sortKey())) {
+      this.sortKey.set('final');
+      this.sortDir.set(-1);
+      this.page.set(0);
+    }
   }
 
   sortIcon(key: SortKey): string {

@@ -1,15 +1,7 @@
-<section class="hero"><span class="eyebrow hero__eyebrow">MICTLAN / INTELIGENCIA DE PITCHEO</span>
-  <h1>El talento se ve.<br /><em>El potencial se revela.</em></h1>
-  <div class="hero__intro"><p>Otra forma de leer el juego. Conoce cada lanzamiento, explora su movimiento y encuentra señales para el siguiente paso.</p><a routerLink="/simulador" class="button">Entrar al laboratorio ↗</a></div>
-  <div class="hero__photo" role="img" aria-label="Diamante de béisbol"><span>EL JUEGO CAMBIA. TU VISIÓN TAMBIÉN.</span></div>
-</section>
-<nav class="explore-links" aria-label="Explora MICTLAN">
-  <a routerLink="/simulador"><small>01 / EXPERIMENTA</small><strong>Un pitch. Otro escenario. ↗</strong><span>Diseña y compara categorías de altitud.</span></a>
-  <a routerLink="/lanzamientos"><small>02 / OBSERVA</small><strong>Lee cada lanzamiento. ↗</strong><span>Movimiento, ubicación y calidad en contexto.</span></a>
-  <a routerLink="/lanzadores"><small>03 / DESCUBRE</small><strong>Conoce el arsenal. ↗</strong><span>Perfiles y repertorios para el scouting.</span></a>
-</nav>
-<div class="section-head"><h2>El pulso de la muestra</h2><p>Filtra para explorar los datos disponibles</p></div>
-<app-metric-guide />
+<header class="page-head dashboard-head">
+  <div><h1>El pulso del pitcheo</h1><p>Filtra la muestra, compara repertorios y prepara tu siguiente decisión.</p></div>
+  <a routerLink="/simulador" class="button">Abrir el laboratorio</a>
+</header>
 <app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="filters.set($event)" />
 @if (data.source() !== 'api') {
   <div class="notice" role="note"><strong>Modo demostración.</strong> Todos los indicadores son sintéticos; no son evidencia deportiva. Usa “Actualizar datos” para reconectar.</div>
@@ -21,6 +13,7 @@
   <div><dt>Lanzamientos en la vista</dt><dd>{{ pitches().length }}</dd><small>{{ pitcherCount() }} lanzadores · muestra cargada</small></div>
 </dl>
 <p class="note">Índices provisionales: 100 es la referencia de calibración. Las medias corresponden a los pitches cargados y filtrados; no representan toda la liga ni un efecto causal.</p>
+<app-metric-guide />
 
 @if (pitches().length === 0) {
   <div class="empty-state" role="status">No hay lanzamientos con estos filtros. Prueba otra temporada, lanzador o categoría de altitud.</div>
@@ -39,20 +32,20 @@
   <div class="two-columns">
     <section class="panel" aria-labelledby="pitcher-leaders">
       <h2 id="pitcher-leaders">Lanzadores destacados</h2>
-      <p class="note">Ordenados por Stuff+ de la muestra filtrada. Revisa el volumen antes de comparar.</p>
+      <p class="note">Stuff+ físico medio · mínimo {{ minRankingN }} pitches con score válido, después de filtrar.</p>
       <ol class="leaders">
         @for (row of leaders(); track row.pitcher.id) {
           <li><a routerLink="/lanzadores" (click)="ctx.selectPitcher(row.pitcher.id)">{{ row.pitcher.label }}</a><span>{{ row.n }} pitches</span><strong>{{ metric(row.stuff) }}</strong></li>
-        }
+        } @empty { <li class="leaders__empty">Ningún lanzador alcanza el mínimo con estos filtros. Amplía la muestra.</li> }
       </ol>
     </section>
     <section class="panel" aria-labelledby="pitch-leaders">
       <h2 id="pitch-leaders">Tipos de pitcheo destacados</h2>
-      <p class="note">Calidad física media por tipo; las mezclas de lanzadores y categorías pueden diferir.</p>
+      <p class="note">Mínimo {{ minRankingN }} pitches con score válido. Las mezclas de lanzadores y categorías pueden diferir.</p>
       <ol class="leaders">
         @for (row of pitchLeaders(); track row.type) {
           <li><span class="leaders__name">{{ names[row.type] }}</span><span>{{ row.n }} pitches</span><strong>{{ metric(row.stuff) }}</strong></li>
-        }
+        } @empty { <li class="leaders__empty">Ningún tipo alcanza el mínimo con estos filtros.</li> }
       </ol>
     </section>
   </div>

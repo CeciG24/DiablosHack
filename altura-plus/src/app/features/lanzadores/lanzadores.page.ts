@@ -1,5 +1,5 @@
 import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, ElementRef, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/data-access/data.service';
 import { ScoutingContextService } from '../../core/state/scouting-context.service';
@@ -50,9 +50,10 @@ export class LanzadoresPage {
         return (va < vb ? -1 : va > vb ? 1 : 0) * dir;
       });
   });
-  readonly profileLimit = signal(6);
-  readonly visibleProfiles = computed(() => this.pitchers().slice(0, this.profileLimit()));
-  showMoreProfiles(): void { this.profileLimit.update((limit) => limit + 6); }
+  /** Ficha en modal: el lanzador queda seleccionado en el contexto y su renglón
+   * marcado aunque el modal se cierre. */
+  readonly detailOpen = signal(false);
+  private readonly dialog = viewChild<ElementRef<HTMLDialogElement>>('pitcherDialog');
   readonly seasons = computed(() => [...new Set(this.bundle()?.arsenal.map((r) => r.season) ?? [])].sort());
   readonly arsenalRows = computed(() => this.bundle()?.arsenal.filter((r) => r.season === this.season()) ?? []);
   readonly arsenal = computed(() => arsenalByType(this.arsenalRows()));
@@ -78,6 +79,42 @@ export class LanzadoresPage {
       ...d,
       delta: d.deltaStuffPlus === null ? null : (d.scenarioB === 'Extreme' ? d.deltaStuffPlus : -d.deltaStuffPlus),
     })).filter((d) => this.comparisonType() === 'ALL' || d.pitchType === this.comparisonType()) ?? []);
+
+  constructor() {
+    effect(() => {
+      const el = this.dialog()?.nativeElement;
+      if (!el) return;
+      const open = this.detailOpen();
+      if (open && !el.open) { el.showModal(); el.scrollTop = 0; }
+      if (!open && el.open) el.close();
+    });
+  }
+
+  openProfile(id: string): void {
+    this.ctx.selectPitcher(id);
+    this.detailOpen.set(true);
+  }
+
+  closeProfile(): void { this.detailOpen.set(false); }
+
+  /** Click en el fondo del dialog (fuera del contenido) = cerrar. */
+  onDialogBackdrop(event: MouseEvent): void {
+    if (event.target === event.currentTarget) this.closeProfile();
+  }
+
+  /** Chip del score: resalta perfiles físicos favorables sin inventar jerarquías. */
+  scoreClass(value: number | null): string {
+    if (value === null) return 'score score--none';
+    if (value >= 105) return 'score score--hot';
+    if (value >= 100) return 'score score--warm';
+    return 'score';
+  }
+
+  readTag(b: PitcherBundle): { text: string; hot: boolean } {
+    return b.stuffPlus.modelAvailable && b.stuffPlus.value >= 105 && b.stuffPlus.n >= 120
+      ? { text: 'Perfil físico favorable', hot: true }
+      : b.stuffPlus.n < 120 ? { text: 'Ampliar muestra', hot: false } : { text: 'Explorar repertorio', hot: false };
+  }
 
   setSort(key: SortKey): void {
     if (this.sortKey() === key) {

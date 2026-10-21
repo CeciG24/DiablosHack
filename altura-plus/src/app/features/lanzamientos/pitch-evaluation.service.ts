@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ApiFinalScore, ApiService } from '../../core/api/api.service';
+import { ApiFinalScore, ApiPredictionFamily, ApiService } from '../../core/api/api.service';
 import { PitchScore } from '../../core/models/domain.types';
 import { headDescription, predictionWarnings } from '../../core/models/pitch-analysis';
 
@@ -18,6 +18,7 @@ export interface PitchProbabilities {
   groundballSource: string;
   chaseSource: string;
   final: ApiFinalScore | null;
+  xrv: ApiPredictionFamily['xrv'] | null;
 }
 
 export interface PitchTarget {
@@ -71,9 +72,13 @@ export function pitchTargetRows(evaluation: PitchProbabilities | null): readonly
       denominator: 'Solo cuando la pelota entra en juego.',
       source: auxiliarySource, detail: 'No es una probabilidad de barril (barrel). ' +
         (evaluation?.contactSource ?? 'No hay estimación auxiliar disponible.') },
-    { id: 'xRunValue', symbol: 'xRunValue', label: 'Carreras esperadas', value: null,
-      format: 'runs', denominator: 'Valor esperado de carreras; no es un porcentaje.',
-      source: 'No disponible', detail: 'Esta versión no tiene un objetivo de carreras validado ni un modelo xRunValue.' },
+    { id: 'xRunValue', symbol: 'xRunValue', label: 'Carreras esperadas',
+      value: evaluation?.xrv?.status === 'ok' ? evaluation.xrv.runs_per_100 : null,
+      format: 'runs', denominator: 'Carreras por 100 lanzamientos; negativo favorece al pitcher.',
+      source: evaluation?.xrv?.status === 'ok' ? 'xRV aproximado · experimental' : 'No disponible',
+      detail: evaluation?.xrv?.status === 'ok'
+        ? `Pesos externos congelados. Δ frente a la referencia del conteo: ${evaluation.xrv.delta_vs_count_baseline?.toFixed(4) ?? '—'} carreras/lanzamiento.`
+        : 'Esta consulta no devolvió una estimación de carreras válida.' },
     { id: 'out_within_pa', symbol: 'P(out within PA)', label: 'Out en la aparición al plato', value: null,
       format: 'probability', denominator: 'Por aparición al plato (PA), no por lanzamiento.',
       source: 'No disponible', detail: 'Esta versión no tiene un modelo entrenado para este target.' },
@@ -132,6 +137,7 @@ export class PitchEvaluationService {
       groundballSource: headDescription(prediction?.groundball_route, prediction?.groundball_status),
       chaseSource: headDescription(prediction?.chase_route, prediction?.chase_status),
       final,
+      xrv: prediction?.xrv ?? null,
     };
   }
 }

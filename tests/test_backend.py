@@ -3,7 +3,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from fastapi.testclient import TestClient
 
@@ -61,7 +61,6 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.client.post('/api/v1/movement-map', json=payload).json()['records'][0]['ivb'], 16)
 
     def test_final_score_is_separate_and_requires_verified_model_and_context(self):
-        from unittest.mock import Mock
         payload = {'records': [EXAMPLE]}
         self.assertEqual(self.client.post('/api/v1/final-score', json=payload).status_code, 503)
         model = Mock()
@@ -98,6 +97,46 @@ class BackendTests(unittest.TestCase):
         self.assertEqual(self.client.post('/api/v1/recommendations', json=payload).json()['supported'], 1)
         payload['target'] = 'Harp Helu'
         self.assertEqual(self.client.post('/api/v1/simulate', json=payload).status_code, 422)
+
+    def test_stuff_comparison_rescores_projected_shape_without_changing_context(self):
+        payload = {'records': [EXAMPLE], 'target': 'Extreme Altitude'}
+        simulator = self.client.app.state.simulator
+        simulator.simulate = Mock(return_value=[dict(source='No Altitude', target='Extreme Altitude',
+            status='experimental', reason='supported', delta_score=-8, source_score=90, target_score=82,
+            target_ivb=12., target_hb=-6., scope='fixture', score_version='F10')])
+        predictor = self.client.app.state.predictor
+        original = predictor.records
+        predictor.records = Mock(side_effect=original)
+        result = self.client.post('/api/v1/simulate', json=payload)
+        self.assertEqual(result.status_code, 200, result.text)
+        row = result.json()['records'][0]
+        comparison = row['stuff_comparison']
+        self.assertEqual((comparison['source_score'], comparison['target_score'], comparison['delta_score']),
+                         (100, 110, 10))
+        self.assertEqual(row['delta_score'], -8)  # F10 is not relabeled as Stuff+.
+        self.assertIsNone(comparison['interval'])
+        self.assertEqual(comparison['interval_reason'], 'individual_uncertainty_not_estimated')
+        rows, family = predictor.records.call_args.args
+        self.assertEqual(family, 'stuff')
+        self.assertEqual(rows[0]['induced_vert_break'], EXAMPLE['induced_vert_break'])
+        self.assertEqual(rows[1]['induced_vert_break'], 12.)
+        self.assertEqual(rows[1]['horz_break'], -6.)
+        for field in ('plate_loc_side', 'plate_loc_height', 'balls', 'strikes', 'rel_speed', 'spin_rate'):
+            self.assertEqual(rows[0][field], rows[1][field])
+
+    def test_unsupported_or_missing_movement_never_fabricates_stuff_delta(self):
+        base = dict(source='No Altitude', target='Extreme Altitude', reason='unsupported',
+                    delta_score=None, scope='fixture', score_version='F10')
+        predictor = self.client.app.state.predictor
+        predictor.records = Mock()
+        for extra in ({'status': 'unsupported', 'target_ivb': 12., 'target_hb': -6.},
+                      {'status': 'experimental'}):
+            self.client.app.state.simulator.simulate = Mock(return_value=[base | extra])
+            row = self.client.post('/api/v1/simulate',
+                json={'records': [EXAMPLE], 'target': 'Extreme Altitude'}).json()['records'][0]
+            self.assertEqual(row['stuff_comparison']['status'], 'unavailable')
+            self.assertIsNone(row['stuff_comparison']['delta_score'])
+        predictor.records.assert_not_called()
 
     def test_validation_evidence(self):
         evidence = self.client.get('/api/v1/validation').json()

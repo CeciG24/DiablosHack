@@ -1,9 +1,11 @@
-# Stuff+ final con arsenal (F11)
+# Pitch Value+ con arsenal (F11)
 
 ## Que cambia
 
 Se agrega un modelo combinado nuevo, sin editar la release congelada F8 ni sus
-scores. La etiqueta de producto es **Stuff+ final - experimental**.
+scores. La etiqueta de producto es **Pitch Value+ - experimental**.
+Antes se mostraba como "Stuff+ final". Se cambia el nombre porque incluye
+ubicacion y conteo; los campos `stuff_final`, modelos y escalas no cambian.
 
 - F8 `stuff`: fisica pura, permanece como diagnostico.
 - F8 `pitching`: fisica, ubicacion y contexto, sin arsenal; permanece aprobado.
@@ -57,7 +59,7 @@ Whiff NO incluye foul.
 
 ```text
 u = P(whiff) + P(called_strike) - 0.5 * P(ball) - P(hit_by_pitch)
-Stuff+ final = 100 + 10 * (u - mu_calibracion) / sigma_calibracion
+Pitch Value+ = 100 + 10 * (u - mu_calibracion) / sigma_calibracion
 ```
 
 La referencia es fija: 59367 pitches de calibracion 2025, con su contexto
@@ -84,7 +86,7 @@ El score es utilidad de eventos provisional, no carreras esperadas ni Out+.
 - Analisis de lanzamientos muestra la columna ordenable y el detalle en el
   modal, separado de los indicadores/probabilidades F8. Los demas modulos
   conservan sus scores F8/F10 anteriores.
-- En esa vista, Stuff+ final encabeza el resumen y el modal; la tabla lo
+- En esa vista, Pitch Value+ encabeza el resumen y el modal; la tabla lo
   destaca como primera columna de score y ordena inicialmente de mayor a menor.
   La media usa solo scores finales finitos y muestra su cobertura y los casos
   con prior de grupo. Es prioridad visual para exploracion, no promocion

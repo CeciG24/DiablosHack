@@ -1,0 +1,12 @@
+.recommendations { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:24px; margin:20px 0; }
+.recommendation { min-width:0; border-top:2px solid var(--ink); padding:24px 0; }
+.recommendation header { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+.recommendation h3 { font:800 30px var(--font-display); margin:0 0 8px; }
+.recommendation header span,.recommendation small { font-size:13px; color:var(--muted); }
+.recommendation p { font-size:14px; line-height:1.6; max-width:70ch; }
+.recommendation__action { font-weight:600; }
+.recommendation__delta { display:grid; grid-template-columns:24px auto; align-items:center; flex-shrink:0; gap:4px; }
+.recommendation__delta strong { font:700 30px 'IBM Plex Sans',sans-serif; }
+.recommendation__delta small { grid-column:1/-1; }
+.recommendation__delta svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:2; }
+.points-up { transform:rotate(180deg); }

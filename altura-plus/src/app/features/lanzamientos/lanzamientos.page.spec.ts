@@ -7,7 +7,7 @@ import { PitcherBundle } from '../../core/models/domain.types';
 import { LanzamientosPage } from './lanzamientos.page';
 import { PitchEvaluationService, PitchProbabilities } from './pitch-evaluation.service';
 
-describe('Stuff+ final as the primary analysis score', () => {
+describe('Pitch Value+ as the combined analysis score', () => {
   const base = buildSyntheticBundle(SYNTHETIC_PITCHERS[0]);
   const pitch = base.pitches[0];
   const bundle: PitcherBundle = {
@@ -55,6 +55,20 @@ describe('Stuff+ final as the primary analysis score', () => {
     expect(component.sortedPitches().map((p) => p.id)).toEqual(['b', 'a', 'c', 'd']);
     component.setSort('final');
     expect(component.sortedPitches().map((p) => p.id)).toEqual(['a', 'b', 'c', 'd']);
+  });
+
+  it('uses a distinct product label and keeps optional physical columns out of the initial table', () => {
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('.final-overview h2')?.textContent).toContain('Pitch Value+');
+    expect(element.textContent).not.toContain('Stuff+ final');
+    expect(element.querySelectorAll('.pitch-register thead th').length).toBe(9);
+    component.togglePhysics(); fixture.detectChanges();
+    expect(element.querySelectorAll('.pitch-register thead th').length).toBe(16);
+    component.setSort('velo');
+    component.togglePhysics(); fixture.detectChanges();
+    expect(component.sortKey()).toBe('final');
+    expect(element.querySelectorAll('.pitch-register thead th').length).toBe(9);
+    expect(getComputedStyle(element.querySelector('.pitch-register tbody td')!).position).toBe('sticky');
   });
 
   it('puts the final score ahead of diagnostics in the summary and table', () => {
@@ -119,6 +133,7 @@ describe('Stuff+ final as the primary analysis score', () => {
         score_version: 'F11', model_id: 'test', history_status: 'group_prior_only',
         history_n: 0, warnings: '', experimental: true,
       },
+      xrv: null,
     };
     component.probabilities.set(evaluation);
     component.probabilityStatus.set('ready');

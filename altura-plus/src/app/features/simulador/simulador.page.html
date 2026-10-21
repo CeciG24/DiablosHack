@@ -1,25 +1,23 @@
 <div class="sim">
-  <header class="page-head sim__hero">
-    <div><span class="eyebrow">EL LABORATORIO / SIMULACIÓN EXPERIMENTAL</span><h1>Un lanzamiento.<br /><em>Más posibilidades.</em></h1><p>Ajusta su forma. Explora otra altitud. Descubre qué cambia antes de llevarlo al diamante.</p></div>
-    <div class="sim__hero-mark" aria-hidden="true">01<span>PITCH LAB</span></div>
+  <header class="page-head">
+    <div><h1>Laboratorio de pitch</h1><p>Diseña un lanzamiento y compara su Stuff+ físico entre categorías de altitud.</p></div>
+    <a href="#recommendations" class="button button--quiet" (click)="$event.preventDefault(); recommendations.scrollIntoView()">Ver perfiles de scouting</a>
   </header>
-  <app-metric-guide />
-  <div class="sim__workflow" aria-label="Cómo explorar"><span><b>01</b> Diseña tu lanzamiento</span><span><b>02</b> Compara los escenarios</span><a href="#recommendations" (click)="$event.preventDefault(); recommendations.scrollIntoView()"><b>03</b> Explora tu arsenal ↗</a></div>
-  <div class="sim__head">
-    <div class="sim__contract" role="note">
-      <span>
-        <strong>Contrato del simulador:</strong> mover <strong>spin</strong> no cambia IVB solo
-        (<em>shape hipotético</em>); la <strong>ubicación</strong> afecta Location+/Pitching+, no Stuff+ físico.
-      </span>
-    </div>
-  </div>
+  <details class="sim__confidence">
+    <summary>Exploración experimental · alcance y confianza</summary>
+    <p>Se evalúa el mismo modelo físico y la misma escala en origen y destino. El movimiento del destino es una proyección por categoría, no una medición.</p>
+    <p>No hay identificación de estadios: altitud extrema no equivale a Harp Helú. La asociación no es causal y no se han estimado intervalos individuales.</p>
+    <p>100 es la referencia de calibración 2025; 10 puntos equivalen a una desviación estándar. El modelo físico es diagnóstico y no superó al baseline de eventos en su evaluación.</p>
+    <p>Spin, IVB y HB son entradas independientes: cambiar spin no reconstruye el movimiento. La ubicación afecta Location+/Pitching+, no Stuff+ físico.</p>
+    @if (live()?.warnings) { <p>{{ live()?.warnings }}</p> }
+  </details>
 
   <div class="sim__mobile-switch" aria-label="Vista del laboratorio">
     <button type="button" [attr.aria-pressed]="mobileView() === 'edit'" (click)="mobileView.set('edit')">01 / Ajustar pitch</button>
     <button type="button" [attr.aria-pressed]="mobileView() === 'results'" (click)="mobileView.set('results')">02 / Ver resultado ↗</button>
   </div>
   <div class="grid sim__workspace" [class.sim__workspace--results]="mobileView() === 'results'">
-    <app-tile label="01 / Diseña tu lanzamiento" class="span-5 sim__controls">
+    <app-tile label="Diseña tu lanzamiento" class="span-5 sim__controls">
       <div class="sim__pitch-preview"><span>{{ input().pitchType }}</span><div><strong>{{ pitchTypeNames[input().pitchType] }}</strong><small>{{ input().veloMph.toFixed(1) }} mph · {{ input().spinRpm.toFixed(0) }} rpm</small></div></div>
       <label class="ctl">
         Tipo de pitch
@@ -27,10 +25,6 @@
           @for (t of pitchTypes; track t) { <option [value]="t">{{ pitchTypeNames[t] }} ({{ t }})</option> }
         </select>
       </label>
-      @if (reference()) {
-        <button type="button" class="button button--quiet" style="margin-bottom: 16px" (click)="loadReference()">Cargar promedio del arsenal</button>
-      }
-
       <label class="ctl">
         Velocidad <output>{{ input().veloMph.toFixed(1) }} mph</output>
         <input type="range" min="70" max="102" step="0.5" [ngModel]="input().veloMph"
@@ -41,21 +35,18 @@
         Spin total <output>{{ input().spinRpm.toFixed(0) }} rpm</output>
         <input type="range" min="1200" max="3000" step="10" [ngModel]="input().spinRpm"
                (ngModelChange)="set('spinRpm', +$event)" aria-label="Spin en rpm" />
-        <span class="tag tag--warn">shape hipotético · el spin no modifica IVB/HB automáticamente</span>
       </label>
 
       <label class="ctl">
         Movimiento vertical · IVB <output>{{ input().ivbIn.toFixed(1) }} in</output>
         <input type="range" min="-15" max="25" step="0.5" [ngModel]="input().ivbIn"
                (ngModelChange)="set('ivbIn', +$event)" aria-label="Induced vertical break en pulgadas" />
-        @if (reference(); as r) { <span class="tag tag--info">observado en arsenal ≈ {{ r.ivb.toFixed(1) }} in</span> }
       </label>
 
       <label class="ctl">
         Movimiento lateral · HB <output>{{ input().hbIn.toFixed(1) }} in</output>
         <input type="range" min="-20" max="20" step="0.5" [ngModel]="input().hbIn"
                (ngModelChange)="set('hbIn', +$event)" aria-label="Horizontal break en pulgadas" />
-        @if (reference(); as r) { <span class="tag tag--info">observado en arsenal ≈ {{ r.hb.toFixed(1) }} in</span> }
       </label>
 
       <details class="sim__step"><summary>02 / Ubicación y contexto <small>Ajusta el objetivo, bateador y conteo</small></summary>
@@ -69,6 +60,14 @@
         Ubicación Z <output>{{ input().plateZIn.toFixed(1) }} in</output>
         <input type="range" min="10" max="50" step="0.5" [ngModel]="input().plateZIn"
                (ngModelChange)="set('plateZIn', +$event)" aria-label="Altura al cruzar el plato" />
+      </label>
+
+      <label class="ctl">
+        Mano del lanzador
+        <select [ngModel]="pitcherHand()" (ngModelChange)="setPitcherHand($event)">
+          <option value="Right">Derecha</option>
+          <option value="Left">Zurda</option>
+        </select>
       </label>
 
       <label class="ctl">
@@ -89,17 +88,16 @@
             @for (v of [0,1,2]; track v) { <option [value]="v">{{ v }}</option> }
           </select></label>
         </div>
-        <span class="ctl__hint">La simulación de altitud promedia los contextos; no traslada este conteo directamente.</span>
+        <span class="ctl__hint">Este contexto solo afecta los diagnósticos complementarios.</span>
       </div>
 
       </details>
-      <section class="sim__altitude"><h3>03 / Compara la altitud</h3>
+      <section class="sim__altitude"><h3>Compara la altitud</h3>
       <label class="ctl">
         Categoría de altitud (origen)
         <select [ngModel]="sourceCat()" (ngModelChange)="setSourceCat($event)">
           @for (c of categories; track c) { <option [value]="c">{{ labels[c] }}</option> }
         </select>
-        <span class="tag tag--warn">bucket de altitud · no identifica un estadio</span>
       </label>
 
       <label class="ctl">
@@ -113,7 +111,7 @@
       <details class="sim__step"><summary>Ajustes de liberación <small>Extensión, punto de salida y eje de giro</small></summary>
       <fieldset class="sim__physics">
         <legend>Liberación y eje de spin</legend>
-        <p class="note">Valores editables del escenario; no se infieren del spin. Puedes cargar las medias del arsenal como referencia.</p>
+        <p class="note">Valores editables del escenario; no se infieren del spin.</p>
         <label class="ctl">Extensión (ft)
           <input type="number" min="0" max="10" step="0.05" [ngModel]="input().extensionFt" (ngModelChange)="set('extensionFt', $event)" />
         </label>
@@ -139,55 +137,72 @@
       }
     </app-tile>
 
-    <div class="span-7 sim__results" [attr.aria-busy]="apiPending()">
-      <section class="sim__takeaway" aria-live="polite" aria-atomic="true"><span class="eyebrow">LECTURA DEL LANZAMIENTO</span>
-        <h2>{{ apiPending() ? 'Actualizando tu escenario…' : physicallyInvalid() ? 'Revisa la combinación física' : pitchingPlus() !== null ? bandFor(pitchingPlus()!).label : 'La exploración empieza aquí' }}</h2>
-        <p>{{ apiPending() ? 'Los resultados corresponden a los ajustes que estás probando.' : pitchingPlus() !== null ? 'Lectura de Pitching+: físicas y ubicación. 100 es la referencia; consulta las tres evaluaciones abajo.' : 'Ajusta los controles para explorar la forma del lanzamiento. Los resultados necesitan una evaluación disponible del backend.' }}</p>
+    <div class="span-7 sim__results" [attr.aria-busy]="apiPending()" [class.sim__results--stale]="stale()">
+      <section class="sim__takeaway" aria-live="polite" aria-atomic="true"><span>LECTURA FÍSICA DEL ORIGEN</span>
+        <h2>{{ physicallyInvalid() ? 'Revisa la combinación física' : stuffPlus() !== null ? 'Stuff+ físico · ' + bandFor(stuffPlus()!).label : apiPending() ? 'Evaluando el lanzamiento…' : 'La exploración empieza aquí' }}</h2>
+        <p>{{ stuffPlus() !== null ? 'Lectura del origen basada solo en las características físicas, sin ubicación ni conteo.' : 'Ajusta los controles. Se requiere el backend para evaluar el lanzamiento.' }}</p>
       </section>
       @if (apiPending()) {
-        <p class="notice" role="status">Calculando scores y escenarios de altitud… Puedes seguir ajustando los controles.</p>
+        <p class="sim__update" role="status">{{ stale() ? 'Actualizando · ves el último escenario evaluado, no los nuevos ajustes.' : 'Calculando el primer escenario…' }}</p>
       }
       @if (physicallyInvalid()) {
         <app-state-banner kind="ood" title="Fuera de rangos físicos"
           detail="La combinación no es plausible; no se calculan scores para evitar un número engañoso." />
       } @else {
-        @if (outOfDistribution()) {
-          <app-state-banner kind="warn" title="Fuera de distribución observada"
-            detail="El perfil difiere de las medias del arsenal. La estimación requiere cautela; este aviso no sustituye el diagnóstico de soporte del modelo." />
-        }
         @if (data.source() === 'synthetic') {
           <app-state-banner kind="warn" title="Simulación no disponible"
             detail="El backend no está disponible. Puedes explorar las físicas, pero no se inventan scores ni cambios por altitud. Usa Actualizar datos para reconectar." />
         } @else {
           @if (apiError(); as err) {
             <app-state-banner kind="warn" title="Cálculo incompleto" [detail]="err" />
+            @if (stale()) { <p class="note" role="status">Resultados desactualizados: se conserva el último escenario evaluado.</p> }
             <button type="button" class="button button--quiet" (click)="retry()">Reintentar cálculo</button>
           }
         }
-        <div class="sim__flags" aria-label="Procedencia y advertencias de los scores">
-          <span class="tag" [class.tag--ok]="!!live()" [class.tag--warn]="!live()">
-            {{ live() ? 'Evaluación del modelo · provisional' : apiPending() ? 'Cálculo en curso' : 'Scores no disponibles' }}
-          </span>
-          @if (live()?.warnings) {
-            <details class="sim__warnings"><summary>Advertencias del modelo · leer antes de interpretar</summary><p class="note">{{ live()?.warnings }}</p></details>
-          }
-        </div>
-        <div class="grid sim__scores">
-          <app-tile label="La forma de tu lanzamiento" class="span-6">
-            <app-movement-chart
-              [pitches]="mapPitches()" [throws]="mapThrows()"
-              [highlightIndex]="mapHighlight()" [comparisonPoint]="targetMovement()" colorBy="type" />
-            <div class="sim__flags">
-              <span class="tag tag--band">Color = tipo de pitch · borde rojo = escenario de origen</span>
-              <span class="tag tag--muted">Círculo hueco con línea discontinua = movimiento estimado en destino</span>
-              <span class="tag tag--muted">{{ data.source() === 'api' ? 'Los demás puntos son pitches observados del lanzador' : 'Los demás puntos son datos sintéticos de demostración' }}</span>
+        <app-tile label="Stuff+ físico · mismo pitch, dos escenarios" class="sim__comparison">
+          <div class="sim__comparison-grid" role="group" aria-label="Stuff+ físico en origen y destino, misma escala">
+            <div class="sim__scenario">
+              <h3>{{ labels[live()?.source ?? sourceCat()] }}</h3><p>Origen</p>
+              <app-gauge [value]="stuffPlus() ?? 0" [modelAvailable]="stuffPlus() !== null" [avg]="100" [decimals]="1"
+                title="Stuff+ físico en origen" accent="var(--ink)" />
+              <p class="note">IVB {{ shownInput().ivbIn.toFixed(1) }} · HB {{ shownInput().hbIn.toFixed(1) }} in</p>
             </div>
-          </app-tile>
-          <app-tile label="Su recorrido al plato" class="span-6">
-            <app-trajectory [pitch]="trajectory()" caption="Ilustración geométrica del perfil de origen · no reconstruye una trayectoria medida" />
-          </app-tile>
-
-          <app-tile label="xRV aproximado · MLB 2014" class="span-12 sim__kpi sim__xrv">
+            <div class="sim__change">
+              <span>Destino − origen</span>
+              <strong [class.negative]="(stuffDelta() ?? 0) < 0" [class.positive]="(stuffDelta() ?? 0) > 0">
+                {{ stuffDelta() === null ? '—' : ((stuffDelta()! > 0 ? '+' : '') + stuffDelta()!.toFixed(1)) }}
+              </strong>
+              <span>puntos Stuff+</span>
+              <small>{{ stuffDelta() === null ? 'Sin comparación' : stuffDelta()! < 0 ? 'Disminuye' : stuffDelta()! > 0 ? 'Aumenta' : 'Sin cambio' }}</small>
+            </div>
+            <div class="sim__scenario">
+              <h3>{{ labels[live()?.target ?? targetCat()] }}</h3><p>Destino proyectado</p>
+              <app-gauge [value]="targetStuff() ?? 0" [modelAvailable]="targetStuff() !== null" [avg]="100" [decimals]="1"
+                title="Stuff+ físico en destino proyectado"
+                [accent]="stuffDelta() === null ? 'var(--muted)' : stuffDelta()! < 0 ? 'var(--value-negative)' : 'var(--value-positive)'" />
+              <p class="note">IVB {{ live()?.simTargetIvb?.toFixed(1) ?? '—' }} · HB {{ live()?.simTargetHb?.toFixed(1) ?? '—' }} in</p>
+            </div>
+          </div>
+          <p class="note">Intervalo de confianza individual: no disponible; no se ha estimado la incertidumbre del traslado.</p>
+          @if (live() && targetStuff() === null) {
+            <p class="notice">Sin comparación física disponible. {{ live()?.simReason ?? 'Se requiere una simulación con soporte y el backend actualizado.' }}</p>
+          }
+        </app-tile>
+        <app-tile label="Movimiento · pitch diseñado y referencia del mismo tipo">
+          <app-movement-chart [pitches]="mapPitches()" [throws]="mapThrows()" [highlightIndex]="mapHighlight()"
+            [comparisonPoint]="targetMovement()" [extremes]="reference().extremes" [inspectable]="true" colorBy="stuff" extremeMetric="stuff" />
+          <p class="note">{{ reference().sample.length }} de {{ reference().n }} pitches de referencia · mismo tipo y mano · revisión 2025 · HB orientado por mano.
+            Círculo azul = decil superior de Stuff+; cuadrado ámbar = decil inferior. Rombo = tu pitch; círculo hueco y flecha = destino proyectado.</p>
+          @if (!reference().extremes) { <p class="note">No hay suficientes scores distintos para delimitar deciles (mínimo 20 pitches).</p> }
+        </app-tile>
+        <details class="sim__diagnostics">
+          <summary>Diagnósticos complementarios: ubicación, xRV y modelo de altitud</summary>
+          <dl class="inline-stats">
+            <div><dt>Location+ · origen</dt><dd>{{ locationPlus()?.toFixed(1) ?? '—' }}</dd></div>
+            <div><dt>Pitching+ · origen</dt><dd>{{ pitchingPlus()?.toFixed(1) ?? '—' }}</dd></div>
+          </dl>
+          <p class="note">Incluyen ubicación y contexto. No determinan la lectura principal de Stuff+.</p>
+          <app-tile label="xRV aproximado" class="sim__xrv">
             @if (live()?.xrv; as xrv) {
               @if (xrv.status === 'ok') {
                 <p><strong>{{ xrv.runs_per_pitch?.toFixed(4) }}</strong> carreras por pitch
@@ -200,79 +215,22 @@
             } @else {
               <p>xRV pendiente de evaluación.</p>
             }
-            <p class="note">Menor es mejor para el pitcher. Estimación experimental con pesos externos de MLB 2014,
-              conteo {{ balls() }}–{{ strikes() }} y probabilidades de Pitching+.
+            <p class="note">Menor es mejor para el pitcher. Estimación experimental con pesos externos congelados,
+              conteo {{ live()?.balls ?? balls() }}–{{ live()?.strikes ?? strikes() }} y probabilidades de Pitching+.
               Bola en juego usa un promedio de contacto; no está validada para LMB ni ajustada por estadio.
-              El delta de altitud de abajo pertenece a otra escala.</p>
-          </app-tile>
-          <div class="sim__scale span-12 sim__kpi" role="note"><strong>Índices provisionales · referencia 2025</strong><span>100 es la referencia de calibración de cada familia; 10 puntos equivalen a una desviación estándar. El score de altitud y el xRV usan escalas independientes.</span></div>
-          <app-tile label="Stuff+ físico" class="span-4 sim__kpi">
-            <app-gauge [value]="stuffPlus() ?? 0" [modelAvailable]="stuffPlus() !== null" [avg]="100" unit="pts"
-              title="Stuff+ físico provisional" accent="var(--red)" />
-            @if (stuffPlus(); as score) {
-              <p class="sim__note">{{ bandFor(score).label }} · no depende de ubicación</p>
-            }
-          </app-tile>
-          <app-tile label="Location+" class="span-4 sim__kpi">
-            <app-gauge [value]="locationPlus() ?? 0" [modelAvailable]="locationPlus() !== null" [avg]="100" unit="pts"
-              title="Location+ provisional" accent="var(--green-mx)" />
-            @if (locationPlus(); as score) {
-              <p class="sim__note">{{ bandFor(score).label }} · ubicación y contexto</p>
-            }
-          </app-tile>
-          <app-tile label="Pitching+" class="span-4 sim__kpi">
-            <app-gauge [value]="pitchingPlus() ?? 0" [modelAvailable]="pitchingPlus() !== null" [avg]="100" unit="pts"
-              title="Pitching+ provisional" accent="var(--ink)" />
-            @if (pitchingPlus(); as score) {
-              <p class="sim__note">{{ bandFor(score).label }} · físicas y ubicación</p>
-            }
+              No es el delta de Stuff+.</p>
           </app-tile>
           @if (live(); as l) {
-            <div class="sim__scale sim__scale--exp span-12" role="note">
-              <strong>F10 · escala experimental</strong>
-              <span>100 = promedio de su propia referencia · ±10 pts = 1σ F10 · solo comparar dentro de esta tarjeta, nunca contra las tarjetas F8</span>
-            </div>
-            <app-tile label="Mismo pitch, dos escenarios de altitud" class="span-12">
-              @if (l.simStatus === 'experimental') {
-                <div class="sim__vs" role="group" aria-label="Comparación lado a lado del mismo pitch">
-                  <div class="sim__vs-side">
-                    <span class="sim__vs-cat">{{ labels[sourceCat()] }}</span>
-                    <span class="sim__vs-score">{{ l.simSourceScore?.toFixed(1) ?? '—' }}</span>
-                    <span class="sim__vs-sub">score experimental</span>
-                    <span class="sim__vs-mov">IVB {{ input().ivbIn.toFixed(1) }} · HB {{ input().hbIn.toFixed(1) }} in</span>
-                  </div>
-                  <div class="sim__vs-delta">
-                    <span class="sim__vs-arrow" aria-hidden="true">→</span>
-                    <span class="sim__vs-dnum" [class.sim__vs-dnum--neg]="(l.simDelta ?? 0) < 0"
-                          [class.sim__vs-dnum--pos]="(l.simDelta ?? 0) > 0">
-                      {{ l.simDelta !== null ? (l.simDelta > 0 ? '+' : '') + l.simDelta.toFixed(1) : '—' }}
-                    </span>
-                    <span class="sim__vs-sub">Δ score</span>
-                  </div>
-                  <div class="sim__vs-side">
-                    <span class="sim__vs-cat">{{ labels[targetCat()] }}</span>
-                    <span class="sim__vs-score">{{ l.simTargetScore?.toFixed(1) ?? '—' }}</span>
-                    <span class="sim__vs-sub">score experimental</span>
-                    <span class="sim__vs-mov">IVB {{ l.simTargetIvb?.toFixed(1) ?? '—' }} · HB {{ l.simTargetHb?.toFixed(1) ?? '—' }} in</span>
-                  </div>
-                </div>
-                <div class="sim__flags sim__flags--warn">
-                  <span class="tag tag--warn">EXPERIMENTAL</span>
-                  <span class="tag tag--warn">Escala independiente de Stuff+, Location+ y Pitching+</span>
-                  <span class="tag tag--warn">Categorías de altitud, no estadios</span>
-                  <span class="tag tag--warn">asociación categórica · no causal</span>
-                </div>
-              } @else {
-                <div class="sim__flags sim__flags--warn">
-                  <span class="tag tag--warn">Sin estimación de altitud disponible</span>
-                  <span class="tag tag--muted">{{ l.simReason ?? 'No hay soporte o la simulación no respondió. No se reporta un cambio numérico.' }}</span>
-                </div>
-              }
-            </app-tile>
+            <p class="note">Índice contextual de altitud, escala independiente (no es Stuff+):
+              {{ l.simSourceScore?.toFixed(1) ?? '—' }} → {{ l.simTargetScore?.toFixed(1) ?? '—' }}.
+              Δ {{ l.simDelta?.toFixed(1) ?? '—' }}. No restar de otros índices.</p>
           }
-        </div>
+          <app-tile label="Su recorrido al plato">
+            <app-trajectory [pitch]="trajectory()" caption="Ilustración geométrica del perfil de origen · no reconstruye una trayectoria medida" />
+          </app-tile>
+        </details>
       }
     </div>
   </div>
-  <div id="recommendations" #recommendations><app-recommendations [source]="sourceCat()" [target]="targetCat()" /></div>
+  <div id="recommendations" #recommendations><app-recommendations [pitchType]="input().pitchType" [source]="sourceCat()" [target]="targetCat()" (useReference)="setSourceCat('No Altitude'); setTargetCat('Extreme')" /></div>
 </div>

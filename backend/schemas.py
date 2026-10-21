@@ -131,6 +131,19 @@ class FinalScoreResponse(BaseModel):
     records: list[FinalPrediction]
 
 
+class StuffComparison(BaseModel):
+    status: Literal['experimental', 'unavailable'] = 'unavailable'
+    source_score: float | None = None
+    target_score: float | None = None
+    delta_score: float | None = None
+    release_id: str | None = None
+    score_version: str | None = None
+    warnings: str = ''
+    interval: None = None
+    interval_reason: str = 'individual_uncertainty_not_estimated'
+    method: str = 'F8_stuff_on_F10_projected_movement'
+
+
 class Simulation(BaseModel):
     model_config = ConfigDict(extra='allow')
     pitch_uid: str | None = None
@@ -144,6 +157,7 @@ class Simulation(BaseModel):
     interval: None = None
     source_score: float | None = None
     target_score: float | None = None
+    stuff_comparison: StuffComparison | None = None
 
 
 class SimulationResponse(BaseModel):

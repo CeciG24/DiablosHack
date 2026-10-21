@@ -1,61 +1,39 @@
-import { Component, DestroyRef, computed, effect, inject, input, signal } from '@angular/core';
-import { ApiRecommendationResponse, ApiService } from '../../core/api/api.service';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { PITCH_TYPE_TO_API } from '../../core/api/api-mappers';
 import { AltitudeInsightsService } from '../../core/data-access/altitude-insights.service';
-import { DataService } from '../../core/data-access/data.service';
-import { AltitudeCategory, ALTITUDE_LABELS } from '../../core/models/domain.types';
+import { AltitudeCategory, PITCH_TYPE_NAMES, PitchType } from '../../core/models/domain.types';
 import { metric, productText } from '../../core/models/pitch-analysis';
-import { ScoutingContextService } from '../../core/state/scouting-context.service';
-import { ALTITUDE_TO_API, arsenalCandidates } from './simulator-candidates';
 
+/**
+ * Perfiles globales de scouting por altitud (evidencia precomputada).
+ * El laboratorio ya no depende de un lanzador de referencia: la comparación
+ * de candidatos de arsenal individual se retiró junto con la selección de pitcher.
+ */
 @Component({
   selector: 'app-recommendations',
   templateUrl: './recommendations.component.html',
+  styleUrl: './recommendations.component.scss',
 })
 export class RecommendationsComponent {
-  readonly source = input<AltitudeCategory>('No Altitude');
-  readonly target = input<AltitudeCategory>('Extreme');
   protected readonly insights = inject(AltitudeInsightsService);
-  protected readonly data = inject(DataService);
-  private readonly ctx = inject(ScoutingContextService);
-  private readonly api = inject(ApiService);
-  private readonly destroyRef = inject(DestroyRef);
   protected readonly metric = metric;
   protected readonly productText = productText;
-  protected readonly labels = ALTITUDE_LABELS;
-  readonly result = signal<ApiRecommendationResponse | null>(null);
-  readonly pending = signal(false);
-  readonly error = signal(false);
-  private request = 0;
-  readonly candidates = computed(() => {
-    const bundle = this.data.bundleOf(this.ctx.pitcherId());
-    return bundle && this.data.source() === 'api' ? arsenalCandidates(bundle.arsenal, bundle.pitcher, this.source()) : [];
-  });
-
-  constructor() {
-    effect(() => {
-      this.candidates();
-      this.target();
-      this.request++;
-      this.result.set(null);
-      this.error.set(false);
-      this.pending.set(false);
-    });
-    this.destroyRef.onDestroy(() => { this.request++; });
-  }
-
-  async compare(): Promise<void> {
-    if (!this.candidates().length) return;
-    const request = ++this.request;
-    this.pending.set(true);
-    this.error.set(false);
-    this.result.set(null);
-    try {
-      const result = await this.api.recommendations(this.candidates(), ALTITUDE_TO_API[this.target()]);
-      if (request === this.request) this.result.set(result);
-    } catch {
-      if (request === this.request) this.error.set(true);
-    } finally {
-      if (request === this.request) this.pending.set(false);
-    }
-  }
+  readonly pitchType = input<PitchType>('FB');
+  readonly source = input<AltitudeCategory>('No Altitude');
+  readonly target = input<AltitudeCategory>('Extreme');
+  readonly useReference = output<void>();
+  readonly showAll = signal(false);
+  readonly matchesScenario = computed(() => this.source() === 'No Altitude' && this.target() === 'Extreme');
+  readonly cards = computed(() => (this.insights.profile()?.by_pitch_type ?? []).map((row) => {
+    const type = (Object.keys(PITCH_TYPE_TO_API) as PitchType[]).find((key) => PITCH_TYPE_TO_API[key] === row.auto_pitch_type);
+    return {
+      ...row, name: type ? PITCH_TYPE_NAMES[type] : row.auto_pitch_type,
+      selected: type === this.pitchType(),
+      physical: this.insights.profile()?.prospect_profile.find((p) => p.auto_pitch_type === row.auto_pitch_type),
+      action: row.n < 30 ? 'Ampliar la muestra antes de priorizar este perfil.' :
+        row.delta_score < -2 ? 'Contrastar este perfil con alternativas en un bullpen de altura.' :
+        'Incluir este perfil en la evaluación de repertorios que conservan su valor relativo.',
+    };
+  }));
+  readonly visibleCards = computed(() => this.showAll() ? this.cards() : this.cards().filter((row) => row.selected));
 }

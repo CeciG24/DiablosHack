@@ -36,4 +36,26 @@ describe('Selección accesible en mapas de lanzamientos', () => {
     expect(selected.length).toBe(1);
     fixture.destroy();
   });
+
+  it('permite inspección sin abrir modal, conserva datos extremos y diferencia formas de valor', () => {
+    const fixture = TestBed.createComponent(MovementChartComponent);
+    fixture.componentRef.setInput('pitches', [{ ...pitches[0], hbIn: -35, ivbIn: 30 }, pitches[1]]);
+    fixture.componentRef.setInput('inspectable', true);
+    fixture.componentRef.setInput('extremes', { best: [0], worst: [1] });
+    fixture.componentRef.setInput('throws', 'L');
+    fixture.detectChanges();
+    const selected: string[] = [];
+    fixture.componentInstance.pitchSelected.subscribe((id) => selected.push(id));
+    fixture.nativeElement.querySelector('svg').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    fixture.detectChanges();
+    expect(selected).toEqual([]);
+    expect(fixture.nativeElement.querySelector('.mv__tooltip').textContent).toContain('35.0');
+    expect(fixture.nativeElement.querySelector('.mv__extreme--best').tagName).toBe('circle');
+    expect(fixture.nativeElement.querySelector('.mv__extreme--worst').tagName).toBe('rect');
+    expect(fixture.componentInstance.limit()).toBe(40);
+    expect(fixture.componentInstance.leftLabel()).toBe('Lado del guante');
+    fixture.componentRef.setInput('mirrorLefties', false); fixture.detectChanges();
+    expect(fixture.componentInstance.leftLabel()).toBe('Lado del brazo');
+    fixture.destroy();
+  });
 });

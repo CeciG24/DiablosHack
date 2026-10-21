@@ -32,7 +32,7 @@ import { Component, computed, input } from '@angular/core';
   `,
   styles: `
     .gauge { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; justify-content: center; }
-    .gauge__svg { width: 132px; height: 132px; }
+    .gauge__svg { width: min(132px, 100%); height: auto; aspect-ratio:1; }
     .gauge__track { fill: none; stroke: var(--line); stroke-width: 9; }
     .gauge__arc {
       fill: none; stroke-width: 9; stroke-linecap: round;
@@ -57,7 +57,7 @@ export class GaugeComponent {
   readonly avg = input.required<string | number>();
   readonly maxStat = input<string | number>();
   readonly unit = input('pts');
-  readonly accent = input('var(--red)');
+  readonly accent = input('var(--value-positive)');
   readonly title = input('');
   readonly modelAvailable = input(true);
   readonly decimals = input(0);

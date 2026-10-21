@@ -4,6 +4,10 @@
   --final-line: #dec398;
 }
 
+.page-photo--campo {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.08)), url('/images/harp-helu-campo.jpg') center 62%/cover;
+}
+
 .data-table .th-sort {
   background: none; border: 0; padding: 0; margin: 0;
   font: inherit; color: inherit; text-align: left; text-decoration: none;
@@ -70,6 +74,14 @@
 
 /* Renglones que abren el detalle: affordance visible de click. */
 .data-table tbody tr { cursor: pointer; }
+.pitch-register {
+  --index-width: 56px;
+  .data-table tr > :first-child { position:sticky; left:0; min-width:var(--index-width); width:var(--index-width); background:var(--tile); z-index:1; }
+  .data-table tr > :nth-child(2) { position:sticky; left:var(--index-width); min-width:150px; z-index:1; border-right:1px solid var(--final-line); }
+  .data-table thead tr > :first-child { background:var(--ink); }
+  .data-table thead tr > :first-child,.data-table thead tr > :nth-child(2) { z-index:2; }
+  .data-table tbody tr.selected > :first-child { background:#fce9ec; }
+}
 
 /* Detalle del pitch en modal nativo. */
 .pitch-dialog {
@@ -118,7 +130,7 @@
   dt, dd { margin: 0; min-width: 0; }
   dt { font-size: 0.8rem; }
 }
-.target-meta { display: block; margin-top: 4px; color: #596171; font-size: 0.68rem; line-height: 1.5; }
+.target-meta { display: block; margin-top: 4px; color: #596171; font-size: 0.8125rem; line-height: 1.5; }
 .target-value {
   text-align: right; font-size: 1.1rem;
   &--missing { font-size: 0.75rem; color: #596171; }

@@ -1,9 +1,7 @@
-import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
 import { Component, DestroyRef, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../core/data-access/data.service';
-import { ScoutingContextService } from '../../core/state/scouting-context.service';
-import { ApiService } from '../../core/api/api.service';
+import { ApiService, ApiSimRecord } from '../../core/api/api.service';
 import { PITCH_TYPE_TO_API } from '../../core/api/api-mappers';
 import {
   ALTITUDE_CATEGORIES,
@@ -24,6 +22,7 @@ import { StateBannerComponent } from '../../shared/ui/state-banner.component';
 import { predictionWarnings, productText } from '../../core/models/pitch-analysis';
 import { RecommendationsComponent } from './recommendations.component';
 import { ALTITUDE_TO_API } from './simulator-candidates';
+import { movementReference } from './simulator-reference';
 
 interface SimInput {
   pitchType: PitchType;
@@ -40,6 +39,13 @@ interface SimInput {
 }
 
 interface LiveScores {
+  input: SimInput;
+  source: AltitudeCategory;
+  target: AltitudeCategory;
+  hand: 'Right' | 'Left';
+  balls: number;
+  strikes: number;
+  stuffComparison?: ApiSimRecord['stuff_comparison'];
   xrv?: import('../../core/api/api.service').ApiPredictionFamily['xrv'];
   stuffPlus: number | null;
   locationPlus: number | null;
@@ -59,13 +65,14 @@ interface LiveScores {
  * Simulador con contrato explícito:
  * - mover spin NO modifica IVB automáticamente (shape hipotético declarado),
  * - ubicación afecta Location+/Pitching+, no Stuff+ físico,
- * - input fuera de distribución del pitcher → aviso; fuera de rangos físicos → bloqueo.
+ * - fuera de rangos físicos → bloqueo. Laboratorio sin lanzador: el coach
+ *   ingresa las físicas del pitch directamente; no hay referencia de arsenal.
  * Con backend disponible los scores vienen de /predict (F8) y el contrafactual
  * de /simulate (F10 experimental); sin backend no se fabrican scores.
  */
 @Component({
   selector: 'app-simulador-page',
-  imports: [MetricGuideComponent, FormsModule, TileComponent, GaugeComponent, TrajectoryComponent,
+  imports: [FormsModule, TileComponent, GaugeComponent, TrajectoryComponent,
     MovementChartComponent, StateBannerComponent, RecommendationsComponent],
   templateUrl: './simulador.page.html',
   styleUrl: './simulador.page.scss',
@@ -73,7 +80,6 @@ interface LiveScores {
 export class SimuladorPage {
   readonly mobileView = signal<'edit' | 'results'>('edit');
   protected readonly data = inject(DataService);
-  protected readonly ctx = inject(ScoutingContextService);
   private readonly api = inject(ApiService);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly pitchTypes = PITCH_TYPES;
@@ -91,7 +97,8 @@ export class SimuladorPage {
   /** Categoría origen del pitch y destino del contrafactual F10. */
   readonly sourceCat = signal<AltitudeCategory>('No Altitude');
   readonly targetCat = signal<AltitudeCategory>('Extreme');
-  /** Contexto del evento F8: mano del bateador y conteo. */
+  /** Contexto del evento F8: mano del lanzador, mano del bateador y conteo. */
+  readonly pitcherHand = signal<'Right' | 'Left'>('Right');
   readonly batterSide = signal<'Right' | 'Left'>('Right');
   readonly balls = signal(0);
   readonly strikes = signal(0);
@@ -103,6 +110,8 @@ export class SimuladorPage {
   /** Error de la última petición en modo API (p. ej. rechazo de validación). */
   readonly apiError = signal<string | null>(null);
   readonly apiPending = signal(false);
+  readonly stale = computed(() => this.live() !== null && (this.apiPending() || this.apiError() !== null));
+  readonly shownInput = computed(() => this.live()?.input ?? this.input());
   private requestSeq = 0;
   private debounce: ReturnType<typeof setTimeout> | null = null;
   private healthProbeAt = 0;
@@ -112,12 +121,11 @@ export class SimuladorPage {
       this.requestSeq++;
       if (this.debounce) clearTimeout(this.debounce);
     });
-    // Recalcula al cambiar pitcher, bundles (carga/recarga) o cualquier control.
-    // También dispara la primera evaluación al abrir la página.
+    // Recalcula al mover cualquier control. También dispara la primera
+    // evaluación al abrir la página.
     effect(() => {
-      this.ctx.pitcherId();
-      this.data.bundles();
       this.input();
+      this.pitcherHand();
       this.batterSide();
       this.balls();
       this.strikes();
@@ -126,51 +134,6 @@ export class SimuladorPage {
       this.refresh();
     });
   }
-
-  /** Distribución observada del pitcher para el tipo seleccionado. */
-  readonly reference = computed(() => {
-    const b = this.data.bundleOf(this.ctx.pitcherId());
-    if (!b) return null;
-    const rows = b.arsenal.filter((r) => r.pitchType === this.input().pitchType);
-    if (rows.length === 0) return null;
-    const total = rows.reduce((sum, r) => sum + r.n, 0);
-    const avg = (f: (r: (typeof rows)[number]) => number) =>
-      rows.reduce((a, r) => a + f(r) * r.n, 0) / Math.max(total, 1);
-    const avgOpt = (f: (r: (typeof rows)[number]) => number | undefined) => {
-      const valid = rows.filter((r) => f(r) !== undefined);
-      const n = valid.reduce((sum, r) => sum + r.n, 0);
-      return n ? valid.reduce((sum, r) => sum + (f(r) ?? 0) * r.n, 0) / n : undefined;
-    };
-    // El eje medio debe ser un vector unitario: promediar sin/cos por separado
-    // encoge el vector y el backend lo rechaza (sin²+cos²≈1). Se normaliza.
-    const sin = avgOpt((r) => r.spinAxisSinAvg);
-    const cos = avgOpt((r) => r.spinAxisCosAvg);
-    const norm = sin !== undefined && cos !== undefined ? Math.hypot(sin, cos) : 0;
-    return {
-      velo: avg((r) => r.veloMphAvg),
-      spin: avg((r) => r.spinRpmAvg),
-      ivb: avg((r) => r.ivbInAvg),
-      hb: avg((r) => r.hbInAvg),
-      axisSin: norm && sin !== undefined ? sin / norm : undefined,
-      axisCos: norm && cos !== undefined ? cos / norm : undefined,
-      relHeight: avgOpt((r) => r.relHeightAvg),
-      relSide: avgOpt((r) => r.relSideAvg),
-      extension: avgOpt((r) => r.extensionAvg),
-    };
-  });
-
-  /** ¿El shape está fuera de la distribución observada del pitcher? */
-  readonly outOfDistribution = computed(() => {
-    const ref = this.reference();
-    if (!ref) return false;
-    const i = this.input();
-    return (
-      Math.abs(i.veloMph - ref.velo) > 3 ||
-      Math.abs(i.spinRpm - ref.spin) > 350 ||
-      Math.abs(i.ivbIn - ref.ivb) > 6 ||
-      Math.abs(i.hbIn - ref.hb) > 8
-    );
-  });
 
   /** Rangos físicos duros: fuera de esto el pitch no es físicamente plausible. */
   readonly physicallyInvalid = computed(() => {
@@ -182,9 +145,14 @@ export class SimuladorPage {
       i.extensionFt < 0 || i.extensionFt > 10 || i.axisDeg < 0 || i.axisDeg > 360;
   });
 
-  readonly stuffPlus = computed(() => this.live()?.stuffPlus ?? null);
+  readonly stuffPlus = computed(() => this.live()?.stuffComparison?.source_score ?? this.live()?.stuffPlus ?? null);
   readonly locationPlus = computed(() => this.live()?.locationPlus ?? null);
   readonly pitchingPlus = computed(() => this.live()?.pitchingPlus ?? null);
+  readonly comparison = computed(() => this.live()?.stuffComparison);
+  readonly targetStuff = computed(() => this.comparison()?.status === 'experimental'
+    ? this.comparison()?.target_score ?? null : null);
+  readonly stuffDelta = computed(() => this.comparison()?.status === 'experimental'
+    ? this.comparison()?.delta_score ?? null : null);
   readonly targetMovement = computed(() => {
     const live = this.live();
     return live?.simStatus === 'experimental' && live.simTargetHb !== null && live.simTargetIvb !== null
@@ -192,47 +160,46 @@ export class SimuladorPage {
   });
 
   readonly trajectory = computed(() => ({
-    veloMph: this.input().veloMph,
-    ivbIn: this.input().ivbIn,
-    hbIn: this.input().hbIn,
-    plateXIn: this.input().plateXIn,
-    plateZIn: this.input().plateZIn,
+    veloMph: this.shownInput().veloMph,
+    ivbIn: this.shownInput().ivbIn,
+    hbIn: this.shownInput().hbIn,
+    plateXIn: this.shownInput().plateXIn,
+    plateZIn: this.shownInput().plateZIn,
   }));
 
-  /**
-   * Mapa de movimiento: pitches reales del pitcher coloreados por Stuff+
-   * (rojo = más efectivo) + el pitch simulado como último punto marcado.
-   */
+  readonly reference = computed(() => {
+    const type = this.shownInput().pitchType;
+    const hand = this.mapThrows();
+    const pitches = this.data.source() === 'api'
+      ? this.data.bundles().filter((b) => b.pitcher.throws === hand)
+        .flatMap((b) => b.pitches).filter((p) => p.pitchType === type && p.partition !== 'test_2026') : [];
+    return movementReference(pitches);
+  });
+
   readonly mapPitches = computed<readonly PitchScore[]>(() => {
-    const b = this.data.bundleOf(this.ctx.pitcherId());
-    const i = this.input();
+    const i = this.shownInput();
     const sim: PitchScore = {
-      id: '__sim__', pitcherId: b?.pitcher.id ?? '', pitchType: i.pitchType,
-      season: 0, category: this.sourceCat(), veloMph: i.veloMph, spinRpm: i.spinRpm,
+      id: '__sim__', pitcherId: '', pitchType: i.pitchType,
+      season: 0, category: this.live()?.source ?? this.sourceCat(), veloMph: i.veloMph, spinRpm: i.spinRpm,
       ivbIn: i.ivbIn, hbIn: i.hbIn, plateXIn: i.plateXIn, plateZIn: i.plateZIn,
       stuffPlus: this.stuffPlus(), locationPlus: this.locationPlus(),
       pitchingPlus: this.pitchingPlus(),
     };
-    return [...(b?.pitches ?? []), sim];
+    return [...this.reference().sample, sim];
   });
-  readonly mapHighlight = computed(() => this.mapPitches().length - 1);
-  readonly mapThrows = computed(
-    () => this.data.bundleOf(this.ctx.pitcherId())?.pitcher.throws ?? 'R',
-  );
+  readonly mapHighlight = computed(() => this.reference().sample.length);
+  readonly mapThrows = computed(() => (this.live()?.hand ?? this.pitcherHand()) === 'Left' ? 'L' : 'R');
 
   /**
    * Pitch record para el backend: físicas del input + contexto.
    * Eje, release y extensión proceden de los controles editables del formulario.
-   * `pitcher_anon_id` activa la historia 2024 del pitcher en F10.
+   * Sin lanzador: F10 usa la referencia de grupo, no una historia individual.
    */
   private toRecord(i: SimInput): Record<string, unknown> {
-    const bundle = this.data.bundleOf(this.ctx.pitcherId());
-    const throws = bundle?.pitcher.throws ?? 'R';
     const axis = i.axisDeg * Math.PI / 180;
     return {
-      pitcher_anon_id: bundle?.pitcher.id,
       auto_pitch_type: PITCH_TYPE_TO_API[i.pitchType],
-      pitcher_throws: throws === 'L' ? 'Left' : 'Right',
+      pitcher_throws: this.pitcherHand(),
       rel_speed: i.veloMph,
       spin_rate: i.spinRpm,
       spin_axis_sin: Math.sin(axis),
@@ -254,15 +221,18 @@ export class SimuladorPage {
   private refresh(): void {
     if (this.debounce) clearTimeout(this.debounce);
     const seq = ++this.requestSeq;
-    this.live.set(null);
     this.apiError.set(null);
     this.apiPending.set(false);
     if (this.data.source() !== 'api' || this.physicallyInvalid()) {
+      this.live.set(null);
       this.probeForRecovery();
       return;
     }
-    const record = this.toRecord(this.input());
-    const target = ALTITUDE_TO_API[this.targetCat()];
+    const input = { ...this.input() };
+    const source = this.sourceCat(), targetCategory = this.targetCat(), hand = this.pitcherHand();
+    const balls = this.balls(), strikes = this.strikes();
+    const record = this.toRecord(input);
+    const target = ALTITUDE_TO_API[targetCategory];
     this.apiPending.set(true);
     this.debounce = setTimeout(() => {
       void Promise.allSettled([
@@ -276,13 +246,18 @@ export class SimuladorPage {
         }
         const fam = pred.status === 'fulfilled' ? pred.value.records[0] : undefined;
         const simRow = sim.status === 'fulfilled' ? sim.value.records[0] : null;
-        if (!fam && !simRow) return;
+        if (!fam && !simRow) {
+          this.apiError.set('No se recibieron estimaciones para este escenario. Reintenta el cálculo.');
+          return;
+        }
         this.live.set({
+          input, source, target: targetCategory, hand, balls, strikes,
+          stuffComparison: simRow?.stuff_comparison,
           xrv: fam?.pitching?.xrv,
           stuffPlus: fam?.stuff?.score ?? null,
           locationPlus: fam?.location?.score ?? null,
           pitchingPlus: fam?.pitching?.score ?? null,
-          warnings: predictionWarnings(fam?.pitching?.warnings ?? ''),
+          warnings: predictionWarnings([fam?.stuff?.warnings, simRow?.stuff_comparison?.warnings].filter(Boolean).join(';')),
           simStatus: simRow?.status ?? null,
           simDelta: simRow?.delta_score ?? null,
           simSourceScore: simRow?.source_score ?? null,
@@ -339,16 +314,7 @@ export class SimuladorPage {
     this.input.update((input) => ({ ...input, ...ex }));
   }
 
-  loadReference(): void {
-    const ref = this.reference();
-    if (!ref) return;
-    this.input.update((input) => ({
-      ...input, veloMph: ref.velo, spinRpm: ref.spin, ivbIn: ref.ivb, hbIn: ref.hb,
-      extensionFt: ref.extension ?? input.extensionFt,
-      releaseHeightFt: ref.relHeight ?? input.releaseHeightFt,
-      releaseSideFt: ref.relSide ?? input.releaseSideFt,
-      axisDeg: ref.axisSin !== undefined && ref.axisCos !== undefined
-        ? (Math.atan2(ref.axisSin, ref.axisCos) * 180 / Math.PI + 360) % 360 : input.axisDeg,
-    }));
+  setPitcherHand(value: string): void {
+    this.pitcherHand.set(value as 'Right' | 'Left');
   }
 }

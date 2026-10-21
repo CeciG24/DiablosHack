@@ -1,7 +1,7 @@
 
 :host { display: block; }
 .shell { min-height: 100dvh; }
-.sidebar { display:flex; align-items:center; gap:36px; padding:0 4vw; min-height:96px; background:#111112; color:white; border-bottom:1px solid #343436; }
+.sidebar { display:flex; align-items:center; gap:36px; padding:0 4vw; min-height:76px; background:#111112; color:white; border-bottom:1px solid #343436; }
 .sidebar__brand { display:flex; align-items:center; gap:12px; flex-shrink:0; }
 .sidebar__logo { width:53px; height:53px; object-fit:contain; }
 .sidebar__name { font-family:var(--font-display); font-size:30px; font-weight:800; letter-spacing:1px; line-height:1; }
@@ -24,6 +24,7 @@
 .topbar__badge { font-size:10px; color:#e8e8eb; }
 .topbar__badge:before { content:''; display:inline-block; width:6px; height:6px; margin-right:7px; background:var(--red); border-radius:50%; }
 .topbar__right .button { min-height:32px; font-size:10px; background:transparent; color:#ddd; border-color:#555; }
+.main,.content { min-width:0; }
 .content { padding:0 4vw 32px; max-width:1680px; margin:auto; }
 .content__loading,.content__error { min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
 .loading-skeleton { width:60%; height:120px; background:var(--line); }
@@ -32,10 +33,21 @@
 .site-footer { display:flex; justify-content:space-between; gap:20px; margin-top:64px; border-top:1px solid var(--line); padding-top:24px; font-size:11px; color:var(--muted); }
 .site-footer strong { font:800 22px var(--font-display); color:var(--ink); }
 .site-footer strong span { color:var(--red); }
-@media(max-width:1350px) { .sidebar { gap:24px; } .sidebar__list { gap:22px; } .sidebar__label { display:none; } .sidebar__short { display:inline; } .topbar__sub { display:none; } }
+@media(max-width:1500px) { .sidebar { gap:24px; } .sidebar__list { gap:22px; } .sidebar__label { display:none; } .sidebar__short { display:inline; } .topbar__sub { display:none; } }
+@media(min-width:721px) and (max-width:1100px) {
+  .sidebar { flex-wrap:wrap; gap:4px; padding-top:16px; }
+  .sidebar__brand { width:100%; }
+  .sidebar__list { justify-content:flex-start; flex-wrap:wrap; width:100%; gap:24px; }
+  .sidebar__link { padding:12px 0; }
+}
 @media(max-width:720px) { .sidebar { padding:16px 5vw 0; flex-wrap:wrap; gap:12px; } .sidebar__brand { width:100%; } .sidebar__logo { width:40px; height:40px; } .sidebar__name { font-size:26px; } .sidebar__list { justify-content:space-between; gap:10px; } .sidebar__link { font-size:10px; padding:14px 0; } .sidebar__icon { display:none; } .topbar { flex-wrap:wrap; gap:10px; padding:12px 5vw; } .topbar__left { display:none; } .topbar__pitcher { margin:0; flex:1; flex-wrap:wrap; gap:8px; } .topbar__field { flex-wrap:wrap; gap:5px; } .topbar__badge { font-size:9px; } .topbar__right { align-self:flex-start; } .content { padding:0 5vw 24px; } .site-footer { flex-direction:column; margin-top:40px; } }
 @media(max-width:720px) {
   .sidebar__list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 16px; width:100%; }
   .sidebar__link { width:100%; min-height:48px; padding:12px 0; font-size:14px; }
   .sidebar__icon { display:block; width:18px; height:18px; }
+  .sidebar__list,.topbar__pitcher { min-width:0; }
+  .topbar__badge { font-size:12px; line-height:1.5; }
+  .topbar__right .button { min-height:44px; font-size:12px; padding:8px 10px; }
+  .topbar__field { font-size:12px; }
+  .sidebar__link { font-size:13px; }
 }

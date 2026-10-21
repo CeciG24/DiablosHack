@@ -14,6 +14,11 @@ const EVALUATION: PitchProbabilities = {
     model_id: 'fixture', score_version: 'F11', history_status: 'regularized_2024_history',
     history_n: 200, warnings: '', experimental: true,
   },
+  xrv: {
+    status: 'ok', runs_per_pitch: -.0078, runs_per_100: -.78,
+    baseline_runs_per_pitch: .0043, delta_vs_count_baseline: -.0121,
+    version: 'xrv_external_mlb2014_v1',
+  },
 };
 
 describe('Una estimacion por target', () => {
@@ -38,8 +43,18 @@ describe('Una estimacion por target', () => {
     expect(targets.find((t) => t.id === 'groundball')?.denominator).toContain('entra en juego');
     expect(targets.find((t) => t.id === 'hard_contact')?.detail).toContain('No es una probabilidad');
     expect(targets.find((t) => t.id === 'xRunValue')?.format).toBe('runs');
-    expect(targets.find((t) => t.id === 'xRunValue')?.value).toBeNull();
+    expect(targets.find((t) => t.id === 'xRunValue')?.value).toBe(-.78);
+    expect(targets.find((t) => t.id === 'xRunValue')?.source).toContain('experimental');
+    expect(targets.find((t) => t.id === 'xRunValue')?.detail).toContain('externos congelados');
     expect(targets.find((t) => t.id === 'out_within_pa')?.value).toBeNull();
+  });
+
+  it('marca xRunValue como no disponible cuando la consulta no devuelve una estimacion valida', () => {
+    const targets = pitchTargetRows({ ...EVALUATION, xrv: null });
+    expect(targets.find((t) => t.id === 'xRunValue')?.value).toBeNull();
+    expect(targets.find((t) => t.id === 'xRunValue')?.source).toBe('No disponible');
+    const failed = pitchTargetRows({ ...EVALUATION, xrv: { ...EVALUATION.xrv!, status: 'error' } });
+    expect(failed.find((t) => t.id === 'xRunValue')?.value).toBeNull();
   });
 
   it('usa una referencia base explicita solo cuando el modelo final no esta disponible', () => {

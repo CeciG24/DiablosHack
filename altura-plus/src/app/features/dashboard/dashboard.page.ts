@@ -20,6 +20,7 @@ export class DashboardPage {
   protected readonly ctx = inject(ScoutingContextService);
   protected readonly metric = metric;
   protected readonly names = PITCH_TYPE_NAMES;
+  readonly minRankingN = 120;
   readonly filters = signal({ ...DEFAULT_FILTERS });
   readonly allPitches = computed(() => this.data.bundles().flatMap((b) => b.pitches));
   readonly pitchers = computed(() => this.data.bundles().map((b) => b.pitcher));
@@ -33,14 +34,16 @@ export class DashboardPage {
   }));
   readonly leaders = computed(() => this.data.bundles().map((b) => {
     const pitches = this.pitches().filter((p) => p.pitcherId === b.pitcher.id);
-    return { pitcher: b.pitcher, n: pitches.length, ...pitchMetrics(pitches) };
-  }).filter((r) => r.n > 0).sort((a, b) => (b.stuff ?? -Infinity) - (a.stuff ?? -Infinity)).slice(0, 5));
+    const scored = pitches.filter((p) => p.stuffPlus !== null && Number.isFinite(p.stuffPlus));
+    return { pitcher: b.pitcher, n: scored.length, ...pitchMetrics(scored) };
+  }).filter((r) => r.n >= this.minRankingN).sort((a, b) => (b.stuff ?? -Infinity) - (a.stuff ?? -Infinity)).slice(0, 5));
   readonly pitchLeaders = computed(() => {
     const types = [...new Set(this.pitches().map((p) => p.pitchType))];
     return types.map((type) => {
       const pitches = this.pitches().filter((p) => p.pitchType === type);
-      return { type, n: pitches.length, ...pitchMetrics(pitches) };
-    }).sort((a, b) => (b.stuff ?? -Infinity) - (a.stuff ?? -Infinity)).slice(0, 5);
+      const scored = pitches.filter((p) => p.stuffPlus !== null && Number.isFinite(p.stuffPlus));
+      return { type, n: scored.length, ...pitchMetrics(scored) };
+    }).filter((r) => r.n >= this.minRankingN).sort((a, b) => (b.stuff ?? -Infinity) - (a.stuff ?? -Infinity)).slice(0, 5);
   });
   readonly testCount = computed(() => this.pitches().filter((p) => p.partition === 'test_2026').length);
 }

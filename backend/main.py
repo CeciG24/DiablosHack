@@ -20,6 +20,8 @@ from modeling.final_score import FinalScorePredictor
 from modeling.inference import ReleasePredictor
 from experiments.phase10_simulator import Simulator
 from backend.xrv import ExternalRunValue
+from backend.score_cache import score_frame
+from backend.profiler import install_profiler
 from modeling.baselines import EventBaseline
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,7 +79,7 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
             try:
                 app.state.final_predictor = FinalScorePredictor(final_path)
             except Exception:
-                log.exception('No se pudo verificar Stuff+ final; F8 permanece disponible')
+                log.exception('No se pudo verificar Pitch Value+; F8 permanece disponible')
 
         def warm():
             try:
@@ -97,13 +99,14 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
     app = FastAPI(title='Diablos — Stuff+ API', version='1.2.0', lifespan=lifespan,
         description='Backend del hackathon LMB. F8: Stuff+, Location+ y Pitching+ provisionales, '
         '100 + 10 × z(utilidad), referencia fija de calibración 2025. F10: escenarios '
-        'experimentales de movimiento y arsenal. F11: Stuff+ final experimental con '
+        'experimentales de movimiento y arsenal. F11: Pitch Value+ experimental con '
         'fisicas, ubicacion, arsenal y contexto, escala propia; no reemplaza F8. '
         'xRV aproximado con pesos MLB 2014; no es xRunValue oficial LMB. No representa probabilidad de out '
         'en PA, barril ni jonrón. Las categorías de altura no identifican Harp Helú. '
-        'No requiere outcomes ni consulta registros del test 2026.',
+        'No requiere outcomes. El perfilador usa 2025/2026 como referencia descriptiva autorizada, sin reentrenar.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
     app.state.inference_lock = RLock()
+    app.state.scoring_lock = RLock()
     app.state.review = None
     app.state.scenarios = None
     app.state.test2026 = None
@@ -140,10 +143,37 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         model = require('simulator')
         with app.state.inference_lock:
             results = model.simulate([p.record() for p in payload.records], payload.target)
+        predictor = getattr(app.state, 'predictor', None)
+        pairs, indices = [], []
         # pandas introduces NaN IDs in heterogeneous batches; restore caller IDs.
-        for pitch, result in zip(payload.records, results):
+        for i, (pitch, result) in enumerate(zip(payload.records, results)):
             result['pitch_uid'] = pitch.pitch_uid
+            result['stuff_comparison'] = {'status': 'unavailable'}
+            movement = [result.get('target_ivb'), result.get('target_hb')]
+            if (predictor is None or result['status'] != 'experimental' or
+                    any(v is None or not np.isfinite(v) or abs(v) > 40 for v in movement)):
+                continue
+            source = pitch.record()
+            destination = source | dict(altitude_category=payload.target,
+                induced_vert_break=movement[0], horz_break=movement[1])
+            pairs.extend([source, destination])
+            indices.append(i)
+        if pairs:
+            # Same frozen physical model and scale on both shapes; never reuse F10's utility.
+            with app.state.inference_lock:
+                predictions = predictor.records(pairs, 'stuff')
+            for j, i in enumerate(indices):
+                source, target = predictions[2*j:2*j+2]
+                comparison = results[i]['stuff_comparison']
+                comparison.update(release_id=predictor.lock['release_id'],
+                    score_version=source['score_version'],
+                    warnings=';'.join(filter(None, [source['warnings'], target['warnings']])))
+                if all(p['score'] is not None and np.isfinite(p['score']) for p in (source, target)):
+                    comparison.update(status='experimental', source_score=source['score'],
+                        target_score=target['score'], delta_score=target['score']-source['score'])
         return results
+
+    install_profiler(app, ROOT, require, simulate)
 
     @app.get('/', include_in_schema=False)
     def root():
@@ -205,7 +235,7 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         return score(payload)
 
     @app.post('/api/v1/final-score', response_model=FinalScoreResponse, tags=['Scores'],
-              summary='Stuff+ final experimental: fisica, ubicacion, arsenal y contexto',
+              summary='Pitch Value+ experimental: fisica, ubicacion, arsenal y contexto',
               description='Escala F11 propia (100 + 10 z), calibracion 2025; no sustituye F8. '
               'Arsenal regularizado de 2024; sin historia usa prior de grupo, informado en history_status.')
     def final_score(payload: Batch):
@@ -213,7 +243,7 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         missing = sorted({field for pitch in payload.records for field in FEATURES['pitching']
                           if field not in pitch.record()})
         if missing:
-            raise HTTPException(422, 'Faltan variables para Stuff+ final: '+', '.join(missing))
+            raise HTTPException(422, 'Faltan variables para Pitch Value+: '+', '.join(missing))
         with app.state.inference_lock:
             return {'records': model.records([p.record() for p in payload.records])}
 
@@ -249,7 +279,8 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
     @app.post('/api/v1/simulate', response_model=SimulationResponse, tags=['Simulador'],
               summary='Origen/destino: movimiento, score, delta y soporte F10',
               description='50 pitches máximo. Requiere físicas y categoría origen. Ubicación/conteo son opcionales para contacto. '
-              'Los escenarios rechazados conservan delta nulo. No comparar este score con la escala F8.')
+              'Incluye stuff_comparison: F8 físico en origen y movimiento proyectado F10, misma escala. '
+              'Sin intervalos individuales. Los scores F10 originales permanecen separados; no identifica estadios.')
     def simulation(payload: SimulationRequest):
         return {'records': simulate(payload)}
 
@@ -346,30 +377,8 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
 
     def scored(frame):
         """Cache scores once per frame, with separate F8/F11 completion markers."""
-        final = app.state.final_predictor
-        if frame.attrs.get('f8_scored') and (final is None or frame.attrs.get('final_scored')):
-            return frame
-        model = require('predictor')
-        with app.state.inference_lock:
-            if not frame.attrs.get('f8_scored'):
-                rows = frame.to_dict('records')
-                plus = {f: model.predict(rows, f)['score'].to_numpy() for f in ('stuff', 'location', 'pitching')}
-                for family, values in plus.items():
-                    frame[family + '_plus'] = values
-                frame.attrs['f8_scored'] = True
-                del rows
-            if final is not None and not frame.attrs.get('final_scored'):
-                scores, counts, statuses = [], [], []
-                for start in range(0, len(frame), 4096):
-                    batch = final.records(frame.iloc[start:start+4096].to_dict('records'))
-                    scores.extend(r['score'] for r in batch)
-                    counts.extend(r['history_n'] for r in batch)
-                    statuses.extend(r['history_status'] for r in batch)
-                frame['stuff_final'] = scores
-                frame['final_history_n'] = counts
-                frame['final_history_status'] = statuses
-                frame.attrs['final_scored'] = True
-        return frame
+        return score_frame(frame, require('predictor'), app.state.final_predictor,
+                           app.state.scoring_lock, app.state.inference_lock)
 
     def clean_json(value):
         """NaN/inf no son JSON válidos: se convierten a null recursivamente."""

@@ -56,7 +56,7 @@ es una aproximación externa y no acredita calibración de carreras en LMB.
 | POST `/api/v1/predict` | Stuff+, Location+, Pitching+ por pitch; `family=all` por defecto |
 | POST `/api/v1/summary` | Medias por pitcher y pitcher–tipo, conteos y cobertura |
 | POST `/api/v1/movement-map` | HB/IVB, tipo y Pitching+ para scatterplot del dashboard |
-| POST `/api/v1/simulate` | Movimiento y score F10 origen/destino, delta, soporte y contacto disponible |
+| POST `/api/v1/simulate` | Movimiento y score F10; `stuff_comparison` compara F8 físico en origen y destino proyectado, misma escala |
 | POST `/api/v1/recommendations` | Ordena perfiles enviados por score destino F10, con sus físicas y delta |
 | GET `/api/v1/scouting` | Agregados pitcher×tipo de `scouting.csv` (artefactos F9/F10 o `DIABLOS_SCOUTING`); filtros `pitcher_anon_id`, `auto_pitch_type`, `min_n`, `limit`; ordenado por score |
 | GET `/api/v1/profile` | `docs/F10_IDEAL_PROFILE.json` (perfil físico ideal por altitud, H1–H4 + respuestas a las 3 preguntas del brief); 404 hasta generarse. Generar con `python experiments/phase10_profile.py` |
@@ -107,7 +107,25 @@ son resultados de evaluación y no deben tratarse como score cero.
 
 ## Alcance para la entrega
 
-Actualización con arsenal: [Stuff+ final experimental F11](FINAL_SCORE.md).
+Actualización con arsenal: [Pitch Value+ experimental F11](FINAL_SCORE.md).
+
+### Comparación física del simulador
+
+`stuff_comparison` conserva release y versión del modelo físico F8 y devuelve
+`source_score`, `target_score` y `delta_score` (destino menos origen).
+Solo cambia IVB/HB por la proyección F10; no reentrena ni cambia las escalas.
+El score contextual F10 original permanece separado. Escenarios sin soporte,
+sin movimiento proyectado o sin predictor F8 devuelven comparación no disponible
+y delta nulo. `interval` es nulo con motivo `individual_uncertainty_not_estimated`:
+no hay intervalos individuales disponibles, ni identificación de Harp Helú.
+
+### Perfilador de candidatos
+
+`GET /api/v1/profiler/reference` ofrece referencia física descriptiva LMB
+2025/2026 por tipo y mano, sin outcomes ni entrenamiento.
+`POST /api/v1/profiler/evaluate` evalúa arsenales de candidatos con scores físicos
+F8, movimiento F10, cobertura ponderada y deltas pareados. Los datos individuales
+y los perfiles promedio se identifican por separado. Ver [contrato y límites](PERFILADOR.md).
 `POST /api/v1/final-score` combina físicas, ubicación, arsenal histórico fijo y
 contexto, con su propia escala de calibración 2025. No reemplaza las familias
 F8: la comparación con/sin arsenal no demuestra una mejora global. La columna

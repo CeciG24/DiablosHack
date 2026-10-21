@@ -12,7 +12,7 @@ interface NavItem {
 }
 
 /** Rutas que leen el lanzador global (ctx.pitcherId) y necesitan el selector. */
-const PITCHER_CONTEXT_ROUTES = new Set(['/lanzadores', '/simulador']);
+const PITCHER_CONTEXT_ROUTES = new Set(['/lanzadores']);
 
 @Component({
   selector: 'app-root',
@@ -28,6 +28,7 @@ export class AppComponent {
   private readonly url = signal(this.router.url);
   protected readonly showPitcherSelector = computed(() =>
     PITCHER_CONTEXT_ROUTES.has(this.url().split('?')[0]));
+  protected readonly independentRoute = computed(() => this.url().split('?')[0] === '/perfilador');
 
   constructor() {
     this.router.events
@@ -40,6 +41,7 @@ export class AppComponent {
     { path: '/lanzamientos', label: 'Análisis de lanzamientos', shortLabel: 'Lanzamientos', icon: 'compare' },
     { path: '/lanzadores', label: 'Lanzadores y arsenales', shortLabel: 'Lanzadores', icon: 'pitcher' },
     { path: '/simulador', label: 'Simulador y recomendaciones', shortLabel: 'Simulador', icon: 'sliders' },
+    { path: '/perfilador', label: 'Perfilador de candidatos', shortLabel: 'Perfilador', icon: 'clipboard' },
   ];
 
   selectPitcher(event: Event): void {

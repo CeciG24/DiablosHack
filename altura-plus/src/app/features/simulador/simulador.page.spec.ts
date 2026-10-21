@@ -85,8 +85,69 @@ describe('Simulador: scores y peticiones pendientes', () => {
     expect(content).toContain('-0.0123');
     expect(content).toContain('-1.23');
     expect(content).toContain('0.0000');
-    expect(content).toContain('MLB 2014');
+    expect(content).toContain('pesos externos congelados');
     expect(content).toContain('Menor es mejor');
+    fixture.destroy();
+  }));
+
+  it('compara Stuff+ físico, no el índice F10, y el titular no depende de Pitching+', fakeAsync(() => {
+    api.predict.and.resolveTo({ release_id: 'test', records: [{
+      stuff: { status: 'ok', score: 104, warnings: '', score_version: 'F8', provisional: true },
+      pitching: { status: 'ok', score: 120, warnings: '', score_version: 'F8', provisional: true },
+    }] });
+    api.simulate.and.resolveTo({ experimental: true, records: [{
+      status: 'experimental', reason: null, source_score: 102, target_score: 97, delta_score: -5,
+      target_ivb: 11, target_hb: -6, scope: '', score_version: 'F10',
+      stuff_comparison: { status: 'experimental', source_score: 104, target_score: 101, delta_score: -3,
+        interval: null, interval_reason: 'individual_uncertainty_not_estimated', release_id: 'test',
+        score_version: 'F8', warnings: '', method: 'F8_stuff_on_F10_projected_movement' },
+    }] });
+    const fixture = TestBed.createComponent(SimuladorPage);
+    fixture.detectChanges(); tick(600); flushMicrotasks(); fixture.detectChanges();
+    const c = fixture.componentInstance;
+    expect(c.targetStuff()).toBe(101);
+    expect(c.stuffDelta()).toBe(-3);
+    expect(fixture.nativeElement.querySelector('.sim__takeaway h2').textContent).toContain('promedio');
+    expect(fixture.nativeElement.querySelector('.sim__takeaway h2').textContent).not.toContain('elite');
+    expect(fixture.nativeElement.querySelector('.sim__change strong').textContent.trim()).toBe('-3.0');
+    expect(fixture.nativeElement.querySelector('.sim__comparison').textContent).toContain('Intervalo de confianza individual: no disponible');
+    fixture.destroy();
+  }));
+
+  it('conserva el escenario anterior al recalcular y marca fallos como desactualizados', fakeAsync(() => {
+    api.predict.and.resolveTo({ release_id: 'test', records: [{ stuff: {
+      status: 'ok', score: 104, warnings: '', score_version: 'F8', provisional: true,
+    } }] });
+    const fixture = TestBed.createComponent(SimuladorPage);
+    fixture.detectChanges(); tick(600); flushMicrotasks(); fixture.detectChanges();
+    api.predict.and.rejectWith(new Error('offline'));
+    api.simulate.and.rejectWith(new Error('offline'));
+    fixture.componentInstance.set('ivbIn', 20);
+    fixture.componentInstance.setSourceCat('Extreme');
+    fixture.detectChanges();
+    expect(fixture.componentInstance.stuffPlus()).toBe(104);
+    expect(fixture.componentInstance.shownInput().ivbIn).toBe(15);
+    expect(fixture.componentInstance.live()?.source).toBe('No Altitude');
+    expect(fixture.componentInstance.stale()).toBeTrue();
+    tick(600); flushMicrotasks(); fixture.detectChanges();
+    expect(fixture.componentInstance.stuffPlus()).toBe(104);
+    expect(fixture.componentInstance.stale()).toBeTrue();
+    expect(fixture.nativeElement.textContent).toContain('Resultados desactualizados');
+    fixture.componentInstance.set('veloMph', 200);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.live()).toBeNull();
+    fixture.destroy();
+  }));
+
+  it('nunca usa el índice F10 como fallback del Stuff+ en destino', fakeAsync(() => {
+    api.simulate.and.resolveTo({ experimental: true, records: [{
+      status: 'experimental', reason: null, source_score: 102, target_score: 97, delta_score: -5,
+      target_ivb: 11, target_hb: -6, scope: '', score_version: 'F10',
+    }] });
+    const fixture = TestBed.createComponent(SimuladorPage);
+    fixture.detectChanges(); tick(600); flushMicrotasks(); fixture.detectChanges();
+    expect(fixture.componentInstance.targetStuff()).toBeNull();
+    expect(fixture.componentInstance.stuffDelta()).toBeNull();
     fixture.destroy();
   }));
 });

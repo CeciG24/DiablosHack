@@ -1,13 +1,12 @@
 <header class="page-head">
-  <div><span class="eyebrow">PITCH EXPLORER / ANÁLISIS</span><h1>Cada pitch cuenta.</h1><p>Cada lanzamiento real, con su calidad y su física. Filtra, ordena tocando un encabezado y selecciona un renglón para ver el detalle.</p></div>
+  <div><h1>Análisis de lanzamientos</h1><p>Filtra, ordena tocando un encabezado y selecciona un renglón para ver su calidad y su física.</p></div>
   <span class="status-tag">{{ data.source() === 'api' ? 'Muestra real · evaluación provisional' : 'Demostración · datos sintéticos' }}</span>
 </header>
-<app-metric-guide />
 <app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="updateFilters($event)" />
 <section class="final-overview" aria-labelledby="final-overview-heading">
   <div class="score-heading">
     <div>
-      <h2 id="final-overview-heading">Stuff+ final <span class="experimental-label">Experimental</span></h2>
+      <h2 id="final-overview-heading">Pitch Value+ <span class="experimental-label">Experimental</span></h2>
       <p>Calidad combinada: físicas + ubicación + arsenal + contexto.</p>
     </div>
     <div class="final-value">
@@ -21,6 +20,7 @@
   <p class="score-reference">100 = referencia de calibración 2025 · 10 puntos = 1 desviación estándar. Escala propia; no comparar directamente con los diagnósticos base.</p>
   <p class="score-reference">Es el indicador combinado destacado en esta vista, no una mejora validada sobre el modelo sin arsenal.</p>
 </section>
+<app-metric-guide />
 <div class="diagnostic-summary">
   <h2>Diagnósticos complementarios <small>Modelo base · medias de la muestra</small></h2>
   <dl class="metrics-strip">
@@ -41,21 +41,21 @@
     </section>
     <section class="panel">
       <h2>Mapa de movimiento</h2>
-      <app-movement-chart [pitches]="chartPitches()" [mirrorLefties]="false" [highlightIndex]="highlightIndex()" [extremes]="extremes()" [interactive]="true" (pitchSelected)="openDetail($event)" />
-      <p class="note">HB e IVB en pulgadas · coordenadas originales, sin espejo por mano. Los aros comparan el Pitching+ base, no el Stuff+ final: verde = hasta 8 scores más altos; rojo punteado = hasta 8 más bajos de la muestra visible. La zona de strike y el movimiento son mapas distintos.</p>
+      <app-movement-chart [pitches]="chartPitches()" [mirrorLefties]="false" [mixedHands]="true" [highlightIndex]="highlightIndex()" [extremes]="extremes()" [interactive]="true" (pitchSelected)="openDetail($event)" />
+      <p class="note">HB e IVB en pulgadas · coordenadas originales, sin espejo por mano. Círculo azul = hasta 8 Pitching+ base más altos; cuadrado ámbar = hasta 8 más bajos de la muestra visible. No es Pitch Value+. Rombo = seleccionado. La zona de strike y el movimiento son mapas distintos.</p>
     </section>
   </div>
   <div class="chart-legend" style="margin-top: 12px" aria-label="Leyenda de tipos de pitcheo">
     @for (type of legend(); track type) { <span><i [style.background]="colors[type]" aria-hidden="true"></i>{{ names[type] }}</span> }
   </div>
   @if (pitches().length > 600) { <p class="note">Los mapas muestran hasta 600 pitches de la muestra filtrada, incluyendo el seleccionado. La tabla y las medias usan todos los registros filtrados.</p> }
-  <div class="section-head"><h2>Registro de lanzamientos</h2><p>Toca un renglón para inspeccionar el pitch · toca un encabezado para ordenar</p></div>
-  <div class="table-wrap" role="region" aria-label="Tabla de lanzamientos, desplazamiento horizontal" tabindex="0">
+  <div class="section-head"><h2>Registro de lanzamientos</h2><button type="button" class="button button--quiet" [attr.aria-expanded]="showPhysics()" aria-controls="pitch-register" (click)="togglePhysics()">{{ showPhysics() ? 'Ocultar características físicas' : 'Mostrar características físicas' }}</button></div>
+  <div id="pitch-register" class="table-wrap pitch-register" role="region" aria-label="Tabla de lanzamientos, desplazamiento horizontal" tabindex="0">
     <table class="data-table">
       <caption class="visually-hidden">Scores y características físicas por lanzamiento. Los valores no disponibles se muestran con un guion.</caption>
       <thead><tr>
         <th scope="col" [attr.aria-sort]="ariaSort('idx')"><button type="button" class="th-sort" (click)="setSort('idx')" title="Número de orden en la muestra"># {{ sortIcon('idx') }}</button></th>
-        <th scope="col" class="final-column" [attr.aria-sort]="ariaSort('final')"><button type="button" class="th-sort" (click)="setSort('final')" title="Experimental: física + ubicación + arsenal histórico + contexto. Escala propia.">Stuff+ final {{ sortIcon('final') }}<small>Experimental</small></button></th>
+        <th scope="col" class="final-column" [attr.aria-sort]="ariaSort('final')"><button type="button" class="th-sort" (click)="setSort('final')" title="Experimental: física + ubicación + arsenal histórico + contexto. No es Stuff+ físico.">Pitch Value+ {{ sortIcon('final') }}<small>Experimental</small></button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('pitcher')"><button type="button" class="th-sort" (click)="setSort('pitcher')">Lanzador {{ sortIcon('pitcher') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('season')"><button type="button" class="th-sort" (click)="setSort('season')">Año {{ sortIcon('season') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('category')"><button type="button" class="th-sort" (click)="setSort('category')">Altitud {{ sortIcon('category') }}</button></th>
@@ -63,6 +63,7 @@
         <th scope="col" [attr.aria-sort]="ariaSort('stuff')"><button type="button" class="th-sort" (click)="setSort('stuff')" title="Calidad física del pitch · 100 = referencia 2025">Stuff+ físico {{ sortIcon('stuff') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('location')"><button type="button" class="th-sort" (click)="setSort('location')" title="Ubicación dentro de la zona · 100 = promedio">Location+ {{ sortIcon('location') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('pitching')"><button type="button" class="th-sort" (click)="setSort('pitching')" title="Física + ubicación y contexto, sin arsenal · 100 = referencia 2025">Pitching+ base {{ sortIcon('pitching') }}</button></th>
+        @if (showPhysics()) {
         <th scope="col" [attr.aria-sort]="ariaSort('velo')"><button type="button" class="th-sort" (click)="setSort('velo')" title="Velocidad al salir de la mano, millas por hora">Velocidad {{ sortIcon('velo') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('spin')"><button type="button" class="th-sort" (click)="setSort('spin')" title="Revoluciones por minuto del giro">Spin {{ sortIcon('spin') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('hb')"><button type="button" class="th-sort" (click)="setSort('hb')" title="Quiebre horizontal, pulgadas">Quiebre H {{ sortIcon('hb') }}</button></th>
@@ -70,6 +71,7 @@
         <th scope="col" [attr.aria-sort]="ariaSort('ext')"><button type="button" class="th-sort" (click)="setSort('ext')" title="Qué tan adelante suelta la pelota, en pies">Extensión {{ sortIcon('ext') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('relZ')"><button type="button" class="th-sort" (click)="setSort('relZ')" title="Altura del punto de liberación, en pies">Alt. suelta {{ sortIcon('relZ') }}</button></th>
         <th scope="col" [attr.aria-sort]="ariaSort('relX')"><button type="button" class="th-sort" (click)="setSort('relX')" title="Posición lateral del punto de liberación, en pies">Lat. suelta {{ sortIcon('relX') }}</button></th>
+        }
       </tr></thead>
       <tbody>
         @for (p of pagePitches(); track p.id) {
@@ -79,14 +81,16 @@
             <td>{{ pitcherLabels().get(p.pitcherId) }}</td><td>{{ p.season }}</td><td>{{ labels[p.category] }}</td>
             <td><i class="type-dot" [style.background]="colors[p.pitchType]" aria-hidden="true"></i>{{ p.pitchType }}</td>
             <td>{{ metric(p.stuffPlus) }}</td><td>{{ metric(p.locationPlus) }}</td><td>{{ metric(p.pitchingPlus) }}</td>
+            @if (showPhysics()) {
             <td>{{ metric(p.veloMph) }}</td><td>{{ metric(p.spinRpm, 0) }}</td><td>{{ metric(p.hbIn) }}</td><td>{{ metric(p.ivbIn) }}</td>
             <td>{{ metric(p.extensionFt, 2) }}</td><td>{{ metric(p.releaseHeightFt, 2) }}</td><td>{{ metric(p.releaseSideFt, 2) }}</td>
+            }
           </tr>
         }
       </tbody>
     </table>
   </div>
-  <p class="note">Orden inicial: Stuff+ final de mayor a menor, con las estimaciones ausentes al final. Es una comparación experimental entre los registros cargados, no un ranking de toda la liga.</p>
+  <p class="note">Orden inicial: Pitch Value+ de mayor a menor, con las estimaciones ausentes al final. Es una comparación experimental entre los registros cargados, no un ranking de toda la liga.</p>
   <div class="pagination">
     <span role="status">Página {{ page() + 1 }} de {{ pageCount() }} · {{ pitches().length }} registros</span>
     <div>
@@ -115,7 +119,7 @@
           <section class="final-score" aria-labelledby="selected-final-heading">
             <div class="score-heading">
               <div>
-                <h3 id="selected-final-heading">Stuff+ final <span class="experimental-label">Experimental</span></h3>
+                <h3 id="selected-final-heading">Pitch Value+ <span class="experimental-label">Experimental</span></h3>
                 <p>Físicas + ubicación + arsenal + contexto.</p>
               </div>
               <div class="final-value">
@@ -145,7 +149,7 @@
             </div>
             <div>
               <h3>Mapa de movimiento</h3>
-              <app-movement-chart [pitches]="modalPitches()" [mirrorLefties]="false" [highlightIndex]="modalHighlight()" />
+              <app-movement-chart [pitches]="modalPitches()" [throws]="selectedBundle()?.pitcher?.throws ?? 'R'" [mirrorLefties]="false" [highlightIndex]="modalHighlight()" [inspectable]="true" />
             </div>
           </div>
           <p class="note">El punto marcado es este lanzamiento dentro de los pitches del lanzador (mismo contexto en ambos mapas).</p>
@@ -183,8 +187,8 @@
           }
           <details class="target-method">
             <summary>Cómo se calcula el score y qué falta</summary>
-            <p class="note">El Stuff+ final usa las probabilidades de su modelo con arsenal: utilidad = P(swing en blanco) + P(strike cantado) − 0.5 × P(bola) − P(golpe al bateador), normalizada a su referencia 2025. Bola, foul, bola en juego y golpe se conservan como desenlaces internos, sin añadir otro bloque de probabilidades.</p>
-            <p class="note">Chase, contacto y rodados provienen de modelos auxiliares sin arsenal y no se incorporan a esa fórmula. Esta vista unifica la presentación, no mezcla ni promedia modelos. Contacto duro/débil son proxies; no se inventan barriles, xRunValue, probabilidad de out ni probabilidad de elevado.</p>
+            <p class="note">Pitch Value+ usa las probabilidades de su modelo con arsenal: utilidad = P(swing en blanco) + P(strike cantado) − 0.5 × P(bola) − P(golpe al bateador), normalizada a su referencia 2025. Incluye ubicación y conteo: no es Stuff+ físico ni carreras esperadas. Bola, foul, bola en juego y golpe se conservan como desenlaces internos.</p>
+            <p class="note">Chase, contacto y rodados provienen de modelos auxiliares sin arsenal y no se incorporan a esa fórmula. Esta vista unifica la presentación, no mezcla ni promedia modelos. Contacto duro/débil son proxies; no se inventan barriles, probabilidad de out ni probabilidad de elevado. Carreras esperadas usa pesos externos congelados sobre las probabilidades del pitch: es una aproximación experimental, no un modelo entrenado con datos LMB.</p>
           </details>
         </section>
       </div>
