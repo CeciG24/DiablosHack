@@ -202,7 +202,7 @@
             <div><dt>Pitching+ · origen</dt><dd>{{ pitchingPlus()?.toFixed(1) ?? '—' }}</dd></div>
           </dl>
           <p class="note">Incluyen ubicación y contexto. No determinan la lectura principal de Stuff+.</p>
-          <app-tile label="xRV aproximado" class="sim__xrv">
+          <app-tile [label]="'xRV aproximado · ' + (live()?.xrv?.reference_label ?? 'LMB 2024')" class="sim__xrv">
             @if (live()?.xrv; as xrv) {
               @if (xrv.status === 'ok') {
                 <p><strong>{{ xrv.runs_per_pitch?.toFixed(4) }}</strong> carreras por pitch
@@ -215,9 +215,10 @@
             } @else {
               <p>xRV pendiente de evaluación.</p>
             }
-            <p class="note">Menor es mejor para el pitcher. Estimación experimental con pesos externos congelados,
+            <p class="note">Menor es mejor para el pitcher. Pesos experimentales estimados con temporada regular {{ live()?.xrv?.reference_label ?? 'LMB 2024' }},
               conteo {{ live()?.balls ?? balls() }}–{{ live()?.strikes ?? strikes() }} y probabilidades de Pitching+.
-              Bola en juego usa un promedio de contacto; no está validada para LMB ni ajustada por estadio.
+              Bola en juego usa la mezcla de resultados de contacto por conteo, no calidad de contacto individual.
+              No está ajustada por estadio ni equivale a carreras individuales validadas.
               No es el delta de Stuff+.</p>
           </app-tile>
           @if (live(); as l) {

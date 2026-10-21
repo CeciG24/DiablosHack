@@ -1,6 +1,11 @@
 
 *.pdf binary
 
+# Keep frozen xRV source/weight hashes portable across Windows checkouts.
+backend/xrv.py text eol=lf
+config/xrv_lmb2024*.json text eol=lf
+docs/XRV_LMB*_SOURCE_MANIFEST.json -text
+
 # Preserve the byte hashes of F9 sources and generated evidence on Windows.
 experiments/*.py text eol=lf
 config/phase9.json text eol=lf

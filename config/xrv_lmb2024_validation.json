@@ -1,0 +1,141 @@
+{
+  "fit": {
+    "year": 2024,
+    "downloaded_games": 905,
+    "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=125&startDate=2024-01-01&endDate=2024-12-31&gameType=R",
+    "observed_pa": 70584,
+    "observed_pitches": 267845,
+    "accepted_games": 901,
+    "pa_rows": 69111,
+    "clean_pa_rows": 65241,
+    "pitch_rows": 244189,
+    "excluded_games": [
+      {
+        "game_pk": 769985,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770077,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770242,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770252,
+        "reason": "incomplete_or_nonsequential_plays"
+      }
+    ],
+    "exclusions": {
+      "runner_action_before_terminal_pitch": 2766,
+      "unmapped_pitch_call": 745,
+      "no_pitches": 16,
+      "unsupported_terminal_event": 410,
+      "incomplete_half_inning_excluded": 256,
+      "extra_inning_excluded": 945,
+      "nonpitch_count_change": 78,
+      "inconsistent_count_transition": 1,
+      "inconsistent_terminal_strikeout": 3
+    },
+    "download_manifest_sha256": "4d574cc596edffb6a26db1440706eda55518c15e3a1ad77a57918dfe918dfe32",
+    "schedule_sha256": "3c4a7abc6fa15fdeab2327ca9811e568a41199214e9be6014635a83c8e5d209e"
+  },
+  "validation": {
+    "year": 2025,
+    "downloaded_games": 915,
+    "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=125&startDate=2025-01-01&endDate=2025-12-31&gameType=R",
+    "observed_pa": 73473,
+    "observed_pitches": 280365,
+    "accepted_games": 903,
+    "pa_rows": 71518,
+    "clean_pa_rows": 67036,
+    "pitch_rows": 252401,
+    "excluded_games": [
+      {
+        "game_pk": 809117,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809171,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809174,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809326,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809539,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809669,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809680,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809686,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809842,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 809933,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 810005,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 810015,
+        "reason": "incomplete_or_nonsequential_plays"
+      }
+    ],
+    "exclusions": {
+      "runner_action_before_terminal_pitch": 3172,
+      "unmapped_pitch_call": 808,
+      "unsupported_terminal_event": 452,
+      "extra_inning_excluded": 969,
+      "nonpitch_count_change": 171,
+      "no_pitches": 20,
+      "incomplete_half_inning_excluded": 241,
+      "inconsistent_terminal_strikeout": 1,
+      "invalid_pre_count": 1
+    },
+    "download_manifest_sha256": "3e954a1445a6770afeb3bf64d138f301c0163ebce7c48c5b51883f07db734343",
+    "schedule_sha256": "7a2735f730ada9075b666cb5092f42e5e8bc51bee657bcdaaa774a4061abbd57",
+    "re24_remaining_runs_rmse": 1.2139300010178184,
+    "reached_count_support": {
+      "0-0": 67036,
+      "0-1": 30170,
+      "0-2": 11710,
+      "1-0": 28306,
+      "1-1": 25210,
+      "1-2": 17071,
+      "2-0": 10457,
+      "2-1": 14108,
+      "2-2": 14476,
+      "3-0": 3664,
+      "3-1": 6539,
+      "3-2": 9007
+    },
+    "terminal_value_projection": {
+      "n_reached_counts": 237752,
+      "count_rmse": 0.47633714912858227,
+      "constant_zero_zero_reference_rmse": 0.48128494655047555,
+      "target": "2025 terminal event mapped through frozen 2024 terminal-event run weights"
+    },
+    "scope": "2025 source/reconstruction and frozen RE24 transfer only; not F8/F11 xRV accuracy"
+  },
+  "represents_pitch_model_validation": false
+}

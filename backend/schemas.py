@@ -74,6 +74,9 @@ class SimulationRequest(BaseModel):
 
 
 class ApproximateRunValue(BaseModel):
+    reference_label: str
+    league: str
+    season: int
     version: str
     weights_sha256: str
     status: Literal['ok', 'missing_or_invalid_count', 'event_prediction_unavailable', 'invalid_event_probabilities', 'unavailable']
@@ -112,6 +115,7 @@ class PredictionResponse(BaseModel):
 
 
 class FinalPrediction(BaseModel):
+    xrv: ApproximateRunValue | None = None
     pitch_uid: str | None = None
     status: Literal['experimental', 'invalid_input']
     score: float | None

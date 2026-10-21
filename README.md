@@ -6,7 +6,9 @@
 frontend, con dependencias, caché y logs en `D:\CodexRuntime\DiablosHack`.
 Necesita los datos/modelos privados locales. Frontend: http://127.0.0.1:4200/simulador;
 Swagger: http://127.0.0.1:8001/docs. El simulador incorpora xRV aproximado con
-pesos externos MLB 2014 y baseline por conteo; menor favorece al pitcher.
+pesos estimados de LMB 2024 y baseline por conteo; menor favorece al pitcher.
+La referencia anterior MLB 2014 se conserva solo para comparación histórica.
+Cobertura, método y diagnóstico separado en 2025: [xRV LMB 2024](docs/XRV_LMB2024.md).
 Ver [definición, fuentes, límites y ejecución](docs/XRV_APROXIMADO.md).
 
 ## Backend FastAPI y Swagger

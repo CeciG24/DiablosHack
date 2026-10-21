@@ -101,7 +101,7 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         '100 + 10 × z(utilidad), referencia fija de calibración 2025. F10: escenarios '
         'experimentales de movimiento y arsenal. F11: Pitch Value+ experimental con '
         'fisicas, ubicacion, arsenal y contexto, escala propia; no reemplaza F8. '
-        'xRV aproximado con pesos MLB 2014; no es xRunValue oficial LMB. No representa probabilidad de out '
+        'xRV aproximado con pesos LMB 2024; no es xRunValue oficial del hackathon. No representa probabilidad de out '
         'en PA, barril ni jonrón. Las categorías de altura no identifican Harp Helú. '
         'No requiere outcomes. El perfilador usa 2025/2026 como referencia descriptiva autorizada, sin reentrenar.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
@@ -215,10 +215,10 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
                 'limitations': ['F8 no ajusta arsenal ni ambiente', 'Stuff físico F8 es diagnóstico',
                     'F10 es experimental, asociación categórica con historia fija 2024',
                     'Sin mapping Harp Helú, metros, park holdout o efecto causal',
-                    'xRV aproximado externo MLB 2014; sin validación LMB ni ajuste por estadio',
+                    'xRV aproximado con pesos LMB 2024; sin validación individual de carreras ni ajuste por estadio',
                     'Sin xRunValue oficial, HR, barrel ni out dentro de PA']}
 
-    @app.get('/api/v1/xrv', tags=['Modelo'], summary='Pesos externos xRV aproximado MLB 2014 y procedencia')
+    @app.get('/api/v1/xrv', tags=['Modelo'], summary='Pesos xRV aproximado LMB 2024, cobertura y procedencia')
     def xrv_metadata() -> dict:
         return app.state.xrv.metadata()
 
@@ -245,7 +245,13 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         if missing:
             raise HTTPException(422, 'Faltan variables para Pitch Value+: '+', '.join(missing))
         with app.state.inference_lock:
-            return {'records': model.records([p.record() for p in payload.records])}
+            rows = [p.record() for p in payload.records]
+            predictions = model.records(rows)
+        for row, prediction in zip(rows, predictions):
+            prediction['xrv'] = app.state.xrv.evaluate(
+                prediction.get('probabilities') or {}, row,
+                'ok' if prediction['status'] == 'experimental' else prediction['status'])
+        return {'records': predictions}
 
     @app.post('/api/v1/summary', response_model=SummaryResponse, tags=['Scores'],
               summary='Agregación por pitcher y arsenal del lote enviado')

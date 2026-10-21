@@ -1,6 +1,10 @@
 # Plan de Implementación para cerrar el Hackathon (Base: rama `fase-9` de Ceci)
 
-**Fecha de última actualización:** 20 de octubre de 2026
+**Fecha de última actualización:** 21 de octubre de 2026
+
+> **Integración previa a publicación:** incorporado `23a72fb` del equipo (perfilador y laboratorio de simulación), conservando su diseño con procedencia LMB 2024. Verificación: build correcto, 39 pruebas Python principales + 4 del perfilador y 70 Angular. Hashes comprobados contra los blobs del commit y el backend activo.
+
+> **xRV LMB 2024 activo (21 de octubre):** implementado sobre `entrega-final` en `bfdc863` (rediseño + arsenal). La referencia activa es `xrv_external_lmb2024_v1`, sin constantes MLB: 905 partidos finales únicos 2024 descargados, 901 aceptados, 65,241 PA elegibles y 244,189 pitches. LMB 2025 queda separado para diagnósticos (903 partidos aceptados), sin ajustar pesos con 2025/2026. API F8 y adaptador F11, procedencia dinámica en simulador y manifiestos públicos con SHA-256. Ver [XRV_LMB2024.md](XRV_LMB2024.md). Build y 51 pruebas Angular pasan. Backend reiniciado: `/ready` y xRV real F8 correctos; F11 requiere restaurar el artefacto privado `artifacts/modeling/final-score-v1`, ausente localmente (su integración se probó con fixtures). No se reentrenó ningún modelo.
 
 > **Implementación xRV y arranque local (20 de octubre):** por autorización del equipo se implementó `xrv_external_mlb2014_v1` como adaptador de inferencia con pesos externos documentados MLB 2014, conteo explícito y referencia B1 de 2024. API `/predict` + `/xrv` y tarjeta en simulador. No modifica código/modelos congelados F8 ni convierte el delta F10 a carreras. No acredita xRunValue oficial ni validación LMB. Ver [XRV_APROXIMADO.md](XRV_APROXIMADO.md). Build de producción correcto; 18/18 pruebas Python (incluida integración real) y 31/31 Angular. Se verificó en navegador con pitchers reales. `run_full.ps1` arranca ambos servicios con dependencias/caché/logs en D: y configura `DIABLOS_RUN` para el run local, sin modificar manifests.
 
@@ -170,6 +174,10 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 > Marcar `[x]` al completar cada ítem y actualizar la sección correspondiente del documento.
 
 ### Infraestructura y releases
+- [x] Pesos xRV LMB 2024 estimados y activados; MLB 2014 conservado como histórico
+- [x] Verificación final LMB: 37 pruebas Python y 51 Angular correctas, build y HTTP real F8 verificados
+- [x] Descarga, auditoría y diagnóstico 2025 separado; sin ajustar pesos con temporadas futuras
+- [x] Adaptador xRV en API F8/F11 y procedencia LMB en el simulador del rediseño actual
 - [x] Lanzador completo `run_full.ps1` con runtime en D:, CORS, comprobación de modelos, pitchers y HTTP del frontend
 - [x] Build producción y 31 pruebas Angular verificados localmente el 20 de octubre
 - [x] xRV aproximado externo MLB 2014 implementado en API/simulador, con 7 pruebas específicas; alcance experimental documentado

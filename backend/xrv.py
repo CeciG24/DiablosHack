@@ -5,7 +5,7 @@ import math
 from pathlib import Path
 
 EVENTS = ('ball', 'called_strike', 'whiff', 'foul', 'in_play', 'hit_by_pitch')
-DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / 'config/xrv_mlb2014.json'
+DEFAULT_CONFIG = Path(__file__).resolve().parents[1] / 'config/xrv_lmb2024.json'
 
 
 class ExternalRunValue:
@@ -15,6 +15,19 @@ class ExternalRunValue:
         self.sha256 = hashlib.sha256(raw).hexdigest()
         self.baseline = baseline
         c = self.config
+        self.direct = c.get('schema_version') == 2
+        if self.direct:
+            if (c.get('league'), c.get('season'), c.get('units')) != ('LMB', 2024, 'runs_per_pitch'):
+                raise ValueError('Invalid LMB run-weight provenance')
+            if set(c['event_weights_by_count']) != {f'{b}-{s}' for b in range(4) for s in range(3)}:
+                raise ValueError('All twelve count weights are required')
+            for count, weights in c['event_weights_by_count'].items():
+                if set(weights) != set(EVENTS) or not all(type(v) in (float, int) and math.isfinite(v) for v in weights.values()):
+                    raise ValueError('Invalid run weights')
+                if weights['whiff'] != weights['called_strike'] or (count.endswith('-2') and weights['foul'] != 0):
+                    raise ValueError('Inconsistent strike or foul weights')
+            self.contact_woba = None
+            return
         if set(c['count_woba']) != {f'{b}-{s}' for b in range(4) for s in range(3)}:
             raise ValueError('All twelve count expectations are required')
         values = [c['woba_scale'], *c['count_woba'].values(),
@@ -34,6 +47,8 @@ class ExternalRunValue:
         if type(balls) is not int or type(strikes) is not int or not 0 <= balls <= 3 or not 0 <= strikes <= 2:
             raise ValueError('A valid explicit balls/strikes count is required')
         c = self.config
+        if self.direct:
+            return dict(c['event_weights_by_count'][f'{balls}-{strikes}'])
         start = c['count_woba'][f'{balls}-{strikes}']
         strike = c['count_woba'][f'{balls}-{strikes+1}'] if strikes < 2 else c['terminal_woba']['strikeout']
         ball = c['count_woba'][f'{balls+1}-{strikes}'] if balls < 3 else c['terminal_woba']['walk']
@@ -45,11 +60,14 @@ class ExternalRunValue:
     def metadata(self):
         return dict(self.config, weights_sha256=self.sha256,
                     contact_mean_woba=self.contact_woba, experimental=True,
-                    formula='sum(P(event | inputs) * (terminal_or_next_count_wOBA - count_wOBA) / wOBA_scale)',
+                    formula=('sum(P(event | inputs) * LMB_2024_event_run_weight(event, count))' if self.direct else
+                             'sum(P(event | inputs) * (terminal_or_next_count_wOBA - count_wOBA) / wOBA_scale)'),
                     baseline='B1 frozen 2024 count-only event probabilities' if self.baseline else None)
 
     def evaluate(self, probabilities, record, prediction_status='ok'):
         result = dict(version=self.config['version'], weights_sha256=self.sha256,
+                      reference_label=self.config.get('label', f"{self.config['league']} {self.config['season']}"),
+                      league=self.config['league'], season=self.config['season'],
                       status='unavailable', runs_per_pitch=None, runs_per_100=None,
                       baseline_runs_per_pitch=None, delta_vs_count_baseline=None,
                       lower_is_better_for_pitcher=True, experimental=True,

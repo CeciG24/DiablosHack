@@ -93,6 +93,9 @@ export interface ApiBundle {
 
 export interface ApiPredictionFamily {
   xrv?: {
+    reference_label?: string;
+    league?: string;
+    season?: number;
     status: string;
     runs_per_pitch: number | null;
     runs_per_100: number | null;
@@ -122,6 +125,7 @@ export interface ApiPredictResponse {
 }
 
 export interface ApiFinalScore {
+  xrv?: ApiPredictionFamily['xrv'];
   status: 'experimental' | 'invalid_input';
   score: number | null;
   probabilities: Record<string, number> | null;

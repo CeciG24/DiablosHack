@@ -1,5 +1,15 @@
 # xRV aproximado con pesos externos
 
+**Versión activa desde el 21 de octubre de 2026: `xrv_external_lmb2024_v1`.**
+La API y la interfaz usan pesos estimados exclusivamente con temporada regular
+LMB 2024; LMB 2025 se usa solo para diagnósticos de transferencia. No se usan
+constantes MLB en esta versión. Ver [método, cobertura, límites y reproducción](XRV_LMB2024.md).
+
+## Histórico: referencia MLB 2014
+
+El contenido siguiente describe la versión anterior, conservada para comparación;
+no es la configuración activa ni la procedencia del xRV mostrado actualmente.
+
 Implementado el 20 de octubre de 2026, versión `xrv_external_mlb2014_v1`.
 Autorización: opción 2 solicitada por el equipo. Es una extensión de inferencia
 en `backend/xrv.py`; no modifica código, modelos, calibradores ni escalas F8.

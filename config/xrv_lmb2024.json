@@ -1,0 +1,360 @@
+{
+  "schema_version": 2,
+  "version": "xrv_external_lmb2024_v1",
+  "league": "LMB",
+  "season": 2024,
+  "method": "count_transitions_of_LMB_RE24_terminal_event_values",
+  "label": "LMB 2024",
+  "units": "runs_per_pitch",
+  "perspective": "offense_lower_is_better_for_pitcher",
+  "in_play_policy": "LMB_2024_terminal_contact_mix_by_count_shrunk_30_PA",
+  "sources": {
+    "schedule": "https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=125&startDate=2024-01-01&endDate=2024-12-31&gameType=R",
+    "feeds": "https://statsapi.mlb.com/api/v1.1/game/{gamePk}/feed/live",
+    "method_reference": "https://library.fangraphs.com/misc/re24/"
+  },
+  "re24": {
+    "0-0": 0.6256451713201915,
+    "0-1": 1.0366874061360223,
+    "0-2": 1.3173537871524448,
+    "0-3": 1.7024722932651322,
+    "0-4": 1.959016393442623,
+    "0-5": 1.972093023255814,
+    "0-6": 2.1163793103448274,
+    "0-7": 2.6863905325443787,
+    "1-0": 0.3388786764705882,
+    "1-1": 0.6296585365853659,
+    "1-2": 0.8323353293413174,
+    "1-3": 1.0954478707782673,
+    "1-4": 1.083050847457627,
+    "1-5": 1.3439363817097416,
+    "1-6": 1.4621451104100947,
+    "1-7": 1.7927927927927927,
+    "2-0": 0.12892857142857142,
+    "2-1": 0.28417336732692683,
+    "2-2": 0.37528191249436177,
+    "2-3": 0.5134907251264755,
+    "2-4": 0.46633663366336636,
+    "2-5": 0.6010058675607711,
+    "2-6": 0.6245847176079734,
+    "2-7": 0.9049586776859504
+  },
+  "re24_support": {
+    "0-0": 16081,
+    "0-1": 4661,
+    "0-2": 1043,
+    "0-3": 1173,
+    "0-4": 122,
+    "0-5": 430,
+    "0-6": 232,
+    "0-7": 338,
+    "1-0": 10880,
+    "1-1": 5125,
+    "1-2": 2004,
+    "1-3": 2043,
+    "1-4": 590,
+    "1-5": 1006,
+    "1-6": 634,
+    "1-7": 888,
+    "2-0": 8400,
+    "2-1": 5099,
+    "2-2": 2217,
+    "2-3": 2372,
+    "2-4": 1010,
+    "2-5": 1193,
+    "2-6": 602,
+    "2-7": 968
+  },
+  "terminal_event_run_values": {
+    "double": 0.8294428516416337,
+    "double_play": -1.0875180612039115,
+    "field_error": 0.5212097576188682,
+    "field_out": -0.30411259710252153,
+    "fielders_choice": 0.7801434506375573,
+    "fielders_choice_out": -0.6700923361364757,
+    "force_out": -0.4112265501316322,
+    "grounded_into_double_play": -0.9600911363737463,
+    "hit_by_pitch": 0.3841422210596964,
+    "home_run": 1.4262279686805062,
+    "sac_bunt": -0.13763925116534567,
+    "sac_fly": -0.15730717259013086,
+    "sac_fly_double_play": -0.7277614259229889,
+    "single": 0.49614952449974664,
+    "strikeout": -0.32929967938523985,
+    "triple": 1.256695854579628,
+    "triple_play": -1.7024722932651322,
+    "walk": 0.3678360401383369
+  },
+  "terminal_event_support": {
+    "double": 3162,
+    "double_play": 222,
+    "field_error": 641,
+    "field_out": 25107,
+    "fielders_choice": 90,
+    "fielders_choice_out": 90,
+    "force_out": 1562,
+    "grounded_into_double_play": 1505,
+    "hit_by_pitch": 871,
+    "home_run": 1797,
+    "sac_bunt": 426,
+    "sac_fly": 439,
+    "sac_fly_double_play": 6,
+    "single": 11269,
+    "strikeout": 12070,
+    "triple": 252,
+    "triple_play": 1,
+    "walk": 5731
+  },
+  "count_run_expectation": {
+    "0-0": -0.0029488018012370195,
+    "0-1": -0.053819967764016576,
+    "0-2": -0.12593977165937204,
+    "1-0": 0.04070193791369371,
+    "1-1": -0.015628635662077933,
+    "1-2": -0.09574501758010955,
+    "2-0": 0.1094725656872918,
+    "2-1": 0.045656717292481865,
+    "2-2": -0.04542037302415895,
+    "3-0": 0.24104329692314713,
+    "3-1": 0.1643714309650792,
+    "3-2": 0.0696275246107749
+  },
+  "count_support": {
+    "0-0": 65241,
+    "0-1": 30345,
+    "0-2": 12291,
+    "1-0": 26562,
+    "1-1": 24706,
+    "1-2": 17161,
+    "2-0": 9186,
+    "2-1": 13286,
+    "2-2": 13977,
+    "3-0": 2913,
+    "3-1": 5760,
+    "3-2": 8406
+  },
+  "terminal_count_support": {
+    "0-0": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 240,
+      "in_play": 8094
+    },
+    "0-1": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 127,
+      "in_play": 5899
+    },
+    "0-2": {
+      "ball": 0,
+      "strikeout": 2636,
+      "hit_by_pitch": 63,
+      "in_play": 2861
+    },
+    "1-0": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 66,
+      "in_play": 4632
+    },
+    "1-1": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 87,
+      "in_play": 5593
+    },
+    "1-2": {
+      "ball": 0,
+      "strikeout": 4029,
+      "hit_by_pitch": 121,
+      "in_play": 5023
+    },
+    "2-0": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 13,
+      "in_play": 1570
+    },
+    "2-1": {
+      "ball": 0,
+      "strikeout": 0,
+      "hit_by_pitch": 38,
+      "in_play": 3256
+    },
+    "2-2": {
+      "ball": 0,
+      "strikeout": 3430,
+      "hit_by_pitch": 75,
+      "in_play": 4715
+    },
+    "3-0": {
+      "ball": 1036,
+      "strikeout": 0,
+      "hit_by_pitch": 6,
+      "in_play": 114
+    },
+    "3-1": {
+      "ball": 1710,
+      "strikeout": 0,
+      "hit_by_pitch": 11,
+      "in_play": 1390
+    },
+    "3-2": {
+      "ball": 2985,
+      "strikeout": 1975,
+      "hit_by_pitch": 24,
+      "in_play": 3422
+    }
+  },
+  "event_weights_by_count": {
+    "0-0": {
+      "ball": 0.043650739714930734,
+      "called_strike": -0.05087116596277955,
+      "whiff": -0.05087116596277955,
+      "foul": -0.05087116596277955,
+      "in_play": 0.03597786609495589,
+      "hit_by_pitch": 0.38709102286093344
+    },
+    "0-1": {
+      "ball": 0.038191332101938646,
+      "called_strike": -0.07211980389535547,
+      "whiff": -0.07211980389535547,
+      "foul": -0.07211980389535547,
+      "in_play": 0.0683006000357208,
+      "hit_by_pitch": 0.437962188823713
+    },
+    "0-2": {
+      "ball": 0.03019475407926249,
+      "called_strike": -0.20335990772586782,
+      "whiff": -0.20335990772586782,
+      "foul": 0.0,
+      "in_play": 0.11752469807543725,
+      "hit_by_pitch": 0.5100819927190685
+    },
+    "1-0": {
+      "ball": 0.06877062777359809,
+      "called_strike": -0.05633057357577165,
+      "whiff": -0.05633057357577165,
+      "foul": -0.05633057357577165,
+      "in_play": 0.006084981627506585,
+      "hit_by_pitch": 0.34344028314600267
+    },
+    "1-1": {
+      "ball": 0.061285352954559794,
+      "called_strike": -0.08011638191803161,
+      "whiff": -0.08011638191803161,
+      "foul": -0.08011638191803161,
+      "in_play": 0.04264322363118116,
+      "hit_by_pitch": 0.39977085672177437
+    },
+    "1-2": {
+      "ball": 0.05032464455595059,
+      "called_strike": -0.2335546618051303,
+      "whiff": -0.2335546618051303,
+      "foul": 0.0,
+      "in_play": 0.10343282002332467,
+      "hit_by_pitch": 0.479887238639806
+    },
+    "2-0": {
+      "ball": 0.13157073123585533,
+      "called_strike": -0.06381584839480994,
+      "whiff": -0.06381584839480994,
+      "foul": -0.06381584839480994,
+      "in_play": -0.05551829709226047,
+      "hit_by_pitch": 0.2746696553724046
+    },
+    "2-1": {
+      "ball": 0.11871471367259734,
+      "called_strike": -0.09107709031664082,
+      "whiff": -0.09107709031664082,
+      "foul": -0.09107709031664082,
+      "in_play": 0.006521861056779099,
+      "hit_by_pitch": 0.33848550376721454
+    },
+    "2-2": {
+      "ball": 0.11504789763493385,
+      "called_strike": -0.2838793063610809,
+      "whiff": -0.2838793063610809,
+      "foul": 0.0,
+      "in_play": 0.06165106565541884,
+      "hit_by_pitch": 0.4295625940838554
+    },
+    "3-0": {
+      "ball": 0.12679274321518974,
+      "called_strike": -0.07667186595806794,
+      "whiff": -0.07667186595806794,
+      "foul": -0.07667186595806794,
+      "in_play": -0.044476541071196474,
+      "hit_by_pitch": 0.1430989241365493
+    },
+    "3-1": {
+      "ball": 0.20346460917325768,
+      "called_strike": -0.0947439063543043,
+      "whiff": -0.0947439063543043,
+      "foul": -0.0947439063543043,
+      "in_play": -0.08069306030221086,
+      "hit_by_pitch": 0.21977079009461722
+    },
+    "3-2": {
+      "ball": 0.298208515527562,
+      "called_strike": -0.3989272039960148,
+      "whiff": -0.3989272039960148,
+      "foul": 0.0,
+      "in_play": -0.03216842023617838,
+      "hit_by_pitch": 0.3145146964489215
+    }
+  },
+  "limitations": [
+    "Approximate context-marginalized event valuation; not an individualized RE24 prediction.",
+    "Only complete regulation half innings; extras and walk-off half innings excluded.",
+    "Runner actions before terminal pitch and nonpitch count changes excluded from weight fitting.",
+    "Contact mix varies by count but not by EV/launch angle or individual pitch shape.",
+    "No park or altitude-specific weights; no anonymous-to-public player mapping.",
+    "2025 is reserved for transfer diagnostics; no 2026 used."
+  ],
+  "provenance": {
+    "year": 2024,
+    "downloaded_games": 905,
+    "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=125&startDate=2024-01-01&endDate=2024-12-31&gameType=R",
+    "observed_pa": 70584,
+    "observed_pitches": 267845,
+    "accepted_games": 901,
+    "pa_rows": 69111,
+    "clean_pa_rows": 65241,
+    "pitch_rows": 244189,
+    "excluded_games": [
+      {
+        "game_pk": 769985,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770077,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770242,
+        "reason": "incomplete_or_nonsequential_plays"
+      },
+      {
+        "game_pk": 770252,
+        "reason": "incomplete_or_nonsequential_plays"
+      }
+    ],
+    "exclusions": {
+      "runner_action_before_terminal_pitch": 2766,
+      "unmapped_pitch_call": 745,
+      "no_pitches": 16,
+      "unsupported_terminal_event": 410,
+      "incomplete_half_inning_excluded": 256,
+      "extra_inning_excluded": 945,
+      "nonpitch_count_change": 78,
+      "inconsistent_count_transition": 1,
+      "inconsistent_terminal_strikeout": 3
+    },
+    "download_manifest_sha256": "4d574cc596edffb6a26db1440706eda55518c15e3a1ad77a57918dfe918dfe32",
+    "schedule_sha256": "3c4a7abc6fa15fdeab2327ca9811e568a41199214e9be6014635a83c8e5d209e"
+  },
+  "frozen_on": "2026-10-21",
+  "builder_sha256": "d4de7aa66d3de88032d609aacf43c85e394b51fd3684bf06491dcfae9fd4c57a"
+}
