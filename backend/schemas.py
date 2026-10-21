@@ -73,6 +73,22 @@ class SimulationRequest(BaseModel):
         return self
 
 
+class ApproximateRunValue(BaseModel):
+    version: str
+    weights_sha256: str
+    status: Literal['ok', 'missing_or_invalid_count', 'event_prediction_unavailable', 'invalid_event_probabilities', 'unavailable']
+    runs_per_pitch: float | None
+    runs_per_100: float | None
+    baseline_runs_per_pitch: float | None
+    delta_vs_count_baseline: float | None
+    lower_is_better_for_pitcher: bool = True
+    experimental: bool = True
+    in_play_policy: str
+    baseline_route: str | None = None
+    event_weights: dict[str, float] | None = None
+    contributions: dict[str, float] | None = None
+
+
 class Prediction(BaseModel):
     # Preserve the complete provenance and conditional head diagnostics from F8.
     model_config = ConfigDict(extra='allow')
@@ -87,6 +103,7 @@ class Prediction(BaseModel):
     warnings: str
     score_version: str
     provisional: bool
+    xrv: ApproximateRunValue | None = None
 
 
 class PredictionResponse(BaseModel):

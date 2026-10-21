@@ -1,3 +1,4 @@
+import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../core/data-access/data.service';
@@ -10,7 +11,7 @@ import { PitchEvaluationService, PitchProbabilities } from './pitch-evaluation.s
 
 @Component({
   selector: 'app-lanzamientos-page',
-  imports: [PitchFiltersComponent, MovementChartComponent, StrikeZoneComponent],
+  imports: [MetricGuideComponent, PitchFiltersComponent, MovementChartComponent, StrikeZoneComponent],
   providers: [PitchEvaluationService],
   templateUrl: './lanzamientos.page.html',
 })

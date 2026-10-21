@@ -1,3 +1,4 @@
+import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/data-access/data.service';
@@ -7,7 +8,7 @@ import { arsenalByType, metric } from '../../core/models/pitch-analysis';
 
 @Component({
   selector: 'app-lanzadores-page',
-  imports: [RouterLink],
+  imports: [MetricGuideComponent, RouterLink],
   templateUrl: './lanzadores.page.html',
 })
 export class LanzadoresPage {

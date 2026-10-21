@@ -20,17 +20,17 @@ import { Component, input } from '@angular/core';
     .tile {
       background: var(--tile);
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border-radius: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       min-height: 0;
-      box-shadow: 0 1px 3px rgba(26, 28, 32, 0.05);
+      box-shadow: none;
       transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
     .tile:hover {
-      box-shadow: 0 8px 22px rgba(26, 28, 32, 0.09);
-      transform: translateY(-1px);
+      box-shadow: none;
+      transform: none;
     }
     .tile:focus-within { border-color: var(--red); }
     .tile__head {
@@ -42,16 +42,16 @@ import { Component, input } from '@angular/core';
       margin-bottom: 8px;
     }
     .tile__label {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
     }
     .tile__tag {
       font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
       background: var(--bg);

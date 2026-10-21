@@ -41,6 +41,13 @@ La excepción detallada se registra sólo en el servidor.
 
 ## Endpoints y relación con el hackathon
 
+Actualización 20 de octubre: `/api/v1/predict` agrega `xrv` por familia usando
+pesos externos MLB 2014 y conteo explícito. `/api/v1/xrv` publica fuentes, pesos,
+versión y SHA-256. Incluye referencia B1 por conteo; menor xRV favorece al pitcher.
+No cambia las escalas F8/F10. Ver [definición y límites](XRV_APROXIMADO.md).
+La restricción histórica sobre xRunValue oficial sigue vigente; esta extensión
+es una aproximación externa y no acredita calibración de carreras en LMB.
+
 | Método y ruta | Función |
 |---|---|
 | GET `/health`, `/ready` | Proceso y disponibilidad real de modelos |

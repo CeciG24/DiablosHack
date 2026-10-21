@@ -1,4 +1,3 @@
-import { UpperCasePipe } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
 
 export interface TrajectoryInput {
@@ -24,29 +23,31 @@ interface P3 { x: number; y: number; z: number }
  */
 @Component({
   selector: 'app-trajectory',
-  imports: [UpperCasePipe],
   template: `
     <div class="tj-wrap">
       <div class="tj-views" role="group" aria-label="Ángulo de cámara">
         @for (v of views; track v) {
-          <button type="button" [class.is-active]="view() === v" (click)="view.set(v)">
-            {{ v | uppercase }}
+          <button type="button" [class.is-active]="view() === v" [attr.aria-pressed]="view() === v" (click)="view.set(v)">
+            {{ viewLabels[v] }}
           </button>
         }
       </div>
-      <svg [attr.viewBox]="'0 0 ' + w + ' ' + h" class="tj" role="img"
-           [attr.aria-label]="'Trayectoria del pitch, vista ' + view()">
+      <svg [attr.viewBox]="view() === 'catcher' ? '80 95 220 145' : '0 0 ' + w + ' ' + h" class="tj" role="img"
+           [attr.aria-label]="'Trayectoria del pitch, vista ' + viewLabels[view()]">
         <!-- escenario por vista -->
         @switch (view()) {
           @case ('catcher') {
             <rect x="0" y="0" [attr.width]="w" [attr.height]="h" class="tj__sky" />
             <rect x="0" [attr.y]="h * 0.62" [attr.width]="w" [attr.height]="h * 0.16" class="tj__wall" />
             <rect x="0" [attr.y]="h * 0.78" [attr.width]="w" [attr.height]="h * 0.22" class="tj__grass" />
+            <path d="M0 240 L135 187 L245 187 L380 240 M0 225 L140 181 L240 181 L380 225" class="tj__field-lines" />
+            <path d="M0 149 H380 M0 156 H380 M0 163 H380" class="tj__stadium-lines" />
+            <path d="M20 149 V164 M48 149 V164 M76 149 V164 M104 149 V164 M132 149 V164 M160 149 V164 M188 149 V164 M216 149 V164 M244 149 V164 M272 149 V164 M300 149 V164 M328 149 V164 M356 149 V164" class="tj__stadium-lines" />
             <ellipse [attr.cx]="cx" [attr.cy]="h * 0.9" rx="90" ry="16" class="tj__dirt" />
             <!-- cajas de bateo -->
             <rect [attr.x]="cx - 52" [attr.y]="h * 0.84" width="30" height="34" class="tj__box" />
             <rect [attr.x]="cx + 22" [attr.y]="h * 0.84" width="30" height="34" class="tj__box" />
-            <polygon points="190,206 200,218 190,230 180,218" class="tj__plate" />
+            <polygon points="182,213 198,213 198,220 190,227 182,220" class="tj__plate" />
             <!-- zona de strike: esquinas físicas (±8.3in, 18-44in) proyectadas -->
             <g class="tj__zone">
               <rect [attr.x]="zoneBox().x" [attr.y]="zoneBox().y"
@@ -105,11 +106,13 @@ interface P3 { x: number; y: number; z: number }
         }
 
         <!-- trayectoria -->
+        <path [attr.d]="pathD()" class="tj__trail" [style.stroke]="color()" />
         <path [attr.d]="pathD()" class="tj__path" [style.stroke]="color()" />
+        <circle [attr.cx]="end()[0]" [attr.cy]="end()[1]" r="10" class="tj__halo" [style.stroke]="color()" />
         <circle [attr.cx]="end()[0]" [attr.cy]="end()[1]" r="5" class="tj__ball" [style.fill]="color()" />
 
-        <text x="12" [attr.y]="h - 8" class="tj__cap">{{ caption() }}</text>
       </svg>
+      @if (caption()) { <p class="tj-caption">{{ caption() }}</p> }
       <div class="tj-readout" role="status">
         <span>Cruce en plato: X {{ pitch().plateXIn.toFixed(1) }} in · Z {{ pitch().plateZIn.toFixed(1) }} in</span>
         <strong [class.tj-readout--outside]="!inZone()">{{ inZone() ? 'En zona' : 'Fuera de zona' }}</strong>
@@ -118,42 +121,45 @@ interface P3 { x: number; y: number; z: number }
   `,
   styles: `
     .tj-wrap { position: relative; }
-    .tj { width: 100%; height: auto; display: block; }
+    .tj-caption { margin:12px 0; font-size:12px; line-height:1.6; color:#56565e; }
+    .tj { width: 100%; height: auto; display: block; border:1px solid #303a40; border-radius:6px; }
     .tj-readout {
       display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px;
-      padding: 6px 8px; font-size: 0.88rem; color: var(--ink);
+      padding:12px; font-size:14px; color:var(--ink); background:var(--bg); border-radius:4px;
     }
-    .tj-readout strong { color: var(--green-mx); }
+    .tj-readout strong { color:var(--green-mx); font:600 13px 'IBM Plex Sans',sans-serif; }
     .tj-readout .tj-readout--outside { color: var(--red); }
     .tj-views {
-      position: absolute; top: 6px; right: 6px; z-index: 2;
-      display: flex; flex-direction: column; gap: 4px;
+      display:flex; flex-wrap:wrap; gap:4px; padding:4px; margin-bottom:12px; background:var(--bg); border-radius:5px;
       button {
-        min-width: 86px; border: 1px solid var(--line); border-radius: 6px;
-        background: rgba(255, 255, 255, 0.9); color: var(--muted);
-        font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;
-        letter-spacing: 0.08em; padding: 5px 8px; cursor: pointer;
-        transition: all 160ms ease;
+        flex:1; min-width:68px; min-height:40px; border:1px solid transparent; border-radius:3px;
+        background:transparent; color:#4b4b53;
+        font:600 12px 'IBM Plex Sans',sans-serif; padding:8px; cursor:pointer;
+        transition:background 160ms ease,color 160ms ease;
         &.is-active { background: var(--red); border-color: var(--red); color: #fff; }
         &:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
       }
     }
-    .tj__sky { fill: #f7f8fa; }
-    .tj__grass { fill: #a9c98f; }
-    .tj__wall { fill: #d5d7dc; }
-    .tj__dirt { fill: #d8c9a8; }
-    .tj__mound2 { fill: #b9bcc4; }
-    .tj__plate { fill: #fff; stroke: var(--muted); stroke-width: 1.2; }
-    .tj__box { fill: none; stroke: #fff; stroke-width: 1.6; opacity: 0.9; }
-    .tj__foul { stroke: #fff; stroke-width: 1.6; opacity: 0.9; }
-    .tj__depth { stroke: #c4c7cd; stroke-width: 1; stroke-dasharray: 3 4; }
-    .tj__ground { stroke: var(--muted); stroke-width: 1.4; }
-    .tj__zone rect { fill: rgba(208, 20, 44, 0.05); stroke: var(--ink); stroke-width: 1.4; }
-    .tj__zone line { stroke: var(--ink); stroke-width: 0.9; opacity: 0.6; }
+    .tj__sky { fill:#172127; }
+    .tj__grass { fill:#293a36; }
+    .tj__wall { fill:#202e32; }
+    .tj__dirt { fill:#8a7964; }
+    .tj__mound2 { fill:#8a7964; }
+    .tj__plate { fill:#f6f1e7; stroke:#d5c9b5; stroke-width:1; }
+    .tj__box { fill:none; stroke:#eadfcd; stroke-width:1; opacity:.65; }
+    .tj__foul { stroke:#bdc9c4; stroke-width:1; opacity:.5; }
+    .tj__depth { stroke:#687a80; stroke-width:.7; stroke-dasharray:3 5; }
+    .tj__ground { stroke:#879593; stroke-width:1; }
+    .tj__field-lines { fill:none; stroke:#658174; stroke-width:.6; opacity:.4; }
+    .tj__stadium-lines { fill:none; stroke:#6c7e86; stroke-width:.5; opacity:.25; }
+    .tj__zone rect { fill:#ffffff0d; stroke:#e7eceb; stroke-width:1.3; }
+    .tj__zone line { stroke:#e7eceb; stroke-width:.7; opacity:.4; }
     .tj__zone-side { fill: rgba(208, 20, 44, 0.05); stroke: var(--red); stroke-width: 1.4; stroke-dasharray: 5 3; }
-    .tj__path { fill: none; stroke-width: 2.8; stroke-linecap: round; }
+    .tj__path { fill:none; stroke-width:2.3; stroke-linecap:round; }
+    .tj__trail { fill:none; stroke-width:9; stroke-linecap:round; opacity:.14; }
+    .tj__halo { fill:none; stroke-width:1; opacity:.6; }
     .tj__ball { stroke: #fff; stroke-width: 1.5; }
-    .tj__cap { font-size: 12px; fill: var(--muted); font-weight: 600; }
+    .tj__cap { font-size:11px; fill:#ccd6d9; font-weight:500; }
   `,
 })
 export class TrajectoryComponent {
@@ -163,6 +169,7 @@ export class TrajectoryComponent {
 
   readonly view = signal<TrajectoryView>('catcher');
   readonly views: TrajectoryView[] = ['side', 'top', 'catcher', 'pitcher'];
+  readonly viewLabels: Record<TrajectoryView, string> = { side:'Lateral', top:'Superior', catcher:'Receptor', pitcher:'Lanzador' };
   readonly w = W;
   readonly h = H;
   readonly cx = CX;

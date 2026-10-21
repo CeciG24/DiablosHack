@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { PitchScore, PitchType } from '../../core/models/domain.types';
 
 export interface MovementPoint {
@@ -27,8 +27,9 @@ const SCALE = MID / LIMIT;
 @Component({
   selector: 'app-movement-chart',
   template: `
-    <svg [attr.viewBox]="'0 0 ' + size + ' ' + size" class="mv" role="img"
-         [attr.aria-label]="ariaLabel()">
+    <svg [attr.viewBox]="'0 0 ' + size + ' ' + size" class="mv" [attr.role]="interactive() ? 'group' : 'img'"
+         [attr.tabindex]="interactive() ? 0 : null" [attr.aria-label]="ariaLabel() + (interactive() ? '. Selecciona un punto o usa las flechas izquierda y derecha para recorrer los lanzamientos.' : '')"
+         (keydown.arrowright)="stepSelection(1, $event)" (keydown.arrowleft)="stepSelection(-1, $event)">
       <rect x="0" y="0" [attr.width]="size" [attr.height]="size" class="mv__bg" rx="8" />
       @for (t of ticks; track t) {
         <line [attr.x1]="x(t)" [attr.y1]="0" [attr.x2]="x(t)" [attr.y2]="size" class="mv__grid" />
@@ -44,8 +45,9 @@ const SCALE = MID / LIMIT;
       @for (p of points(); track $index) {
         <circle [attr.cx]="x(p.hbIn)" [attr.cy]="y(p.ivbIn)" r="4"
                 [class.mv__dot--sel]="p.selected" class="mv__dot"
-                [style.fill]="dotColor(p)" opacity="0.8">
-          <title>{{ p.pitchType }} · Stuff+ {{ p.stuffPlus ?? 'no disponible' }}</title>
+                [style.fill]="dotColor(p)" opacity="0.8" [class.mv__dot--interactive]="interactive()"
+                (click)="selectPoint($index)">
+          <title>{{ p.pitchType }} · HB {{ p.hbIn }} · IVB {{ p.ivbIn }} in · Stuff+ {{ p.stuffPlus ?? 'no disponible' }}</title>
         </circle>
       }
       @if (highlight(); as h) {
@@ -69,10 +71,14 @@ const SCALE = MID / LIMIT;
     .mv__cap { font-size: 12px; font-weight: 700; fill: var(--muted); letter-spacing: 0.02em; }
     .mv__dot { transition: opacity 160ms ease; }
     .mv__dot--sel { stroke: var(--ink); stroke-width: 1.6; opacity: 1; }
-    .mv__highlight { fill: none; stroke: var(--red); stroke-width: 2; }
+    .mv__highlight { fill: none; stroke: var(--red); stroke-width: 2; pointer-events:none; }
+    .mv__dot--interactive { cursor:pointer; }
+    .mv__dot--interactive:hover { stroke:var(--ink); stroke-width:2; opacity:1; }
   `,
 })
 export class MovementChartComponent {
+  readonly interactive = input(false);
+  readonly pitchSelected = output<string>();
   readonly pitches = input<readonly PitchScore[]>([]);
   readonly highlightIndex = input<number | null>(null);
   readonly throws = input<'R' | 'L'>('R');
@@ -108,6 +114,18 @@ export class MovementChartComponent {
 
   x(v: number): number { return MID + v * SCALE; }
   y(v: number): number { return MID - v * SCALE; }
+
+  selectPoint(index: number): void {
+    const pitch = this.pitches()[index];
+    if (this.interactive() && pitch) this.pitchSelected.emit(pitch.id);
+  }
+
+  stepSelection(direction: number, event: Event): void {
+    if (!this.interactive() || !this.pitches().length) return;
+    event.preventDefault();
+    const current = this.highlightIndex() ?? -1;
+    this.selectPoint((current + direction + this.pitches().length) % this.pitches().length);
+  }
 
   dotColor(p: MovementPoint): string {
     if (this.colorBy() === 'stuff' && p.stuffPlus != null && Number.isFinite(p.stuffPlus)) {

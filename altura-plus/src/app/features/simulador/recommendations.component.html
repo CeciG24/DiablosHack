@@ -1,14 +1,17 @@
 <div class="section-head">
-  <h2>Recomendaciones de selección de lanzamientos</h2>
+  <h2>Tu siguiente jugada</h2>
   <p>Exploración deportiva · requiere validación en campo</p>
 </div>
 <section class="panel" aria-labelledby="candidate-heading">
   <h3 id="candidate-heading">¿Qué tipos del arsenal conservan más valor en destino?</h3>
-  <p class="note">Compara {{ candidates().length }} perfiles medios del lanzador de referencia: revisión 2025 en {{ labels[source()] }} → {{ labels[target()] }}. Se evalúan las medias observadas del arsenal, no el pitch editado en el formulario.</p>
+  <p class="note">Compara {{ candidates().length }} perfiles medios del lanzador de referencia: revisión 2025 en {{ labels[source()] }} → {{ labels[target()] }}. Se evalúan las medias observadas del arsenal, no el pitch editado en el laboratorio.</p>
   <button class="button button--quiet" type="button" [disabled]="pending() || candidates().length === 0" (click)="compare()">{{ pending() ? 'Evaluando candidatos…' : 'Comparar arsenal en destino' }}</button>
   @if (!candidates().length) { <p class="note">No hay perfiles físicos completos para esta categoría de origen. Elige otra categoría o lanzador; no se generan candidatos ficticios.</p> }
   @if (error()) { <p class="notice" role="alert">No se pudieron evaluar los candidatos. Usa el botón para reintentar.</p> }
   @if (result(); as result) {
+    @if (result.ranked_candidates[0]; as best) {
+      <div class="recommendation-lead"><span class="eyebrow">PRIMER PERFIL PARA REVISAR</span><h3>{{ best.profile.auto_pitch_type }} / {{ metric(best.simulation.target_score) }}</h3><p>Mayor score experimental en destino entre los candidatos con soporte. Úsalo como punto de partida para revisar en campo; no demuestra el mejor lanzamiento posible.</p></div>
+    }
     <p class="note" role="status">{{ result.supported }} perfiles con soporte · {{ result.unsupported }} sin soporte. Orden por score experimental en destino, no por Stuff+.</p>
     <div class="table-wrap" role="region" aria-label="Ranking de candidatos enviados" tabindex="0">
       <table class="data-table"><thead><tr><th scope="col">Tipo</th><th scope="col">Score origen</th><th scope="col">Score destino</th><th scope="col">Δ score</th><th scope="col">Lectura</th></tr></thead><tbody>
@@ -29,7 +32,7 @@
     <section class="panel"><h3>Perfiles que pierden valor</h3><p>{{ productText(profile.answers.q2_pierden_en_altura) }}</p></section>
   </div>
   <section class="panel" style="margin-top: 20px"><h3>Qué buscar para Diablos Rojos</h3><p>{{ productText(profile.answers.q3_perfil_prospecto) }}</p></section>
-  <p class="note">{{ profile.n_simulated }} escenarios en el análisis global. Estos hallazgos no cambian con el lanzador ni el destino seleccionados en el formulario.</p>
+  <p class="note">{{ profile.n_simulated }} escenarios en el análisis global. Estos hallazgos no cambian con el lanzador ni el destino seleccionados en el laboratorio.</p>
   <div class="table-wrap" role="region" aria-label="Cambios de movimiento y rendimiento por tipo" tabindex="0">
     <table class="data-table"><thead><tr><th scope="col">Tipo</th><th scope="col">Δ score experimental</th><th scope="col">Δ IVB (in)</th><th scope="col">Δ HB (in)</th><th scope="col">Δ contacto duro | bola en juego</th><th scope="col">n</th></tr></thead><tbody>
       @for (row of profile.by_pitch_type; track row.auto_pitch_type) {

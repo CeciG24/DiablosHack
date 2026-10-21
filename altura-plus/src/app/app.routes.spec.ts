@@ -38,10 +38,10 @@ describe('Los cuatro módulos de MICTLAN', () => {
   it('renderiza las cuatro vistas sin exponer nombres internos de modelos', async () => {
     const harness = await RouterTestingHarness.create();
     for (const [path, heading] of [
-      ['/dashboard', 'Dashboard'],
-      ['/lanzamientos', 'Análisis de lanzamientos'],
-      ['/lanzadores', 'Lanzadores y arsenales'],
-      ['/simulador', 'Simulador y recomendaciones'],
+      ['/dashboard', 'El talento se ve.El potencial se revela.'],
+      ['/lanzamientos', 'Cada pitch cuenta.'],
+      ['/lanzadores', 'Talento con identidad.'],
+      ['/simulador', 'Un lanzamiento.Más posibilidades.'],
     ]) {
       await harness.navigateByUrl(path);
       expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toBe(heading);

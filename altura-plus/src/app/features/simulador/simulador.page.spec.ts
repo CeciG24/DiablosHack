@@ -69,4 +69,24 @@ describe('Simulador: scores y peticiones pendientes', () => {
     expect(api.predict).not.toHaveBeenCalled();
     expect(api.simulate).not.toHaveBeenCalled();
   }));
+
+  it('muestra xRV en carreras y conserva el cero del baseline', fakeAsync(() => {
+    api.predict.and.resolveTo({ release_id: 'test', records: [{ pitching: {
+      status: 'ok', score: 100, warnings: '', score_version: 'frozen', provisional: true,
+      xrv: { status: 'ok', version: 'xrv_external_mlb2014_v1', runs_per_pitch: -.0123,
+        runs_per_100: -1.23, baseline_runs_per_pitch: 0, delta_vs_count_baseline: -.0123 },
+    } }] });
+    const fixture = TestBed.createComponent(SimuladorPage);
+    fixture.detectChanges();
+    tick(600);
+    flushMicrotasks();
+    fixture.detectChanges();
+    const content = fixture.nativeElement.textContent as string;
+    expect(content).toContain('-0.0123');
+    expect(content).toContain('-1.23');
+    expect(content).toContain('0.0000');
+    expect(content).toContain('MLB 2014');
+    expect(content).toContain('Menor es mejor');
+    fixture.destroy();
+  }));
 });

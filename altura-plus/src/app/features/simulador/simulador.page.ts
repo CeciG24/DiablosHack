@@ -1,3 +1,4 @@
+import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
 import { Component, DestroyRef, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../core/data-access/data.service';
@@ -39,6 +40,7 @@ interface SimInput {
 }
 
 interface LiveScores {
+  xrv?: import('../../core/api/api.service').ApiPredictionFamily['xrv'];
   stuffPlus: number | null;
   locationPlus: number | null;
   pitchingPlus: number | null;
@@ -63,12 +65,13 @@ interface LiveScores {
  */
 @Component({
   selector: 'app-simulador-page',
-  imports: [FormsModule, TileComponent, GaugeComponent, TrajectoryComponent,
+  imports: [MetricGuideComponent, FormsModule, TileComponent, GaugeComponent, TrajectoryComponent,
     MovementChartComponent, StateBannerComponent, RecommendationsComponent],
   templateUrl: './simulador.page.html',
   styleUrl: './simulador.page.scss',
 })
 export class SimuladorPage {
+  readonly mobileView = signal<'edit' | 'results'>('edit');
   protected readonly data = inject(DataService);
   protected readonly ctx = inject(ScoutingContextService);
   private readonly api = inject(ApiService);
@@ -275,6 +278,7 @@ export class SimuladorPage {
         const simRow = sim.status === 'fulfilled' ? sim.value.records[0] : null;
         if (!fam && !simRow) return;
         this.live.set({
+          xrv: fam?.pitching?.xrv,
           stuffPlus: fam?.stuff?.score ?? null,
           locationPlus: fam?.location?.score ?? null,
           pitchingPlus: fam?.pitching?.score ?? null,

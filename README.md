@@ -1,5 +1,14 @@
 # Base de datos de pitcheo de Diablos
 
+## Entorno integrado y xRV aproximado
+
+`powershell -ExecutionPolicy Bypass -File .\run_full.ps1` levanta backend y
+frontend, con dependencias, caché y logs en `D:\CodexRuntime\DiablosHack`.
+Necesita los datos/modelos privados locales. Frontend: http://127.0.0.1:4200/simulador;
+Swagger: http://127.0.0.1:8001/docs. El simulador incorpora xRV aproximado con
+pesos externos MLB 2014 y baseline por conteo; menor favorece al pitcher.
+Ver [definición, fuentes, límites y ejecución](docs/XRV_APROXIMADO.md).
+
 ## Backend FastAPI y Swagger
 
 El backend integra el release F8 y el simulador experimental F10 existentes.

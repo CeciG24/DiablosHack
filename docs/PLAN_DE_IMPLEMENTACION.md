@@ -1,6 +1,10 @@
 # Plan de Implementación para cerrar el Hackathon (Base: rama `fase-9` de Ceci)
 
-**Fecha de última actualización:** 18 de octubre de 2026
+**Fecha de última actualización:** 20 de octubre de 2026
+
+> **Implementación xRV y arranque local (20 de octubre):** por autorización del equipo se implementó `xrv_external_mlb2014_v1` como adaptador de inferencia con pesos externos documentados MLB 2014, conteo explícito y referencia B1 de 2024. API `/predict` + `/xrv` y tarjeta en simulador. No modifica código/modelos congelados F8 ni convierte el delta F10 a carreras. No acredita xRunValue oficial ni validación LMB. Ver [XRV_APROXIMADO.md](XRV_APROXIMADO.md). Build de producción correcto; 18/18 pruebas Python (incluida integración real) y 31/31 Angular. Se verificó en navegador con pitchers reales. `run_full.ps1` arranca ambos servicios con dependencias/caché/logs en D: y configura `DIABLOS_RUN` para el run local, sin modificar manifests.
+
+> **Auditoría de entrega-final (20 de octubre):** rama integrada `entrega-final`, commit `72f81b7`, descargada y activa en esta copia. Comparación actualizada y límites de verificación en [REVISION_ENTREGA_FINAL.md](REVISION_ENTREGA_FINAL.md). Pasan 11/11 pruebas backend con integración real F8/F10 y 8/8 del holdout. El build Angular sigue sin verificar: instalación falló por falta de espacio. El perfil `F10_IDEAL_PROFILE.json` y su endpoint ya existen; queda pendiente cerrar H1–H4 y justificar recomendaciones. El run local `c1c8ba48818dc878` difiere del esperado por esta rama (`e9e0b1114dc68eb2`); la carga real del dashboard debe verificarse por separado. Los estados históricos inferiores no acreditan ejecución en esta computadora.
 **Rama base del plan:** `fase-9` (código y releases de Ceci) — HEAD actual: `6eab4c9` (merge de `backend` + holdout por altitud)
 **Rama descartada:** `fase-9-ian` (nuestro trabajo en `DiablosHack` ya no será la base; se reutilizarán solo piezas puntuales si encajan).
 
@@ -166,6 +170,9 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 > Marcar `[x]` al completar cada ítem y actualizar la sección correspondiente del documento.
 
 ### Infraestructura y releases
+- [x] Lanzador completo `run_full.ps1` con runtime en D:, CORS, comprobación de modelos, pitchers y HTTP del frontend
+- [x] Build producción y 31 pruebas Angular verificados localmente el 20 de octubre
+- [x] xRV aproximado externo MLB 2014 implementado en API/simulador, con 7 pruebas específicas; alcance experimental documentado
 - [x] F0–F7 implementados
 - [x] F8 release congelado
 - [x] F9 implementado y verificado (125 tests, protocolos A/B/C)
@@ -194,6 +201,7 @@ Los organizadores **NO** proporcionarán los siguientes insumos:
 - [ ] Demo de 10 minutos para coach/director
 
 ### Documentación
+- [x] Comparación de `entrega-final` contra requisitos transcritos y comprobaciones locales (`docs/REVISION_ENTREGA_FINAL.md`, 20 de octubre de 2026)
 - [x] `docs/ANALISIS_F10.md`
 - [x] `docs/ALTITUDE_HOLDOUT.md` + `ALTITUDE_HOLDOUT_RESULTS.json`
 - [x] `docs/PLAN_DE_IMPLEMENTACION.md` (este archivo)

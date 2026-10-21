@@ -1,7 +1,10 @@
 <div class="sim">
-  <header class="page-head">
-    <div><h1>Simulador y recomendaciones</h1><p>Diseña un lanzamiento y compara el mismo perfil entre categorías de altitud. El lanzador de referencia aporta su historial al escenario experimental.</p></div>
+  <header class="page-head sim__hero">
+    <div><span class="eyebrow">EL LABORATORIO / SIMULACIÓN EXPERIMENTAL</span><h1>Un lanzamiento.<br /><em>Más posibilidades.</em></h1><p>Ajusta su forma. Explora otra altitud. Descubre qué cambia antes de llevarlo al diamante.</p></div>
+    <div class="sim__hero-mark" aria-hidden="true">01<span>PITCH LAB</span></div>
   </header>
+  <app-metric-guide />
+  <div class="sim__workflow" aria-label="Cómo explorar"><span><b>01</b> Diseña tu lanzamiento</span><span><b>02</b> Compara los escenarios</span><a href="#recommendations" (click)="$event.preventDefault(); recommendations.scrollIntoView()"><b>03</b> Explora tu arsenal ↗</a></div>
   <div class="sim__head">
     <div class="sim__contract" role="note">
       <span>
@@ -11,8 +14,13 @@
     </div>
   </div>
 
-  <div class="grid">
-    <app-tile label="Parámetros del pitch" class="span-5">
+  <div class="sim__mobile-switch" aria-label="Vista del laboratorio">
+    <button type="button" [attr.aria-pressed]="mobileView() === 'edit'" (click)="mobileView.set('edit')">01 / Ajustar pitch</button>
+    <button type="button" [attr.aria-pressed]="mobileView() === 'results'" (click)="mobileView.set('results')">02 / Ver resultado ↗</button>
+  </div>
+  <div class="grid sim__workspace" [class.sim__workspace--results]="mobileView() === 'results'">
+    <app-tile label="01 / Diseña tu lanzamiento" class="span-5 sim__controls">
+      <div class="sim__pitch-preview"><span>{{ input().pitchType }}</span><div><strong>{{ pitchTypeNames[input().pitchType] }}</strong><small>{{ input().veloMph.toFixed(1) }} mph · {{ input().spinRpm.toFixed(0) }} rpm</small></div></div>
       <label class="ctl">
         Tipo de pitch
         <select [ngModel]="input().pitchType" (ngModelChange)="set('pitchType', $event)">
@@ -24,57 +32,43 @@
       }
 
       <label class="ctl">
-        Velocidad <output>{{ input().veloMph }} mph</output>
+        Velocidad <output>{{ input().veloMph.toFixed(1) }} mph</output>
         <input type="range" min="70" max="102" step="0.5" [ngModel]="input().veloMph"
                (ngModelChange)="set('veloMph', +$event)" aria-label="Velocidad en mph" />
       </label>
 
       <label class="ctl">
-        Spin total <output>{{ input().spinRpm }} rpm</output>
+        Spin total <output>{{ input().spinRpm.toFixed(0) }} rpm</output>
         <input type="range" min="1200" max="3000" step="10" [ngModel]="input().spinRpm"
                (ngModelChange)="set('spinRpm', +$event)" aria-label="Spin en rpm" />
         <span class="tag tag--warn">shape hipotético · el spin no modifica IVB/HB automáticamente</span>
       </label>
 
       <label class="ctl">
-        IVB <output>{{ input().ivbIn }} in</output>
+        Movimiento vertical · IVB <output>{{ input().ivbIn.toFixed(1) }} in</output>
         <input type="range" min="-15" max="25" step="0.5" [ngModel]="input().ivbIn"
                (ngModelChange)="set('ivbIn', +$event)" aria-label="Induced vertical break en pulgadas" />
         @if (reference(); as r) { <span class="tag tag--info">observado en arsenal ≈ {{ r.ivb.toFixed(1) }} in</span> }
       </label>
 
       <label class="ctl">
-        HB <output>{{ input().hbIn }} in</output>
+        Movimiento lateral · HB <output>{{ input().hbIn.toFixed(1) }} in</output>
         <input type="range" min="-20" max="20" step="0.5" [ngModel]="input().hbIn"
                (ngModelChange)="set('hbIn', +$event)" aria-label="Horizontal break en pulgadas" />
         @if (reference(); as r) { <span class="tag tag--info">observado en arsenal ≈ {{ r.hb.toFixed(1) }} in</span> }
       </label>
 
+      <details class="sim__step"><summary>02 / Ubicación y contexto <small>Ajusta el objetivo, bateador y conteo</small></summary>
       <label class="ctl">
-        Ubicación X <output>{{ input().plateXIn }} in</output>
+        Ubicación X <output>{{ input().plateXIn.toFixed(1) }} in</output>
         <input type="range" min="-17" max="17" step="0.5" [ngModel]="input().plateXIn"
                (ngModelChange)="set('plateXIn', +$event)" aria-label="Ubicación horizontal en el plato" />
       </label>
 
       <label class="ctl">
-        Ubicación Z <output>{{ input().plateZIn }} in</output>
+        Ubicación Z <output>{{ input().plateZIn.toFixed(1) }} in</output>
         <input type="range" min="10" max="50" step="0.5" [ngModel]="input().plateZIn"
                (ngModelChange)="set('plateZIn', +$event)" aria-label="Altura al cruzar el plato" />
-      </label>
-
-      <label class="ctl">
-        Categoría de altitud (origen)
-        <select [ngModel]="sourceCat()" (ngModelChange)="setSourceCat($event)">
-          @for (c of categories; track c) { <option [value]="c">{{ labels[c] }}</option> }
-        </select>
-        <span class="tag tag--warn">bucket de altitud · no identifica un estadio</span>
-      </label>
-
-      <label class="ctl">
-        Categoría de altitud (destino)
-        <select [ngModel]="targetCat()" (ngModelChange)="setTargetCat($event)">
-          @for (c of categories; track c) { <option [value]="c">{{ labels[c] }}</option> }
-        </select>
       </label>
 
       <label class="ctl">
@@ -98,6 +92,25 @@
         <span class="ctl__hint">La simulación de altitud promedia los contextos; no traslada este conteo directamente.</span>
       </div>
 
+      </details>
+      <section class="sim__altitude"><h3>03 / Compara la altitud</h3>
+      <label class="ctl">
+        Categoría de altitud (origen)
+        <select [ngModel]="sourceCat()" (ngModelChange)="setSourceCat($event)">
+          @for (c of categories; track c) { <option [value]="c">{{ labels[c] }}</option> }
+        </select>
+        <span class="tag tag--warn">bucket de altitud · no identifica un estadio</span>
+      </label>
+
+      <label class="ctl">
+        Categoría de altitud (destino)
+        <select [ngModel]="targetCat()" (ngModelChange)="setTargetCat($event)">
+          @for (c of categories; track c) { <option [value]="c">{{ labels[c] }}</option> }
+        </select>
+      </label>
+
+      </section>
+      <details class="sim__step"><summary>Ajustes de liberación <small>Extensión, punto de salida y eje de giro</small></summary>
       <fieldset class="sim__physics">
         <legend>Liberación y eje de spin</legend>
         <p class="note">Valores editables del escenario; no se infieren del spin. Puedes cargar las medias del arsenal como referencia.</p>
@@ -114,6 +127,7 @@
           <input type="number" min="0" max="360" step="1" [ngModel]="input().axisDeg" (ngModelChange)="set('axisDeg', $event)" />
         </label>
       </fieldset>
+      </details>
 
       @if (examples().length > 0) {
         <div class="sim__examples">
@@ -126,6 +140,10 @@
     </app-tile>
 
     <div class="span-7 sim__results" [attr.aria-busy]="apiPending()">
+      <section class="sim__takeaway" aria-live="polite" aria-atomic="true"><span class="eyebrow">LECTURA DEL LANZAMIENTO</span>
+        <h2>{{ apiPending() ? 'Actualizando tu escenario…' : physicallyInvalid() ? 'Revisa la combinación física' : pitchingPlus() !== null ? bandFor(pitchingPlus()!).label : 'La exploración empieza aquí' }}</h2>
+        <p>{{ apiPending() ? 'Los resultados corresponden a los ajustes que estás probando.' : pitchingPlus() !== null ? 'Lectura de Pitching+: físicas y ubicación. 100 es la referencia; consulta las tres evaluaciones abajo.' : 'Ajusta los controles para explorar la forma del lanzamiento. Los resultados necesitan una evaluación disponible del backend.' }}</p>
+      </section>
       @if (apiPending()) {
         <p class="notice" role="status">Calculando scores y escenarios de altitud… Puedes seguir ajustando los controles.</p>
       }
@@ -151,25 +169,57 @@
             {{ live() ? 'Evaluación del modelo · provisional' : apiPending() ? 'Cálculo en curso' : 'Scores no disponibles' }}
           </span>
           @if (live()?.warnings) {
-            <span class="tag tag--warn" [title]="live()?.warnings">El modelo reporta advertencias</span>
+            <details class="sim__warnings"><summary>Advertencias del modelo · leer antes de interpretar</summary><p class="note">{{ live()?.warnings }}</p></details>
           }
         </div>
         <div class="grid sim__scores">
-          <app-tile label="Stuff+ físico" class="span-4">
+          <app-tile label="La forma de tu lanzamiento" class="span-6">
+            <app-movement-chart
+              [pitches]="mapPitches()" [throws]="mapThrows()"
+              [highlightIndex]="mapHighlight()" [comparisonPoint]="targetMovement()" colorBy="type" />
+            <div class="sim__flags">
+              <span class="tag tag--band">Color = tipo de pitch · borde rojo = escenario de origen</span>
+              <span class="tag tag--muted">Círculo hueco con línea discontinua = movimiento estimado en destino</span>
+              <span class="tag tag--muted">{{ data.source() === 'api' ? 'Los demás puntos son pitches observados del lanzador' : 'Los demás puntos son datos sintéticos de demostración' }}</span>
+            </div>
+          </app-tile>
+          <app-tile label="Su recorrido al plato" class="span-6">
+            <app-trajectory [pitch]="trajectory()" caption="Ilustración geométrica del perfil de origen · no reconstruye una trayectoria medida" />
+          </app-tile>
+
+          <app-tile label="xRV aproximado · MLB 2014" class="span-12 sim__kpi sim__xrv">
+            @if (live()?.xrv; as xrv) {
+              @if (xrv.status === 'ok') {
+                <p><strong>{{ xrv.runs_per_pitch?.toFixed(4) }}</strong> carreras por pitch
+                  · {{ xrv.runs_per_100?.toFixed(2) }} por 100 pitches</p>
+                <p>Referencia por conteo: {{ xrv.baseline_runs_per_pitch?.toFixed(4) ?? '—' }}
+                  · Δ frente a referencia: {{ xrv.delta_vs_count_baseline?.toFixed(4) ?? '—' }}</p>
+              } @else {
+                <p>xRV no disponible para este lanzamiento.</p>
+              }
+            } @else {
+              <p>xRV pendiente de evaluación.</p>
+            }
+            <p class="note">Menor es mejor para el pitcher. Estimación experimental con pesos externos de MLB 2014,
+              conteo {{ balls() }}–{{ strikes() }} y probabilidades de Pitching+.
+              Bola en juego usa un promedio de contacto; no está validada para LMB ni ajustada por estadio.
+              El delta de altitud de abajo pertenece a otra escala.</p>
+          </app-tile>
+          <app-tile label="Stuff+ físico" class="span-4 sim__kpi">
             <app-gauge [value]="stuffPlus() ?? 0" [modelAvailable]="stuffPlus() !== null" [avg]="100" unit="pts"
               title="Stuff+ físico provisional" accent="var(--red)" />
             @if (stuffPlus(); as score) {
               <p class="sim__note">{{ bandFor(score).label }} · no depende de ubicación</p>
             }
           </app-tile>
-          <app-tile label="Location+" class="span-4">
+          <app-tile label="Location+" class="span-4 sim__kpi">
             <app-gauge [value]="locationPlus() ?? 0" [modelAvailable]="locationPlus() !== null" [avg]="100" unit="pts"
               title="Location+ provisional" accent="var(--green-mx)" />
             @if (locationPlus(); as score) {
               <p class="sim__note">{{ bandFor(score).label }} · ubicación y contexto</p>
             }
           </app-tile>
-          <app-tile label="Pitching+" class="span-4">
+          <app-tile label="Pitching+" class="span-4 sim__kpi">
             <app-gauge [value]="pitchingPlus() ?? 0" [modelAvailable]="pitchingPlus() !== null" [avg]="100" unit="pts"
               title="Pitching+ provisional" accent="var(--ink)" />
             @if (pitchingPlus(); as score) {
@@ -184,7 +234,7 @@
                     <span class="sim__vs-cat">{{ labels[sourceCat()] }}</span>
                     <span class="sim__vs-score">{{ l.simSourceScore?.toFixed(1) ?? '—' }}</span>
                     <span class="sim__vs-sub">score experimental</span>
-                    <span class="sim__vs-mov">IVB {{ input().ivbIn }} · HB {{ input().hbIn }} in</span>
+                    <span class="sim__vs-mov">IVB {{ input().ivbIn.toFixed(1) }} · HB {{ input().hbIn.toFixed(1) }} in</span>
                   </div>
                   <div class="sim__vs-delta">
                     <span class="sim__vs-arrow" aria-hidden="true">→</span>
@@ -215,22 +265,9 @@
               }
             </app-tile>
           }
-          <app-tile label="Mapa de movimiento" class="span-12">
-            <app-movement-chart
-              [pitches]="mapPitches()" [throws]="mapThrows()"
-              [highlightIndex]="mapHighlight()" [comparisonPoint]="targetMovement()" colorBy="type" />
-            <div class="sim__flags">
-              <span class="tag tag--band">Color = tipo de pitch · borde rojo = escenario de origen</span>
-              <span class="tag tag--muted">Círculo hueco con línea discontinua = movimiento estimado en destino</span>
-              <span class="tag tag--muted">{{ data.source() === 'api' ? 'Los demás puntos son pitches observados del lanzador' : 'Los demás puntos son datos sintéticos de demostración' }}</span>
-            </div>
-          </app-tile>
-          <app-tile label="Trayectoria simulada" class="span-12">
-            <app-trajectory [pitch]="trajectory()" caption="Ilustración geométrica del perfil de origen · no reconstruye una trayectoria medida" />
-          </app-tile>
         </div>
       }
     </div>
   </div>
-  <app-recommendations [source]="sourceCat()" [target]="targetCat()" />
+  <div id="recommendations" #recommendations><app-recommendations [source]="sourceCat()" [target]="targetCat()" /></div>
 </div>

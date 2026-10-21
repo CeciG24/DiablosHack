@@ -18,6 +18,8 @@ from backend.schemas import (Batch, PredictionRequest, PredictionResponse,
 from modeling.datasets import FEATURES
 from modeling.inference import ReleasePredictor
 from experiments.phase10_simulator import Simulator
+from backend.xrv import ExternalRunValue
+from modeling.baselines import EventBaseline
 
 ROOT = Path(__file__).resolve().parents[1]
 log = logging.getLogger(__name__)
@@ -64,13 +66,17 @@ def create_app(predictor=None, simulator=None):
                 except Exception:
                     # Verification failures must never fall back to unverified models.
                     log.exception('No se pudo cargar %s', name)
+        model = app.state.predictor
+        baseline = EventBaseline.load(model.folder/'B1.json') if model is not None and hasattr(model, 'folder') else None
+        app.state.xrv = ExternalRunValue(baseline=baseline)
         yield
         app.state.predictor = app.state.simulator = app.state.review = app.state.scenarios = None
 
     app = FastAPI(title='Diablos — Stuff+ API', version='1.1.0', lifespan=lifespan,
         description='Backend del hackathon LMB. F8: Stuff+, Location+ y Pitching+ provisionales, '
         '100 + 10 × z(utilidad), referencia fija de calibración 2025. F10: escenarios '
-        'experimentales de movimiento y arsenal. No representa xRunValue, probabilidad de out '
+        'experimentales de movimiento y arsenal. xRV aproximado: pesos externos MLB 2014; '
+        'no es xRunValue oficial LMB. No representa probabilidad de out '
         'en PA, barril ni jonrón. Las categorías de altura no identifican Harp Helú. '
         'No requiere outcomes ni consulta registros del test 2026.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
@@ -99,6 +105,10 @@ def create_app(predictor=None, simulator=None):
                 raise HTTPException(422, f'Faltan variables para {family}: '+', '.join(missing))
         with app.state.inference_lock:
             predictions = {f: model.records(rows, f) for f in families}
+        for family in families:
+            for row, prediction in zip(rows, predictions[family]):
+                prediction['xrv'] = app.state.xrv.evaluate(
+                    prediction['probabilities'], row, prediction['status'])
         return {'release_id': model.lock['release_id'],
                 'records': [{f: predictions[f][i] for f in families} for i in range(len(rows))]}
 
@@ -143,7 +153,12 @@ def create_app(predictor=None, simulator=None):
                 'limitations': ['F8 no ajusta arsenal ni ambiente', 'Stuff físico F8 es diagnóstico',
                     'F10 es experimental, asociación categórica con historia fija 2024',
                     'Sin mapping Harp Helú, metros, park holdout o efecto causal',
-                    'Sin xRunValue, HR, barrel ni out dentro de PA']}
+                    'xRV aproximado externo MLB 2014; sin validación LMB ni ajuste por estadio',
+                    'Sin xRunValue oficial, HR, barrel ni out dentro de PA']}
+
+    @app.get('/api/v1/xrv', tags=['Modelo'], summary='Pesos externos xRV aproximado MLB 2014 y procedencia')
+    def xrv_metadata() -> dict:
+        return app.state.xrv.metadata()
 
     @app.get('/api/v1/validation', tags=['Modelo'], summary='Evidencia guardada F8/F10 y holdout de altitud; no reentrena')
     def validation() -> dict:

@@ -1,11 +1,21 @@
 <header class="page-head">
-  <div><h1>Lanzadores y arsenales</h1><p>Encuentra perfiles para Diablos Rojos. Evalúa el repertorio, sus diferenciales y el soporte de cada señal de altitud.</p></div>
+  <div><span class="eyebrow">SCOUTING ROOM / LANZADORES Y ARSENALES</span><h1>Talento con identidad.</h1><p>Encuentra perfiles para Diablos Rojos. Evalúa el repertorio, sus diferenciales y el soporte de cada señal de altitud.</p></div>
   <span class="status-tag">{{ data.source() === 'api' ? 'Revisión 2025 · agregados completos del lanzador' : 'Demostración · datos sintéticos' }}</span>
 </header>
+<app-metric-guide />
 <div class="section-head"><h2>Lanzadores disponibles</h2><p>{{ data.bundles().length }} perfiles cargados · ordenados por Stuff+</p></div>
 <div class="filters" style="margin-bottom: 14px">
   <label>Buscar lanzador<input type="search" [value]="search()" (input)="setSearch($event)" placeholder="ID o nombre del lanzador" /></label>
 </div>
+<div class="roster" aria-label="Selecciona un perfil deportivo">
+  @for (b of pitchers(); track b.pitcher.id) {
+    <button type="button" class="roster__profile" [class.is-selected]="ctx.pitcherId() === b.pitcher.id" [attr.aria-pressed]="ctx.pitcherId() === b.pitcher.id" (click)="ctx.selectPitcher(b.pitcher.id)">
+      <small>{{ b.pitcher.throws === 'L' ? 'ZURDO / LHP' : 'DERECHO / RHP' }} · {{ ctx.pitcherId() === b.pitcher.id ? 'SELECCIONADO' : 'VER PERFIL ↗' }}</small>
+      <strong>{{ b.pitcher.label }}</strong><span>Stuff+ {{ metric(b.stuffPlus.modelAvailable ? b.stuffPlus.value : null) }} · {{ b.stuffPlus.n }} pitches</span>
+    </button>
+  } @empty { <p class="empty-state">No hay perfiles para esta búsqueda.</p> }
+</div>
+<details><summary>Comparar todos los indicadores en tabla</summary>
 <div class="table-wrap" role="region" aria-label="Listado de lanzadores" tabindex="0">
   <table class="data-table">
     <thead><tr><th scope="col">Lanzador</th><th scope="col">Mano</th><th scope="col">Pitches</th><th scope="col">Stuff+</th><th scope="col">Location+</th><th scope="col">Pitching+</th><th scope="col">Lectura de scouting</th></tr></thead>
@@ -23,6 +33,7 @@
     </tbody>
   </table>
 </div>
+</details>
 <p class="note">Lista de perfiles cargados, no ranking poblacional. Una señal física favorable no demuestra adaptación a la altitud ni sustituye una evaluación deportiva.</p>
 
 @if (bundle(); as b) {
@@ -48,6 +59,11 @@
         @for (row of arsenal(); track row.type) { <option [value]="row.type">{{ names[row.type] }}</option> }
       </select>
     </label>
+  </div>
+  <div class="arsenal-visual" aria-label="Uso del arsenal por tipo">
+    @for (row of relationships(); track row.type) {
+      <article><h3>{{ names[row.type] }}</h3><strong>{{ metric(row.usage) }}%</strong><small> del repertorio</small><div class="usage-bar"><span [style.width.%]="row.usage"></span></div><small>{{ metric(row.velo) }} mph · Stuff+ {{ metric(row.stuff) }} · n={{ row.n }}</small></article>
+    }
   </div>
   <div class="section-head"><h2>Repertorio y relación con la recta</h2><p>Uso ponderado por número de pitches</p></div>
   @if (baseline(); as base) {

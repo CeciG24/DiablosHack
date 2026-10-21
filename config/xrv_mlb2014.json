@@ -1,0 +1,37 @@
+{
+  "version": "xrv_external_mlb2014_v1",
+  "league": "MLB",
+  "season": 2014,
+  "frozen_on": "2026-10-20",
+  "perspective": "offense_lower_is_better_for_pitcher",
+  "units": "runs_per_pitch",
+  "sources": {
+    "count_woba": "https://tht.fangraphs.com/dynamic-run-value-of-throwing-a-strike-instead-of-a-ball/",
+    "constants": "https://www.fangraphs.com/tools/guts?type=cn",
+    "contact_totals": "https://statsapi.mlb.com/api/v1/teams/stats?stats=season&group=hitting&season=2014&sportIds=1"
+  },
+  "count_woba": {
+    "0-0": 0.310, "0-1": 0.262, "0-2": 0.196,
+    "1-0": 0.355, "1-1": 0.293, "1-2": 0.223,
+    "2-0": 0.436, "2-1": 0.352, "2-2": 0.273,
+    "3-0": 0.622, "3-1": 0.470, "3-2": 0.384
+  },
+  "woba_scale": 1.304,
+  "terminal_woba": {"walk": 0.689, "hit_by_pitch": 0.722, "strikeout": 0.0},
+  "hit_woba": {"single": 0.892, "double": 1.283, "triple": 1.635, "home_run": 2.135},
+  "mlb_team_count": 30,
+  "mlb_totals": {
+    "atBats": 165614, "strikeOuts": 37441, "sacFlies": 1277,
+    "sacBunts": 1343, "hits": 41595, "doubles": 8137,
+    "triples": 849, "homeRuns": 4186
+  },
+  "in_play_policy": "constant_external_contact_mean_including_home_runs_and_sacrifice_bunts",
+  "limitations": [
+    "External MLB 2014 weights are not validated for LMB.",
+    "In-play uses one league contact mean across all counts and physical profiles; no contact-quality or HR model.",
+    "No runners, outs, park or weather adjustment; not RE24 or official hackathon xRunValue.",
+    "Ordinary two-strike fouls have zero value; foul bunts and other exceptions are not modeled.",
+    "Rounded published count expectations and constant contact value need not yield a zero league mean.",
+    "Count-only B1 is a reference, not an official baseline or new independent evaluation."
+  ]
+}

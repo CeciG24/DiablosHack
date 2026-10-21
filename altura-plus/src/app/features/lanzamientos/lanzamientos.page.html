@@ -1,7 +1,8 @@
 <header class="page-head">
-  <div><h1>Análisis de lanzamientos</h1><p>Del repertorio al pitch individual. Filtra la muestra y selecciona un registro para revisar sus características y probabilidades.</p></div>
+  <div><span class="eyebrow">PITCH EXPLORER / ANÁLISIS</span><h1>Cada pitch cuenta.</h1><p>Del repertorio al pitch individual. Filtra la muestra y selecciona un registro para revisar sus características y probabilidades.</p></div>
   <span class="status-tag">{{ data.source() === 'api' ? 'Muestra real · evaluación provisional' : 'Demostración · datos sintéticos' }}</span>
 </header>
+<app-metric-guide />
 <app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="updateFilters($event)" />
 <dl class="metrics-strip">
   <div><dt>Stuff+ medio</dt><dd>{{ metric(metrics().stuff) }}</dd><small>De la muestra filtrada</small></div>
@@ -12,6 +13,22 @@
 @if (pitches().length === 0) {
   <div class="empty-state" role="status">No hay lanzamientos con estos filtros. Usa “Limpiar filtros” o elige otra combinación.</div>
 } @else {
+  <div class="two-columns">
+    <section class="panel">
+      <h2>Ubicación en la zona de strike</h2>
+      <app-strike-zone [pitches]="chartPitches()" [selectedId]="selected()?.id ?? null" [interactive]="true" (pitchSelected)="selectedId.set($event)" />
+      <p class="note">Vista del catcher · zona de referencia fija (18–44 in), no ajustada a cada bateador. El punto con borde es el pitch seleccionado.</p>
+    </section>
+    <section class="panel">
+      <h2>Mapa de movimiento</h2>
+      <app-movement-chart [pitches]="chartPitches()" [mirrorLefties]="false" [highlightIndex]="highlightIndex()" [interactive]="true" (pitchSelected)="selectedId.set($event)" />
+      <p class="note">HB e IVB en pulgadas · coordenadas originales, sin espejo por mano. La zona de strike y el movimiento son mapas distintos.</p>
+    </section>
+  </div>
+  <div class="chart-legend" style="margin-top: 12px" aria-label="Leyenda de tipos de pitcheo">
+    @for (type of legend(); track type) { <span><i [style.background]="colors[type]" aria-hidden="true"></i>{{ names[type] }}</span> }
+  </div>
+  @if (pitches().length > 600) { <p class="note">Los mapas muestran hasta 600 pitches de la muestra filtrada, incluyendo el seleccionado. La tabla y las medias usan todos los registros filtrados.</p> }
   <div class="section-head"><h2>Registro de lanzamientos</h2><p>Selecciona un ID para inspeccionar el pitch · desplaza la tabla para ver todas las físicas</p></div>
   <div class="table-wrap" role="region" aria-label="Tabla de lanzamientos, desplazamiento horizontal" tabindex="0">
     <table class="data-table">
@@ -80,20 +97,5 @@
       <p class="note">Diagnóstico del modelo físico, no condicionado a conteo ni bateador. El contacto débil es un proxy; no se dispone de probabilidad de elevado y no se sustituye por el complemento de rodado.</p>
     </section>
   }
-  <div class="two-columns">
-    <section class="panel">
-      <h2>Ubicación en la zona de strike</h2>
-      <app-strike-zone [pitches]="chartPitches()" [selectedId]="selected()?.id ?? null" />
-      <p class="note">Vista del catcher · zona de referencia fija (18–44 in), no ajustada a cada bateador. El punto con borde es el pitch seleccionado.</p>
-    </section>
-    <section class="panel">
-      <h2>Mapa de movimiento</h2>
-      <app-movement-chart [pitches]="chartPitches()" [mirrorLefties]="false" [highlightIndex]="highlightIndex()" />
-      <p class="note">HB e IVB en pulgadas · coordenadas originales, sin espejo por mano. La zona de strike y el movimiento son mapas distintos.</p>
-    </section>
-  </div>
-  <div class="chart-legend" style="margin-top: 12px" aria-label="Leyenda de tipos de pitcheo">
-    @for (type of legend(); track type) { <span><i [style.background]="colors[type]" aria-hidden="true"></i>{{ names[type] }}</span> }
-  </div>
-  @if (pitches().length > 600) { <p class="note">Los mapas muestran hasta 600 pitches de la muestra filtrada, incluyendo el seleccionado. La tabla y las medias usan todos los registros filtrados.</p> }
+
 }

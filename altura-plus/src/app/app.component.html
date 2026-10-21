@@ -1,9 +1,9 @@
-<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<a class="skip-link" href="#main-content" (click)="$event.preventDefault(); mainContent.focus(); mainContent.scrollIntoView()">Saltar al contenido</a>
 <div class="shell">
   <nav class="sidebar" aria-label="Navegación principal">
     <div class="sidebar__brand">
       <img class="sidebar__logo" src="mictlan-logo.png" alt="MICTLAN" />
-      <span class="sidebar__name">MICTLAN</span>
+      <span class="sidebar__name">MICTLAN<small>EL JUEGO, EN OTRA DIMENSIÓN.</small></span>
     </div>
 
     <ul class="sidebar__list">
@@ -34,8 +34,8 @@
   <div class="main">
     <header class="topbar">
       <div class="topbar__left">
-        <strong class="topbar__title">MICTLAN</strong>
-        <span class="topbar__sub">Scouting de pitchers · LMB</span>
+        <strong class="topbar__title">DIABLOS ROJOS</strong>
+        <span class="topbar__sub">SCOUTING & ANALÍTICA / LMB</span>
       </div>
 
       <div class="topbar__pitcher">
@@ -57,7 +57,7 @@
       </div>
     </header>
 
-    <main id="main-content" class="content" tabindex="-1">
+    <main id="main-content" #mainContent class="content" tabindex="-1">
       @if (data.status() === 'loading') {
         <div class="content__loading" role="status" aria-live="polite">
           <div class="loading-skeleton" aria-hidden="true"></div>
@@ -69,7 +69,7 @@
           <button type="button" class="button" (click)="data.reload()">Reintentar</button>
         </div>
       } @else {
-        <router-outlet />
+        <router-outlet /><footer class="site-footer"><strong>MICTLAN<span> / </span>BEYOND THE PITCH.</strong><span>Explora con datos. Confirma en el diamante.</span></footer>
       }
     </main>
   </div>

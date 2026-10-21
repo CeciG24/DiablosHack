@@ -1,3 +1,4 @@
+import { MetricGuideComponent } from '../../shared/ui/metric-guide.component';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/data-access/data.service';
@@ -9,7 +10,7 @@ import { PitchFiltersComponent } from '../../shared/ui/pitch-filters.component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink, PitchFiltersComponent],
+  imports: [MetricGuideComponent, RouterLink, PitchFiltersComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.scss',
 })

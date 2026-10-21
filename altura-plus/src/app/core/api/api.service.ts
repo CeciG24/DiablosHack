@@ -85,6 +85,14 @@ export interface ApiBundle {
 }
 
 export interface ApiPredictionFamily {
+  xrv?: {
+    status: string;
+    runs_per_pitch: number | null;
+    runs_per_100: number | null;
+    baseline_runs_per_pitch: number | null;
+    delta_vs_count_baseline: number | null;
+    version: string;
+  };
   status: string;
   score: number | null;
   warnings: string;

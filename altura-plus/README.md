@@ -1,5 +1,23 @@
 # AlturaPlus
 
+## Rediseño editorial de MICTLAN
+
+La navegación horizontal conecta las cuatro herramientas. El inicio combina
+fotografía local, titulares condensados y accesos directos al laboratorio,
+análisis y scouting. El simulador presenta la lectura del pitch, sus mapas y
+los escenarios con ajustes progresivos de ubicación y liberación. En móvil,
+los botones «Ajustar pitch» y «Ver resultado» permiten alternar sin recorrer
+todo el formulario; los ajustes se conservan.
+
+Análisis presenta los mapas antes de la tabla. Seleccionar un punto o usar las
+flechas izquierda/derecha con el mapa enfocado actualiza el pitch inspeccionado.
+Los perfiles de scouting y barras de uso conservan la comparación tabular.
+La guía desplegable explica Stuff+, Location+, Pitching+, IVB, HB y xRV.
+
+El rediseño conserva modelos, unidades, contratos, límites de soporte y
+distinción entre datos reales y demostración. Los recursos locales y licencias
+se documentan en `public/images/README.md`.
+
 ## MICTLAN: cuatro módulos
 
 - `/dashboard`: índices de la muestra cargada, comparación observada por altitud,

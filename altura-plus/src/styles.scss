@@ -4,13 +4,13 @@
 @import '@fontsource/ibm-plex-sans/latin-700.css';
 
 :root {
-  --red: #d0142c;
+  --red: #e21c3a;
   --red-dark: #a00f22;
-  --ink: #1a1c20;
+  --ink: #151517;
   --muted: #6b7280;
-  --bg: #f4f5f7;
+  --bg: #f3f2ef;
   --tile: #ffffff;
-  --line: #e5e7eb;
+  --line: #dcdad5;
   --sidebar: #16171c;
   --amber: #b45309;
   /* tricolor México / LMB */
@@ -21,12 +21,12 @@
   --tricolor: linear-gradient(90deg, var(--green-mx) 0 33.3%, var(--white-mx) 33.3% 66.6%, var(--red-mx) 66.6% 100%);
 
   /* DIN 2014 si está licenciada/instalada; si no, DIN Alternate (macOS) -> IBM Plex Sans */
-  --font-display: 'DIN 2014', 'DIN Alternate', 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', 'Impact', sans-serif;
 }
 
 * { box-sizing: border-box; }
 
-html { font-size: 18px; }
+html { font-size: 16px; scroll-behavior:smooth; }
 
 html, body {
   margin: 0;
@@ -207,3 +207,101 @@ input { caret-color: var(--red); }
   .filters label { min-width: 125px; }
   .panel { padding: 16px; }
 }
+
+@font-face { font-family:'Barlow Condensed'; src:url('/images/barlow-condensed-800.ttf') format('truetype'); font-weight:700 900; font-display:swap; }
+body { background:var(--bg); }
+.page-head { padding:42px 0 28px; margin:0; align-items:flex-end; }
+.page-head h1 { font:800 clamp(42px,5.5vw,80px)/.95 var(--font-display); text-transform:uppercase; letter-spacing:-1px; margin:9px 0 16px; }
+.page-head p { font-size:14px; max-width:62ch; }
+.eyebrow { display:block; color:var(--red); font:600 10px 'IBM Plex Sans',sans-serif; letter-spacing:2px; text-transform:uppercase; }
+.section-head { border-top:1px solid var(--line); padding-top:22px; margin-top:36px; }
+.section-head h2 { font:800 28px/1 var(--font-display); text-transform:uppercase; }
+.panel,.table-wrap,.filters,.metrics-strip { border-radius:0; box-shadow:none; }
+.panel { padding:24px; }
+.panel h2 { font:800 26px var(--font-display); text-transform:uppercase; }
+.button { border-radius:0; min-height:44px; font-size:12px; padding:12px 20px; }
+.metrics-strip { border:0; border-top:4px solid var(--red); background:#414145; margin:24px 0 20px; }
+.metrics-strip > div { background:#19191c; padding:28px; color:white; }
+.metrics-strip dd { font:700 clamp(40px,4.2vw,64px)/1.15 'IBM Plex Sans',sans-serif; color:white; margin:12px 0; letter-spacing:-2px; }
+.metrics-strip dt { font-size:15px; font-weight:600; color:#f1f1f5; }
+.metrics-strip small { font-size:13px; line-height:1.5; color:#c7c7d0; }
+.sim__scores > .sim__kpi { order:-1; }
+.sim__xrv p:first-child strong { font:700 38px 'IBM Plex Sans',sans-serif; letter-spacing:-1px; }
+.data-table thead th { background:#19191b; color:#eee; font-size:10px; letter-spacing:.6px; text-transform:uppercase; padding:14px 16px; }
+.data-table th,.data-table td { padding:15px 16px; }
+.data-table tbody tr.selected { background:#fce9ec; }
+.filters { padding:18px 0; background:transparent; border-left:0; border-right:0; }
+.filters select,.filters input { background:white; border-radius:0; font-size:13px; }
+.notice { border-radius:0; border-width:0 0 0 3px; font-size:12px; }
+.note { font-size:12px; }
+details > summary { cursor:pointer; font-weight:600; font-size:13px; padding:6px 0; }
+details[open] > summary { margin-bottom:16px; }
+.hero { position:relative; overflow:hidden; background:#111112; color:white; margin:0 -4vw; padding:64px 4vw 0; }
+.hero__eyebrow { color:#f3a3b0; }
+.hero h1 { position:relative; z-index:1; font:800 clamp(64px,9vw,140px)/.88 var(--font-display); letter-spacing:-2px; text-transform:uppercase; max-width:1000px; margin:22px 0; }
+.hero h1 em { color:var(--red); font-style:normal; }
+.hero__intro { display:flex; gap:32px; align-items:center; justify-content:space-between; padding:12px 0 36px; }
+.hero__intro p { font-size:14px; color:#bdbdc3; max-width:440px; line-height:1.6; }
+.hero__photo { height:260px; background:linear-gradient(90deg,rgba(0,0,0,.15),rgba(0,0,0,.1)),url('/images/baseball-field.jpg') center 52%/cover; position:relative; border-top:4px solid var(--red); }
+.hero__photo span { position:absolute; bottom:20px; left:24px; color:white; font:800 30px var(--font-display); text-shadow:0 2px 8px #000; }
+.explore-links { display:grid; grid-template-columns:repeat(3,1fr); margin-bottom:32px; background:#111112; }
+.explore-links a { display:flex; flex-direction:column; padding:24px; border-right:1px solid #454548; color:white; text-decoration:none; gap:8px; }
+.explore-links a:hover { background:#252527; }
+.explore-links small { color:#f18b9b; font-size:10px; letter-spacing:1px; }
+.explore-links strong { font:800 27px var(--font-display); text-transform:uppercase; }
+.explore-links span { color:#bbb; font-size:12px; line-height:1.5; }
+.metric-guide { margin:16px 0 24px; border-bottom:1px solid var(--line); padding:10px 0 18px; }
+.metric-guide__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.metric-guide p { color:var(--muted); font-size:12px; line-height:1.6; }
+.roster { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:20px 0; }
+.roster__profile { text-align:left; padding:22px; color:white; background:#1b1b1d; border:2px solid transparent; cursor:pointer; position:relative; overflow:hidden; }
+.roster__profile:hover,.roster__profile.is-selected { border-color:var(--red); background:#292124; }
+.roster__profile small { font:500 10px 'IBM Plex Sans',sans-serif; color:#d4a7b0; letter-spacing:1px; }
+.roster__profile strong { display:block; font:800 30px/1 var(--font-display); margin:20px 0 12px; }
+.roster__profile span { display:block; font:400 12px 'IBM Plex Sans',sans-serif; color:#ccc; }
+.arsenal-visual { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin:24px 0; }
+.arsenal-visual article { background:white; padding:22px; }
+.arsenal-visual h3 { font:800 25px var(--font-display); margin:0 0 16px; text-transform:uppercase; }
+.arsenal-visual strong { font:800 42px var(--font-display); }
+.arsenal-visual small { color:var(--muted); font-size:11px; }
+.usage-bar { height:4px; background:var(--bg); margin:15px 0; }
+.usage-bar span { display:block; height:100%; background:var(--red); }
+@media(max-width:720px) { .page-head { padding-top:28px; } .page-head h1 { font-size:46px; } .hero { margin:0 -5vw; padding:40px 5vw 0; } .hero h1 { font-size:65px; letter-spacing:-1px; } .hero__intro { align-items:flex-start; flex-direction:column; gap:8px; } .hero__photo { height:190px; } .explore-links { grid-template-columns:1fr; } .explore-links a { border-right:0; border-bottom:1px solid #444; padding:20px; } .roster { grid-template-columns:repeat(2,minmax(0,1fr)); } .roster__profile { padding:16px; } .roster__profile strong { font-size:26px; overflow-wrap:anywhere; } .metric-guide__grid { grid-template-columns:1fr; gap:0; } .metrics-strip dd { font-size:44px; } }
+
+.sim__hero { position:relative; overflow:hidden; background:#111112; color:white; margin:0 -4vw; padding:48px 4vw 40px; }
+.sim__hero:before { content:''; position:absolute; inset:0 0 0 45%; background:linear-gradient(90deg,#111112 0%,#11111255),url('/images/baseball-field.jpg') center/cover; opacity:.45; }
+.sim__hero > div { position:relative; }
+.sim__hero h1 { font-size:clamp(54px,6.5vw,94px); }
+.sim__hero h1 em { font-style:normal; color:var(--red); }
+.sim__hero p { color:#c5c5ca; max-width:48ch; }
+.sim__hero-mark { font:800 120px/.8 var(--font-display); color:#ffffff55; text-align:right; }
+.sim__hero-mark span { display:block; font:500 10px 'IBM Plex Sans',sans-serif; letter-spacing:4px; margin-top:18px; }
+.sim__workflow { display:flex; justify-content:space-between; gap:16px; padding:12px 0 20px; border-bottom:1px solid var(--line); font-size:12px; }
+.sim__workflow b { color:var(--red); padding-right:8px; }
+.sim__workflow a { color:var(--ink); text-underline-offset:4px; }
+
+.recommendation-lead { margin:24px 0; padding:24px; border-left:4px solid var(--red); background:var(--bg); }
+.recommendation-lead h3 { font:800 42px var(--font-display); margin:8px 0; }
+
+/* Experimental altitude comparison; independent score scale. */
+.sim__vs {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 12px; margin: 4px 0 2px;
+}
+.sim__vs-side {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg);
+}
+.sim__vs-cat { font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+.sim__vs-score { font-size: 1.9rem; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.sim__vs-sub { font-size: 0.75rem; color: var(--muted); }
+.sim__vs-mov { font-size: 0.78rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sim__vs-delta { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.sim__vs-arrow { font-size: 1.3rem; color: var(--muted); }
+.sim__vs-dnum { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--muted); }
+.sim__vs-dnum--neg { color: var(--red); }
+.sim__vs-dnum--pos { color: var(--green); }
+.sim__vs-score { font:800 52px var(--font-display); }
+.sim__vs-side { border-radius:0; padding:22px 10px; }
+.sim__vs-mov { font-size:11px; }

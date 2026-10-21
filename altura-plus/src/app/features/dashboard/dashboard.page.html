@@ -1,11 +1,15 @@
-<header class="page-head">
-  <div>
-    <h1>Dashboard</h1>
-    <p>El rendimiento, en contexto. Explora la calidad del pitcheo y las señales asociadas a la altitud.</p>
-  </div>
-  <a routerLink="/lanzamientos" class="button">Explorar lanzamientos</a>
-</header>
-
+<section class="hero"><span class="eyebrow hero__eyebrow">MICTLAN / INTELIGENCIA DE PITCHEO</span>
+  <h1>El talento se ve.<br /><em>El potencial se revela.</em></h1>
+  <div class="hero__intro"><p>Otra forma de leer el juego. Conoce cada lanzamiento, explora su movimiento y encuentra señales para el siguiente paso.</p><a routerLink="/simulador" class="button">Entrar al laboratorio ↗</a></div>
+  <div class="hero__photo" role="img" aria-label="Diamante de béisbol"><span>EL JUEGO CAMBIA. TU VISIÓN TAMBIÉN.</span></div>
+</section>
+<nav class="explore-links" aria-label="Explora MICTLAN">
+  <a routerLink="/simulador"><small>01 / EXPERIMENTA</small><strong>Un pitch. Otro escenario. ↗</strong><span>Diseña y compara categorías de altitud.</span></a>
+  <a routerLink="/lanzamientos"><small>02 / OBSERVA</small><strong>Lee cada lanzamiento. ↗</strong><span>Movimiento, ubicación y calidad en contexto.</span></a>
+  <a routerLink="/lanzadores"><small>03 / DESCUBRE</small><strong>Conoce el arsenal. ↗</strong><span>Perfiles y repertorios para el scouting.</span></a>
+</nav>
+<div class="section-head"><h2>El pulso de la muestra</h2><p>Filtra para explorar los datos disponibles</p></div>
+<app-metric-guide />
 <app-pitch-filters [pitchers]="pitchers()" [seasons]="seasons()" [value]="filters()" (changed)="filters.set($event)" />
 @if (data.source() !== 'api') {
   <div class="notice" role="note"><strong>Modo demostración.</strong> Todos los indicadores son sintéticos; no son evidencia deportiva. Usa “Actualizar datos” para reconectar.</div>
