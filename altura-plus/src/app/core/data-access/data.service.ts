@@ -80,25 +80,36 @@ export class DataService {
   }
 
   private async loadApiBundles(): Promise<PitcherBundle[]> {
-    const { records } = await this.api.pitchers(60, 60);
-    // Priorizar pitchers con cobertura multi-categoría (≥2 escenarios de
-    // altitud) para que el comparador tenga contraste real; completar con el
-    // resto por score si faltan.
-    const sorted = [...records].sort(
-      (a, b) => b.n_categories - a.n_categories || b.experimental_score - a.experimental_score,
-    );
-    const picked = [
-      ...sorted.filter((r) => r.n_categories >= 2),
-      ...sorted.filter((r) => r.n_categories < 2),
-    ].slice(0, 8);
+    // Selección curada primero (ver FEATURED_PITCHERS), después el top del
+    // review 2025 por score experimental F9 hasta 120+ perfiles. El backend
+    // precalcula los scores F8 una vez por frame, así que los bundles se
+    // resuelven en milisegundos y se pueden pedir en bloques paralelos.
+    const { records } = await this.api.pitchers(30, 130);
+    const ids = [
+      ...FEATURED_PITCHERS,
+      ...records.map((r) => r.pitcher_anon_id).filter((id) => !FEATURED_PITCHERS.includes(id)),
+    ];
+    const bundles: PitcherBundle[] = [];
+    for (let i = 0; i < ids.length; i += 12) {
+      bundles.push(...await this.fetchBundles(ids.slice(i, i + 12)));
+      this.bundles.set([...bundles]);
+      if (bundles.length > 0 && this.status() !== 'ready') {
+        this.source.set('api');
+        this.status.set('ready');
+      }
+    }
+    return bundles;
+  }
+
+  private async fetchBundles(ids: readonly string[]): Promise<PitcherBundle[]> {
     const results = await Promise.allSettled(
-      picked.map((r) => this.api.bundle(r.pitcher_anon_id)),
+      ids.map((id) => this.api.bundle(id)),
     );
-    const bundles = results
-      .filter((r): r is PromiseFulfilledResult<import('../api/api.service').ApiBundle> => r.status === 'fulfilled')
-      .map((r) => apiBundleToDomain(r.value));
     // Conservar solo pitchers con algo de cobertura real.
-    return bundles.filter((b) => b.pitches.length > 0);
+    return results
+      .filter((r): r is PromiseFulfilledResult<import('../api/api.service').ApiBundle> => r.status === 'fulfilled')
+      .map((r) => apiBundleToDomain(r.value))
+      .filter((b) => b.pitches.length > 0);
   }
 
   private async fetchArtifacts(): Promise<ContractArtifacts> {
@@ -127,6 +138,19 @@ export class DataService {
     return artifacts;
   }
 }
+
+/**
+ * 10 pitchers destacados del review 2025:
+ * - 5 con más deltas contrafactuales F10 evaluables por altitud
+ *   (00533, 00157, 00500, 00319, 00866).
+ * - Top 5 por score experimental F9 (01050, 00901, 00222, 00548, 00332).
+ * La lista de /api/v1/pitchers está ordenada por score y su límite deja
+ * fuera a los evaluables por altitud; por eso se piden por id directo.
+ */
+const FEATURED_PITCHERS: readonly string[] = [
+  'pitcher_00533', 'pitcher_00157', 'pitcher_00500', 'pitcher_00319', 'pitcher_00866',
+  'pitcher_01050', 'pitcher_00901', 'pitcher_00222', 'pitcher_00548', 'pitcher_00332',
+];
 
 const DEFAULT_EXAMPLES: SimulatorExample[] = [
   { label: 'FB élite', pitchType: 'FB', veloMph: 95, spinRpm: 2450, ivbIn: 17, hbIn: -6, plateXIn: 0, plateZIn: 30 },

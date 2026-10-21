@@ -1,0 +1,16 @@
+/* Encabezados ordenables: el botón hereda el look del th y marca la columna activa. */
+.th-sort {
+  background: none; border: 0; padding: 0; margin: 0;
+  font: inherit; color: inherit; text-align: left;
+  cursor: pointer; width: 100%;
+  &:hover { color: var(--red); }
+  &:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+}
+
+/* Checkbox de muestra suficiente: alineado con las etiquetas de filtro. */
+.filters label.check {
+  flex-direction: row; align-items: center; gap: 8px;
+  align-self: flex-end; padding-bottom: 10px;
+  font-size: 0.82rem; color: var(--ink); font-weight: 600;
+  input { accent-color: var(--red); width: 16px; height: 16px; }
+}

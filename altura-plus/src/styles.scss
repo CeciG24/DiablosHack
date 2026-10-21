@@ -305,3 +305,6 @@ details[open] > summary { margin-bottom:16px; }
 .sim__vs-score { font:800 52px var(--font-display); }
 .sim__vs-side { border-radius:0; padding:22px 10px; }
 .sim__vs-mov { font-size:11px; }
+
+.sim__scale { display:flex; flex-direction:column; gap:6px; padding:16px; border-left:3px solid var(--red); font-size:12px; background:white; line-height:1.6; }
+.sim__scale strong { font-family:'IBM Plex Sans',sans-serif; }

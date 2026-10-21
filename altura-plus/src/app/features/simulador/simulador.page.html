@@ -205,6 +205,7 @@
               Bola en juego usa un promedio de contacto; no está validada para LMB ni ajustada por estadio.
               El delta de altitud de abajo pertenece a otra escala.</p>
           </app-tile>
+          <div class="sim__scale span-12 sim__kpi" role="note"><strong>Índices provisionales · referencia 2025</strong><span>100 es la referencia de calibración de cada familia; 10 puntos equivalen a una desviación estándar. El score de altitud y el xRV usan escalas independientes.</span></div>
           <app-tile label="Stuff+ físico" class="span-4 sim__kpi">
             <app-gauge [value]="stuffPlus() ?? 0" [modelAvailable]="stuffPlus() !== null" [avg]="100" unit="pts"
               title="Stuff+ físico provisional" accent="var(--red)" />
@@ -227,6 +228,10 @@
             }
           </app-tile>
           @if (live(); as l) {
+            <div class="sim__scale sim__scale--exp span-12" role="note">
+              <strong>F10 · escala experimental</strong>
+              <span>100 = promedio de su propia referencia · ±10 pts = 1σ F10 · solo comparar dentro de esta tarjeta, nunca contra las tarjetas F8</span>
+            </div>
             <app-tile label="Mismo pitch, dos escenarios de altitud" class="span-12">
               @if (l.simStatus === 'experimental') {
                 <div class="sim__vs" role="group" aria-label="Comparación lado a lado del mismo pitch">

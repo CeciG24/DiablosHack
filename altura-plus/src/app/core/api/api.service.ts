@@ -32,9 +32,15 @@ export interface ApiPitch {
   horz_break: number;
   plate_loc_height: number;
   plate_loc_side: number;
+  balls?: number | null;
+  strikes?: number | null;
+  batter_side?: 'Left' | 'Right' | null;
   stuff_plus: number | null;
   location_plus: number | null;
   pitching_plus: number | null;
+  stuff_final?: number | null;
+  final_history_n?: number | null;
+  final_history_status?: 'regularized_2024_history' | 'group_prior_only' | null;
   experimental_score: number | null;
   partition?: 'phase_review' | 'test_2026';
 }
@@ -104,11 +110,26 @@ export interface ApiPredictionFamily {
   contact_route?: string;
   groundball_status?: string;
   groundball_route?: string;
+  chase_status?: string;
+  chase_route?: string;
+  p_chase_given_outside?: number | null;
 }
 
 export interface ApiPredictResponse {
   release_id: string;
   records: { stuff?: ApiPredictionFamily; location?: ApiPredictionFamily; pitching?: ApiPredictionFamily }[];
+}
+
+export interface ApiFinalScore {
+  status: 'experimental' | 'invalid_input';
+  score: number | null;
+  probabilities: Record<string, number> | null;
+  score_version: string;
+  model_id: string;
+  history_status: 'regularized_2024_history' | 'group_prior_only' | null;
+  history_n: number;
+  warnings: string;
+  experimental: boolean;
 }
 
 export interface ApiSimRecord {
@@ -235,6 +256,10 @@ export class ApiService {
 
   predict(records: unknown[], family: 'all' | 'stuff' | 'location' | 'pitching' = 'all'): Promise<ApiPredictResponse> {
     return this.post('/api/v1/predict', { records, family });
+  }
+
+  finalScore(records: unknown[]): Promise<{ records: ApiFinalScore[] }> {
+    return this.post('/api/v1/final-score', { records });
   }
 
   simulate(records: unknown[], target: string): Promise<ApiSimulateResponse> {

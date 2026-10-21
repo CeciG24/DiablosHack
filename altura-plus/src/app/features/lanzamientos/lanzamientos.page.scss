@@ -1,0 +1,147 @@
+:host {
+  --final-ink: #785015;
+  --final-bg: #fffaef;
+  --final-line: #dec398;
+}
+
+.data-table .th-sort {
+  background: none; border: 0; padding: 0; margin: 0;
+  font: inherit; color: inherit; text-align: left; text-decoration: none;
+  cursor: pointer; white-space: nowrap;
+  &:hover { color: var(--red); }
+  &:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+}
+.diagnostic-summary .metrics-strip {
+  gap:1px;
+  dt { color:#f1f1f5; font-size:15px; }
+  dd { color:white; font:700 42px 'IBM Plex Sans',sans-serif; }
+  small { color:#c7c7d0; font-size:13px; }
+}
+.score-heading h2,.score-heading h3 { font-family:'IBM Plex Sans',sans-serif; font-weight:600; }
+.final-value strong { font:700 48px 'IBM Plex Sans',sans-serif; }
+.target-row strong { font-family:'IBM Plex Sans',sans-serif; }
+
+.data-table .final-column {
+  background: var(--final-bg); color: var(--final-ink);
+  strong { font-size: 1rem; }
+  small { display: block; margin-top: 4px; font-size: 0.64rem; font-weight: 500; }
+}
+
+.final-overview, .final-score {
+  margin: 20px 0;
+  padding: 20px 24px;
+  border: 1px solid var(--final-line);
+  border-radius: 8px;
+  background: var(--final-bg);
+  color: var(--final-ink);
+}
+.score-heading {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  > div { min-width: 0; }
+  h2, h3 { margin: 0; font-size: 1.15rem; }
+  p { margin: 8px 0 0; font-size: 0.84rem; line-height: 1.6; }
+}
+.experimental-label {
+  display: inline-block; vertical-align: middle; margin-left: 8px;
+  border: 1px solid var(--final-line); border-radius: 4px; padding: 2px 6px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 0.65rem; font-weight: 600;
+}
+.final-value {
+  display: grid; gap: 4px; flex-shrink: 0; text-align: right;
+  strong { font-size: 2.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  span { font-size: 0.75rem; }
+}
+.score-coverage { margin: 16px 0 0; font-size: 0.8rem; line-height: 1.6; }
+.score-reference { margin: 8px 0 0; max-width: 85ch; font-size: 0.75rem; line-height: 1.6; }
+.diagnostic-summary {
+  margin-bottom: 28px; padding: 0 4px 20px; border-bottom: 1px solid var(--line);
+  h2 { margin: 0 0 16px; font-size: 0.9rem; }
+  h2 small { display: inline-block; margin-left: 8px; color: var(--muted); font: 400 0.72rem 'IBM Plex Sans', sans-serif; }
+  dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; }
+  dt, small { font-size: 0.73rem; color: var(--muted); }
+  dd { margin: 4px 0; font-size: 1.2rem; font-weight: 600; }
+}
+
+/* Chip de color por tipo de pitch: conecta la tabla con la leyenda de los mapas. */
+.type-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: 6px; vertical-align: baseline;
+}
+
+/* Renglones que abren el detalle: affordance visible de click. */
+.data-table tbody tr { cursor: pointer; }
+
+/* Detalle del pitch en modal nativo. */
+.pitch-dialog {
+  border: 1px solid var(--line); border-radius: 12px; padding: 0;
+  background: var(--tile); color: var(--ink);
+  width: min(1320px, 96vw); max-width: none; max-height: 94dvh; overflow: auto;
+  overscroll-behavior: contain; scrollbar-gutter: stable;
+  box-shadow: 0 18px 50px rgb(15 18 24 / 0.25);
+}
+.pitch-dialog::backdrop { background: rgb(15 18 24 / 0.45); }
+.pitch-dialog__head {
+  position: sticky; top: 0; z-index: 2; background: var(--tile);
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: 16px 24px; border-bottom: 1px solid var(--line);
+  > div { min-width: 0; }
+  h2 { margin: 0; font-size: 1.15rem; }
+  .note { margin: 6px 0 0; }
+  button { flex-shrink: 0; min-height: 44px; }
+}
+.pitch-dialog__layout {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 32px; padding: 24px;
+}
+.pitch-dialog__summary, .pitch-targets { min-width: 0; }
+.pitch-dialog__summary > h3 { font-size: 0.95rem; }
+.pitch-targets {
+  padding-left: 24px; border-left: 1px solid var(--line);
+  h3 { margin: 0; font-size: 1.05rem; }
+}
+.pitch-dialog__charts {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin: 14px 0 6px;
+  h3 { margin: 0 0 6px; font-size: 0.9rem; }
+}
+.final-score {
+  margin: 0 0 24px; padding: 16px;
+  .note { color: inherit; }
+}
+.diagnostic-stats {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  dd { font-size: 1rem; }
+}
+.target-row {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(90px, 0.7fr) minmax(0, 1.6fr);
+  align-items: start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line);
+  dt, dd { margin: 0; min-width: 0; }
+  dt { font-size: 0.8rem; }
+}
+.target-meta { display: block; margin-top: 4px; color: #596171; font-size: 0.68rem; line-height: 1.5; }
+.target-value {
+  text-align: right; font-size: 1.1rem;
+  &--missing { font-size: 0.75rem; color: #596171; }
+}
+.target-description p { margin: 0; font-size: 0.76rem; line-height: 1.5; }
+.target-method {
+  summary { cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+  summary:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+}
+@media (max-width: 1100px) {
+  .pitch-dialog__layout { grid-template-columns: minmax(0, 1fr); }
+  .pitch-targets { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 560px) {
+  .pitch-dialog { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 8px; }
+  .pitch-dialog__head, .pitch-dialog__layout { padding: 16px; }
+  .pitch-dialog__layout { gap: 24px; }
+  .pitch-dialog__charts { grid-template-columns: 1fr; }
+  .score-heading { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .final-value { text-align: left; }
+  .final-overview { padding: 20px; }
+  .diagnostic-summary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .diagnostic-summary h2 small { display: block; margin: 4px 0 0; }
+  .target-row { grid-template-columns: minmax(0, 1fr) minmax(90px, 0.8fr); gap: 8px 12px; }
+  .target-description { grid-column: 1 / -1; }
+}

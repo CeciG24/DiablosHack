@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { DataService } from './core/data-access/data.service';
 import { ScoutingContextService } from './core/state/scouting-context.service';
 
@@ -10,6 +11,9 @@ interface NavItem {
   icon: string;
 }
 
+/** Rutas que leen el lanzador global (ctx.pitcherId) y necesitan el selector. */
+const PITCHER_CONTEXT_ROUTES = new Set(['/lanzadores', '/simulador']);
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
@@ -19,6 +23,17 @@ interface NavItem {
 export class AppComponent {
   protected readonly data = inject(DataService);
   protected readonly ctx = inject(ScoutingContextService);
+  private readonly router = inject(Router);
+
+  private readonly url = signal(this.router.url);
+  protected readonly showPitcherSelector = computed(() =>
+    PITCHER_CONTEXT_ROUTES.has(this.url().split('?')[0]));
+
+  constructor() {
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((e) => this.url.set(e.urlAfterRedirects));
+  }
 
   readonly nav: NavItem[] = [
     { path: '/dashboard', label: 'Dashboard', shortLabel: 'Dashboard', icon: 'home' },

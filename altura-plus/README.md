@@ -38,8 +38,9 @@ en la navegación ni se cargan en el bundle de producción.
 El backend se configura mediante `window.__DIABLOS_API__` o la clave
 `diablos.api` de localStorage; por defecto usa `http://127.0.0.1:8001`.
 Debe permitir el origen del frontend en `DIABLOS_CORS_ORIGINS`.
-La carga mantiene la muestra de hasta ocho lanzadores del frontend existente;
-los indicadores del Dashboard y Análisis no son medias de toda la liga.
+La carga obtiene hasta 130 perfiles del listado más una selección destacada,
+en bloques progresivos; las fichas deportivas se revelan de seis en seis.
+Los indicadores del Dashboard y Análisis no son medias de toda la liga.
 La ficha de lanzador y el arsenal usan los agregados completos de revisión 2025
 que devuelve la API, no solo los pitches paginados.
 
@@ -49,9 +50,14 @@ nombres deportivos en lugar de los identificadores internos de los modelos.
 El perfil global de altitud es evidencia precomputada y no responde a los filtros
 de la muestra ni al pitch editado.
 
-Las probabilidades individuales se consultan con la familia física de
-`/api/v1/predict`: el bundle no incluye conteo ni lado del bateador por registro,
-por lo que no se inventa ese contexto. Swing fallido se expresa por pitch;
+Las probabilidades individuales se consultan con la familia `pitching` de
+`/api/v1/predict` cuando el bundle incluye ubicación, conteo y lado completos;
+en caso contrario se utiliza la familia física, sin inventar contexto.
+El score con arsenal se consulta aparte en `/api/v1/final-score` y permanece
+experimental, con escala propia y cobertura explícita. Sin artefactos verificados
+no se sustituye por los índices base. El modal ordena los targets y conserva su
+procedencia; xRunValue validado sigue no disponible, separado del xRV aproximado
+MLB 2014 que se muestra en el simulador. Swing fallido se expresa por pitch;
 contacto débil (proxy) y rodado están condicionados a bola en juego. No hay
 probabilidad de elevado. Las cabezas no disponibles conservan valores nulos.
 Se muestra la procedencia de cada cabeza condicional; una prevalencia de

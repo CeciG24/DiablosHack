@@ -111,6 +111,26 @@ class PredictionResponse(BaseModel):
     records: list[dict[Family, Prediction]]
 
 
+class FinalPrediction(BaseModel):
+    pitch_uid: str | None = None
+    status: Literal['experimental', 'invalid_input']
+    score: float | None
+    probabilities: dict[str, float] | None
+    model_id: str
+    score_version: str
+    experimental: bool = True
+    represents_runs: bool = False
+    history_status: str | None
+    history_n: int
+    warnings: str
+    context_mode: str
+    auxiliary_targets_in_score: bool = False
+
+
+class FinalScoreResponse(BaseModel):
+    records: list[FinalPrediction]
+
+
 class Simulation(BaseModel):
     model_config = ConfigDict(extra='allow')
     pitch_uid: str | None = None

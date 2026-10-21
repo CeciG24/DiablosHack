@@ -6,14 +6,15 @@ export interface MovementPoint {
   ivbIn: number;
   pitchType: PitchType;
   stuffPlus?: number | null;
+  pitchingPlus?: number | null;
   selected?: boolean;
 }
 
-export type MovementColorMode = 'type' | 'stuff';
+export type MovementColorMode = 'type' | 'stuff' | 'pitching';
 
-/** Escala secuencial blanco/rosa -> rojo para Stuff+ predicho (80-120). */
-function stuffColor(stuff: number): string {
-  const t = Math.min(1, Math.max(0, (stuff - 80) / 40));
+/** Escala secuencial blanco/rosa -> rojo para scores + (80-120, misma forma 100+10z). */
+function scoreColor(score: number): string {
+  const t = Math.min(1, Math.max(0, (score - 80) / 40));
   const lerp = (a: number, b: number) => Math.round(a + (b - a) * t);
   return `rgb(${lerp(240, 208)}, ${lerp(226, 20)}, ${lerp(228, 44)})`;
 }
@@ -47,8 +48,24 @@ const SCALE = MID / LIMIT;
                 [class.mv__dot--sel]="p.selected" class="mv__dot"
                 [style.fill]="dotColor(p)" opacity="0.8" [class.mv__dot--interactive]="interactive()"
                 (click)="selectPoint($index)">
-          <title>{{ p.pitchType }} · HB {{ p.hbIn }} · IVB {{ p.ivbIn }} in · Stuff+ {{ p.stuffPlus ?? 'no disponible' }}</title>
+          <title>{{ p.pitchType }} · HB {{ p.hbIn }} · IVB {{ p.ivbIn }} in · Pitching+ {{ p.pitchingPlus ?? 'no disponible' }} · Stuff+ {{ p.stuffPlus ?? 'no disponible' }}</title>
         </circle>
+      }
+      @if (extremes(); as ex) {
+        @for (i of ex.worst; track i) {
+          @if (points()[i]; as p) {
+            <circle [attr.cx]="x(p.hbIn)" [attr.cy]="y(p.ivbIn)" r="8" class="mv__extreme mv__extreme--worst">
+              <title>Menos efectivo · {{ p.pitchType }} · Pitching+ {{ p.pitchingPlus ?? '—' }}</title>
+            </circle>
+          }
+        }
+        @for (i of ex.best; track i) {
+          @if (points()[i]; as p) {
+            <circle [attr.cx]="x(p.hbIn)" [attr.cy]="y(p.ivbIn)" r="8" class="mv__extreme mv__extreme--best">
+              <title>Más efectivo · {{ p.pitchType }} · Pitching+ {{ p.pitchingPlus ?? '—' }}</title>
+            </circle>
+          }
+        }
       }
       @if (highlight(); as h) {
         <circle [attr.cx]="x(h.hbIn)" [attr.cy]="y(h.ivbIn)" r="7"
@@ -74,6 +91,9 @@ const SCALE = MID / LIMIT;
     .mv__highlight { fill: none; stroke: var(--red); stroke-width: 2; pointer-events:none; }
     .mv__dot--interactive { cursor:pointer; }
     .mv__dot--interactive:hover { stroke:var(--ink); stroke-width:2; opacity:1; }
+    .mv__extreme { fill: none; stroke-width: 2.2; pointer-events:none; }
+    .mv__extreme--best { stroke: #16a34a; }
+    .mv__extreme--worst { stroke: var(--red); stroke-dasharray: 3 2; }
   `,
 })
 export class MovementChartComponent {
@@ -83,9 +103,11 @@ export class MovementChartComponent {
   readonly highlightIndex = input<number | null>(null);
   readonly throws = input<'R' | 'L'>('R');
   readonly mirrorLefties = input(true);
-  /** 'type' colorea por familia; 'stuff' por predicción de Stuff+ (spec §9.3). */
+  /** 'type' colorea por familia; 'stuff'/'pitching' por el score + correspondiente (spec §9.3). */
   readonly colorBy = input<MovementColorMode>('type');
   readonly comparisonPoint = input<{ hbIn: number; ivbIn: number } | null>(null);
+  /** Índices (sobre `pitches`) a marcar explícitamente como más/menos efectivos. */
+  readonly extremes = input<{ best: readonly number[]; worst: readonly number[] } | null>(null);
   readonly flip = computed(() => this.mirrorLefties() && this.throws() === 'L' ? -1 : 1);
 
   readonly size = SIZE;
@@ -99,6 +121,7 @@ export class MovementChartComponent {
       ivbIn: p.ivbIn,
       pitchType: p.pitchType,
       stuffPlus: p.stuffPlus,
+      pitchingPlus: p.pitchingPlus,
       selected: i === this.highlightIndex(),
     }));
   });
@@ -128,8 +151,10 @@ export class MovementChartComponent {
   }
 
   dotColor(p: MovementPoint): string {
-    if (this.colorBy() === 'stuff' && p.stuffPlus != null && Number.isFinite(p.stuffPlus)) {
-      return stuffColor(p.stuffPlus);
+    const mode = this.colorBy();
+    const score = mode === 'stuff' ? p.stuffPlus : mode === 'pitching' ? p.pitchingPlus : null;
+    if (score != null && Number.isFinite(score)) {
+      return scoreColor(score);
     }
     return PITCH_COLORS[p.pitchType] ?? 'var(--muted)';
   }

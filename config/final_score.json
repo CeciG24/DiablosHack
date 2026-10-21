@@ -1,0 +1,16 @@
+{
+  "version": "F11_physics_location_arsenal_context_event_utility_v1",
+  "seed": 20260929,
+  "threads": 4,
+  "rounds": 200,
+  "parameters": {"num_leaves": 31, "min_data_in_leaf": 200, "learning_rate": 0.05, "lambda_l2": 5.0},
+  "bootstrap_repetitions": 500,
+  "minimum_relative_improvement": 0.01,
+  "history": "fixed_2024_regularized_repertoire",
+  "fit": "2025/development",
+  "calibration": "2025/calibration",
+  "review": "2025/phase_review",
+  "score_context": "observed_location_count_batter_side",
+  "promotion": "exploratory_only_no_automatic_F8_replacement",
+  "unavailable_targets": ["xRunValue", "out_within_PA", "barrel"]
+}
