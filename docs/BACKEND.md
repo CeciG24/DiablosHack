@@ -121,13 +121,8 @@ sin movimiento proyectado o sin predictor F8 devuelven comparación no disponibl
 y delta nulo. `interval` es nulo con motivo `individual_uncertainty_not_estimated`:
 no hay intervalos individuales disponibles, ni identificación de Harp Helú.
 
-### Perfilador de candidatos
+### Pitch Value+ (F11)
 
-`GET /api/v1/profiler/reference` ofrece referencia física descriptiva LMB
-2025/2026 por tipo y mano, sin outcomes ni entrenamiento.
-`POST /api/v1/profiler/evaluate` evalúa arsenales de candidatos con scores físicos
-F8, movimiento F10, cobertura ponderada y deltas pareados. Los datos individuales
-y los perfiles promedio se identifican por separado. Ver [contrato y límites](PERFILADOR.md).
 `POST /api/v1/final-score` combina físicas, ubicación, arsenal histórico fijo y
 contexto, con su propia escala de calibración 2025. No reemplaza las familias
 F8: la comparación con/sin arsenal no demuestra una mejora global. La columna

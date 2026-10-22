@@ -21,7 +21,6 @@ from modeling.inference import ReleasePredictor
 from experiments.phase10_simulator import Simulator
 from backend.xrv import ExternalRunValue
 from backend.score_cache import score_frame
-from backend.profiler import install_profiler
 from modeling.baselines import EventBaseline
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -103,7 +102,7 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
         'fisicas, ubicacion, arsenal y contexto, escala propia; no reemplaza F8. '
         'xRV aproximado con pesos LMB 2024; no es xRunValue oficial del hackathon. No representa probabilidad de out '
         'en PA, barril ni jonrón. Las categorías de altura no identifican Harp Helú. '
-        'No requiere outcomes. El perfilador usa 2025/2026 como referencia descriptiva autorizada, sin reentrenar.',
+        'No requiere outcomes.',
         openapi_tags=[{'name': n} for n in ('Sistema', 'Modelo', 'Scores', 'Dashboard', 'Simulador')])
     app.state.inference_lock = RLock()
     app.state.scoring_lock = RLock()
@@ -172,8 +171,6 @@ def create_app(predictor=None, simulator=None, final_predictor=None):
                     comparison.update(status='experimental', source_score=source['score'],
                         target_score=target['score'], delta_score=target['score']-source['score'])
         return results
-
-    install_profiler(app, ROOT, require, simulate)
 
     @app.get('/', include_in_schema=False)
     def root():

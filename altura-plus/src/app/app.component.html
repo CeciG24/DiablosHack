@@ -17,7 +17,6 @@
                 @case ('pitcher') { <circle cx="12" cy="7" r="3.2" /><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6" /> }
                 @case ('compare') { <path d="M8 4v16M8 8h11l-3-3M16 20V8M16 16H5l3 3" /> }
                 @case ('sliders') { <path d="M4 7h10M18 7h2M4 17h4M12 17h8M4 12h4M12 12h8" /><circle cx="16" cy="7" r="2" /><circle cx="10" cy="12" r="2" /><circle cx="10" cy="17" r="2" /> }
-                @case ('clipboard') { <rect x="6" y="4" width="12" height="17" rx="2" /><path d="M9 4h6v3H9zM9 11h6M9 15h4" /> }
                 @case ('book') { <path d="M5 5a2 2 0 0 1 2-2h12v16H7a2 2 0 0 0-2 2zM5 19V5" /><path d="M9 8h6M9 12h4" /> }
               }
             </svg>
@@ -49,8 +48,8 @@
             </select>
           </label>
         }
-        <span class="topbar__badge" [title]="independentRoute() ? 'Cada panel del perfilador indica su fuente y disponibilidad' : data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
-          {{ independentRoute() ? 'Perfilador · procedencia en cada panel' : data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
+        <span class="topbar__badge" [title]="data.source() === 'api' ? 'Datos reales del backend FastAPI' : 'Datos sintéticos de demostración — sin backend'">
+          {{ data.source() === 'api' ? 'Datos reales · muestra cargada' : data.source() === 'synthetic' ? 'Datos sintéticos · demo' : 'Conectando con el backend' }}
         </span>
       </div>
 
@@ -60,12 +59,12 @@
     </header>
 
     <main id="main-content" #mainContent class="content" tabindex="-1">
-      @if (data.status() === 'loading' && !independentRoute()) {
+      @if (data.status() === 'loading') {
         <div class="content__loading" role="status" aria-live="polite">
           <div class="loading-skeleton" aria-hidden="true"></div>
           <span>Consultando lanzadores y rendimiento…</span>
         </div>
-      } @else if (data.status() === 'error' && !independentRoute()) {
+      } @else if (data.status() === 'error') {
         <div class="content__error" role="alert">
           <p>No se pudieron cargar los datos: {{ data.errorMessage() }}</p>
           <button type="button" class="button" (click)="data.reload()">Reintentar</button>

@@ -18,11 +18,6 @@ export const routes: Routes = [
       import('./features/lanzadores/lanzadores.page').then((m) => m.LanzadoresPage),
   },
   {
-    path: 'perfilador',
-    loadComponent: () =>
-      import('./features/perfilador/perfilador.page').then((m) => m.PerfiladorPage),
-  },
-  {
     path: 'simulador',
     loadComponent: () =>
       import('./features/simulador/simulador.page').then((m) => m.SimuladorPage),

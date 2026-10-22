@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { Hand, ProfilerEvaluation, ProfilerPayload, ProfilerReference, ReferenceSeason } from '../models/profiler.types';
 
 /**
  * Cliente del backend FastAPI (`backend/main.py`).
@@ -225,14 +224,6 @@ export class ApiService {
   /** true si el backend respondió /health con ambos modelos cargados. */
   readonly available = signal<boolean | null>(null);
   readonly base = baseUrl();
-
-  profilerReference(season: ReferenceSeason, hand: Hand): Promise<ProfilerReference> {
-    return this.get(`/api/v1/profiler/reference?season=${season}&hand=${hand}`);
-  }
-
-  evaluateCandidate(payload: ProfilerPayload): Promise<ProfilerEvaluation> {
-    return this.post('/api/v1/profiler/evaluate', payload);
-  }
 
   private async get<T>(path: string): Promise<T> {
     const res = await fetch(`${this.base}${path}`, { cache: 'no-store' });

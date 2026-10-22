@@ -2,7 +2,7 @@
 
 ## Rediseño editorial de MICTLAN
 
-La navegación horizontal conecta las cinco herramientas. Los encabezados
+La navegación horizontal conecta las cuatro herramientas. Los encabezados
 compactos dan prioridad a los datos, sin bandas fotográficas antes del análisis.
 El simulador presenta dos Stuff+ físicos en la misma escala y una lectura
 principal basada en la física, no en la ubicación. En móvil,
@@ -20,7 +20,7 @@ El rediseño conserva modelos, unidades, contratos, límites de soporte y
 distinción entre datos reales y demostración. Los recursos locales y licencias
 se documentan en `public/images/README.md`.
 
-## MICTLAN: cinco módulos
+## MICTLAN: cuatro módulos
 
 - `/dashboard`: índices de la muestra cargada, comparación observada por altitud,
   lanzadores y tipos destacados, hallazgos y alertas.
@@ -30,14 +30,6 @@ se documentan en `public/images/README.md`.
   y contraste observado/experimental entre categorías de altitud.
 - `/simulador`: físicas editables, Stuff+ físico en origen y destino proyectado,
   referencia del mismo tipo/mano con deciles y perfiles globales de scouting.
-- `/perfilador`: candidatos con datos individuales o promedios por tipo,
-  importación CSV/TSV/JSON con mapeo y unidades, editor del arsenal, comparación
-  física por altitud, referencia LMB 2025/2026 y fichas de evaluación locales.
-
-El perfilador puede abrir sin esperar a la carga global. Su referencia no usa
-outcomes ni modifica modelos. Las relaciones del arsenal son descriptivas, sin
-historia individual inventada; no hay un score automático de contratación.
-Ver [recorrido, contrato y límites](../docs/PERFILADOR.md).
 
 Las rutas antiguas redirigen a estos módulos. Se conserva la identidad visual de
 MICTLAN. Las páginas antiguas permanecen como código de referencia, pero no están

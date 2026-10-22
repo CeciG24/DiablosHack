@@ -27,11 +27,9 @@ frente al hackathon en [documentación del backend](docs/BACKEND.md).
 
 ## Frontend MICTLAN
 
-El frontend Angular se encuentra en `altura-plus/` y contiene cinco módulos:
-Dashboard, Análisis de lanzamientos, Lanzadores y arsenales, Simulador y
-recomendaciones, y Perfilador de candidatos. Este último acepta lanzamientos
-individuales o promedios por tipo, con referencia física LMB 2025/2026 autorizada
-para exploración, sin reentrenar. Ver [perfilador](docs/PERFILADOR.md). Para iniciarlo:
+El frontend Angular se encuentra en `altura-plus/` y contiene cuatro módulos:
+Dashboard, Análisis de lanzamientos, Lanzadores y arsenales, y Simulador y
+recomendaciones. Para iniciarlo:
 
 ```sh
 cd altura-plus
@@ -159,8 +157,8 @@ No borren una carpeta `.building` sin comprobar que ningún proceso la utiliza.
 - No calcular medias de arsenal con el dataset completo. La tabla histórica usa solo años anteriores.
 - Los targets nulos no equivalen a cero. Un pitch sin contacto no es contacto débil.
 - Las categorías de altitud no identifican al Harp Helú ni sustituyen un holdout por estadio.
-- El test original de 2026 se abrió tras congelar F8 y ahora también se usa como
-  referencia descriptiva autorizada en el perfilador. No se ajustan modelos con
+- El test original de 2026 se abrió tras congelar F8 y se usa solo para
+  visualización con scores inferidos en vivo. No se ajustan modelos con
   él ni se presenta como confirmación independiente de decisiones posteriores.
 - La tabla de arsenal no está incorporada a las matrices predeterminadas porque 2024 no tiene historia previa.
   Su uso requiere un protocolo adicional, explicado en el contrato.

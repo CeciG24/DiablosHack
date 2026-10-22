@@ -20,9 +20,9 @@ describe('AppComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
     fixture.detectChanges();
     const links = fixture.nativeElement.querySelectorAll('.sidebar__list a') as NodeListOf<HTMLAnchorElement>;
-    expect(links.length).toBe(5);
+    expect(links.length).toBe(4);
     expect(Array.from(links).map((link) => link.getAttribute('href'))).toEqual([
-      '/dashboard', '/lanzamientos', '/lanzadores', '/simulador', '/perfilador',
+      '/dashboard', '/lanzamientos', '/lanzadores', '/simulador',
     ]);
   });
 });
